@@ -25,7 +25,7 @@ public class NotificationOutgoingController implements OutgoingPanelController {
 
     @Override
     public void performLeave(String nickName) {
-        MercuryStoreCore.chatCommandSubject.onNext("/kick " + nickName);
+        MercuryStoreCore.chatCommandSubject.onNext("/leave");
     }
 
     @Override
