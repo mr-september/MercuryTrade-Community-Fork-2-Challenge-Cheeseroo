@@ -114,15 +114,16 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         limitPanel.add(limitLabel, BorderLayout.LINE_START);
         limitPanel.add(limitSlider, BorderLayout.CENTER);
         propertiesPanel.add(limitPanel);
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Your nickname(for leave option):", FontStyle.REGULAR, 16));
-        JTextField nickNameField = this.componentsFactory.getTextField(this.generalSnapshot.getPlayerNickname(), FontStyle.DEFAULT, 15f);
-        nickNameField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                generalSnapshot.setPlayerNickname(nickNameField.getText());
-            }
-        });
-        propertiesPanel.add(nickNameField);
+        //TODO: Remove after testing if nickname for leave group is no longer needed
+//        propertiesPanel.add(this.componentsFactory.getTextLabel("Your nickname(for leave option):", FontStyle.REGULAR, 16));
+//        JTextField nickNameField = this.componentsFactory.getTextField(this.generalSnapshot.getPlayerNickname(), FontStyle.DEFAULT, 15f);
+//        nickNameField.addFocusListener(new FocusAdapter() {
+//            @Override
+//            public void focusLost(FocusEvent e) {
+//                generalSnapshot.setPlayerNickname(nickNameField.getText());
+//            }
+//        });
+//        propertiesPanel.add(nickNameField);
         root.add(this.componentsFactory.wrapToSlide(propertiesPanel, AppThemeColor.ADR_BG, 2, 0, 2, 2), BorderLayout.PAGE_START);
         return root;
     }

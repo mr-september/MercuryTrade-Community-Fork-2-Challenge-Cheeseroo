@@ -42,7 +42,7 @@ public class ScannerStubController implements ScannerPanelController {
     }
 
     @Override
-    public void performLeave(String nickName) {
+    public void performLeave() {
 
     }
 

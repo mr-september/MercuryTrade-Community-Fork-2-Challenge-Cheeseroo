@@ -38,6 +38,7 @@ public class AppMain {
             System.setProperty("sun.java2d.d3d", "false");
             System.setProperty("jna.nosys", "true");
 
+            UIManager.put("ToolTipManager.enableToolTipMode", "allWindows");
             boolean standalone = BooleanUtils.toBoolean(System.getProperty("standalone"));
             boolean dev = BooleanUtils.toBoolean(System.getProperty("dev"));
             boolean hideLoadingIcon = BooleanUtils.toBoolean(System.getProperty("hideLoadingIcon"));

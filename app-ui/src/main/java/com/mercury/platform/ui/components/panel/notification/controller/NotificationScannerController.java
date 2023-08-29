@@ -24,7 +24,7 @@ public class NotificationScannerController implements ScannerPanelController {
     }
 
     @Override
-    public void performLeave(String nickName) {
+    public void performLeave() {
         MercuryStoreCore.chatCommandSubject.onNext("/leave");
     }
 

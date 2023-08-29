@@ -70,7 +70,7 @@ public class ScannerNotificationPanel extends NotificationPanel<PlainMessageDesc
         tradeButton.addActionListener(e -> this.controller.performOfferTrade());
         JButton leaveButton = componentsFactory.getIconButton(IconConst.LEAVE, 16, AppThemeColor.MSG_HEADER, TooltipConstants.LEAVE);
         leaveButton.addActionListener(e -> {
-            this.controller.performLeave(this.notificationConfig.get().getPlayerNickname());
+            this.controller.performLeave();
             if (this.notificationConfig.get().isDismissAfterLeave()) {
                 this.controller.performHide();
             }

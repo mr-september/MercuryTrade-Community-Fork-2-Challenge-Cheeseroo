@@ -53,6 +53,8 @@ public class FramesManager implements AsSubscriber {
     private AdrManager adrManager;
     private TrayIcon trayIcon;
 
+    public AbstractOverlaidFrame taskBarFrame;
+
     private FramesManager() {
         this.framesMap = new HashMap<>();
         this.locationCommander = new SetUpLocationCommander();
@@ -76,7 +78,7 @@ public class FramesManager implements AsSubscriber {
         });
         baseInitThread.start();
 
-        AbstractOverlaidFrame taskBarFrame = new TaskBarFrame();
+        taskBarFrame = new TaskBarFrame();
         this.locationCommander.addFrame((AbstractMovableComponentFrame) taskBarFrame);
         this.scaleCommander.addFrame((AbstractScalableComponentFrame) taskBarFrame);
 

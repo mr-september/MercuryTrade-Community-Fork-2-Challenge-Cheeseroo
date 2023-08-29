@@ -7,6 +7,7 @@ import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.components.fields.style.MercuryComboBoxUI;
 import com.mercury.platform.ui.components.fields.style.MercuryScrollBarUI;
 import com.mercury.platform.ui.components.panel.misc.ToggleCallback;
+import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,9 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.file.Files;
 import java.text.NumberFormat;
@@ -224,7 +228,6 @@ public class ComponentsFactory {
                     super.paintBorder(g);
                 }
             }
-
             @Override
             public JToolTip createToolTip() {
                 JToolTip tip = ComponentsFactory.this.createTooltip();
@@ -232,17 +235,9 @@ public class ComponentsFactory {
                 return tip;
             }
 
-            @Override
-            public Point getToolTipLocation(MouseEvent event) {
-                return super.getToolTipLocation(event);
-                //return event.getLocationOnScreen();
-            }
-
-
         };
-        button.setDoubleBuffered(true);
         button.setBackground(background);
-        button.setFocusPainted(false);
+
         button.addChangeListener(e -> {
             if (!button.getModel().isPressed()) {
                 button.setBackground(button.getBackground());
@@ -251,7 +246,13 @@ public class ComponentsFactory {
         if (tooltip.length() > 0) {
             button.setToolTipText(tooltip);
         }
+
+        button.setFocusPainted(false);
+
+        button.setFocusable(true);
+
         button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+
         button.addActionListener(action -> {
             MercuryStoreCore.soundSubject.onNext(SoundType.CLICKS);
             button.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
@@ -266,7 +267,6 @@ public class ComponentsFactory {
                         BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER),
                         BorderFactory.createEmptyBorder(3, 3, 3, 3)));
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
             }
 
             @Override
@@ -274,7 +274,6 @@ public class ComponentsFactory {
                 button.setBorder(prevBorder);
                 button.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
-
         });
 
         button.setBorder(BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 4));
@@ -304,7 +303,7 @@ public class ComponentsFactory {
         JToolTip toolTip = new JToolTip();
         toolTip.setBackground(AppThemeColor.SETTINGS_BG);
         toolTip.setForeground(AppThemeColor.TEXT_DEFAULT);
-        toolTip.setFont(getFont(FontStyle.REGULAR, 18));
+        toolTip.setFont(getFont(FontStyle.REGULAR, 16));
         toolTip.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER));
         return toolTip;
     }
@@ -902,47 +901,47 @@ public class ComponentsFactory {
         return menu;
     }
 
-    @EqualsAndHashCode(callSuper = true)
-    @Data
-    private class TooltipMouseListener extends MouseAdapter {
-        private String tooltip;
-        private Timer tooltipTimer;
-        private Timer tempTimer;
-        private boolean fired = false;
-
-        public TooltipMouseListener (String tooltip) {
-            this.tooltip = tooltip;
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            fired = false;
-            this.tooltipTimer = new Timer(700, action -> {
-                MercuryStoreCore.tooltipSubject.onNext(tooltip);
-                fired = true;
-                this.tooltipTimer.stop();
-            });
-            this.tooltipTimer.start();
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            this.tooltipTimer.stop();
-            if (fired) {
-                MercuryStoreCore.tooltipSubject.onNext(null);
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            tempTimer = new Timer(100, action -> {
-                this.tooltipTimer.stop();
-                if (fired) {
-                    MercuryStoreCore.tooltipSubject.onNext(null);
-                }
-                tempTimer.stop();
-            });
-            tempTimer.start();
-        }
-    }
+//    @EqualsAndHashCode(callSuper = true)
+//    @Data
+//    private class TooltipMouseListener extends MouseAdapter {
+//        private String tooltip;
+//        private Timer tooltipTimer;
+//        private Timer tempTimer;
+//        private boolean fired = false;
+//
+//        public TooltipMouseListener (String tooltip) {
+//            this.tooltip = tooltip;
+//        }
+//
+//        @Override
+//        public void mouseEntered(MouseEvent e) {
+//            fired = false;
+//            this.tooltipTimer = new Timer(700, action -> {
+//                MercuryStoreCore.tooltipSubject.onNext(tooltip);
+//                fired = true;
+//                this.tooltipTimer.stop();
+//            });
+//            this.tooltipTimer.start();
+//        }
+//
+//        @Override
+//        public void mouseExited(MouseEvent e) {
+//            this.tooltipTimer.stop();
+//            if (fired) {
+//                MercuryStoreCore.tooltipSubject.onNext(null);
+//            }
+//        }
+//
+//        @Override
+//        public void mousePressed(MouseEvent e) {
+//            tempTimer = new Timer(100, action -> {
+//                this.tooltipTimer.stop();
+//                if (fired) {
+//                    MercuryStoreCore.tooltipSubject.onNext(null);
+//                }
+//                tempTimer.stop();
+//            });
+//            tempTimer.start();
+//        }
+//    }
 }
