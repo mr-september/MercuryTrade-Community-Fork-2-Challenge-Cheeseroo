@@ -3,6 +3,9 @@
     "version": "1.3.4",
     "minorChanges": [
       {
+        "changed": "Updated Betrayal cheat sheet"
+      },
+      {
         "changed": "Leave button was changed that it no longer requires player name to be set up in configuration"
       }
     ],
