@@ -4,6 +4,7 @@ import com.mercury.platform.core.DevStarter;
 import com.mercury.platform.core.ProdStarter;
 import com.mercury.platform.core.utils.FileMonitor;
 import com.mercury.platform.core.utils.error.ErrorHandler;
+import com.mercury.platform.shared.MainWindowHWNDFetch;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.other.MercuryLoadingFrame;
@@ -11,8 +12,10 @@ import com.mercury.platform.ui.frame.titled.GamePathChooser;
 import com.mercury.platform.ui.frame.titled.TestCasesFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.sun.jna.Native;
+import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -23,6 +26,7 @@ import javax.swing.*;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AppMain {
 
@@ -42,11 +46,14 @@ public class AppMain {
             boolean standalone = BooleanUtils.toBoolean(System.getProperty("standalone"));
             boolean dev = BooleanUtils.toBoolean(System.getProperty("dev"));
             boolean hideLoadingIcon = BooleanUtils.toBoolean(System.getProperty("hideLoadingIcon"));
+            boolean isPoe2 = BooleanUtils.toBoolean(System.getProperty("poe2"));
+            MainWindowHWNDFetch.INSTANCE.initialize(isPoe2);
 
             logger.warn("loaded runtime settings: ");
             logger.warn("standalone=" + standalone);
             logger.warn("dev=" + dev);
             logger.warn("hideLoadingIcon=" + hideLoadingIcon);
+            logger.warn("isPoe2=" + isPoe2);
 
 
             new ErrorHandler();
@@ -110,14 +117,7 @@ public class AppMain {
 
     private static String getGamePath() {
         if (SystemUtils.IS_OS_WINDOWS) {
-            return WindowUtils.getAllWindows(false).stream().filter(window -> {
-                char[] className = new char[512];
-                User32.INSTANCE.GetClassName(window.getHWND(), className, 512);
-                return Native.toString(className).equals("POEWindowClass");
-            }).map(it -> {
-                String filePath = it.getFilePath();
-                return StringUtils.substringBeforeLast(filePath, "\\");
-            }).findAny().orElse(null);
+            return MainWindowHWNDFetch.INSTANCE.getMainWindow().map(x -> StringUtils.substringBeforeLast(x.getFilePath(), "\\")).orElse(null);
         } else {
             return null;
         }

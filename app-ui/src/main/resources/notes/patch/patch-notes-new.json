@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.3.4.1",
+    "minorChanges": [
+      {
+        "changed": "Path of Exile 2 support, atm needs configuration in file that's why its marked as pre release. Read more at github"
+      }
+    ]
+  },
+  {
     "version": "1.3.4",
     "minorChanges": [
       {

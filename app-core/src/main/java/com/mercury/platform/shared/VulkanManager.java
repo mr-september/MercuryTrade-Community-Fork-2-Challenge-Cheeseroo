@@ -15,7 +15,7 @@ import java.util.TimerTask;
 public class VulkanManager {
     private static final int POE_WINDOWED_FULLSCREEN = 0x94000000;
     private static final int POE_WINDOWED = 0x14cf0000;
-        private static final int WS_VISIBLE = 0x10000000;
+    private static final int WS_VISIBLE = 0x10000000;
     public static VulkanManager INSTANCE = VulkanManagerManagerHolder.HOLDER_INSTANCE;
     protected VulkanDescriptor vulkanSnapshot = new VulkanDescriptor();
 

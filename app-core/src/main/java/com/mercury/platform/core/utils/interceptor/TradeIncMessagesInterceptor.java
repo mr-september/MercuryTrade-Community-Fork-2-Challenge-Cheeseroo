@@ -1,6 +1,7 @@
 package com.mercury.platform.core.utils.interceptor;
 
 import com.mercury.platform.core.utils.interceptor.filter.MessageMatcher;
+import com.mercury.platform.shared.MainWindowHWNDFetch;
 import com.mercury.platform.shared.messageparser.MessageParser;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.PlainConfigurationService;
@@ -75,12 +76,20 @@ public class TradeIncMessagesInterceptor extends MessageInterceptor {
     private class EngIncLocalizationMatcher extends LocalizationMatcher {
         @Override
         public boolean isSuitableFor(String message) {
-            return message.contains("@From") && super.isSuitableFor(message);
+            if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
+                return (message.contains("@")) && super.isSuitableFor(message);
+            } else {
+                return (message.contains("@From")) && super.isSuitableFor(message);
+            }
         }
 
         @Override
         public String trimString(String src) {
-            return StringUtils.substringAfter(src, "@From");
+            if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
+                return StringUtils.substringAfter(src, "@");
+            } else {
+                return StringUtils.substringAfter(src, "@From");
+            }
         }
     }
 

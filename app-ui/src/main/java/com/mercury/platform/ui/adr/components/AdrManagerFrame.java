@@ -107,6 +107,7 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
         addComponent.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(2, 2, 2, 2),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, AppThemeColor.BORDER)));
+
         addComponent.addActionListener(action -> {
             MercuryStoreUI.adrSelectSubject.onNext(null);
             MercuryStoreUI.adrStateSubject.onNext(new AdrPageDefinition<>(AdrPageState.MAIN, null));
