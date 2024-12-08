@@ -1,5 +1,7 @@
 package com.mercury.platform.shared;
 
+import com.mercury.platform.shared.config.Configuration;
+import com.mercury.platform.shared.config.descriptor.ApplicationDescriptor;
 import com.sun.jna.Native;
 import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
@@ -16,17 +18,12 @@ public class MainWindowHWNDFetch {
     private Logger logger = LogManager.getLogger(MainWindowHWNDFetch.class.getSimpleName());
     public static MainWindowHWNDFetch INSTANCE = MainWindowHWNDFetch.MainWindowHWNDFetchHolder.HOLDER_INSTANCE;
 
-    private boolean isPoe2;
-
     private static class MainWindowHWNDFetchHolder {
         static final MainWindowHWNDFetch HOLDER_INSTANCE = new MainWindowHWNDFetch();
     }
 
-    public void initialize(boolean isPoe2) {
-        this.isPoe2 = isPoe2;
-    }
-
     public boolean isPoe2() {
+        boolean isPoe2 = Configuration.get().applicationConfiguration().get().isPoe2();
         return isPoe2;
     }
 
@@ -45,7 +42,7 @@ public class MainWindowHWNDFetch {
     }
 
     public boolean isPoe(DesktopWindow desktopWindow) {
-//        if (this.isPoe2) {
+//        if (this.isPoe2()) {
 //            return desktopWindow.getTitle().contains("PathOfExile");
 //        } else {
             char[] className = new char[512];

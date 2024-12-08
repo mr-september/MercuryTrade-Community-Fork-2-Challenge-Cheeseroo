@@ -11,7 +11,9 @@ import com.mercury.platform.shared.config.descriptor.ApplicationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.ComponentsFactory;
 import com.mercury.platform.ui.components.panel.misc.ViewInit;
+import com.mercury.platform.ui.frame.movable.NotificationFrame;
 import com.mercury.platform.ui.frame.other.MercuryLoadingFrame;
+import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 
 import javax.swing.*;
@@ -57,6 +59,7 @@ public abstract class AbstractOverlaidFrame extends JFrame implements AsSubscrib
 
         MercuryStoreCore.frameVisibleSubject.subscribe(state -> SwingUtilities.invokeLater(() -> {
             this.changeVisible(state);
+            FramesManager.INSTANCE.hideOrShowFrame(NotificationFrame.class, state);
         }));
     }
 

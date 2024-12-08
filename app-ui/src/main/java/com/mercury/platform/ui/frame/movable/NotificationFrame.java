@@ -19,6 +19,7 @@ import com.mercury.platform.ui.components.panel.notification.controller.stub.Inc
 import com.mercury.platform.ui.components.panel.notification.controller.stub.OutStubController;
 import com.mercury.platform.ui.components.panel.notification.factory.NotificationPanelFactory;
 import com.mercury.platform.ui.frame.titled.TestEngine;
+import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
 import org.apache.commons.lang3.SystemUtils;
@@ -113,6 +114,10 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
                         .setData(notification)
                         .setComponentsFactory(this.componentsFactory)
                         .build();
+                if (ProdStarter.APP_STATUS.equals(FrameVisibleState.HIDE)) {
+                    FramesManager.INSTANCE.hideFrame(NotificationFrame.class);
+                }
+
                 if (preProcessor.isDuplicate(notification)) {
                     notificationPanel.setDuplicate(true);
                 }

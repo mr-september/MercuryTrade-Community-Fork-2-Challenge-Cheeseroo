@@ -57,6 +57,11 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             this.applicationSnapshot.setHideTaskbarUntilHover(hideTaskbarUntilHover.isSelected());
         });
 
+        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), "Enable support for poe2");
+        poe2Support.addActionListener(action -> {
+            this.applicationSnapshot.setPoe2(poe2Support.isSelected());
+        });
+
         JSlider fadeTimeSlider = this.componentsFactory.getSlider(0, 10, this.applicationSnapshot.getFadeTime(), AppThemeColor.SLIDE_BG);
         fadeTimeSlider.addChangeListener(e -> {
             this.applicationSnapshot.setFadeTime(fadeTimeSlider.getValue());
@@ -143,6 +148,8 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         root.add(vulkanEnableCheck);
         root.add(this.componentsFactory.getTextLabel("Hide taskbar", FontStyle.REGULAR, 16));
         root.add(hideTaskbarUntilHover);
+        root.add(this.componentsFactory.getTextLabel("POE 2 support", FontStyle.REGULAR, 16));
+        root.add(poe2Support);
         root.add(this.componentsFactory.getTextLabel("Component fade out time: ", FontStyle.REGULAR, 16));
         root.add(fadeTimeSlider);
         root.add(this.componentsFactory.getTextLabel("Min opacity: ", FontStyle.REGULAR, 16));

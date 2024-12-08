@@ -211,6 +211,15 @@ public class FramesManager implements AsSubscriber {
         }
     }
 
+    public void hideOrShowFrame(Class frameClass, FrameVisibleState state) {
+        AbstractOverlaidFrame frame = this.framesMap.get(frameClass);
+        if (state.equals(FrameVisibleState.SHOW)) {
+            showFrame(frameClass);
+        } else {
+            hideFrame(frameClass);
+        }
+    }
+
     public void enableMovementExclude(Class... frames) {
         this.locationCommander.setUpAllExclude(frames);
     }

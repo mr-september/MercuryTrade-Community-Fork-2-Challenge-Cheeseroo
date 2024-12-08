@@ -46,15 +46,11 @@ public class AppMain {
             boolean standalone = BooleanUtils.toBoolean(System.getProperty("standalone"));
             boolean dev = BooleanUtils.toBoolean(System.getProperty("dev"));
             boolean hideLoadingIcon = BooleanUtils.toBoolean(System.getProperty("hideLoadingIcon"));
-            boolean isPoe2 = BooleanUtils.toBoolean(System.getProperty("poe2"));
-            MainWindowHWNDFetch.INSTANCE.initialize(isPoe2);
 
             logger.warn("loaded runtime settings: ");
             logger.warn("standalone=" + standalone);
             logger.warn("dev=" + dev);
             logger.warn("hideLoadingIcon=" + hideLoadingIcon);
-            logger.warn("isPoe2=" + isPoe2);
-
 
             new ErrorHandler();
             if (!hideLoadingIcon) {
