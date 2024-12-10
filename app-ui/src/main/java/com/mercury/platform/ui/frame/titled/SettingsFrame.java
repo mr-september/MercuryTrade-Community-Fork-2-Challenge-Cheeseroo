@@ -2,17 +2,12 @@ package com.mercury.platform.ui.frame.titled;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.mercury.platform.core.MercuryConstants;
-import com.mercury.platform.core.update.core.holder.ApplicationHolder;
-import com.mercury.platform.shared.UpdateManager;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentType;
 import com.mercury.platform.shared.config.descriptor.adr.AdrDurationComponentDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrProgressBarDescriptor;
-import com.mercury.platform.shared.config.json.JSONHelper;
 import com.mercury.platform.shared.store.MercuryStoreCore;
-import com.mercury.platform.ui.adr.components.panel.ui.MercuryTracker;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.panel.settings.MenuPanel;
 import com.mercury.platform.ui.components.panel.settings.page.GlobalHotkeyGroup;
@@ -25,7 +20,6 @@ import com.mercury.platform.ui.misc.note.Note;
 import com.mercury.platform.ui.misc.note.NotesLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
-import org.apache.http.HttpConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,11 +28,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class SettingsFrame extends AbstractTitledComponentFrame {

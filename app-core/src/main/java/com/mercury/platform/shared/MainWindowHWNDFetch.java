@@ -1,12 +1,10 @@
 package com.mercury.platform.shared;
 
 import com.mercury.platform.shared.config.Configuration;
-import com.mercury.platform.shared.config.descriptor.ApplicationDescriptor;
 import com.sun.jna.Native;
 import com.sun.jna.platform.DesktopWindow;
 import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
