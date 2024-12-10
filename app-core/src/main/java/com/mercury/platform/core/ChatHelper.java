@@ -13,6 +13,7 @@ import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinUser;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import javax.swing.*;
@@ -171,6 +172,7 @@ public class ChatHelper implements AsSubscriber {
     }
 
     private void findInStashTab(String toBeFound) {
+        toBeFound = removeCharactersThatBreakTheSearch(toBeFound);
         clipboardMessageOn = false;
         this.gameToFront();
         StringSelection selection = new StringSelection(toBeFound);
@@ -261,5 +263,12 @@ public class ChatHelper implements AsSubscriber {
             TaskBarDescriptor config = Configuration.get().taskBarConfiguration().get();
             config.setPushbulletOn(state);
         });
+    }
+
+    private String removeCharactersThatBreakTheSearch(String textToSearch) {
+        if (StringUtils.isBlank(textToSearch)) {
+            return StringUtils.EMPTY;
+        }
+        return textToSearch.replace(",", StringUtils.EMPTY);
     }
 }
