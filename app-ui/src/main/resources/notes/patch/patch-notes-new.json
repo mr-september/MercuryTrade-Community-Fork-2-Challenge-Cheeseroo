@@ -1,4 +1,21 @@
 [
+
+  {
+    "version": "1.3.6",
+    "minor": [
+      {
+        "changed": ""
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Fixed searching in stash tab while item name contained a comma."
+      },
+      {
+        "changed": "Deleted no longer used code, should result in a bit smaller .jar file"
+      }
+    ]
+  },
   {
     "version": "1.3.6",
     "minor": [

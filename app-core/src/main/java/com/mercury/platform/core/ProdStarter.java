@@ -1,11 +1,8 @@
 package com.mercury.platform.core;
 
 import com.mercury.platform.core.misc.SoundNotifier;
-import com.mercury.platform.core.update.UpdateClientStarter;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.HistoryManager;
-import com.mercury.platform.shared.UpdateManager;
-import com.mercury.platform.shared.VulkanManager;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.MercuryConfigManager;
 import com.mercury.platform.shared.config.MercuryConfigurationSource;
@@ -15,22 +12,14 @@ import com.mercury.platform.shared.hotkey.HotKeysInterceptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.shared.wh.WhisperHelperHandler;
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinUser;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class ProdStarter {
     private static final Logger logger = LogManager.getLogger(ProdStarter.class.getSimpleName());
