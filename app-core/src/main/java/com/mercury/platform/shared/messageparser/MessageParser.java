@@ -43,7 +43,8 @@ public class MessageParser {
                 new PoeMapLiveParser(),
                 new PoeTradeItemParser(),
                 new PoeTradeItemKoreanParser(),
-                new PoeTradeItemRussianParser()
+                new PoeTradeItemRussianParser(),
+                new PoeTradeItemParserChina()
         );
     }
 

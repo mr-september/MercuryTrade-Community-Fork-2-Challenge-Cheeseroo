@@ -58,6 +58,7 @@ public class TradeOutMessagesInterceptor extends MessageInterceptor {
             return message.contains("Hi, I would like") ||
                    message.contains("Hi, I'd like") || message.contains("I'd like") ||
                    message.contains("구매하고 싶습니다" /* "I would like to buy"*/) ||
+                    message.contains("你好，我想購買") ||
                    message.contains("Здравствуйте, хочу купить у вас") /* "Hello, I would like to buy" */ ||
                    (message.contains("wtb") && message.contains("(stash")) ||
                    message.contains("안녕하세요, 강탈" /* hello, ???*/); //pathofexile.com/trade/

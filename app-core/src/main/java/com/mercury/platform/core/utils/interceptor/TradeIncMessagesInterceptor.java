@@ -48,11 +48,13 @@ public class TradeIncMessagesInterceptor extends MessageInterceptor {
                             .findAny().orElse(null) != null;
     }
 
+    //@神圣怨恨初火: 你好，我想購買 Ghoul Hide, Advanced Marabout Garb 標價 1 exalted 在 Standard (倉庫頁 "4"; 位置: 左 5, 上 10)
     private abstract class LocalizationMatcher {
         public boolean isSuitableFor(String message) {
             return message.contains("Hi, I would like") ||
                    message.contains("Hi, I'd like") ||
                    message.contains("I'd like") ||
+                    message.contains("你好，我想購買") ||
                    message.contains("구매하고 싶습니다" /* "I would like to buy"*/) ||
                    message.contains("Здравствуйте, хочу купить у вас") /* "Hello, I would like to buy" */ ||
                    (message.contains("wtb") && message.contains("(stash")) ||
