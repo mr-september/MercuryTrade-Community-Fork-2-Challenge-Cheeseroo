@@ -9,13 +9,7 @@ import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.other.MercuryLoadingFrame;
 import com.mercury.platform.ui.frame.titled.GamePathChooser;
-import com.mercury.platform.ui.frame.titled.TestCasesFrame;
 import com.mercury.platform.ui.manager.FramesManager;
-import com.sun.jna.Native;
-import com.sun.jna.platform.DesktopWindow;
-import com.sun.jna.platform.WindowUtils;
-import com.sun.jna.platform.win32.User32;
-import com.sun.jna.platform.win32.WinDef;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -24,9 +18,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AppMain {
 
@@ -51,6 +42,7 @@ public class AppMain {
             logger.warn("standalone=" + standalone);
             logger.warn("dev=" + dev);
             logger.warn("hideLoadingIcon=" + hideLoadingIcon);
+            LangTranslator.getInstance().changeLanguage(Languages.pl);
 
             new ErrorHandler();
             if (!hideLoadingIcon) {

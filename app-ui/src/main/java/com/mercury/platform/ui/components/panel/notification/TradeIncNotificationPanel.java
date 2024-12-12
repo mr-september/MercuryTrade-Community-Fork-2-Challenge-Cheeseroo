@@ -49,7 +49,7 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
                 this.controller.performHide();
             }
         });
-        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.trade.value());
+        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.offer_trade.value());
         tradeButton.addActionListener(e -> {
             this.controller.performOfferTrade();
         });

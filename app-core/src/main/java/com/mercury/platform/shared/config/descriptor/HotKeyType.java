@@ -108,7 +108,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return TranslationKey.visit_player_hideout.value();
+            return TranslationKey.visit_ho.value();
         }
     },
     N_LEAVE {

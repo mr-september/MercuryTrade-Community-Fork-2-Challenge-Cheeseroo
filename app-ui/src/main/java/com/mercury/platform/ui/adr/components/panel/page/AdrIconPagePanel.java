@@ -27,7 +27,7 @@ public class AdrIconPagePanel extends AdrPagePanel<AdrIconDescriptor> {
         JLabel locationLabel = this.componentsFactory.getTextLabel(TranslationKey.location.value(":"));
         JLabel alwaysVisibleLabel = this.componentsFactory.getTextLabel(TranslationKey.always_visible.value(":"));
         JLabel hotKeyLabel = this.componentsFactory.getTextLabel(TranslationKey.hot_key.value(":"));
-        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.icon.value(":"));
+        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.adr_create_icon.value(":"));
 
         JLabel textFormatLabel = this.componentsFactory.getTextLabel(TranslationKey.text_format.value(":"));
         JLabel textOutlineLabel = this.componentsFactory.getTextLabel(TranslationKey.text_outline.value(":"));

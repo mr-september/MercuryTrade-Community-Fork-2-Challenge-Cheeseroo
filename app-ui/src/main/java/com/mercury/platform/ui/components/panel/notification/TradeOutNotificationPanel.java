@@ -44,7 +44,7 @@ public abstract class TradeOutNotificationPanel<T extends TradeNotificationDescr
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
         JButton visiteHideout = componentsFactory.getIconButton(IconConst.VISIT_HIDEOUT, 16, AppThemeColor.MSG_HEADER, TranslationKey.visit_ho.value());
         visiteHideout.addActionListener(e -> this.controller.visitHideout());
-        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.trade.value());
+        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.offer_trade.value());
         tradeButton.addActionListener(e -> this.controller.performOfferTrade());
         JButton leaveButton = componentsFactory.getIconButton(IconConst.LEAVE, 16, AppThemeColor.MSG_HEADER, TranslationKey.leave.value());
         leaveButton.addActionListener(e -> {

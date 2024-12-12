@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components;
 
+
 import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
@@ -101,7 +102,6 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
                 this.selectedProfile.getContents(),
                 new AdrMainTreeNodeRenderer());
         this.tree.updateTree();
-
 
         JButton addComponent = this.componentsFactory.getButton(TranslationKey.new_btn.value());
         addComponent.setBackground(AppThemeColor.FRAME);

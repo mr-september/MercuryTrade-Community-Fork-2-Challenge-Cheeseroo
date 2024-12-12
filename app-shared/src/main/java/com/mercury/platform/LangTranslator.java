@@ -1,10 +1,16 @@
 package com.mercury.platform;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LangTranslator {
+    private static final Logger logger = LogManager.getLogger(LangTranslator.class);
+
     static {
         try {
             instance = new LangTranslator();
@@ -12,21 +18,38 @@ public class LangTranslator {
             e.printStackTrace();
         }
     }
+
     private Map<String, String> translations = new HashMap<>();
     private static LangTranslator instance;
 
     private LangTranslator() throws IOException {
         translations = intializeTranslations(Languages.en);
     }
+
     public static LangTranslator getInstance() {
         return instance;
     }
 
     private Map<String, String> intializeTranslations(Languages lang) throws IOException {
+        System.out.println("intializating translation for " + lang.toString());
         Map<String, String> translations = new HashMap<>();
-        File file = new File("src/main/resources/lang/" + lang.toString() + ".lang");
-        if (file.exists() && file.isFile()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/lang/" + lang.toString() + ".lang");
+
+            if (is == null) {
+                System.out.println("first resource not exists");
+                is = this.getClass().getResourceAsStream("/" + lang.toString() + ".lang");
+                if (is == null) {
+                    System.out.println("second resource not exists");
+                    return translations;
+                } else {
+                    System.out.println("2 file exists");
+                }
+            } else {
+                System.out.println("file exists");
+            }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     if (line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
@@ -38,8 +61,13 @@ public class LangTranslator {
                     translations.put(key, value);
                 }
             }
+
+            return translations;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return translations;
         }
-        return translations;
     }
 
     public void changeLanguage(Languages lang) throws IOException {

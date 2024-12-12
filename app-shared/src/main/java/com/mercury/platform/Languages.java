@@ -2,6 +2,7 @@ package com.mercury.platform;
 
 public enum Languages {
     en("english"),
+    pl("polish"),
     RU("russian"),
     ;
 

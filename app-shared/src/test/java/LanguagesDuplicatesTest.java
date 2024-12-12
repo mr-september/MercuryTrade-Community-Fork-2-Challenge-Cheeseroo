@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -13,7 +14,11 @@ public class LanguagesDuplicatesTest {
 
     @Test
     public void anyDuplicatesFoundTest() {
-        File langFolder = new File("src/main/resources/lang");
+        URL path = this.getClass().getResource("lang");
+        if (path == null) {
+            Assert.fail("Path to lang folder was incorrect");
+        }
+        File langFolder = new File(path.getPath());
         if (langFolder.exists() && langFolder.isDirectory()) {
             File[] files = langFolder.listFiles();
             if (files == null) {

@@ -44,8 +44,6 @@ still_interested = Nadal zainteresowany?
 repeat_message = Powtórz wiadomość
 // Kick player
 kick = Wyrzuć gracza
-// Offer Trade
-trade = Zaoferuj wymianę
 // Expand / collapse
 expand_collapse = Rozwiń / zwiń
 // Message this player
@@ -112,8 +110,6 @@ close_notification = Zamknij powiadomienie
 still_interested_button = Przycisk „Nadal zainteresowany”
 // Chat history
 chat_history = Historia czatu
-// Visit player hideout
-visit_player_hideout = Odwiedź kryjówkę gracza
 // To hideout
 to_hideout = Do kryjówki
 // Dnd
@@ -151,9 +147,7 @@ icon_size = Rozmiar ikony
 // Always visible
 always_visible = Zawsze widoczne
 // HotKey
-hot-key = Klawisz skrótu
-// Icon
-icon = Ikona
+hot_key = Klawisz skrótu
 // Text format
 text_format = Format tekstu
 // Text outline
@@ -237,7 +231,7 @@ export_manager = Menedżer eksportu
 // View
 view = Widok
 // Select icon
-select_icon = Wybierz ikonę
+select_icon = Zaznacz ikonę
 // Filter
 filter = Filtruj
 // Add icon

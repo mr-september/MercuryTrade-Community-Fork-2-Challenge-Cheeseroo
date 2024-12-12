@@ -26,7 +26,7 @@ public class AdrProgressBarPagePanel extends AdrPagePanel<AdrProgressBarDescript
         JLabel sizeLabel = this.componentsFactory.getTextLabel(TranslationKey.progress_bar_size.value(":"));
         JLabel pbOrientationLabel = this.componentsFactory.getTextLabel(TranslationKey.progress_bar_orientation.value(":"));
         JLabel hotKeyLabel = this.componentsFactory.getTextLabel(TranslationKey.hot_key.value(":"));
-        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.icon.value(":"));
+        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.adr_create_icon.value(":"));
 
         JLabel insetsLabel = this.componentsFactory.getTextLabel(TranslationKey.insets.value(":"));
         JLabel iconAlignmentLabel = this.componentsFactory.getTextLabel(TranslationKey.icon_alignment.value(":"));
