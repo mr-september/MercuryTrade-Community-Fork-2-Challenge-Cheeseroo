@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.configration.AdrConfigurationService;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrIconDescriptor;
@@ -44,7 +45,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
 
         JPanel createIconsGroup = this.getButton(
                 "app/adr/create_icon_group.png",
-                TooltipConstants.ADR_CREATE_ICON_GROUP);
+                TranslationKey.adr_create_icon_group.value());
         createIconsGroup.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -55,7 +56,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
         });
         JPanel createPbGroup = this.getButton(
                 "app/adr/create_pb_group.png",
-                TooltipConstants.ADR_CREATE_PB_GROUP);
+                TranslationKey.adr_create_pb_group.value());
         createPbGroup.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -66,7 +67,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
         });
         JPanel createCaptureComponent = this.getButton(
                 "app/adr/capture_icon.png",
-                "Capture");
+                TranslationKey.capture.value());
         createCaptureComponent.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -77,7 +78,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
         });
         JPanel createIcon = this.getButton(
                 "app/adr/create_icon.png",
-                TooltipConstants.ADR_CREATE_ICON);
+                TranslationKey.adr_create_icon.value());
         createIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -91,7 +92,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
         });
         JPanel createPb = this.getButton(
                 "app/adr/create_pb.png",
-                TooltipConstants.ADR_CREATE_PROGRESS_BAR);
+                TranslationKey.adr_create_progress_bar.value());
         createPb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -105,7 +106,7 @@ public class AdrMainPagePanel extends AdrPagePanel<AdrComponentDescriptor> {
         });
         JPanel importButton = this.getButton(
                 "app/adr/import_icon.png",
-                TooltipConstants.ADR_IMPORT_COMPONENT);
+                TranslationKey.adr_import_component.value());
         importButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

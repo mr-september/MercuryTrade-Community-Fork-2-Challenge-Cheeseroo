@@ -1,22 +1,24 @@
 package com.mercury.platform.core.misc;
 
+import com.mercury.platform.TranslationKey;
+
 public enum WhisperNotifierStatus {
     ALWAYS {
         @Override
         public String asPretty() {
-            return "Always play a sound";
+            return TranslationKey.always_play_a_sound.value();
         }
     },
     ALTAB {
         @Override
         public String asPretty() {
-            return "Only when tabbed out";
+            return TranslationKey.only_when_tabbed_out.value();
         }
     },
     NONE {
         @Override
         public String asPretty() {
-            return "Never";
+            return TranslationKey.never.value();
         }
     };
 

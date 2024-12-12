@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrProgressBarDescriptor;
 import com.mercury.platform.ui.components.panel.VerticalScrollContainer;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -19,29 +20,29 @@ public class AdrProgressBarPagePanel extends AdrPagePanel<AdrProgressBarDescript
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JScrollPane verticalContainer = this.componentsFactory.getVerticalContainer(container);
 
-        JLabel titleLabel = this.componentsFactory.getTextLabel("Title:");
-        JLabel opacityLabel = this.componentsFactory.getTextLabel("Opacity:");
-        JLabel locationLabel = this.componentsFactory.getTextLabel("Location:");
-        JLabel sizeLabel = this.componentsFactory.getTextLabel("Progress bar size:");
-        JLabel pbOrientationLabel = this.componentsFactory.getTextLabel("Orientation:");
-        JLabel hotKeyLabel = this.componentsFactory.getTextLabel("HotKey:");
-        JLabel iconLabel = this.componentsFactory.getTextLabel("Icon:");
+        JLabel titleLabel = this.componentsFactory.getTextLabel(TranslationKey.title.value(":"));
+        JLabel opacityLabel = this.componentsFactory.getTextLabel(TranslationKey.opacity.value(":"));
+        JLabel locationLabel = this.componentsFactory.getTextLabel(TranslationKey.location.value(":"));
+        JLabel sizeLabel = this.componentsFactory.getTextLabel(TranslationKey.progress_bar_size.value(":"));
+        JLabel pbOrientationLabel = this.componentsFactory.getTextLabel(TranslationKey.progress_bar_orientation.value(":"));
+        JLabel hotKeyLabel = this.componentsFactory.getTextLabel(TranslationKey.hot_key.value(":"));
+        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.icon.value(":"));
 
-        JLabel insetsLabel = this.componentsFactory.getTextLabel("Insets:");
-        JLabel iconAlignmentLabel = this.componentsFactory.getTextLabel("Icon alignment:");
-        JLabel textFormatLabel = this.componentsFactory.getTextLabel("Text format:");
-        JLabel textOutlineLabel = this.componentsFactory.getTextLabel("Text outline:");
-        JLabel fontSizeLabel = this.componentsFactory.getTextLabel("Font size:");
-        JLabel durationLabel = this.componentsFactory.getTextLabel("Duration:");
-        JLabel soundLabel = this.componentsFactory.getTextLabel("Sound alert:");
-        JLabel soundVolumeLabel = this.componentsFactory.getTextLabel("Sound volume");
-        JLabel delayLabel = this.componentsFactory.getTextLabel("Delay:");
-        JLabel invertTimerLabel = this.componentsFactory.getTextLabel("Invert timer:");
-        JLabel textColorLabel = this.componentsFactory.getTextLabel("Text color:");
-        JLabel backgroundColorLabel = this.componentsFactory.getTextLabel("Background color:");
-        JLabel foregroundColorLabel = this.componentsFactory.getTextLabel("Foreground color:");
-        JLabel borderColorLabel = this.componentsFactory.getTextLabel("Border color:");
-        JLabel invertMaskLabel = this.componentsFactory.getTextLabel("Invert mask:");
+        JLabel insetsLabel = this.componentsFactory.getTextLabel(TranslationKey.insets.value(":"));
+        JLabel iconAlignmentLabel = this.componentsFactory.getTextLabel(TranslationKey.icon_alignment.value(":"));
+        JLabel textFormatLabel = this.componentsFactory.getTextLabel(TranslationKey.text_format.value(":"));
+        JLabel textOutlineLabel = this.componentsFactory.getTextLabel(TranslationKey.text_outline.value(":"));
+        JLabel fontSizeLabel = this.componentsFactory.getTextLabel(TranslationKey.font_size.value(":"));
+        JLabel durationLabel = this.componentsFactory.getTextLabel(TranslationKey.duration.value(":"));
+        JLabel soundLabel = this.componentsFactory.getTextLabel(TranslationKey.sound_alert.value(":"));
+        JLabel soundVolumeLabel = this.componentsFactory.getTextLabel(TranslationKey.sound_volume.value());
+        JLabel delayLabel = this.componentsFactory.getTextLabel(TranslationKey.delay.value(":"));
+        JLabel invertTimerLabel = this.componentsFactory.getTextLabel(TranslationKey.invert_timer.value(":"));
+        JLabel textColorLabel = this.componentsFactory.getTextLabel(TranslationKey.text_color.value(":"));
+        JLabel backgroundColorLabel = this.componentsFactory.getTextLabel(TranslationKey.background_color.value(":"));
+        JLabel foregroundColorLabel = this.componentsFactory.getTextLabel(TranslationKey.foreground_color.value(":"));
+        JLabel borderColorLabel = this.componentsFactory.getTextLabel(TranslationKey.border_color.value(":"));
+        JLabel invertMaskLabel = this.componentsFactory.getTextLabel(TranslationKey.invert_mask.value(":"));
 
         JTextField titleField = this.adrComponentsFactory.getTitleField(this.payload);
         JSlider opacitySlider = this.adrComponentsFactory.getOpacitySlider(this.payload);
@@ -140,7 +141,7 @@ public class AdrProgressBarPagePanel extends AdrPagePanel<AdrProgressBarDescript
             }
         });
 
-        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, "Advanced:", AppThemeColor.ADR_BG, this.advancedExpanded);
+        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, TranslationKey.advanced.value(":"), AppThemeColor.ADR_BG, this.advancedExpanded);
         advancedPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
 
         container.add(this.componentsFactory.wrapToSlide(generalPanel));

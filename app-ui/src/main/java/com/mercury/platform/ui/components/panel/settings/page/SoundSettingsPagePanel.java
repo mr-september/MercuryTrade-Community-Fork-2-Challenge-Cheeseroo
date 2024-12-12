@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.CloneHelper;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.KeyValueConfigurationService;
@@ -92,13 +93,13 @@ public class SoundSettingsPagePanel extends SettingsPagePanel {
                 ));
             }
         });
-        container.add(componentsFactory.getTextLabel("Notification:", FontStyle.REGULAR, 16));
+        container.add(componentsFactory.getTextLabel(TranslationKey.notification.value(":"), FontStyle.REGULAR, 16));
         container.add(notificationSlider);
-        container.add(componentsFactory.getTextLabel("Chat Scanner", FontStyle.REGULAR, 16));
+        container.add(componentsFactory.getTextLabel(TranslationKey.chat_scanner.value(":"), FontStyle.REGULAR, 16));
         container.add(chatScannerSlider);
-        container.add(componentsFactory.getTextLabel("Clicks", FontStyle.REGULAR, 16));
+        container.add(componentsFactory.getTextLabel(TranslationKey.clicks.value(":"), FontStyle.REGULAR, 16));
         container.add(clicksSlider);
-        container.add(componentsFactory.getTextLabel("Update notification", FontStyle.REGULAR, 16));
+        container.add(componentsFactory.getTextLabel(TranslationKey.update_notification.value(":"), FontStyle.REGULAR, 16));
         container.add(updateSlider);
         return container;
     }

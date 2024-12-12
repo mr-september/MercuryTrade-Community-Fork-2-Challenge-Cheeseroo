@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrProfileDescriptor;
 import com.mercury.platform.ui.adr.validator.FieldValidator;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -40,7 +41,7 @@ public class AdrProfilePagePanel extends AdrPagePanel<List<AdrProfileDescriptor>
                 requestFocus();
             }
         });
-        JLabel header = this.componentsFactory.getTextLabel("Profiles:", FontStyle.REGULAR, 20);
+        JLabel header = this.componentsFactory.getTextLabel(TranslationKey.profiles.value(":"), FontStyle.REGULAR, 20);
         header.setBorder(BorderFactory.createEmptyBorder(4, 6, 0, 4));
         this.add(header, BorderLayout.PAGE_START);
         this.add(verticalContainer, BorderLayout.CENTER);
@@ -64,7 +65,7 @@ public class AdrProfilePagePanel extends AdrPagePanel<List<AdrProfileDescriptor>
             descriptor.setProfileName(value);
             MercuryStoreUI.adrRenameProfileSubject.onNext(true);
         });
-        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 16, AppThemeColor.FRAME, TooltipConstants.ADR_EXPORT_BUTTON);
+        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 16, AppThemeColor.FRAME, TranslationKey.adr_export_button.value());
         removeButton.addActionListener(action -> {
             new AlertDialog(success -> {
                 if (success) {
@@ -73,7 +74,7 @@ public class AdrProfilePagePanel extends AdrPagePanel<List<AdrProfileDescriptor>
                     this.init();
                     MercuryStoreUI.adrManagerRepaint.onNext(true);
                 }
-            }, "Do you want to delete this profile?", this).setVisible(true);
+            }, TranslationKey.do_you_want_to_delete_this_profile.value(), this).setVisible(true);
         });
         if (descriptor.isSelected()) {
             removeButton.setEnabled(false);

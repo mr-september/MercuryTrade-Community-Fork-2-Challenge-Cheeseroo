@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.other;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.AbstractOverlaidFrame;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -28,7 +29,7 @@ public class AlertFrame extends AbstractOverlaidFrame {
         messagePanel.add(messageLabel);
 
         JPanel closePanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton close = componentsFactory.getBorderedButton("Ok");
+        JButton close = componentsFactory.getBorderedButton(TranslationKey.ok.value());
         close.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

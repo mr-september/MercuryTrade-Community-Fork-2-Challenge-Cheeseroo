@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.chat;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.PlainConfigurationService;
@@ -10,7 +11,6 @@ import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.components.panel.misc.ViewInit;
 import com.mercury.platform.ui.misc.AppThemeColor;
-import com.mercury.platform.ui.misc.TooltipConstants;
 import lombok.NonNull;
 
 import javax.swing.*;
@@ -50,16 +50,23 @@ public class ChatMessagePanel extends JPanel implements ViewInit {
         JPanel miscPanel = componentsFactory.getTransparentPanel(new BorderLayout());
         JPanel operationsPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JButton quickResponse = componentsFactory.getIconButton(IconConst.CHAT_SCANNER_RESPONSE, 17, AppThemeColor.SLIDE_BG, "Quick response");
+        JButton quickResponse = componentsFactory.getIconButton(IconConst.CHAT_SCANNER_RESPONSE,
+                                                                17,
+                                                                AppThemeColor.SLIDE_BG,
+                                                                TranslationKey.quick_response.value());
         quickResponse.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    MercuryStoreCore.chatCommandSubject.onNext("@" + nickName + " " + scannerService.get().getResponseMessage());
+                    MercuryStoreCore.chatCommandSubject.onNext("@" +
+                                                               nickName +
+                                                               " " +
+                                                               scannerService.get().getResponseMessage());
                 }
             }
         });
-        JButton openChat = componentsFactory.getIconButton(IconConst.CHAT_OPEN, 16, AppThemeColor.SLIDE_BG, TooltipConstants.OPEN_CHAT);
+        JButton openChat = componentsFactory.getIconButton(IconConst.CHAT_OPEN, 16, AppThemeColor.SLIDE_BG,
+                                                           TranslationKey.open_chat.value());
         openChat.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

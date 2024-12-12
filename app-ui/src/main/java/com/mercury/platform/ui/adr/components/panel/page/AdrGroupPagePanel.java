@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentOrientation;
 import com.mercury.platform.shared.config.descriptor.adr.AdrTrackerGroupContentType;
 import com.mercury.platform.shared.config.descriptor.adr.AdrTrackerGroupDescriptor;
@@ -22,19 +23,19 @@ public class AdrGroupPagePanel extends AdrPagePanel<AdrTrackerGroupDescriptor> {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JScrollPane verticalContainer = this.componentsFactory.getVerticalContainer(container);
 
-        JLabel titleLabel = this.componentsFactory.getTextLabel("Title:");
-        JLabel opacityLabel = this.componentsFactory.getTextLabel("Opacity:");
-        JLabel locationLabel = this.componentsFactory.getTextLabel("Location:");
+        JLabel titleLabel = this.componentsFactory.getTextLabel(TranslationKey.title.value(":"));
+        JLabel opacityLabel = this.componentsFactory.getTextLabel(TranslationKey.opacity.value(":"));
+        JLabel locationLabel = this.componentsFactory.getTextLabel(TranslationKey.location.value(":"));
 
-        JLabel paddingLabel = this.componentsFactory.getTextLabel("Component's padding:");
-        JLabel groupTypeLabel = this.componentsFactory.getTextLabel("Group's type:");
-        String sizeText = "Icon's size:";
+        JLabel paddingLabel = this.componentsFactory.getTextLabel(TranslationKey.component_padding.value(":"));
+        JLabel groupTypeLabel = this.componentsFactory.getTextLabel(TranslationKey.group_type.value(":"));
+        String sizeText = TranslationKey.icon_size.value(":");
         if (this.payload.getContentType().equals(AdrTrackerGroupContentType.PROGRESS_BARS)) {
-            sizeText = "Progress bar's size:";
+            sizeText = TranslationKey.progress_bar_size.value(":");
         }
         JLabel sizeLabel = this.componentsFactory.getTextLabel(sizeText);
-        JLabel groupOrientationLabel = this.componentsFactory.getTextLabel("Group's orientation:");
-        JLabel pbOrientationLabel = this.componentsFactory.getTextLabel("Progress bar's orientation:");
+        JLabel groupOrientationLabel = this.componentsFactory.getTextLabel(TranslationKey.group_orientation.value(":"));
+        JLabel pbOrientationLabel = this.componentsFactory.getTextLabel(TranslationKey.progress_bar_orientation.value(":"));
 
         JTextField titleField = this.componentsFactory.getTextField(this.payload.getTitle(), FontStyle.BOLD, 16);
         titleField.addFocusListener(new FocusAdapter() {
@@ -127,7 +128,7 @@ public class AdrGroupPagePanel extends AdrPagePanel<AdrTrackerGroupDescriptor> {
             }
         });
 
-        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, "Advanced:", AppThemeColor.ADR_BG, this.advancedExpanded);
+        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, TranslationKey.advanced.value(":"), AppThemeColor.ADR_BG, this.advancedExpanded);
         advancedPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
         container.add(this.componentsFactory.wrapToSlide(generalPanel));
         container.add(this.componentsFactory.wrapToSlide(advancedPanel));

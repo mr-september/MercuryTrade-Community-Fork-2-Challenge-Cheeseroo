@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.grid;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.descriptor.StashTabDescriptor;
 import com.mercury.platform.ui.components.ComponentsFactory;
@@ -26,7 +27,7 @@ public class TabInfoPanel extends JPanel implements ViewInit {
     public void onViewInit() {
         this.setLayout(new BorderLayout());
         this.setBackground(AppThemeColor.FRAME);
-        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 12, AppThemeColor.FRAME, "Dismiss");
+        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 12, AppThemeColor.FRAME, TranslationKey.dismiss.value());
         hideButton.addActionListener((action) -> {
             stashTabDescriptor.setUndefined(true);
             MercuryStoreUI.dismissTabInfoPanelSubject.onNext(this);
@@ -36,7 +37,7 @@ public class TabInfoPanel extends JPanel implements ViewInit {
         tabLabel.setBorder(null);
         tabLabel.setFont(componentsFactory.getFont(FontStyle.BOLD, 15f));
         tabInfoPanel.add(tabLabel);
-        JCheckBox isItQuad = componentsFactory.getCheckBox("Is it Quad?");
+        JCheckBox isItQuad = componentsFactory.getCheckBox(TranslationKey.is_it_quad.value());
         isItQuad.setSelected(stashTabDescriptor.isQuad());
         isItQuad.setPreferredSize(new Dimension(16, 16));
         isItQuad.addActionListener(action -> {

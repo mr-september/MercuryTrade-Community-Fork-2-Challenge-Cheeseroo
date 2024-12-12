@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.taskbar;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.ProdStarter;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.IconConst;
@@ -60,7 +61,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.VISIBLE_ALWAYS_MODE,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.VISIBLE_MODE);
+                TranslationKey.do_not_disturb.value());
         componentsFactory.setUpToggleCallbacks(visibleMode,
                 () -> {
                     visibleMode.setIcon(componentsFactory.getIcon(IconConst.VISIBLE_DND_MODE, 24));
@@ -78,7 +79,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 taskBarService.get().isPushbulletOn() ? IconConst.PUSHBULLET_NOTIFICATION : IconConst.PUSHBULLET_NOTIFICATION_OFF,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.PUSHBULLET_NOTIFICATION_ACTIVE);
+                TranslationKey.pushbullet_notification_active.value());
         componentsFactory.setUpToggleCallbacks(pushbulletNotification,
                                                () -> {
                                                    getPushbullet(taskBarService.get().isPushbulletOn(), pushbulletNotification);
@@ -94,7 +95,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.ITEM_GRID_ENABLE,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.ITEM_GRID);
+                TranslationKey.item_grid.value());
         itemGrid.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -109,7 +110,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.HIDEOUT,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.HIDEOUT);
+                TranslationKey.travel_hideout.value());
         this.toHideout.addActionListener(action -> {
             this.controller.performHideout();
         });
@@ -119,7 +120,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.HELP_IG,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.HELPIG);
+                TranslationKey.helpig.value());
         this.showHelpIG.addActionListener(action -> {
             this.controller.showHelpIG();
         });
@@ -129,7 +130,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.OVERSEER,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.ADR_SETTINGS);
+                TranslationKey.adr_settings.value());
         adr.addActionListener(action -> {
             FramesManager.INSTANCE.performAdr();
             TaskBarFrame windowAncestor = (TaskBarFrame) SwingUtilities.getWindowAncestor(TaskBarPanel.this);
@@ -142,7 +143,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.CHAT_FILTER,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.CHAT_FILTER);
+                TranslationKey.chat_filter.value());
         chatFilter.addActionListener(action -> {
             this.controller.showChatFiler();
         });
@@ -152,7 +153,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.HISTORY,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.HISTORY);
+                TranslationKey.history.value());
         historyButton.addActionListener(action -> {
             this.controller.showHistory();
         });
@@ -162,7 +163,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.DRAG_AND_DROP,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.SETUP_FRAMES_LOCATION);
+                TranslationKey.unlock_panel_tt.value());
         pinButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -177,7 +178,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.SCALE_SETTINGS,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.SCALE_SETTINGS);
+                TranslationKey.scale_settings_tt.value());
         scaleButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -192,7 +193,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.SETTINGS,
                 26,
                 AppThemeColor.FRAME,
-                TooltipConstants.SETTINGS);
+                TranslationKey.settings.value());
         settingsButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -210,7 +211,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 IconConst.EXIT,
                 24,
                 AppThemeColor.FRAME,
-                TooltipConstants.EXIT);
+                TranslationKey.exit.value());
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

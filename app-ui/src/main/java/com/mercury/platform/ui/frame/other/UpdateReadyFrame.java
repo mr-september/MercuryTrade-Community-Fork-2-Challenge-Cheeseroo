@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.other;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.ProdStarter;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
@@ -41,7 +42,7 @@ public class UpdateReadyFrame extends AbstractOverlaidFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 16f,
-                "New version available:");
+                TranslationKey.new_version_available.value(":"));
         label.setBorder(null);
         Dimension dimension = new Dimension(80, 26);
         JButton showInfo = componentsFactory.getBorderedButton("Show info");
@@ -56,7 +57,7 @@ public class UpdateReadyFrame extends AbstractOverlaidFrame {
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Dismiss",
+                TranslationKey.dismiss.value(),
                 14f);
         dismiss.addMouseListener(new MouseAdapter() {
             @Override

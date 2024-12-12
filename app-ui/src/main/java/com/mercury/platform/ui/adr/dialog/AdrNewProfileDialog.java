@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.dialog;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.ui.adr.components.AdrComponentsFactory;
 import com.mercury.platform.ui.adr.validator.ProfileNameValidator;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -17,7 +18,7 @@ public class AdrNewProfileDialog extends BaseDialog<String, List<String>> {
 
     public AdrNewProfileDialog(DialogCallback<String> callback, Component relative, List<String> payload) {
         super(callback, relative, payload);
-        this.setTitle("Create new profile");
+        this.setTitle(TranslationKey.create_new_profile.value());
         this.setResizable(false);
     }
 
@@ -32,13 +33,13 @@ public class AdrNewProfileDialog extends BaseDialog<String, List<String>> {
         JTextField nameField = this.componentsFactory.getTextField("", FontStyle.REGULAR, 16f);
         nameField.setPreferredSize(new Dimension(300, 20));
         JPanel fieldPanel = this.componentsFactory.getJPanel(new BorderLayout());
-        fieldPanel.add(this.componentsFactory.getTextLabel("Profile name: "), BorderLayout.LINE_START);
+        fieldPanel.add(this.componentsFactory.getTextLabel(TranslationKey.profile_name.value(": ")), BorderLayout.LINE_START);
         fieldPanel.add(nameField, BorderLayout.CENTER);
         fieldPanel.setBackground(AppThemeColor.ADR_BG);
 
         JPanel buttonsPanel = this.componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER));
         buttonsPanel.setBackground(AppThemeColor.ADR_BG);
-        JButton createButton = this.componentsFactory.getBorderedButton("Create");
+        JButton createButton = this.componentsFactory.getBorderedButton(TranslationKey.create.value());
         createButton.setPreferredSize(new Dimension(100, 26));
         createButton.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 16f));
         createButton.addActionListener(action -> {
@@ -52,7 +53,7 @@ public class AdrNewProfileDialog extends BaseDialog<String, List<String>> {
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Cancel",
+                TranslationKey.cancel.value(),
                 16f);
         cancelButton.setPreferredSize(new Dimension(100, 26));
         cancelButton.addActionListener(action -> {

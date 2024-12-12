@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.CloneHelper;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.PlainConfigurationService;
@@ -49,13 +50,13 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         this.whHotkeyGroup = new HotKeyGroup();
         this.scannerHotkeyGroup = new HotKeyGroup();
 
-        JPanel whisperHelperPanel = this.adrComponentsFactory.getCounterPanel(this.getWhisperHelperPanel(), "Whisper helper:", AppThemeColor.ADR_BG, false);
+        JPanel whisperHelperPanel = this.adrComponentsFactory.getCounterPanel(this.getWhisperHelperPanel(), TranslationKey.whisper_helper.value(":"), AppThemeColor.ADR_BG, false);
         whisperHelperPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
-        JPanel inPanel = this.adrComponentsFactory.getCounterPanel(this.getIncomingPanel(), "Incoming notification:", AppThemeColor.ADR_BG, false);
+        JPanel inPanel = this.adrComponentsFactory.getCounterPanel(this.getIncomingPanel(), TranslationKey.incoming_notification.value(":"), AppThemeColor.ADR_BG, false);
         inPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
-        JPanel outPanel = this.adrComponentsFactory.getCounterPanel(this.getOutgoingPanel(), "Outgoing notification:", AppThemeColor.ADR_BG, false);
+        JPanel outPanel = this.adrComponentsFactory.getCounterPanel(this.getOutgoingPanel(), TranslationKey.outgoing_notification.value(":"), AppThemeColor.ADR_BG, false);
         outPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
-        JPanel scannerPanel = this.adrComponentsFactory.getCounterPanel(this.getChatScannerPanel(), "Chat scanner notification:", AppThemeColor.ADR_BG, false);
+        JPanel scannerPanel = this.adrComponentsFactory.getCounterPanel(this.getChatScannerPanel(), TranslationKey.chat_scanner_notification.value(":"), AppThemeColor.ADR_BG, false);
         scannerPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
         this.container.add(this.componentsFactory.wrapToSlide(this.getGeneralPanel(), 4, 4, 2, 4));
         this.container.add(this.componentsFactory.wrapToSlide(whisperHelperPanel, 2, 4, 2, 4));
@@ -107,9 +108,9 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
             this.generalSnapshot.setLimitCount(limitSlider.getValue());
         });
         flowDirectionPicker.setSelectedIndex(this.generalSnapshot.getFlowDirections().ordinal());
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Flow direction:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.flow_direction.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(flowDirectionPicker);
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Pre-group limit:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.pre_group_limit.value(":"), FontStyle.REGULAR, 16));
         JPanel limitPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
         limitPanel.add(limitLabel, BorderLayout.LINE_START);
         limitPanel.add(limitSlider, BorderLayout.CENTER);
@@ -137,15 +138,15 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
             this.generalSnapshot.setWhisperHelperEnable(enableCheckbox.isSelected());
             ClipboardListener.enabled = enableCheckbox.isSelected();
         });
-        parametersPanel.add(this.componentsFactory.getTextLabel("Enabled:", FontStyle.REGULAR, 16));
+        parametersPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enabled.value(":"), FontStyle.REGULAR, 16));
         parametersPanel.add(enableCheckbox);
 
         JPanel showcasePanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        showcasePanel.add(this.componentsFactory.getTextLabel("When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE", FontStyle.REGULAR, 16), BorderLayout.PAGE_START);
+        showcasePanel.add(this.componentsFactory.getTextLabel(TranslationKey.automatic_paste_description.value(), FontStyle.REGULAR, 16), BorderLayout.PAGE_START);
         JLabel img = new JLabel();
         img.setIcon(this.componentsFactory.getImage("app/whisper-helper.png"));
         showcasePanel.add(this.componentsFactory.wrapToSlide(img, AppThemeColor.ADR_BG, 4, 4, 4, 4), BorderLayout.CENTER);
-        showcasePanel.add(this.componentsFactory.getTextLabel("Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.", FontStyle.REGULAR, 16), BorderLayout.PAGE_END);
+        showcasePanel.add(this.componentsFactory.getTextLabel(TranslationKey.example_description.value(), FontStyle.REGULAR, 16), BorderLayout.PAGE_END);
         root.add(parametersPanel, BorderLayout.PAGE_START);
         root.add(showcasePanel, BorderLayout.CENTER);
         root.setVisible(false);
@@ -166,22 +167,22 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         showLeague.addActionListener(action -> {
             this.generalSnapshot.setShowLeague(showLeague.isSelected());
         });
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Enabled:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enabled.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(enabled);
 
         JPanel closePanelWithIcon = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        closePanelWithIcon.add(this.componentsFactory.getTextLabel("Close panel on kick button pressed:", FontStyle.REGULAR, 16), BorderLayout.LINE_START);
+        closePanelWithIcon.add(this.componentsFactory.getTextLabel(TranslationKey.close_panel_on_kick_button_pressed.value(":"), FontStyle.REGULAR, 16), BorderLayout.LINE_START);
         closePanelWithIcon.add(this.componentsFactory.getIconLabel(IconConst.KICK, 14));
         propertiesPanel.add(closePanelWithIcon);
         propertiesPanel.add(dismiss);
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Show league:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.show_league.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(showLeague);
         root.add(propertiesPanel, BorderLayout.PAGE_START);
 
         ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getButtons(), this.incHotkeyGroup);
         responseButtonsPanel.onViewInit();
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), "Response buttons:"), BorderLayout.CENTER);
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getInNotificationHotKeysPanel(), AppThemeColor.ADR_BG), "Hotkeys"), BorderLayout.PAGE_END);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), TranslationKey.response_buttons.value(":")), BorderLayout.CENTER);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getInNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.hotkeys.value()), BorderLayout.PAGE_END);
         root.setVisible(false);
         return root;
     }
@@ -236,11 +237,11 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         enabled.addActionListener(action -> {
             this.generalSnapshot.setOutNotificationEnable(enabled.isSelected());
         });
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Enabled:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enabled.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(enabled);
 
         JPanel leavePanelWithIcon = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        leavePanelWithIcon.add(this.componentsFactory.getTextLabel("Close panel on leave button pressed:", FontStyle.REGULAR, 16), BorderLayout.LINE_START);
+        leavePanelWithIcon.add(this.componentsFactory.getTextLabel(TranslationKey.close_panel_on_leave_button_pressed.value(":"), FontStyle.REGULAR, 16), BorderLayout.LINE_START);
         leavePanelWithIcon.add(this.componentsFactory.getIconLabel(IconConst.LEAVE, 14));
         propertiesPanel.add(leavePanelWithIcon);
 
@@ -249,7 +250,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
             this.generalSnapshot.setDismissAfterLeave(closeAfterLeave.isSelected());
         });
         propertiesPanel.add(closeAfterLeave);
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Auto-close triggers:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.auto_close_triggers.value(":"), FontStyle.REGULAR, 16));
         String collect = String.join(",", this.generalSnapshot.getAutoCloseTriggers());
         JTextField triggersField = this.componentsFactory.getTextField(collect, FontStyle.DEFAULT, 15f);
         triggersField.addFocusListener(new FocusAdapter() {
@@ -265,8 +266,8 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getOutButtons(), this.outHotkeyGroup);
         responseButtonsPanel.onViewInit();
         root.add(propertiesPanel, BorderLayout.PAGE_START);
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), "Response buttons:"), BorderLayout.CENTER);
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getOutNotificationHotKeysPanel(), AppThemeColor.ADR_BG), "Hotkeys:"), BorderLayout.PAGE_END);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), TranslationKey.response_buttons.value(":")), BorderLayout.CENTER);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getOutNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.hotkeys.value(":")), BorderLayout.PAGE_END);
         root.setVisible(false);
         return root;
     }
@@ -278,7 +279,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         enabled.addActionListener(action -> {
             this.generalSnapshot.setScannerNotificationEnable(enabled.isSelected());
         });
-        propertiesPanel.add(this.componentsFactory.getTextLabel("Enabled:", FontStyle.REGULAR, 16));
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enabled.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(enabled);
 //        JLabel quickResponseLabel = this.componentsFactory.getIconLabel(HotKeyType.N_QUICK_RESPONSE.getIconPath(), 18);
 //        quickResponseLabel.setFont(this.componentsFactory.getFont(FontStyle.REGULAR,16));
@@ -295,7 +296,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
 //        });
 //        propertiesPanel.add(this.componentsFactory.wrapToSlide(quickResponseField,AppThemeColor.ADR_BG,0,0,0,4));
         root.add(propertiesPanel, BorderLayout.PAGE_START);
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getScannerNotificationHotKeysPanel(), AppThemeColor.ADR_BG), "Hotkeys"), BorderLayout.CENTER);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getScannerNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.enabled.value()), BorderLayout.CENTER);
         root.setVisible(false);
         return root;
     }

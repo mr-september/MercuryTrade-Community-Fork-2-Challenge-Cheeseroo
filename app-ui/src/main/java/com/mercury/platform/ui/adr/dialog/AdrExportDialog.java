@@ -2,6 +2,7 @@ package com.mercury.platform.ui.adr.dialog;
 
 
 import com.google.gson.Gson;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
 import com.mercury.platform.ui.adr.components.panel.tree.AdrTreePanel;
 import com.mercury.platform.ui.adr.components.panel.tree.dialog.AdrDialogTreeNodeRenderer;
@@ -24,7 +25,7 @@ public class AdrExportDialog extends AdrDialog<List<AdrComponentDescriptor>> {
 
     public AdrExportDialog(Component relative, List<AdrComponentDescriptor> descriptor) {
         super(relative, descriptor);
-        this.setTitle("Export manager");
+        this.setTitle(TranslationKey.export_manager.value());
         this.setModal(false);
 
         MercuryStoreUI.adrManagerPack.subscribe(state -> {
@@ -93,8 +94,8 @@ public class AdrExportDialog extends AdrDialog<List<AdrComponentDescriptor>> {
         root.setBackground(AppThemeColor.FRAME_RGB);
         JPanel headerPanel = this.componentsFactory.getJPanel(new BorderLayout());
         headerPanel.setBackground(AppThemeColor.ADR_BG);
-
-        JLabel header = this.componentsFactory.getTextLabel("View:", FontStyle.BOLD, 18);
+        
+        JLabel header = this.componentsFactory.getTextLabel(TranslationKey.view.value(":"), FontStyle.BOLD, 18);
         header.setForeground(AppThemeColor.TEXT_NICKNAME);
         headerPanel.add(header, BorderLayout.CENTER);
         root.add(headerPanel, BorderLayout.PAGE_START);

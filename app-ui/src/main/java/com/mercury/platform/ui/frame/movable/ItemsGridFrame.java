@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.movable;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.descriptor.StashTabDescriptor;
 import com.mercury.platform.shared.entity.message.ItemTradeNotificationDescriptor;
@@ -167,23 +168,23 @@ public class ItemsGridFrame extends AbstractMovableComponentFrame {
         labelPanel.add(titleLabel, BorderLayout.CENTER);
         headerPanel.add(labelPanel, BorderLayout.CENTER);
 
-        String title = (this.applicationConfig.get().isItemsGridEnable()) ? "Disable" : "Enable";
+        String title = (this.applicationConfig.get().isItemsGridEnable()) ? TranslationKey.disable.value() : TranslationKey.enable.value();
         JButton disableButton = componentsFactory.getBorderedButton(title);
         disableButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
         componentsFactory.setUpToggleCallbacks(disableButton,
                 () -> {
-                    disableButton.setText("Enable");
+                    disableButton.setText(TranslationKey.enable.value());
                     titleLabel.setForeground(AppThemeColor.TEXT_DISABLE);
                     applicationConfig.get().setItemsGridEnable(false);
                     repaint();
                 },
                 () -> {
-                    disableButton.setText("Disable");
+                    disableButton.setText(TranslationKey.disable.value());
                     titleLabel.setForeground(AppThemeColor.TEXT_NICKNAME);
                     applicationConfig.get().setItemsGridEnable(true);
                     repaint();
                 }, this.applicationConfig.get().isItemsGridEnable());
-        JButton hideButton = componentsFactory.getBorderedButton("Save");
+        JButton hideButton = componentsFactory.getBorderedButton(TranslationKey.save.value());
         hideButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
         hideButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -197,7 +198,7 @@ public class ItemsGridFrame extends AbstractMovableComponentFrame {
             }
         });
 
-        JButton dismissAllButton = componentsFactory.getBorderedButton("Dismiss All");
+        JButton dismissAllButton = componentsFactory.getBorderedButton(TranslationKey.dismiss_all.value());
         dismissAllButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
         dismissAllButton.addMouseListener(new MouseAdapter() {
             @Override

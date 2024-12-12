@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.misc.WhisperNotifierStatus;
 import com.mercury.platform.shared.CloneHelper;
 import com.mercury.platform.shared.PushBulletManager;
@@ -52,12 +53,12 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             this.vulkanSnapshot.setVulkanSupportEnabled(vulkanEnableCheck.isSelected());
         });
 
-        JCheckBox hideTaskbarUntilHover = this.componentsFactory.getCheckBox(this.applicationSnapshot.isHideTaskbarUntilHover(), "Taskbar will be hidden until you hover onto it");
+        JCheckBox hideTaskbarUntilHover = this.componentsFactory.getCheckBox(this.applicationSnapshot.isHideTaskbarUntilHover(), TranslationKey.taskbar_hover_tt.value());
         hideTaskbarUntilHover.addActionListener(action -> {
             this.applicationSnapshot.setHideTaskbarUntilHover(hideTaskbarUntilHover.isSelected());
         });
 
-        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), "Enable support for poe2");
+        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), TranslationKey.poe2_support_tt.value());
         poe2Support.addActionListener(action -> {
             this.applicationSnapshot.setPoe2(poe2Support.isSelected());
         });
@@ -87,7 +88,7 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             }
         });
 
-        JComboBox notifierStatusPicker = this.componentsFactory.getComboBox(new String[]{"Always play a sound", "Only when tabbed out", "Never"});
+        JComboBox notifierStatusPicker = this.componentsFactory.getComboBox(new String[]{TranslationKey.always_play_a_sound.value(), TranslationKey.only_when_tabbed_out.value(), TranslationKey.never.value()});
         notifierStatusPicker.setSelectedItem(this.applicationSnapshot.getNotifierStatus().asPretty());
         notifierStatusPicker.addActionListener(action -> {
             this.applicationSnapshot.setNotifierStatus(WhisperNotifierStatus.valueOfPretty((String) notifierStatusPicker.getSelectedItem()));
@@ -107,7 +108,7 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
 
         JPanel poeFolderPanel = componentsFactory.getTransparentPanel(new BorderLayout(4, 4));
         poeFolderPanel.add(gamePathField, BorderLayout.CENTER);
-        JButton changeButton = this.componentsFactory.getBorderedButton("Change");
+        JButton changeButton = this.componentsFactory.getBorderedButton(TranslationKey.change.value());
         poeFolderPanel.add(changeButton, BorderLayout.LINE_END);
 
         JFileChooser fileChooser = new JFileChooser();
@@ -133,7 +134,7 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             }
         });
 
-        JButton testPush = this.componentsFactory.getButton("Test push");
+        JButton testPush = this.componentsFactory.getButton(TranslationKey.test_push.value());
         testPush.addActionListener((actionEvent) -> {
             PushBulletManager.INSTANCE.testPush();
         });
@@ -142,25 +143,25 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         pushbulletPanel.add(pushbulletTextField, BorderLayout.CENTER);
         pushbulletPanel.add(testPush, BorderLayout.LINE_END);
 
-        root.add(this.componentsFactory.getTextLabel("Notify me when an update is available", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.notify_me_when_an_update_is_available.value(), FontStyle.REGULAR, 16));
         root.add(checkEnable);
-        root.add(this.componentsFactory.getTextLabel("Vulkan support enabled", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.vulkan_support_enabled.value(), FontStyle.REGULAR, 16));
         root.add(vulkanEnableCheck);
-        root.add(this.componentsFactory.getTextLabel("Hide taskbar", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.hide_taskbar.value(), FontStyle.REGULAR, 16));
         root.add(hideTaskbarUntilHover);
-        root.add(this.componentsFactory.getTextLabel("POE 2 support", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.poe_2_support.value(), FontStyle.REGULAR, 16));
         root.add(poe2Support);
-        root.add(this.componentsFactory.getTextLabel("Component fade out time: ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.component_fade_out_time.value(": "), FontStyle.REGULAR, 16));
         root.add(fadeTimeSlider);
-        root.add(this.componentsFactory.getTextLabel("Min opacity: ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.min_opacity.value(": "), FontStyle.REGULAR, 16));
         root.add(this.minSlider);
-        root.add(this.componentsFactory.getTextLabel("Max opacity: ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.max_opacity.value(": "), FontStyle.REGULAR, 16));
         root.add(this.maxSlider);
-        root.add(this.componentsFactory.getTextLabel("Notification sound alerts: ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.notification_sound_alerts.value(": "), FontStyle.REGULAR, 16));
         root.add(this.componentsFactory.wrapToSlide(notifierStatusPicker, AppThemeColor.ADR_BG, 0, 0, 0, 2));
-        root.add(this.componentsFactory.getTextLabel("Path of Exile folder: ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.path_of_exile_folder.value(": "), FontStyle.REGULAR, 16));
         root.add(this.componentsFactory.wrapToSlide(poeFolderPanel, AppThemeColor.ADR_BG, 0, 0, 2, 2));
-        root.add(this.componentsFactory.getTextLabel("Pushbullet AccessToken ", FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.pushbullet_accesstoken.value(": "), FontStyle.REGULAR, 16));
         root.add(this.componentsFactory.wrapToSlide(pushbulletPanel, AppThemeColor.ADR_BG, 0, 0, 0, 2));
 
         this.container.add(this.componentsFactory.wrapToSlide(root));

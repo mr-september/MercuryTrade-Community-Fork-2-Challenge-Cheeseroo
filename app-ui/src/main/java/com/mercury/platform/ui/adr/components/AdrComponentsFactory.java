@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.adr.components;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.CloneHelper;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.IconBundleConfigurationService;
@@ -42,8 +43,8 @@ public class AdrComponentsFactory {
     public JPanel getComponentSizePanel(AdrComponentDescriptor descriptor, boolean fromGroup) {
         JPanel root = this.componentsFactory.getJPanel(new GridLayout(1, 4, 4, 0));
         root.setBackground(AppThemeColor.SLIDE_BG);
-        JLabel widthLabel = this.componentsFactory.getTextLabel("Width:");
-        JLabel heightLabel = this.componentsFactory.getTextLabel("Height:");
+        JLabel widthLabel = this.componentsFactory.getTextLabel(TranslationKey.width.value(":"));
+        JLabel heightLabel = this.componentsFactory.getTextLabel(TranslationKey.height.value(":"));
         JTextField widthField = this.getSmartField(descriptor.getSize().width, new IntegerFieldValidator(10, 2000), value -> {
             descriptor.setSize(new Dimension(value, descriptor.getSize().height));
             if (descriptor instanceof AdrTrackerGroupDescriptor) {
@@ -109,7 +110,7 @@ public class AdrComponentsFactory {
                         new DoubleFieldValidator(0.0, 1000.0), descriptor::setSoundThreshold);
         durationField.setPreferredSize(new Dimension(36, 26));
         root.add(soundPathBox, BorderLayout.LINE_START);
-        root.add(this.componentsFactory.getTextLabel("when duration ="), BorderLayout.CENTER);
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.when_duration.value(" =")), BorderLayout.CENTER);
         root.add(durationField, BorderLayout.LINE_END);
         return root;
     }
@@ -132,8 +133,8 @@ public class AdrComponentsFactory {
     public JPanel getCaptureSizePanel(AdrCaptureDescriptor descriptor) {
         JPanel root = this.componentsFactory.getJPanel(new GridLayout(1, 4, 4, 0));
         root.setBackground(AppThemeColor.SLIDE_BG);
-        JLabel widthLabel = this.componentsFactory.getTextLabel("Width:");
-        JLabel heightLabel = this.componentsFactory.getTextLabel("Height:");
+        JLabel widthLabel = this.componentsFactory.getTextLabel(TranslationKey.width.value(":"));
+        JLabel heightLabel = this.componentsFactory.getTextLabel(TranslationKey.height.value(":"));
         JTextField widthField = this.getSmartField(descriptor.getCaptureSize().width, new IntegerFieldValidator(10, 2000), value -> {
             descriptor.setCaptureSize(new Dimension(value, descriptor.getCaptureSize().height));
             MercuryStoreUI.adrReloadSubject.onNext(descriptor);
@@ -226,7 +227,7 @@ public class AdrComponentsFactory {
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     button.setBackground(AppThemeColor.SLIDE_BG);
-                    button.setText("Press any key");
+                    button.setText(TranslationKey.press_any_key.value());
                     allowed = true;
                     button.removeMouseListener(this);
                 }
@@ -254,7 +255,7 @@ public class AdrComponentsFactory {
         JButton hotKeyButton = this.getHotKeyButton(descriptor);
         JPanel hotKeyPanel = this.componentsFactory.getJPanel(new BorderLayout());
         hotKeyPanel.setBackground(AppThemeColor.SLIDE_BG);
-        JCheckBox refreshBox = this.componentsFactory.getCheckBox(descriptor.isHotKeyRefresh(), "Always refresh?");
+        JCheckBox refreshBox = this.componentsFactory.getCheckBox(descriptor.isHotKeyRefresh(), TranslationKey.always_refresh.value());
         refreshBox.addActionListener(state -> {
             descriptor.setHotKeyRefresh(refreshBox.isSelected());
             MercuryStoreUI.adrReloadSubject.onNext(descriptor);
@@ -311,7 +312,7 @@ public class AdrComponentsFactory {
         JLabel iconPathLabel = this.componentsFactory.getTextLabel(descriptor.getIconPath());
         root.add(iconLabel, BorderLayout.LINE_START);
         root.add(iconPathLabel, BorderLayout.CENTER);
-        JButton selectIcon = this.componentsFactory.getBorderedButton("Select");
+        JButton selectIcon = this.componentsFactory.getBorderedButton(TranslationKey.select.value());
         selectIcon.addActionListener(action -> {
             MercuryStoreUI.adrOpenIconSelectSubject.onNext(selectedIconPath -> {
                 descriptor.setIconPath(selectedIconPath);
@@ -364,7 +365,7 @@ public class AdrComponentsFactory {
             public void mouseClicked(MouseEvent e) {
                 colorChooser.setColor(descriptor.getDefaultValueTextColor());
                 JDialog dialog = JColorChooser.createDialog(defaultValuePanel,
-                        "Set default text color",
+                        TranslationKey.set_default_text_color.value(),
                         true,
                         colorChooser,
                         action -> {
@@ -380,7 +381,7 @@ public class AdrComponentsFactory {
             public void mouseClicked(MouseEvent e) {
                 colorChooser.setColor(descriptor.getMediumValueTextColor());
                 JDialog dialog = JColorChooser.createDialog(mediumValuePanel,
-                        "Set text color",
+                        TranslationKey.set_text_color.value(),
                         true,
                         colorChooser,
                         action -> {
@@ -396,7 +397,7 @@ public class AdrComponentsFactory {
             public void mouseClicked(MouseEvent e) {
                 colorChooser.setColor(descriptor.getLowValueTextColor());
                 JDialog dialog = JColorChooser.createDialog(lowValuePanel,
-                        "Set text color",
+                        TranslationKey.set_text_color.value(),
                         true,
                         colorChooser,
                         action -> {
@@ -570,7 +571,7 @@ public class AdrComponentsFactory {
         JPanel textColorPanel = this.getTextColorPanel(descriptor);
         JPanel textPanel = this.componentsFactory.getJPanel(new BorderLayout());
         textPanel.setBackground(AppThemeColor.SLIDE_BG);
-        JCheckBox textEnableBox = this.componentsFactory.getCheckBox(descriptor.isTextEnable(), "Is text enable?");
+        JCheckBox textEnableBox = this.componentsFactory.getCheckBox(descriptor.isTextEnable(), TranslationKey.is_text_enable.value());
         textEnableBox.addActionListener(state -> {
             descriptor.setTextEnable(textEnableBox.isSelected());
             MercuryStoreUI.adrReloadSubject.onNext(descriptor);
@@ -611,7 +612,7 @@ public class AdrComponentsFactory {
         JPanel iconSelectPanel = this.getIconSelectPanel(descriptor);
         JPanel iconPanel = this.componentsFactory.getJPanel(new BorderLayout());
         iconPanel.setBackground(AppThemeColor.SLIDE_BG);
-        JCheckBox iconEnableBox = this.componentsFactory.getCheckBox(descriptor.isIconEnable(), "Is icon enable?");
+        JCheckBox iconEnableBox = this.componentsFactory.getCheckBox(descriptor.isIconEnable(), TranslationKey.is_icon_enable.value());
         iconEnableBox.addActionListener(state -> {
             descriptor.setIconEnable(iconEnableBox.isSelected());
             MercuryStoreUI.adrReloadSubject.onNext(descriptor);
@@ -643,7 +644,7 @@ public class AdrComponentsFactory {
             public void mouseClicked(MouseEvent e) {
                 colorChooser.setColor(binder.getValue());
                 JDialog dialog = JColorChooser.createDialog(colorPanel,
-                        "Set color",
+                        TranslationKey.set_color.value(),
                         true,
                         colorChooser,
                         action -> {
@@ -686,7 +687,7 @@ public class AdrComponentsFactory {
             public void mouseClicked(MouseEvent e) {
                 colorChooser.setColor(colorBinder.getValue());
                 JDialog dialog = JColorChooser.createDialog(colorPanel,
-                        "Set color",
+                        TranslationKey.set_color.value(),
                         true,
                         colorChooser,
                         action -> {
@@ -737,7 +738,7 @@ public class AdrComponentsFactory {
     public JPanel getBorderColorPanel(AdrDurationComponentDescriptor descriptor, DialogCallback<Color> callback) {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
         root.setBackground(AppThemeColor.SLIDE_BG);
-        JCheckBox checkBox = this.componentsFactory.getCheckBox(descriptor.isBindToTextColor(), "Bind to text color?");
+        JCheckBox checkBox = this.componentsFactory.getCheckBox(descriptor.isBindToTextColor(), TranslationKey.bind_to_text_color.value());
         checkBox.addActionListener(e -> descriptor.setBindToTextColor(checkBox.isSelected()));
         JPanel colorPickerPanel = this.getHexColorPickerPanel(descriptor::getBorderColor, value -> {
             checkBox.setSelected(false);
@@ -777,7 +778,7 @@ public class AdrComponentsFactory {
         contextMenu.setForeground(AppThemeColor.TEXT_DEFAULT);
 
         if (treeNode.getParent().getData() != null) {
-            JMenuItem moveOut = this.componentsFactory.getMenuItem("Move out");
+            JMenuItem moveOut = this.componentsFactory.getMenuItem(TranslationKey.move_out.value());
             moveOut.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, AppThemeColor.ADR_DEFAULT_BORDER));
             moveOut.addActionListener(action -> {
                 MercuryStoreUI.adrRemoveComponentSubject.onNext(treeNode.getData());
@@ -802,7 +803,7 @@ public class AdrComponentsFactory {
         }
         treeNode.getParent().forEach(neighbor -> {
             if (neighbor.getData() instanceof AdrTrackerGroupDescriptor) {
-                JMenuItem moveTo = this.componentsFactory.getMenuItem("Move to " + neighbor.getData().getTitle());
+                JMenuItem moveTo = this.componentsFactory.getMenuItem(TranslationKey.move_to.value(" ") + neighbor.getData().getTitle());
                 moveTo.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, AppThemeColor.ADR_DEFAULT_BORDER));
                 moveTo.addActionListener(action -> {
                     MercuryStoreUI.adrRemoveComponentSubject.onNext(treeNode.getData());
@@ -839,7 +840,7 @@ public class AdrComponentsFactory {
                 }
             }
         });
-        JMenuItem export = this.componentsFactory.getMenuItem("Share");
+        JMenuItem export = this.componentsFactory.getMenuItem(TranslationKey.share.value());
         export.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, AppThemeColor.ADR_DEFAULT_BORDER));
         export.addActionListener(action -> {
             MercuryStoreUI.adrExportSubject.onNext(treeNode.getData());
@@ -849,11 +850,11 @@ public class AdrComponentsFactory {
     }
 
     public JPanel getRightComponentOperationsPanel(AdrComponentDescriptor descriptor) {
-        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 14, AppThemeColor.SLIDE_BG, TooltipConstants.ADR_REMOVE_BUTTON);
+        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 14, AppThemeColor.SLIDE_BG, TranslationKey.adr_remove_button.value());
         removeButton.addActionListener(action -> {
-            new AlertDialog(this.getRemoveCallback(descriptor), "Do you want to delete \"" + descriptor.getTitle() + "\"component?", removeButton).setVisible(true);
+            new AlertDialog(this.getRemoveCallback(descriptor), TranslationKey.do_you_want_to_delete.value(" \"") + descriptor.getTitle() + "\"" + TranslationKey.component.value("?"), removeButton).setVisible(true);
         });
-        JButton visibleButton = this.componentsFactory.getIconButton("app/adr/visible_node_on.png", 14, AppThemeColor.SLIDE_BG, TooltipConstants.ADR_VISIBLE_BUTTON);
+        JButton visibleButton = this.componentsFactory.getIconButton("app/adr/visible_node_on.png", 14, AppThemeColor.SLIDE_BG, TranslationKey.adr_visible_button.value());
         visibleButton.addActionListener(action -> {
             if (descriptor.isVisible()) {
                 visibleButton.setIcon(this.componentsFactory.getIcon("app/adr/visible_node_off.png", 14));
@@ -872,7 +873,7 @@ public class AdrComponentsFactory {
     }
 
     public JPanel getLeftComponentOperationsPanel(AdrTreeNode<AdrComponentDescriptor> treeNode) {
-        JButton duplicateButton = this.componentsFactory.getIconButton("app/adr/duplicate_node.png", 14, AppThemeColor.SLIDE_BG, TooltipConstants.ADR_DUPLICATE_BUTTON);
+        JButton duplicateButton = this.componentsFactory.getIconButton("app/adr/duplicate_node.png", 14, AppThemeColor.SLIDE_BG, TranslationKey.adr_duplicate_button.value());
         duplicateButton.addActionListener(action -> {
             AdrComponentDescriptor cloned = CloneHelper.cloneObject(treeNode.getData());
             if (cloned != null) {
@@ -884,7 +885,7 @@ public class AdrComponentsFactory {
                                 treeNode.getParent().getData()));
             }
         });
-        JButton moveButton = this.componentsFactory.getIconButton("app/adr/move_node.png", 14, AppThemeColor.SLIDE_BG, TooltipConstants.ADR_MOVE_BUTTON);
+        JButton moveButton = this.componentsFactory.getIconButton("app/adr/move_node.png", 14, AppThemeColor.SLIDE_BG, TranslationKey.adr_move_button.value());
         moveButton.addActionListener(action -> {
             JPopupMenu contextMenu = this.getContextMenu(treeNode);
             contextMenu.show(moveButton, 8, 8);

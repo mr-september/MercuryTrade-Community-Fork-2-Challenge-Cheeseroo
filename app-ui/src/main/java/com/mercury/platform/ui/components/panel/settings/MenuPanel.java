@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.settings;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.ui.components.ComponentsFactory;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -55,22 +56,22 @@ public class MenuPanel extends JPanel implements ViewInit {
     @SuppressWarnings("all")
     private MenuEntry[] getEntries() {
         return new MenuEntry[]{
-                new MenuEntry("General", () -> {
+                new MenuEntry(TranslationKey.general.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.GENERAL_SETTINGS);
                 }, this.componentsFactory.getIcon("app/general_settings.png", 22)),
-                new MenuEntry("Sound", () -> {
+                new MenuEntry(TranslationKey.sound.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.SOUND_SETTING);
                 }, this.componentsFactory.getIcon("app/sound_settings.png", 22)),
-                new MenuEntry("Notification panel", () -> {
+                new MenuEntry(TranslationKey.notification_panel.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.NOTIFICATION_SETTINGS);
                 }, this.componentsFactory.getIcon("app/notification_panel_settings.png", 22)),
-                new MenuEntry("Task bar", () -> {
+                new MenuEntry(TranslationKey.task_bar.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.TASK_BAR_SETTINGS);
                 }, this.componentsFactory.getIcon("app/task_bar_settings.png", 22)),
-                new MenuEntry("Support", () -> {
+                new MenuEntry(TranslationKey.support.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.SUPPORT);
                 }, this.componentsFactory.getIcon("app/support_settings.png", 22)),
-                new MenuEntry("About", () -> {
+                new MenuEntry(TranslationKey.about.value(), () -> {
                     MercuryStoreUI.settingsStateSubject.onNext(SettingsPage.ABOUT);
                 }, this.componentsFactory.getIcon("app/app-icon_sepia.png", 22)),
         };

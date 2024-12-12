@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.dialog;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -30,14 +31,14 @@ public class AlertDialog extends BaseDialog<Boolean, String> {
         miscPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
 
         if (!onlyOk) {
-            JButton okButton = this.componentsFactory.getBorderedButton("Yes", 16);
+            JButton okButton = this.componentsFactory.getBorderedButton(TranslationKey.yes.value(), 16);
             okButton.setPreferredSize(new Dimension(120, 26));
             okButton.addActionListener(action -> {
                 this.callback.onAction(true);
                 this.setVisible(false);
                 this.dispose();
             });
-            JButton cancelButton = this.componentsFactory.getBorderedButton("No", 16);
+            JButton cancelButton = this.componentsFactory.getBorderedButton(TranslationKey.no.value(), 16);
             cancelButton.addActionListener(action -> {
                 this.callback.onAction(false);
                 this.setVisible(false);
@@ -48,7 +49,7 @@ public class AlertDialog extends BaseDialog<Boolean, String> {
             miscPanel.add(okButton);
             miscPanel.add(cancelButton);
         } else {
-            JButton okButton = this.componentsFactory.getBorderedButton("OK", 16);
+            JButton okButton = this.componentsFactory.getBorderedButton(TranslationKey.ok.value(), 16);
             okButton.setPreferredSize(new Dimension(120, 26));
             okButton.addActionListener(action -> {
                 this.setVisible(false);

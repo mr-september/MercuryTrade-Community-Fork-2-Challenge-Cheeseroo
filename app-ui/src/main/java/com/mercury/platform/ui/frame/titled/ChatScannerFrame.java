@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.titled;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.misc.SoundType;
 import com.mercury.platform.core.utils.interceptor.MessageInterceptor;
 import com.mercury.platform.core.utils.interceptor.filter.MessageMatcher;
@@ -63,7 +64,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 15f,
-                "Show messages containing the following words:");
+                TranslationKey.show_messages_containing_the_following_words.value(":"));
         title.setBorder(BorderFactory.createEmptyBorder(2, 0, 6, 0));
         JTextArea words = componentsFactory.getSimpleTextArea(this.scannerService.get().getWords());
         words.setEditable(true);
@@ -73,7 +74,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
 
         JPanel navBar = componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER), AppThemeColor.FRAME);
         Dimension buttonSize = new Dimension(90, 24);
-        JButton save = componentsFactory.getBorderedButton("Save");
+        JButton save = componentsFactory.getBorderedButton(TranslationKey.save.value());
         save.addActionListener(action -> {
             this.scannerService.get().setWords(words.getText());
             MercuryStoreCore.saveConfigSubject.onNext(true);
@@ -82,7 +83,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
             this.performNewStrings(split);
             this.hideComponent();
         });
-        JButton cancel = componentsFactory.getBorderedButton("Cancel");
+        JButton cancel = componentsFactory.getBorderedButton(TranslationKey.cancel.value());
         cancel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
@@ -108,7 +109,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         quickResponseLabel.setFont(this.componentsFactory.getFont(FontStyle.REGULAR, 16));
         quickResponseLabel.setForeground(AppThemeColor.TEXT_DEFAULT);
         quickResponseLabel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 0));
-        quickResponseLabel.setText("Response message:");
+        quickResponseLabel.setText(TranslationKey.response_message.value(": "));
         propertiesPanel.add(quickResponseLabel, BorderLayout.LINE_START);
         JTextField quickResponseField = this.componentsFactory.getTextField(this.scannerService.get().getResponseMessage(), FontStyle.BOLD, 15f);
         quickResponseField.addFocusListener(new FocusAdapter() {
@@ -132,23 +133,23 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 16f,
-                "Status: stopped");
+                TranslationKey.status_stopped.value());
 
-        JButton processButton = componentsFactory.getBorderedButton("Start");
+        JButton processButton = componentsFactory.getBorderedButton(TranslationKey.start.value());
         processButton.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 16f));
         processButton.setPreferredSize(new Dimension(80, 20));
         processButton.addActionListener(action -> {
             if (this.running) {
                 this.running = false;
-                processButton.setText("Start");
-                statusLabel.setText("Status: stopped");
+                processButton.setText(TranslationKey.start.value());
+                statusLabel.setText(TranslationKey.status_stopped.value());
                 if (this.currentInterceptor != null) {
                     MercuryStoreCore.removeInterceptorSubject.onNext(this.currentInterceptor);
                 }
             } else {
                 this.running = true;
-                processButton.setText("Stop");
-                statusLabel.setText("Status: running");
+                processButton.setText(TranslationKey.stop.value());
+                statusLabel.setText(TranslationKey.status_running.value());
                 this.performNewStrings(this.scannerService.get().getWords().split(","));
             }
         });
@@ -245,7 +246,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Chat scanner";
+        return TranslationKey.chat_scanner.value();
     }
 
     @Override

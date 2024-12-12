@@ -3,6 +3,7 @@ package com.mercury.platform.ui.components.panel.settings.page;
 
 import com.google.common.io.ByteSource;
 import com.google.gson.Gson;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.MercuryConstants;
 import com.mercury.platform.patches.Change;
 import com.mercury.platform.patches.PatchNotes;
@@ -47,7 +48,7 @@ public class AboutPagePanel extends SettingsPagePanel {
         titlePanel.add(componentsFactory.getTextLabel("MercuryTrade", FontStyle.REGULAR, 15));
         panel.add(titlePanel);
         JPanel versionPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
-        versionPanel.add(componentsFactory.getTextLabel("App version: " + MercuryConstants.APP_VERSION, FontStyle.REGULAR, 15));
+        versionPanel.add(componentsFactory.getTextLabel(TranslationKey.app_version.value(": ") + MercuryConstants.APP_VERSION, FontStyle.REGULAR, 15));
         panel.add(versionPanel);
 
         JLabel githubButton = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_MESSAGE, TextAlignment.LEFTOP, 16f, "Github");
@@ -71,7 +72,6 @@ public class AboutPagePanel extends SettingsPagePanel {
                 setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
-
 
         JPanel feedbackPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
         feedbackPanel.add(componentsFactory.getTextLabel("Feedback & Suggestions: ", FontStyle.REGULAR, 15));

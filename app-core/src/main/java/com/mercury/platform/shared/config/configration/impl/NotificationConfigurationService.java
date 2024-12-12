@@ -1,5 +1,6 @@
 package com.mercury.platform.shared.config.configration.impl;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.configration.BaseConfigurationService;
 import com.mercury.platform.shared.config.configration.PlainConfigurationService;
 import com.mercury.platform.shared.config.descriptor.HotKeyDescriptor;

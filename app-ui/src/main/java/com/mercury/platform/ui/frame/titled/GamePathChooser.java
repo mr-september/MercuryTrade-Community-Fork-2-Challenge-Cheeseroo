@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.titled;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.utils.FileMonitor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -65,7 +66,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        JButton selectButton = componentsFactory.getBorderedButton("Select");
+        JButton selectButton = componentsFactory.getBorderedButton(TranslationKey.select.value());
         selectButton.addActionListener(e -> {
             int returnVal = fileChooser.showOpenDialog(GamePathChooser.this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -86,7 +87,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Cancel",
+                TranslationKey.cancel.value(),
                 16f);
         cancelButton.addActionListener(action -> {
             if (!this.readyToStart) {
@@ -94,7 +95,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
             }
         });
         cancelButton.setPreferredSize(new Dimension(120, 26));
-        JButton saveButton = componentsFactory.getBorderedButton("Save");
+        JButton saveButton = componentsFactory.getBorderedButton(TranslationKey.save.value());
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -104,7 +105,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
                     }
                     if (isValidGamePath(gamePath)) {
                         readyToStart = true;
-                        statusLabel.setText("Success!");
+                        statusLabel.setText(TranslationKey.success.value());
                         saveButton.setEnabled(false);
                         cancelButton.setEnabled(false);
                         statusLabel.setForeground(AppThemeColor.TEXT_SUCCESS);
@@ -122,7 +123,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
                         timer.start();
                         logger.info("UI module was started.");
                     } else {
-                        statusLabel.setText("Wrong game path!");
+                        statusLabel.setText(TranslationKey.wrong_game_path.value());
                         pack();
                     }
                 }
@@ -147,6 +148,6 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Select game path (check task manager if not sure)";
+        return TranslationKey.select_game_path.value();
     }
 }

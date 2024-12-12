@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.titled;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -63,7 +64,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
         JPanel navBar = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.RIGHT));
         Dimension dimension = new Dimension(80, 26);
 
-        JButton download = componentsFactory.getBorderedButton("Download");
+        JButton download = componentsFactory.getBorderedButton(TranslationKey.download.value());
         download.addActionListener(action -> {
             download.setEnabled(false);
             progressBarFrame.setVisible(true);
@@ -82,9 +83,9 @@ public class NotesFrame extends AbstractTitledComponentFrame {
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Close",
+                TranslationKey.close.value(),
                 14f);
-        JButton next = componentsFactory.getBorderedButton("Next");
+        JButton next = componentsFactory.getBorderedButton(TranslationKey.next.value());
         next.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -98,6 +99,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
                 }
             }
         });
+
         JButton previous = componentsFactory.getButton(
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
@@ -105,7 +107,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
                         BorderFactory.createLineBorder(AppThemeColor.BORDER),
                         BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
                 ),
-                "Previous",
+                TranslationKey.previous.value(),
                 14f);
         previous.addMouseListener(new MouseAdapter() {
             @Override
@@ -163,7 +165,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Welcome to MercuryTrade";
+        return TranslationKey.welcome.value();
     }
 
     public enum NotesType {
@@ -278,7 +280,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
 
             this.percentLabel = componentsFactory.getTextLabel(percent + "%");
 
-            this.restart = componentsFactory.getBorderedButton("Restart");
+            this.restart = componentsFactory.getBorderedButton(TranslationKey.restart.value());
             this.restart.addActionListener(action -> {
                 this.restart.setEnabled(false);
                 FramesManager.INSTANCE.exitForUpdate();

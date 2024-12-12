@@ -1,5 +1,6 @@
 package com.mercury.platform.core.update.core;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.update.bus.UpdaterClientEventBus;
 import com.mercury.platform.core.update.bus.handlers.UpdateEventHandler;
 import com.mercury.platform.core.update.core.holder.ApplicationHolder;
@@ -36,7 +37,7 @@ public class UpdaterClient {
         MercuryStoreCore.requestPatchSubject.subscribe(state -> {
             if (!connectionEstablished) {
                 ApplicationHolder.getInstance().setManualRequest(false);
-                MercuryStoreCore.stringAlertSubject.onNext("Server is currently down, please try again later.");
+                MercuryStoreCore.stringAlertSubject.onNext(TranslationKey.server_down.value());
             } else {
                 MercuryStoreCore.checkOutPatchSubject.onNext(true);
             }

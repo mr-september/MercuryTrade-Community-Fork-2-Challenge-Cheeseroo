@@ -21,18 +21,4 @@ public class HotKeysInterceptor {
         GlobalScreen.addNativeKeyListener(new MercuryNativeKeyListener());
         GlobalScreen.addNativeMouseListener(new MercuryNativeMouseListener());
     }
-
-//    public static void main(String[] args) {
-////        new HotKeysInterceptor();
-//        Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
-//        logger.setLevel(Level.OFF);
-//
-//        logger.setUseParentHandlers(false);
-//        try {
-//            GlobalScreen.registerNativeHook();
-//        } catch (NativeHookException e) {
-//            e.printStackTrace();
-//        }
-//        GlobalScreen.addNativeMouseListener(new MercuryNativeMouseListener());
-//    }
 }

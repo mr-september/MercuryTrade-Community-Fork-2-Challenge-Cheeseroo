@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrProfileDescriptor;
@@ -38,7 +39,7 @@ public class AdrImportDialog extends AdrDialog {
 
     public AdrImportDialog(Component relative) {
         super(relative, null);
-        this.setTitle("Import manager");
+        this.setTitle(TranslationKey.import_manager.value());
 
         MercuryStoreUI.adrManagerPack.subscribe(state -> {
             this.pack();
@@ -94,7 +95,7 @@ public class AdrImportDialog extends AdrDialog {
         JPanel headerPanel = this.componentsFactory.getJPanel(new BorderLayout());
         headerPanel.setBackground(AppThemeColor.ADR_BG);
 
-        JLabel header = this.componentsFactory.getTextLabel("View:", FontStyle.BOLD, 18);
+        JLabel header = this.componentsFactory.getTextLabel(TranslationKey.view.value(":"), FontStyle.BOLD, 18);
         header.setForeground(AppThemeColor.TEXT_NICKNAME);
         headerPanel.add(header, BorderLayout.CENTER);
         this.viewPanel.add(headerPanel, BorderLayout.PAGE_START);
@@ -105,7 +106,7 @@ public class AdrImportDialog extends AdrDialog {
         this.viewPanel.add(this.treePanel, BorderLayout.CENTER);
 
         JPanel buttonsPanel = this.componentsFactory.getJPanel(new GridLayout(2, 1, 0, 6));
-        JButton importToCurrent = this.componentsFactory.getBorderedButton("Import to current profile");
+        JButton importToCurrent = this.componentsFactory.getBorderedButton(TranslationKey.import_to_current_profile.value());
         importToCurrent.addActionListener(action -> {
             List<AdrComponentDescriptor> descriptors = this.adrTree.getDescriptors();
             if (descriptors != null) {
@@ -115,7 +116,7 @@ public class AdrImportDialog extends AdrDialog {
                 this.dispose();
             }
         });
-        JButton createAndImport = this.componentsFactory.getBorderedButton("Create new and import");
+        JButton createAndImport = this.componentsFactory.getBorderedButton(TranslationKey.create_new_and_import.value());
         createAndImport.addActionListener(action -> {
             List<AdrComponentDescriptor> descriptors = this.adrTree.getDescriptors();
             if (descriptors != null) {
@@ -125,7 +126,7 @@ public class AdrImportDialog extends AdrDialog {
                         .stream()
                         .map(AdrProfileDescriptor::getProfileName)
                         .collect(Collectors.toList());
-                profilesNames.add("Create new");
+                profilesNames.add(TranslationKey.create_new.value());
                 new AdrNewProfileDialog(
                         profileName -> {
                             MercuryStoreUI.adrNewProfileSubject.onNext(profileName);

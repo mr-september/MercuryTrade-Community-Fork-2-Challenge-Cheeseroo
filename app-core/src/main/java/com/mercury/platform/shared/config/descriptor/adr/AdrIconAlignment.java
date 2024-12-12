@@ -1,6 +1,8 @@
 package com.mercury.platform.shared.config.descriptor.adr;
 
 
+import com.mercury.platform.TranslationKey;
+
 public enum AdrIconAlignment {
     LEFT {
         @Override

@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.dialog;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -28,7 +29,7 @@ public class OkDialog extends BaseDialog<Boolean, String> {
         miscPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
 
 
-        JButton okButton = this.componentsFactory.getBorderedButton("OK", 16);
+        JButton okButton = this.componentsFactory.getBorderedButton(TranslationKey.ok.value(), 16);
         okButton.setPreferredSize(new Dimension(120, 26));
         okButton.addActionListener(action -> {
             if (this.callback != null) {

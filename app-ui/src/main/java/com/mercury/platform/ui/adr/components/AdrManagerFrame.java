@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
@@ -101,7 +102,8 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
                 new AdrMainTreeNodeRenderer());
         this.tree.updateTree();
 
-        JButton addComponent = this.componentsFactory.getButton("New");
+
+        JButton addComponent = this.componentsFactory.getButton(TranslationKey.new_btn.value());
         addComponent.setBackground(AppThemeColor.FRAME);
         addComponent.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 20f));
         addComponent.setBorder(BorderFactory.createCompoundBorder(
@@ -173,9 +175,9 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
     }
 
     public void addProfileToSelect(String profileName) {
-        this.profileSelector.removeItem("Create new");
+        this.profileSelector.removeItem(TranslationKey.create_new.value());
         this.profileSelector.addItem(profileName);
-        this.profileSelector.addItem("Create new");
+        this.profileSelector.addItem(TranslationKey.create_new.value());
         this.profileSelector.setSelectedItem(profileName);
     }
 
@@ -185,7 +187,7 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
                 .stream()
                 .map(AdrProfileDescriptor::getProfileName)
                 .collect(Collectors.toList());
-        profilesNames.add("Create new");
+        profilesNames.add(TranslationKey.create_new.value());
         profilesNames.forEach(it -> this.profileSelector.addItem(it));
         this.profileSelector.setSelectedItem(this.selectedProfile.getProfileName());
         this.repaint();
@@ -203,14 +205,14 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
                 .stream()
                 .map(AdrProfileDescriptor::getProfileName)
                 .collect(Collectors.toList());
-        profilesNames.add("Create new");
+        profilesNames.add(TranslationKey.create_new.value());
         this.profileSelector = this.componentsFactory.getComboBox(profilesNames.toArray(new String[0]));
         this.profileSelector.setPreferredSize(new Dimension(120, 20));
         this.profileSelector.setBorder(BorderFactory.createLineBorder(AppThemeColor.MSG_HEADER_BORDER));
         this.profileSelector.setSelectedItem(this.selectedProfile.getProfileName());
         this.profileSelector.addItemListener(e -> {
             if (e.getStateChange() == ItemEvent.SELECTED) {
-                if (!profileSelector.getSelectedItem().equals("Create new")) {
+                if (!profileSelector.getSelectedItem().equals(TranslationKey.create_new.value())) {
                     if (!profileSelector.getSelectedItem().equals(this.selectedProfile.getProfileName())) {
                         profileSelector.setEnabled(false);
                         MercuryStoreUI.adrSelectProfileSubject.onNext((String) profileSelector.getSelectedItem());
@@ -223,7 +225,8 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
                 }
             }
         });
-        JButton exportButton = this.componentsFactory.getIconButton("app/adr/export_node.png", 15, AppThemeColor.FRAME, TooltipConstants.ADR_EXPORT_BUTTON);
+        JButton exportButton = this.componentsFactory.getIconButton("app/adr/export_node.png", 15, AppThemeColor.FRAME,
+                                                                    TranslationKey.adr_export_button.value());
         exportButton.addActionListener(action -> {
             this.exportDialog.getPayload().addAll(this.selectedProfile.getContents());
             this.exportDialog.postConstruct();
@@ -233,14 +236,14 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
         profilePanel.add(exportButton);
         JPanel bottomPanel = this.componentsFactory.getJPanel(new BorderLayout());
         bottomPanel.setBackground(AppThemeColor.ADR_FOOTER_BG);
-        profilePanel.add(this.componentsFactory.getTextLabel("Selected profile: "), BorderLayout.LINE_START);
+        profilePanel.add(this.componentsFactory.getTextLabel(TranslationKey.selected_profile.value(": ")), BorderLayout.LINE_START);
         profilePanel.add(profileSelector);
 //        JButton reloadButton = this.componentsFactory.getIconButton("app/adr/export_node.png", 15, AppThemeColor.FRAME, TooltipConstants.ADR_EXPORT_BUTTON);
 //        reloadButton.addActionListener(action -> {
 //            this.tree.updateTree();
 //        });
 //        profilePanel.add(reloadButton);
-        JButton profileSettingsButton = this.componentsFactory.getIconButton("app/adr/profile_settings_icon.png", 18, AppThemeColor.FRAME, TooltipConstants.ADR_EXPORT_BUTTON);
+        JButton profileSettingsButton = this.componentsFactory.getIconButton("app/adr/profile_settings_icon.png", 18, AppThemeColor.FRAME, TranslationKey.adr_export_button.value());
         profileSettingsButton.addActionListener(action -> {
             MercuryStoreUI.adrStateSubject.onNext(new AdrPageDefinition<>(AdrPageState.PROFILES_SETTINGS, null));
         });

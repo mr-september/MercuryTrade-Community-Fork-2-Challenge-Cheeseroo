@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.style.MercuryScrollBarUI;
 import com.mercury.platform.ui.components.panel.VerticalScrollContainer;
@@ -26,7 +27,7 @@ public class SupportPagePanel extends SettingsPagePanel {
         donatePanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
 
 
-        JTextArea donateText = componentsFactory.getSimpleTextArea("We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!");
+        JTextArea donateText = componentsFactory.getSimpleTextArea(TranslationKey.donate_text.value());
         donateText.setPreferredSize(new Dimension(300, 450));
         JPanel donateButtonPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
         donateButtonPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
@@ -44,7 +45,7 @@ public class SupportPagePanel extends SettingsPagePanel {
         JPanel root = componentsFactory.getTransparentPanel(new BorderLayout());
         root.setBackground(AppThemeColor.ADR_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
-        root.add(componentsFactory.getTextLabel("Thanks a lot for support:"), BorderLayout.PAGE_START);
+        root.add(componentsFactory.getTextLabel(TranslationKey.thanks_for_support.value(":")), BorderLayout.PAGE_START);
 
         JPanel donationsList = new VerticalScrollContainer();
         donationsList.setBackground(AppThemeColor.TRANSPARENT);

@@ -1,0 +1,454 @@
+// Close
+close = Zamknij
+// Start
+start = Start
+// Pause
+pause = Wstrzymaj
+// Stop
+stop = Zatrzymaj
+// Reset
+reset = Resetuj
+// Do not Disturb. MercuryTrade goes invisible.
+do_not_disturb = Nie przeszkadzać. MercuryTrade staje się niewidzialny.
+// SuperTradeMode. All notifications you receive will be unfolded.
+trade_mode = SuperTradeMode. Wszystkie otrzymane powiadomienia zostaną rozwinięte.
+// Chat Scanner. All chat messages with matching words will be displayed in a separate window.
+chat_filter = Skaner czatu. Wszystkie wiadomości na czacie pasujące do podanych słów będą wyświetlane w osobnym oknie.
+// Travel to your hideout
+travel_hideout = Podróż do twojej kryjówki
+// See IG help
+helpig = Zobacz pomoc IG
+// Overseer settings
+adr_settings = Ustawienia Overseer
+// Timer. Just a simple timer.
+timer = Timer. Po prostu zwykły timer.
+// History. Browse through all notifications you received previously.
+history = Historia. Przeglądaj wszystkie wcześniej otrzymane powiadomienia.
+// Panel unlock. Unlock panels to reposition.
+unlock_panel_tt = Odblokowanie panelu. Odblokuj panele, aby zmienić ich położenie.
+// Settings
+settings = Ustawienia
+// Item Grid. Align this grid with your in-game stash.
+item_grid = Siatka przedmiotów. Wyrównaj tę siatkę z twoją skrytką w grze.
+// Scale. Adjust MercuryTrade components size to your taste.
+scale_settings_tt = Skaluj. Dostosuj rozmiar komponentów MercuryTrade do swoich preferencji.
+// Exit
+exit = Wyjście
+// Pushbullet notifications on trade messages
+pushbullet_notification_active = Powiadomienia Pushbullet o wiadomościach handlowych
+// Invite player
+invite = Zaproś gracza
+// Still interested?
+still_interested = Nadal zainteresowany?
+// Repeat message
+repeat_message = Powtórz wiadomość
+// Kick player
+kick = Wyrzuć gracza
+// Offer Trade
+trade = Zaoferuj wymianę
+// Expand / collapse
+expand_collapse = Rozwiń / zwiń
+// Message this player
+open_chat = Wiadomość do tego gracza
+// Who is?
+who_is = Kim jest?
+// Show chat history
+switch_chat = Pokaż historię czatu
+// Visit player's hideout
+visit_ho = Odwiedź kryjówkę gracza
+// Leave from party
+leave = Opuść drużynę
+// Quick response
+quick_response = Szybka odpowiedź
+// Restore message
+history_reload = Przywróć wiadomość
+// Travel to this player's hideout
+ho_in = Podróż do kryjówki tego gracza
+// Is this tab a Quad Tab? Specify once for Mercury to know.
+is_it_quad_tt = Czy to jest zakładka Quad? Określ raz, aby Mercury wiedział
+// Clear history
+history_clear = Wyczyść historię
+// This box will appear if "Pre-group limit" is exceeded. All consecutive notifications will be grouped together to save screen space. Toggling this button will expand or collapse the whole group.
+notification_settings = To okno pojawi się, jeśli „Limit przed grupą” zostanie przekroczony. Wszystkie kolejne powiadomienia zostaną połączone, aby zaoszczędzić miejsce na ekranie. Przełączanie tego przycisku rozwija lub zwija całą grupę.
+// todo
+adr_profile_settings = Do zrobienia
+// Icons group
+adr_create_icon_group = Grupa ikon
+// Progress bars group
+adr_create_pb_group = Grupa pasków postępu
+// Icon
+adr_create_icon = Ikona
+// Progress bar
+adr_create_progress_bar = Pasek postępu
+// Import
+adr_import_component = Importuj
+// Share component
+adr_export_button = Udostępnij komponent
+// Remove component
+adr_remove_button = Usuń komponent
+// Add component
+adr_add_component = Dodaj komponent
+// Duplicate component
+adr_duplicate_button = Zduplikuj komponent
+// Move component
+adr_move_button = Przenieś komponent
+// Visible component's
+adr_visible_button = Widoczne komponenty
+// Tab
+tab = Zakładka
+// Always play a sound
+always_play_a_sound = Zawsze odtwarzaj dźwięk
+// Only when tabbed out
+only_when_tabbed_out = Tylko gdy aplikacja jest w tle
+// Never
+never = Nigdy
+// Server is currently down, please try again later.
+server_down = Serwer jest obecnie niedostępny, spróbuj ponownie później.
+// Offer trade
+offer_trade = Zaoferuj wymianę
+// Close notification
+close_notification = Zamknij powiadomienie
+// Still interested button
+still_interested_button = Przycisk „Nadal zainteresowany”
+// Chat history
+chat_history = Historia czatu
+// Visit player hideout
+visit_player_hideout = Odwiedź kryjówkę gracza
+// To hideout
+to_hideout = Do kryjówki
+// Dnd
+dnd = Nie przeszkadzać
+// You have latest version.
+you_have_latest_version = Masz najnowszą wersję.
+// Title
+title = Tytuł
+// Opacity
+opacity = Przezroczystość
+// Size
+size = Rozmiar
+// Location
+location = Lokalizacja
+// Sector size
+sector_size = Rozmiar sektora
+// Sector location
+sector_location = Lokalizacja sektora
+// Fps: high value can cause a drop fps
+fps_high_warn = FPS: wysoka wartość może powodować spadek wydajności
+// Advanced
+advanced = Zaawansowane
+// Component's padding
+component_padding = Wypełnienie komponentu
+// Group's type
+group_type = Typ grupy
+// Group's orientation
+group_orientation = Orientacja grupy
+// Progress bar's size
+progress_bar_size = Rozmiar paska postępu
+// Progress bar's orientation
+progress_bar_orientation = Orientacja paska postępu
+// Icon size
+icon_size = Rozmiar ikony
+// Always visible
+always_visible = Zawsze widoczne
+// HotKey
+hot-key = Klawisz skrótu
+// Icon
+icon = Ikona
+// Text format
+text_format = Format tekstu
+// Text outline
+text_outline = Obrys tekstu
+// Font size
+font_size = Rozmiar czcionki
+// Invert timer
+invert_timer = Odwróć stoper
+// Duration
+duration = Czas trwania
+// Sound alert
+sound_alert = Alarm dźwiękowy
+// Sound volume
+sound_volume = Głośność dźwięku
+// Delay
+delay = Opóźnienie
+// Background color
+background_color = Kolor tła
+// Text color
+text_color = Kolor tekstu
+// Border color
+border_color = Kolor obramowania
+// Animation mask
+animation_mask = Maska animacji
+// Invert mask
+invert_mask = Odwróć maskę
+// Mask color
+mask_color = Kolor maski
+// Capture
+capture = Przechwytuj
+// Profiles
+profiles = Profile
+// Orientation
+orientation = Orientacja
+// Insets
+insets = Wkładki
+// Icon alignment
+icon_alignment = Wyrównanie ikon
+// Foreground color
+foreground_color = Kolor pierwszego planu
+// Do you want to delete this component?
+delete_component_confirm = Czy chcesz usunąć ten komponent?
+// Width
+width = Szerokość
+// Height
+height = Wysokość
+// When duration
+when_duration = kiedy trwa
+// Press any key
+press_any_key = Naciśnij dowolny klawisz
+// Select
+select = Wybierz
+// Set default text color
+set_default_text_color = Ustaw domyślny kolor tekstu
+// Set text color
+set_text_color = Ustaw kolor tekstu
+// Is text enabled?
+is_text_enable = Czy tekst jest włączony?
+// Is icon enabled?
+is_icon_enable = Czy ikona jest włączona?
+// Set color
+set_color = Ustaw kolor
+// Bind to text color?
+bind_to_text_color = Połącz z kolorem tekstu?
+// Move out
+move_out = Przenieś
+// Move to
+move_to = Przenieś do
+// Share
+share = Udostępnij
+// Do you want to delete
+do_you_want_to_delete = Czy chcesz usunąć
+// Component
+component = komponent
+// Create new
+create_new = Stwórz nowy
+// Selected profile
+selected_profile = Wybrany profil
+// Export manager
+export_manager = Menedżer eksportu
+// View
+view = Widok
+// Select icon
+select_icon = Wybierz ikonę
+// Filter
+filter = Filtruj
+// Add icon
+add_icon = Dodaj ikonę
+// Choose icon
+choose_icon = Wybierz ikonę
+// Cancel
+cancel = Anuluj
+// Create new profile
+create_new_profile = Stwórz nowy profil
+// Profile name
+profile_name = Nazwa profilu
+// Create
+create = stwórz
+// Is it Quad?
+is_it_quad = Czy to jest Quad?
+// Find in stashtab
+find_in_stashtab = Znajdź w zakładce
+// App version
+app_version = Wersja aplikacji
+// Taskbar will be hidden until you hover onto it
+taskbar_hover_tt = Pasek zadań zostanie ukryty, dopóki na niego nie najedziesz
+// Enable support for poe2
+poe2_support_tt = Włącz wsparcie dla poe2
+// Change
+change = Zmień
+// Test push
+test_push = Przetestuj powiadomienie
+// Notify me when an update is available
+notify_me_when_an_update_is_available = Poinformuj mnie, gdy będzie dostępna aktualizacja
+// Vulkan support enabled
+vulkan_support_enabled = Włączone wsparcie dla Vulkan
+// Hide taskbar
+hide_taskbar = Ukryj pasek zadań
+// POE 2 support
+poe_2_support = Obsługa PoE 2
+// Component fade out time
+component_fade_out_time = Czas wygaszania komponentu
+// Min opacity
+min_opacity = Minimalna przezroczystość
+// Max opacity
+max_opacity = Maksymalna przezroczystość
+// Notification sound alerts
+notification_sound_alerts = Dźwiękowe powiadomienia o alarmach
+// Path of Exile folder
+path_of_exile_folder = Folder Path of Exile
+// Pushbullet AccessToken
+pushbullet_accesstoken = Dostęp Pushbullet
+// Whisper helper
+whisper_helper = Pomocnik szeptów
+// Incoming notification
+incoming_notification = Otrzymane powiadomienie
+// Outgoing notification
+outgoing_notification = Wysłane powiadomienie
+// Chat scanner notification
+chat_scanner_notification = Powiadomienie o skanowaniu czatu
+// Upwards
+upwards = W górę
+// Downwards
+downwards = W dół
+// Flow direction
+flow_direction = Kierunek przepływu
+// Pre-group limit
+pre_group_limit = Limit przed łączeniem grupy
+// Enabled
+enabled = Włączone
+// When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
+automatic_paste_description = Gdy skopiujesz tekst w formacie wiadomości handlowej, zostanie on automatycznie wklejony do okna czatu w PoE
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
+example_description = Przykład: kliknij przycisk „Szept”, wiadomość zostanie skopiowana do twojego schowka => MT wklei ją do czatu w PoE.
+// Close panel on kick button pressed
+close_panel_on_kick_button_pressed = Zamknij panel po naciśnięciu przycisku „Wyrzuć”
+// Show league
+show_league = Pokaż ligę
+// Response buttons
+response_buttons = Przycisk odpowiedzi
+// Hotkeys
+hotkeys = Skróty klawiszowe
+// Close panel on leave button pressed
+close_panel_on_leave_button_pressed = Zamknij panel po opuszczeniu drużyny
+// Auto-close triggers
+auto_close_triggers = Automatyczne zamykanie wyzwalaczy
+// Label
+label = Etykieta
+// Response text
+response_text = Tekst odpowiedzi
+// Add button
+add_button = Dodaj przycisk
+// Remove button
+remove_button = Usuń przycisk
+// Close notification panel after click?
+close_notif_panel_after_click = Zamknąć panel powiadomień po kliknięciu?
+// Notification
+notification = Powiadomienie
+// Chat Scanner
+chat_scanner = Skaner czatu
+// Clicks
+clicks = Kliknięcia
+// Update notification
+update_notification = Powiadomienie o aktualizacji
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = Staraliśmy się stworzyć użyteczne narzędzie w formie łatwej w użyciu aplikacji, głównie w celu handlowym. Jeśli MercuryTrade pomyślnie oszczędził Ci czas lub poprawił doświadczenie, możesz nam podziękować, dokonując darowizny lub opowiadając o nas znajomym. Jeśli chcesz, aby Twoje imię pojawiło się w naszej aplikacji w sekcji Hall of Fame, prosimy o podanie tej informacji w transakcji!
+// Thanks a lot for support
+thanks_for_support = Dziękujemy za wsparcie
+// Enable in-game dnd
+enable_in_game_dnd = Włącz tryb DND w grze
+// DND response
+dnd_response = Odpowiedź DND
+// Open tutorial
+open_tutorial = Otwórz samouczek
+// Open tests
+open_tests = Uruchom testy
+// Open patch notes
+open_patch_notes = Otwórz notatki o aktualizacji
+// Update event
+update_event = Aktualizacja wydarzenia
+// General
+general = Ogólne
+// Sound
+sound = Dźwięk
+// Notification panel
+notification_panel = Panel powiadomień
+// Task bar
+task_bar = Pasek zadań
+// Support
+support = Wsparcie
+// About
+about = O aplikacji
+// DND on
+dnd_on = Tryb DND włączony
+// DND off
+dnd_off = Tryb DND wyłączony
+// Pushbullet notifications on
+pushbullet_notifications_on = Powiadomienia Pushbullet włączone
+// Pushbullet notifications off
+pushbullet_notifications_off = Powiadomienia Pushbullet wyłączone
+// Yes
+yes = Tak
+// No
+no = Nie
+// OK
+ok = OK
+// Disable
+disable = Wyłącz
+// Enable
+enable = Włącz
+// Save
+save = Zapisz
+// Dismiss all
+dismiss_all = Odrzuć wszystko
+// Scale settings
+scale_settings = Ustawienia skalowania
+// Task panel
+task_panel = Panel zadań
+// Item cell panel
+item_cell_panel = Panel komórek przedmiotu
+// Dismiss
+dismiss = Odrzuć
+// New version available
+new_version_available = Dostępna nowa wersja
+// Show messages containing the following words
+show_messages_containing_the_following_words = Pokaż wiadomości zawierające następujące słowa
+// Response message
+response_message = Wiadomość odpowiedzi
+// Status: stopped
+status_stopped = Status: zatrzymano
+// Status: running
+status_running = Status: uruchomione
+// Wrong game path!
+wrong_game_path = Nieprawidłowa ścieżka do gry!
+// Success!
+success = Sukces!
+// Select game path (check task manager if not sure)
+select_game_path = Wybierz ścieżkę gry (sprawdź menedżera zadań, jeśli nie jesteś pewien)
+// Check for updates
+check_for_updates = Sprawdź aktualizacje
+// Hamsters are running
+hamsters_are_running = Chomiki działają
+// You have the newest version
+you_have_the_newest_version = Masz najnowszą wersję
+// There was a problem with checking newest version, do you want to manually check it?
+there_was_a_problem_with_checking_newest_version = Wystąpił problem ze sprawdzeniem najnowszej wersji, czy chcesz sprawdzić ręcznie?
+// There is a newer version, do you want to go to github?
+there_is_a_newer_version = Jest nowsza wersja, czy chcesz przejść na GitHub?
+// Monthly donations
+monthly_donations = Miesięczne darowizny
+// Donate
+donate = Przekaż darowiznę
+// next
+next = Następny
+// previous
+previous = Poprzedni
+// download
+download = Pobierz
+// Welcome to MercuryTrade
+welcome = Witaj w MercuryTrade
+// Restart
+restart = Zrestartuj
+// New
+new = Nowy
+// Group
+group = Grupa
+// Showcase
+showcase = Przykładowy
+// Do you want to delete this profile?
+do_you_want_to_delete_this_profile = Czy chcesz usunąć ten profil
+// Always refresh?
+always_refresh = Czy odświeżać zawsze?
+// Import to current profile
+import_to_current_profile = Zaimportuj do aktualnego profilu
+// Create new and import
+create_new_and_import = Utwórz nowy i zaimportuj
+// Import manager
+import_manager = Menadżer importu

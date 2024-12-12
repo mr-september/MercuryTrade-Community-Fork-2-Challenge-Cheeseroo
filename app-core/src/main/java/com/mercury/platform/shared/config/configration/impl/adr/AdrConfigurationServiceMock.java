@@ -1,6 +1,7 @@
 package com.mercury.platform.shared.config.configration.impl.adr;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.configration.AdrConfigurationService;
 import com.mercury.platform.shared.config.configration.BaseConfigurationService;
 import com.mercury.platform.shared.config.descriptor.ProfileDescriptor;
@@ -60,7 +61,7 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
     @Override
     public AdrProgressBarDescriptor getDefaultProgressBar() {
         AdrProgressBarDescriptor progressBar = new AdrProgressBarDescriptor();
-        progressBar.setTitle("progress bar");
+        progressBar.setTitle(TranslationKey.adr_create_progress_bar.value());
         progressBar.setSize(new Dimension(240, 30));
         progressBar.setType(AdrComponentType.PROGRESS_BAR);
         progressBar.setForegroundColor(new Color(22, 126, 138));
@@ -70,7 +71,7 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
     @Override
     public AdrTrackerGroupDescriptor getDefaultIconGroup() {
         AdrTrackerGroupDescriptor groupDescriptor = this.getDefaultGroup();
-        groupDescriptor.setTitle("icon group");
+        groupDescriptor.setTitle(TranslationKey.adr_create_icon_group.value());
         groupDescriptor.setContentType(AdrTrackerGroupContentType.ICONS);
         return groupDescriptor;
     }
@@ -78,7 +79,7 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
     @Override
     public AdrTrackerGroupDescriptor getDefaultPBGroup() {
         AdrTrackerGroupDescriptor groupDescriptor = this.getDefaultGroup();
-        groupDescriptor.setTitle("progress bar group");
+        groupDescriptor.setTitle(TranslationKey.adr_create_pb_group.value());
         groupDescriptor.setSize(new Dimension(240, 30));
         groupDescriptor.setContentType(AdrTrackerGroupContentType.PROGRESS_BARS);
         return groupDescriptor;
@@ -86,7 +87,8 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
 
     private AdrTrackerGroupDescriptor getDefaultGroup() {
         AdrTrackerGroupDescriptor groupDescriptor = new AdrTrackerGroupDescriptor();
-        groupDescriptor.setTitle("group");
+
+        groupDescriptor.setTitle(TranslationKey.group.value());
         groupDescriptor.setType(AdrComponentType.TRACKER_GROUP);
         groupDescriptor.setOrientation(AdrComponentOrientation.VERTICAL);
         return groupDescriptor;
@@ -94,7 +96,7 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
 
     private AdrProfileDescriptor getShowCaseProfile() {
         AdrProfileDescriptor profileDescriptor = new AdrProfileDescriptor();
-        profileDescriptor.setProfileName("Showcase");
+        profileDescriptor.setProfileName(TranslationKey.showcase.value());
         profileDescriptor.setSelected(false);
         JSONHelper jsonHelper = new JSONHelper();
         profileDescriptor.setContents(jsonHelper.getJsonAsObjectFromFile("notes/showcase-profile.json"));
@@ -104,7 +106,7 @@ public class AdrConfigurationServiceMock extends BaseConfigurationService<List<A
     @Override
     public AdrCaptureDescriptor getDefaultCapture() {
         AdrCaptureDescriptor descriptor = new AdrCaptureDescriptor();
-        descriptor.setTitle("Capture");
+        descriptor.setTitle(TranslationKey.capture.value());
         descriptor.setType(AdrComponentType.CAPTURE);
         descriptor.setCaptureLocation(new Point(descriptor.getLocation().x + 80, descriptor.getLocation().y));
         return descriptor;

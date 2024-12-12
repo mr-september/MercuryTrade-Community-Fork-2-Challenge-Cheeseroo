@@ -1,5 +1,7 @@
 package com.mercury.platform.ui.components.panel.grid;
 
+import com.mercury.platform.LangTranslator;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.descriptor.StashTabDescriptor;
 import com.mercury.platform.shared.entity.message.ItemTradeNotificationDescriptor;
@@ -48,18 +50,18 @@ public class ItemInfoPanel extends JPanel implements ViewInit {
         nicknamePanel.setBorder(BorderFactory.createEmptyBorder(-6, 0, -6, 0));
         this.add(nicknamePanel, BorderLayout.CENTER);
 
-        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 12, AppThemeColor.FRAME, "Close");
+        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 12, AppThemeColor.FRAME, TranslationKey.close.value());
         hideButton.addActionListener((action) -> {
             controller.hidePanel();
         });
         this.add(hideButton, BorderLayout.LINE_END);
 
         JPanel tabInfoPanel = componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel tabLabel = componentsFactory.getTextLabel("Tab: " + message.getTabName());
+        JLabel tabLabel = componentsFactory.getTextLabel(TranslationKey.tab.value(":") + " " + message.getTabName());
         tabInfoPanel.add(tabLabel);
         tabInfoPanel.setBorder(BorderFactory.createEmptyBorder(-8, 0, -6, 0));
         if (stashTabDescriptor.isUndefined()) {
-            JCheckBox isItQuad = componentsFactory.getCheckBox(TooltipConstants.IS_IT_QUAD);
+            JCheckBox isItQuad = componentsFactory.getCheckBox(TranslationKey.is_it_quad_tt.value());
             isItQuad.setPreferredSize(new Dimension(16, 16));
             tabInfoPanel.add(isItQuad);
 

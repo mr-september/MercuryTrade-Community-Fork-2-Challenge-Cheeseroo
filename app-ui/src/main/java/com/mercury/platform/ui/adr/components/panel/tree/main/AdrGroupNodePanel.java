@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.tree.main;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrTrackerGroupDescriptor;
 import com.mercury.platform.ui.adr.components.panel.tree.AdrNodePanel;
@@ -70,19 +71,19 @@ public class AdrGroupNodePanel extends AdrNodePanel<AdrTrackerGroupDescriptor> {
             }
             MercuryStoreUI.adrManagerPack.onNext(true);
         });
-        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 14, AppThemeColor.FRAME, TooltipConstants.ADR_REMOVE_BUTTON);
+        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 14, AppThemeColor.FRAME, TranslationKey.adr_remove_button.value());
         removeButton.addActionListener(action -> new AlertDialog(success -> {
             if (success) {
                 MercuryStoreUI.adrRemoveComponentSubject.onNext(descriptor);
                 MercuryStoreUI.adrManagerPack.onNext(true);
             }
-        }, "Do you want to delete this component?", this).setVisible(true));
-        JButton addButton = this.componentsFactory.getIconButton("app/adr/add_node.png", 14, AppThemeColor.FRAME, TooltipConstants.ADR_ADD_BUTTON);
+        }, TranslationKey.delete_component_confirm.value(), this).setVisible(true));
+        JButton addButton = this.componentsFactory.getIconButton("app/adr/add_node.png", 14, AppThemeColor.FRAME, TranslationKey.adr_add_component.value());
         addButton.addActionListener(action -> {
             MercuryStoreUI.adrSelectSubject.onNext(this.descriptor);
             MercuryStoreUI.adrStateSubject.onNext(new AdrPageDefinition<>(AdrPageState.MAIN, this.descriptor));
         });
-        JButton exportButton = this.componentsFactory.getIconButton("app/adr/export_node.png", 14, AppThemeColor.FRAME, TooltipConstants.ADR_EXPORT_BUTTON);
+        JButton exportButton = this.componentsFactory.getIconButton("app/adr/export_node.png", 14, AppThemeColor.FRAME, TranslationKey.adr_export_button.value());
         exportButton.addActionListener(action -> {
             MercuryStoreUI.adrExportSubject.onNext(this.descriptor);
         });

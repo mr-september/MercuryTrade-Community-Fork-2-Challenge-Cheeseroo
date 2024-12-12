@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrCaptureDescriptor;
 import com.mercury.platform.ui.components.panel.VerticalScrollContainer;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -20,13 +21,13 @@ public class AdrCapturePagePanel extends AdrPagePanel<AdrCaptureDescriptor> {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JScrollPane verticalContainer = this.componentsFactory.getVerticalContainer(container);
 
-        JLabel titleLabel = this.componentsFactory.getTextLabel("Title:");
-        JLabel opacityLabel = this.componentsFactory.getTextLabel("Opacity:");
-        JLabel sizeLabel = this.componentsFactory.getTextLabel("Size:");
-        JLabel locationLabel = this.componentsFactory.getTextLabel("Location:");
-        JLabel sectorSizeLabel = this.componentsFactory.getTextLabel("Sector size:");
-        JLabel sectorLocationLabel = this.componentsFactory.getTextLabel("Sector location:");
-        JLabel fpsLabel = this.componentsFactory.getTextLabel("Fps: high value can cause a drop fps");
+        JLabel titleLabel = this.componentsFactory.getTextLabel(TranslationKey.title.value(":"));
+        JLabel opacityLabel = this.componentsFactory.getTextLabel(TranslationKey.opacity.value(":"));
+        JLabel sizeLabel = this.componentsFactory.getTextLabel(TranslationKey.size.value(":"));
+        JLabel locationLabel = this.componentsFactory.getTextLabel(TranslationKey.location.value(":"));
+        JLabel sectorSizeLabel = this.componentsFactory.getTextLabel(TranslationKey.sector_size.value(":"));
+        JLabel sectorLocationLabel = this.componentsFactory.getTextLabel(TranslationKey.sector_location.value(":"));
+        JLabel fpsLabel = this.componentsFactory.getTextLabel(TranslationKey.fps_high_warn.value());
 
         JTextField titleField = this.adrComponentsFactory.getTitleField(this.payload);
         JSlider opacitySlider = this.adrComponentsFactory.getOpacitySlider(this.payload);
@@ -76,7 +77,7 @@ public class AdrCapturePagePanel extends AdrPagePanel<AdrCaptureDescriptor> {
             }
         });
 
-        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, "Advanced:", AppThemeColor.ADR_BG, this.advancedExpanded);
+        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, TranslationKey.advanced.value(":"), AppThemeColor.ADR_BG, this.advancedExpanded);
         advancedPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
 
         container.add(this.componentsFactory.wrapToSlide(generalPanel));

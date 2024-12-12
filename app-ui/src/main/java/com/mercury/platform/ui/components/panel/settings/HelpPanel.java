@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.settings;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.ComponentsFactory;
@@ -30,7 +31,7 @@ public class HelpPanel extends JPanel implements ViewInit {
     @Override
     public void onViewInit() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JButton openTutorial = componentsFactory.getBorderedButton("Open tutorial");
+        JButton openTutorial = componentsFactory.getBorderedButton(TranslationKey.open_tutorial.value());
         openTutorial.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -40,7 +41,7 @@ public class HelpPanel extends JPanel implements ViewInit {
                 }
             }
         });
-        JButton openTests = componentsFactory.getBorderedButton("Open tests");
+        JButton openTests = componentsFactory.getBorderedButton(TranslationKey.open_tests.value());
         openTests.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -51,7 +52,7 @@ public class HelpPanel extends JPanel implements ViewInit {
                 }
             }
         });
-        JButton patchNotes = componentsFactory.getBorderedButton("Open patch notes");
+        JButton patchNotes = componentsFactory.getBorderedButton(TranslationKey.open_patch_notes.value());
         patchNotes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -66,7 +67,7 @@ public class HelpPanel extends JPanel implements ViewInit {
                 }
             }
         });
-        JButton updateEvent = componentsFactory.getBorderedButton("Update event");
+        JButton updateEvent = componentsFactory.getBorderedButton(TranslationKey.update_event.value());
         updateEvent.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

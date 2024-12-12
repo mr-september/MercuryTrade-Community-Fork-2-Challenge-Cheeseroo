@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.adr.components.panel.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrIconDescriptor;
 import com.mercury.platform.ui.components.panel.VerticalScrollContainer;
 import com.mercury.platform.ui.misc.AppThemeColor;
@@ -20,28 +21,28 @@ public class AdrIconPagePanel extends AdrPagePanel<AdrIconDescriptor> {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         JScrollPane verticalContainer = this.componentsFactory.getVerticalContainer(container);
 
-        JLabel titleLabel = this.componentsFactory.getTextLabel("Title:");
-        JLabel opacityLabel = this.componentsFactory.getTextLabel("Opacity:");
-        JLabel sizeLabel = this.componentsFactory.getTextLabel("Icon size:");
-        JLabel locationLabel = this.componentsFactory.getTextLabel("Location:");
-        JLabel alwaysVisibleLabel = this.componentsFactory.getTextLabel("Always visible:");
-        JLabel hotKeyLabel = this.componentsFactory.getTextLabel("HotKey:");
-        JLabel iconLabel = this.componentsFactory.getTextLabel("Icon:");
+        JLabel titleLabel = this.componentsFactory.getTextLabel(TranslationKey.title.value(":"));
+        JLabel opacityLabel = this.componentsFactory.getTextLabel(TranslationKey.opacity.value(":"));
+        JLabel sizeLabel = this.componentsFactory.getTextLabel(TranslationKey.icon_size.value(":"));
+        JLabel locationLabel = this.componentsFactory.getTextLabel(TranslationKey.location.value(":"));
+        JLabel alwaysVisibleLabel = this.componentsFactory.getTextLabel(TranslationKey.always_visible.value(":"));
+        JLabel hotKeyLabel = this.componentsFactory.getTextLabel(TranslationKey.hot_key.value(":"));
+        JLabel iconLabel = this.componentsFactory.getTextLabel(TranslationKey.icon.value(":"));
 
-        JLabel textFormatLabel = this.componentsFactory.getTextLabel("Text format:");
-        JLabel textOutlineLabel = this.componentsFactory.getTextLabel("Text outline:");
-        JLabel fontSizeLabel = this.componentsFactory.getTextLabel("Font size:");
-        JLabel invertTimerLabel = this.componentsFactory.getTextLabel("Invert timer:");
-        JLabel durationLabel = this.componentsFactory.getTextLabel("Duration:");
-        JLabel soundLabel = this.componentsFactory.getTextLabel("Sound alert:");
-        JLabel soundVolumeLabel = this.componentsFactory.getTextLabel("Sound volume");
-        JLabel delayLabel = this.componentsFactory.getTextLabel("Delay:");
-        JLabel backgroundColorLabel = this.componentsFactory.getTextLabel("Background color:");
-        JLabel textColorLabel = this.componentsFactory.getTextLabel("Text color:");
-        JLabel borderColorLabel = this.componentsFactory.getTextLabel("Border color:");
-        JLabel animationMaskLabel = this.componentsFactory.getTextLabel("Animation mask:");
-        JLabel invertMaskLabel = this.componentsFactory.getTextLabel("Invert mask:");
-        JLabel maskColorLabel = this.componentsFactory.getTextLabel("Mask color:");
+        JLabel textFormatLabel = this.componentsFactory.getTextLabel(TranslationKey.text_format.value(":"));
+        JLabel textOutlineLabel = this.componentsFactory.getTextLabel(TranslationKey.text_outline.value(":"));
+        JLabel fontSizeLabel = this.componentsFactory.getTextLabel(TranslationKey.font_size.value(":"));
+        JLabel invertTimerLabel = this.componentsFactory.getTextLabel(TranslationKey.invert_timer.value(":"));
+        JLabel durationLabel = this.componentsFactory.getTextLabel(TranslationKey.duration.value(":"));
+        JLabel soundLabel = this.componentsFactory.getTextLabel(TranslationKey.sound_alert.value(":"));
+        JLabel soundVolumeLabel = this.componentsFactory.getTextLabel(TranslationKey.sound_volume.value());
+        JLabel delayLabel = this.componentsFactory.getTextLabel(TranslationKey.delay.value(":"));
+        JLabel backgroundColorLabel = this.componentsFactory.getTextLabel(TranslationKey.background_color.value(":"));
+        JLabel textColorLabel = this.componentsFactory.getTextLabel(TranslationKey.text_color.value(":"));
+        JLabel borderColorLabel = this.componentsFactory.getTextLabel(TranslationKey.border_color.value(":"));
+        JLabel animationMaskLabel = this.componentsFactory.getTextLabel(TranslationKey.animation_mask.value(":"));
+        JLabel invertMaskLabel = this.componentsFactory.getTextLabel(TranslationKey.invert_mask.value(":"));
+        JLabel maskColorLabel = this.componentsFactory.getTextLabel(TranslationKey.mask_color.value(":"));
 
         JTextField titleField = this.adrComponentsFactory.getTitleField(this.payload);
         JSlider opacitySlider = this.adrComponentsFactory.getOpacitySlider(this.payload);
@@ -138,7 +139,7 @@ public class AdrIconPagePanel extends AdrPagePanel<AdrIconDescriptor> {
             }
         });
 
-        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, "Advanced:", AppThemeColor.ADR_BG, this.advancedExpanded);
+        JPanel advancedPanel = this.adrComponentsFactory.getCounterPanel(specPanel, TranslationKey.advanced.value(":"), AppThemeColor.ADR_BG, this.advancedExpanded);
         advancedPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
 
         container.add(this.componentsFactory.wrapToSlide(generalPanel));

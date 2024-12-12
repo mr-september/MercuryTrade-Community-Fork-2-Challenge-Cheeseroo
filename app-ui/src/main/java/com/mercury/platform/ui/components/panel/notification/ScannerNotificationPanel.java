@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.notification;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.PlainConfigurationService;
@@ -57,29 +58,29 @@ public class ScannerNotificationPanel extends NotificationPanel<PlainMessageDesc
 
         JPanel interactionPanel = new JPanel(new GridLayout(1, 0, 3, 0));
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
-        JButton inviteMeButton = componentsFactory.getIconButton(IconConst.CHAT_SCANNER_RESPONSE, 16, AppThemeColor.MSG_HEADER, TooltipConstants.QUICK_RESPONSE);
+        JButton inviteMeButton = componentsFactory.getIconButton(IconConst.CHAT_SCANNER_RESPONSE, 16, AppThemeColor.MSG_HEADER, TranslationKey.quick_response.value());
         inviteMeButton.addActionListener(e -> this.controller.performResponse(this.config.get().getResponseMessage()));
-        JButton inviteButton = componentsFactory.getIconButton(IconConst.INVITE, 15, AppThemeColor.MSG_HEADER, TooltipConstants.INVITE);
+        JButton inviteButton = componentsFactory.getIconButton(IconConst.INVITE, 15, AppThemeColor.MSG_HEADER, TranslationKey.invite.value());
         inviteButton.addActionListener(e -> {
             this.controller.performInvite();
             root.setBorder(BorderFactory.createLineBorder(AppThemeColor.HEADER_SELECTED_BORDER));
         });
-        JButton visiteHideout = componentsFactory.getIconButton(IconConst.VISIT_HIDEOUT, 16, AppThemeColor.MSG_HEADER, TooltipConstants.VISIT_HO);
+        JButton visiteHideout = componentsFactory.getIconButton(IconConst.VISIT_HIDEOUT, 16, AppThemeColor.MSG_HEADER, TranslationKey.visit_ho.value());
         visiteHideout.addActionListener(e -> this.controller.visitHideout());
-        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TooltipConstants.TRADE);
+        JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.trade.value());
         tradeButton.addActionListener(e -> this.controller.performOfferTrade());
-        JButton leaveButton = componentsFactory.getIconButton(IconConst.LEAVE, 16, AppThemeColor.MSG_HEADER, TooltipConstants.LEAVE);
+        JButton leaveButton = componentsFactory.getIconButton(IconConst.LEAVE, 16, AppThemeColor.MSG_HEADER, TranslationKey.leave.value());
         leaveButton.addActionListener(e -> {
             this.controller.performLeave();
             if (this.notificationConfig.get().isDismissAfterLeave()) {
                 this.controller.performHide();
             }
         });
-        JButton openChatButton = componentsFactory.getIconButton(IconConst.CHAT_OPEN, 15, AppThemeColor.MSG_HEADER, TooltipConstants.OPEN_CHAT);
+        JButton openChatButton = componentsFactory.getIconButton(IconConst.CHAT_OPEN, 15, AppThemeColor.MSG_HEADER, TranslationKey.open_chat.value());
         openChatButton.addActionListener(e -> this.controller.performOpenChat());
-        JButton whoIsButton = componentsFactory.getIconButton(IconConst.WHO_IS, 15, AppThemeColor.MSG_HEADER, TooltipConstants.WHO_IS);
+        JButton whoIsButton = componentsFactory.getIconButton(IconConst.WHO_IS, 15, AppThemeColor.MSG_HEADER, TranslationKey.who_is.value());
         whoIsButton.addActionListener(e -> controller.performWhoIs());
-        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 15, AppThemeColor.MSG_HEADER, TooltipConstants.HIDE_PANEL);
+        JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 15, AppThemeColor.MSG_HEADER, TranslationKey.close.value());
         hideButton.addActionListener(action -> {
             this.controller.performHide();
         });

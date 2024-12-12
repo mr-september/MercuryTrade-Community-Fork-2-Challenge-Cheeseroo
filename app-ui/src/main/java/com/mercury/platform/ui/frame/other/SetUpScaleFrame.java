@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.other;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
@@ -47,7 +48,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
         root.add(getScaleSettingsPanel(), BorderLayout.CENTER);
 
         JPanel miscPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton cancel = componentsFactory.getBorderedButton("Cancel");
+        JButton cancel = componentsFactory.getBorderedButton(TranslationKey.cancel.value());
         cancel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
@@ -62,7 +63,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
         });
         cancel.setPreferredSize(new Dimension(100, 26));
 
-        JButton save = componentsFactory.getBorderedButton("Save");
+        JButton save = componentsFactory.getBorderedButton(TranslationKey.save.value());
         save.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -91,7 +92,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 17f,
-                "Notification panel: ");
+                TranslationKey.notification_panel.value(": "));
         JSlider notificationSlider = componentsFactory.getSlider(MIN_SCALE, MAX_SCALE, (int) (scaleData.get("notification") * 10));
         JLabel notificationValue = componentsFactory.getTextLabel(
                 FontStyle.REGULAR,
@@ -121,7 +122,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 17f,
-                "Task panel: ");
+                TranslationKey.task_panel.value(": "));
 
         JSlider taskBarSlider = componentsFactory.getSlider(MIN_SCALE, MAX_SCALE, (int) (scaleData.get("taskbar") * 10));
         JLabel taskBarValue = componentsFactory.getTextLabel(
@@ -152,7 +153,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 17f,
-                "Item cell panel: ");
+                TranslationKey.item_cell_panel.value(": "));
         JSlider itemInfoSlider = componentsFactory.getSlider(MIN_SCALE, MAX_SCALE, (int) (scaleData.get("itemcell") * 10));
         JLabel itemInfoValue = componentsFactory.getTextLabel(
                 FontStyle.REGULAR,

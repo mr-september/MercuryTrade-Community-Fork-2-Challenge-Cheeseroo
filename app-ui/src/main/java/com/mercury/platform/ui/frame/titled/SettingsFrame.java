@@ -2,6 +2,7 @@ package com.mercury.platform.ui.frame.titled;
 
 
 import com.google.gson.Gson;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.MercuryConstants;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentType;
@@ -120,7 +121,7 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
 
     private JPanel getSaveButtonPanel() {
         JPanel root = componentsFactory.getTransparentPanel(new GridLayout(1, 0));
-        JButton saveButton = componentsFactory.getBorderedButton("Save", 16);
+        JButton saveButton = componentsFactory.getBorderedButton(TranslationKey.save.value(), 16);
         saveButton.addActionListener(e -> {
             MercuryStoreUI.settingsSaveSubject.onNext(true);
             MercuryStoreCore.showingDelaySubject.onNext(true);
@@ -130,7 +131,7 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
                 FontStyle.BOLD,
                 AppThemeColor.FRAME,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Cancel",
+                TranslationKey.cancel.value(),
                 16f);
         cancelButton.addActionListener(e -> {
             GlobalHotkeyGroup.INSTANCE.clear();
@@ -162,29 +163,29 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
     private JPanel getOperationsButtons() {
         JPanel root = componentsFactory.getTransparentPanel(new GridLayout(0, 1, 4, 2));
         root.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, AppThemeColor.BORDER));
-        JButton openTutorial = this.getOperationButton("Open tutorial", "app/tutorial.png");
+        JButton openTutorial = this.getOperationButton(TranslationKey.open_tutorial.value(), "app/tutorial.png");
         openTutorial.addActionListener(action -> {
             FramesManager.INSTANCE.hideFrame(SettingsFrame.class);
             FramesManager.INSTANCE.showFrame(NotesFrame.class);
         });
-        JButton checkUpdates = this.getOperationButton("Check for updates", "app/check-update.png");
+        JButton checkUpdates = this.getOperationButton(TranslationKey.check_for_updates.value(), "app/check-update.png");
 
         checkUpdates.addActionListener(action -> {
-            checkUpdates.setText("Hamsters are running");
+            checkUpdates.setText(TranslationKey.hamsters_are_running.value());
             checkUpdates.setEnabled(false);
             repaint();
             SwingWorker worker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
                     SettingsFrame.this.checkForUpdates();
-                    checkUpdates.setText("Check for updates");
+                    checkUpdates.setText(TranslationKey.check_for_updates.value());
                     checkUpdates.setEnabled(true);
                     return null;
                 }
             };
             worker.execute();
         });
-        JButton openTests = this.getOperationButton("Open tests", "app/open-tests.png");
+        JButton openTests = this.getOperationButton(TranslationKey.open_tests.value(), "app/open-tests.png");
         openTests.addActionListener(action -> {
             FramesManager.INSTANCE.hideFrame(SettingsFrame.class);
             FramesManager.INSTANCE.showFrame(TestCasesFrame.class);
@@ -194,7 +195,7 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
         root.add(this.componentsFactory.wrapToSlide(checkUpdates));
         root.add(this.componentsFactory.wrapToSlide(openTests));
 
-        JButton patchNotes = componentsFactory.getBorderedButton("Open patch notes");
+        JButton patchNotes = componentsFactory.getBorderedButton(TranslationKey.open_patch_notes.value());
         patchNotes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -241,7 +242,7 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Settings";
+        return TranslationKey.settings.value();
     }
 
     @Override
@@ -262,12 +263,12 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
                         logger.error(e);
                     }
                 }
-            }, "There was a problem with checking newest version, do you want to manually check it?", SettingsFrame.this);
-            dialog.setTitle("Check for updates");
+            }, TranslationKey.there_was_a_problem_with_checking_newest_version.value(), SettingsFrame.this);
+            dialog.setTitle(TranslationKey.check_for_updates.value());
             dialog.setVisible(true);
         } else if (StringUtils.isNotEmpty(response.getTag_name()) && response.getTag_name().equals(MercuryConstants.APP_VERSION)) {
-            OkDialog dialog = new OkDialog(null, "You have the newest version", SettingsFrame.this);
-            dialog.setTitle("Check for updates");
+            OkDialog dialog = new OkDialog(null, TranslationKey.you_have_the_newest_version.value(), SettingsFrame.this);
+            dialog.setTitle(TranslationKey.check_for_updates.value());
             dialog.setVisible(true);
         } else {
             AlertDialog dialog = new AlertDialog(callback -> {
@@ -278,8 +279,8 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
                         logger.error(e);
                     }
                 }
-            }, "There is a newer version, do you want to go to github?", SettingsFrame.this);
-            dialog.setTitle("Check for updates");
+            }, TranslationKey.there_is_a_newer_version.value(), SettingsFrame.this);
+            dialog.setTitle(TranslationKey.check_for_updates.value());
             dialog.setVisible(true);
         }
     }

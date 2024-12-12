@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.frame.other;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.ui.frame.AbstractOverlaidFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;

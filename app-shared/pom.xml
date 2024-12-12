@@ -5,7 +5,15 @@
   <groupId>com.home.mercury</groupId>
   <artifactId>app-shared</artifactId>
   <version>1.1.0</version>
-  <build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

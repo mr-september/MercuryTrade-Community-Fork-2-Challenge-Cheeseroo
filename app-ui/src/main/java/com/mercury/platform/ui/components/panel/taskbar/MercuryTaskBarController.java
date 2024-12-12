@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.taskbar;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.movable.ItemsGridFrame;
 import com.mercury.platform.ui.frame.movable.TaskBarFrame;
@@ -14,21 +15,21 @@ public class MercuryTaskBarController implements TaskBarController {
     @Override
     public void enableDND() {
         MercuryStoreUI.repaintSubject.onNext(TaskBarFrame.class);
-        MercuryStoreCore.alertSubject.onNext("DND on");
+        MercuryStoreCore.alertSubject.onNext(TranslationKey.dnd_on.value());
         MercuryStoreCore.dndSubject.onNext(true);
     }
 
     @Override
     public void disableDND() {
         MercuryStoreUI.repaintSubject.onNext(TaskBarFrame.class);
-        MercuryStoreCore.alertSubject.onNext("DND off");
+        MercuryStoreCore.alertSubject.onNext(TranslationKey.dnd_off.value());
         MercuryStoreCore.dndSubject.onNext(false);
     }
 
     @Override
     public void enablePushbullet() {
         MercuryStoreUI.repaintSubject.onNext(TaskBarFrame.class);
-        MercuryStoreCore.alertSubject.onNext("Pushbullet notifications on");
+        MercuryStoreCore.alertSubject.onNext(TranslationKey.pushbullet_notifications_on.value());
         MercuryStoreCore.pushbulletSubject.onNext(true);
         MercuryStoreCore.saveConfigSubject.onNext(true);
     }
@@ -36,7 +37,7 @@ public class MercuryTaskBarController implements TaskBarController {
     @Override
     public void disablePushbullet() {
         MercuryStoreUI.repaintSubject.onNext(TaskBarFrame.class);
-        MercuryStoreCore.alertSubject.onNext("Pushbullet notifications off");
+        MercuryStoreCore.alertSubject.onNext(TranslationKey.pushbullet_notifications_off.value());
         MercuryStoreCore.pushbulletSubject.onNext(false);
         MercuryStoreCore.saveConfigSubject.onNext(true);
     }

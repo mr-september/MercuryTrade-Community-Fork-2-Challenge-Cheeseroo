@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.descriptor.ResponseButtonDescriptor;
 import com.mercury.platform.ui.components.ComponentsFactory;
@@ -34,13 +35,13 @@ public class ResponseButtonsPanel extends JPanel implements ViewInit {
 
         JPanel headerPanel = this.componentsFactory.getJPanel(new BorderLayout(4,4), AppThemeColor.SETTINGS_BG);
 
-        JLabel titleLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, "Label");
+        JLabel titleLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, TranslationKey.label.value());
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         titleLabel.setPreferredSize(new Dimension(120, 26));
-        JLabel valueLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, "Response text");
+        JLabel valueLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, TranslationKey.response_text.value());
         valueLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel hotKeyLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, "Hot Key");
+        JLabel hotKeyLabel = componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, null, 15f, TranslationKey.hot_key.value());
         hotKeyLabel.setHorizontalAlignment(SwingConstants.CENTER);
         hotKeyLabel.setPreferredSize(new Dimension(130, 20));
 
@@ -66,7 +67,7 @@ public class ResponseButtonsPanel extends JPanel implements ViewInit {
             buttonsTable.add(this.getResponseRow(it));
         });
         this.add(buttonsTable, BorderLayout.CENTER);
-        JButton addButton = this.componentsFactory.getIconButton("app/add_button.png", 22, AppThemeColor.HEADER, "Add button");
+        JButton addButton = this.componentsFactory.getIconButton("app/add_button.png", 22, AppThemeColor.HEADER, TranslationKey.add_button.value());
         addButton.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
                 BorderFactory.createEmptyBorder(3, 3, 3, 3)));
@@ -107,7 +108,7 @@ public class ResponseButtonsPanel extends JPanel implements ViewInit {
 
         JPanel checkboxPanel = this.componentsFactory.getJPanel(new BorderLayout(4,4), AppThemeColor.SETTINGS_BG);
 
-        JCheckBox checkBoxClose = this.componentsFactory.getCheckBox(descriptor.isClose(), "Close notification panel after click?");
+        JCheckBox checkBoxClose = this.componentsFactory.getCheckBox(descriptor.isClose(), TranslationKey.close_notif_panel_after_click.value());
         checkBoxClose.addActionListener(action -> {
             descriptor.setClose(checkBoxClose.isSelected());
         });
@@ -126,7 +127,7 @@ public class ResponseButtonsPanel extends JPanel implements ViewInit {
         this.hotKeyGroup.registerHotkey(hotKeyPanel);
         miscPanel.add(this.componentsFactory.wrapToSlide(hotKeyPanel, AppThemeColor.SETTINGS_BG, 0, 0, 2, 0), BorderLayout.CENTER);
 
-        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 17, AppThemeColor.SETTINGS_BG, "Remove button");
+        JButton removeButton = this.componentsFactory.getIconButton("app/adr/remove_node.png", 17, AppThemeColor.SETTINGS_BG, TranslationKey.remove_button.value());
         removeButton.addActionListener(action -> {
             root.getParent().remove(root);
             this.buttons.remove(descriptor);

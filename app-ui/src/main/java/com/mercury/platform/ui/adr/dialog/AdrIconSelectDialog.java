@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.adr.dialog;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.configration.IconBundleConfigurationService;
 import com.mercury.platform.shared.store.MercuryStoreCore;
@@ -22,7 +23,7 @@ public class AdrIconSelectDialog extends BaseDialog<String, String[]> {
 
     public AdrIconSelectDialog() {
         super(null, null, null);
-        this.setTitle("Select icon");
+        this.setTitle(TranslationKey.select_icon.value());
     }
 
     @Override
@@ -58,8 +59,9 @@ public class AdrIconSelectDialog extends BaseDialog<String, String[]> {
 
     private JPanel getFilterPanel() {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
-        root.add(this.componentsFactory.getTextLabel("Filter:"), BorderLayout.LINE_START);
-        JTextField filterField = this.componentsFactory.getTextField("Filter:", FontStyle.REGULAR, 15);
+
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.filter.value(":")), BorderLayout.LINE_START);
+        JTextField filterField = this.componentsFactory.getTextField(TranslationKey.filter.value(":"), FontStyle.REGULAR, 15);
         filterField.addActionListener(action -> {
             List<String> entities = this.config.getDefaultBundle();
             entities.addAll(this.config.getEntities());
@@ -78,10 +80,10 @@ public class AdrIconSelectDialog extends BaseDialog<String, String[]> {
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(AppThemeColor.BORDER_DARK),
                         BorderFactory.createEmptyBorder(4, 0, 4, 4)));
-        JButton addIconButton = this.componentsFactory.getBorderedButton("Add icon");
+        JButton addIconButton = this.componentsFactory.getBorderedButton(TranslationKey.add_icon.value());
         addIconButton.setPreferredSize(new Dimension(100, 26));
         addIconButton.addActionListener(action -> {
-            FileDialog dialog = new FileDialog(this, "Choose icon", FileDialog.LOAD);
+            FileDialog dialog = new FileDialog(this, TranslationKey.choose_icon.value(), FileDialog.LOAD);
             dialog.setFile("*.png");
             dialog.setVisible(true);
             dialog.toFront();
@@ -103,13 +105,13 @@ public class AdrIconSelectDialog extends BaseDialog<String, String[]> {
 
     private JPanel getBottomPanel() {
         JPanel root = this.componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton selectButton = this.componentsFactory.getBorderedButton("Select");
+        JButton selectButton = this.componentsFactory.getBorderedButton(TranslationKey.select.value());
         selectButton.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 15f));
         JButton cancelButton = componentsFactory.getButton(
                 FontStyle.BOLD,
                 AppThemeColor.FRAME_RGB,
                 BorderFactory.createLineBorder(AppThemeColor.BORDER),
-                "Cancel",
+                TranslationKey.cancel.value(),
                 15f);
         selectButton.setPreferredSize(new Dimension(128, 26));
         cancelButton.setPreferredSize(new Dimension(128, 26));

@@ -1,6 +1,7 @@
 package com.mercury.platform.shared.config.descriptor;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Offer trade";
+            return TranslationKey.offer_trade.value();
         }
     },
     N_OPEN_CHAT {
@@ -27,7 +28,8 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Message this player";
+
+            return TranslationKey.open_chat.value();
         }
     },
     N_CLOSE_NOTIFICATION {
@@ -38,7 +40,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Close notification";
+            return TranslationKey.close_notification.value();
         }
     },
     //Incoming notification
@@ -50,7 +52,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Invite player";
+            return TranslationKey.invite.value();
         }
     },
     N_KICK_PLAYER {
@@ -61,7 +63,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Kick player";
+            return TranslationKey.kick.value();
         }
     },
     N_STILL_INTERESTING {
@@ -72,7 +74,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Still interested button";
+            return TranslationKey.still_interested_button.value();
         }
     },
     N_REPEAT_MESSAGE {
@@ -83,7 +85,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Repeat message";
+            return TranslationKey.repeat_message.value();
         }
     },
     N_SWITCH_CHAT {
@@ -94,7 +96,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Chat history";
+            return TranslationKey.chat_history.value();
         }
     },
     //Outgoing/scanner notification
@@ -106,7 +108,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Visit player hideout";
+            return TranslationKey.visit_player_hideout.value();
         }
     },
     N_LEAVE {
@@ -117,7 +119,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Leave from party";
+            return TranslationKey.leave.value();
         }
     },
     N_BACK_TO_HIDEOUT {
@@ -139,7 +141,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Who is?";
+            return TranslationKey.who_is.value();
         }
     },
     //scanner
@@ -151,7 +153,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Quick response";
+            return TranslationKey.quick_response.value();
         }
     },
     T_TO_HIDEOUT {
@@ -162,7 +164,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "To hideout";
+            return TranslationKey.to_hideout.value();
         }
     },
     T_DND {
@@ -173,7 +175,7 @@ public enum HotKeyType implements Serializable {
 
         @Override
         public String getTooltip() {
-            return "Dnd";
+            return TranslationKey.dnd.value();
         }
     };
 

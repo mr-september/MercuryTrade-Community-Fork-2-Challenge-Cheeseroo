@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.manager;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.AsSubscriber;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.IconConst;
@@ -311,7 +312,7 @@ public class FramesManager implements AsSubscriber {
     private void createTrayIcon() {
         if (SystemUtils.IS_OS_WINDOWS) {
             PopupMenu trayMenu = new PopupMenu();
-            MenuItem exit = new MenuItem("Exit");
+            MenuItem exit = new MenuItem(TranslationKey.exit.value());
             exit.addActionListener(e -> {
                 exit();
             });
@@ -321,7 +322,7 @@ public class FramesManager implements AsSubscriber {
             });
 
 
-            MenuItem settings = new MenuItem("Settings");
+            MenuItem settings = new MenuItem(TranslationKey.settings.value());
             settings.addActionListener(e -> {
                 FramesManager.INSTANCE.showFrame(SettingsFrame.class);
             });
