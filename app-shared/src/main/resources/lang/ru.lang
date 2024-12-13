@@ -1,0 +1,448 @@
+// Close
+close = Закрыть
+// Start
+start = Начать
+// Pause
+pause = Пауза
+// Stop
+stop = Остановить
+// Reset
+reset = Сброс
+// Do not Disturb. MercuryTrade goes invisible.
+do_not_disturb = Не беспокоить. MercuryTrade становится невидимым.
+// SuperTradeMode. All notifications you receive will be unfolded.
+trade_mode = СуперТорговыйРежим. Все уведомления будут раскрыты.
+// Chat Scanner. All chat messages with matching words will be displayed in a separate window.
+chat_filter = Чат-сканер. Все сообщения с совпадающими словами будут отображаться в отдельном окне.
+// Travel to your hideout
+travel_hideout = Путешествовать в убежище
+// See IG help
+helpig = Посмотреть помощь в игре
+// Overseer settings
+adr_settings = Настройки наблюдателя
+// Timer. Just a simple timer.
+timer = Таймер. Просто обычный таймер.
+// History. Browse through all notifications you received previously.
+history = История. Просмотрите все ранее полученные уведомления.
+// Panel unlock. Unlock panels to reposition.
+unlock_panel_tt = Разблокировка панели. Разблокируйте панели, чтобы переместить их.
+// Settings
+settings = Настройки
+// Item Grid. Align this grid with your in-game stash.
+item_grid = Решетка предметов. Совместите эту решетку с вашим игровым тайником.
+// Scale. Adjust MercuryTrade components size to your taste.
+scale_settings_tt = Масштаб. Настройте размеры компонентов MercuryTrade на свой вкус.
+// Exit
+exit = Выход
+// Pushbullet notifications on trade messages
+pushbullet_notification_active = Уведомления Pushbullet о торговых сообщениях
+// Invite player
+invite = Пригласить игрока
+// Still interested?
+still_interested = Все еще интересно?
+// Repeat message
+repeat_message = Повторить сообщение
+// Kick player
+kick = Исключить игрока
+// Expand / collapse
+expand_collapse = Развернуть / свернуть
+// Message this player
+open_chat = Написать этому игроку
+// Who is?
+who_is = Кто это?
+// Show chat history
+switch_chat = Показать историю чатов
+// Visit player's hideout
+visit_ho = Посетить убежище игрока
+// Leave from party
+leave = Покинуть группу
+// Quick response
+quick_response = Быстрый ответ
+// Restore message
+history_reload = Восстановить сообщение
+// Travel to this player's hideout
+ho_in = Перейти в убежище этого игрока
+// Is this tab a Quad Tab? Specify once for Mercury to know
+is_it_quad_tt = Это вкладка Quad? Укажите один раз для Mercury.
+// Clear history
+history_clear = Очистить историю
+// This box will appear if "Pre-group limit" is exceeded. All consecutive notifications will be grouped together to save screen space. Toggling this button will expand or collapse the whole group.
+notification_settings = Это окно появится, если будет превышен лимит предварительной группы. Все последующие уведомления будут сгруппированы для экономии места.
+// todo
+adr_profile_settings = todo
+// Icons group
+adr_create_icon_group = Группа иконок
+// Progress bars group
+adr_create_pb_group = Группа индикаторов прогресса
+// Icon
+adr_create_icon = Иконка
+// Progress bar
+adr_create_progress_bar = Индикатор прогресса
+// Import
+adr_import_component = Импорт
+// Share component
+adr_export_button = Поделиться компонентом
+// Remove component
+adr_remove_button = Удалить компонент
+// Add component
+adr_add_component = Добавить компонент
+// Duplicate component
+adr_duplicate_button = Дублировать компонент
+// Move component
+adr_move_button = Переместить компонент
+// Visible component's
+adr_visible_button = Видимые компоненты
+// Tab
+tab = Вкладка
+// Always play a sound
+always_play_a_sound = Всегда воспроизводить звук
+// Only when tabbed out
+only_when_tabbed_out = Только когда переключен
+// Never
+never = Никогда
+// Server is currently down, please try again later.
+server_down = Сервер сейчас недоступен, попробуйте позже.
+// Offer trade
+offer_trade = Предложить обмен
+// Close notification
+close_notification = Закрыть уведомление
+// Still interested button
+still_interested_button = Кнопка "Все еще интересно"
+// Chat history
+chat_history = История чатов
+// To hideout
+to_hideout = В убежище
+// Dnd
+dnd = Не беспокоить
+// You have latest version.
+you_have_latest_version = У вас последняя версия.
+// Title
+title = Заголовок
+// Opacity
+opacity = Прозрачность
+// Size
+size = Размер
+// Location
+location = Расположение
+// Sector size
+sector_size = Размер сектора
+// Sector location
+sector_location = Расположение сектора
+// Fps: high value can cause a drop fps
+fps_high_warn = FPS: высокое значение может привести к снижению FPS
+// Advanced
+advanced = Сложные настройки
+// Component's padding
+component_padding = Отступ компонента
+// Group's type
+group_type = Тип группы
+// Group's orientation
+group_orientation = Ориентация группы
+// Progress bar's size
+progress_bar_size = Размер индикатора прогресса
+// Progress bar's orientation
+progress_bar_orientation = Ориентация индикатора прогресса
+// Icon size
+icon_size = Размер иконки
+// Always visible
+always_visible = Всегда видимый
+// HotKey
+hot_key = Горячая клавиша
+// Text format
+text_format = Формат текста
+// Text outline
+text_outline = Обводка текста
+// Font size
+font_size = Размер шрифта
+// Invert timer
+invert_timer = Инвертировать таймер
+// Duration
+duration = Продолжительность
+// Sound alert
+sound_alert = Звуковая сигнализация
+// Sound volume
+sound_volume = Громкость звука
+// Delay
+delay = Задержка
+// Background color
+background_color = Цвет фона
+// Text color
+text_color = Цвет текста
+// Border color
+border_color = Цвет границы
+// Animation mask
+animation_mask = Маска анимации
+// Invert mask
+invert_mask = Инвертировать маску
+// Mask color
+mask_color = Цвет маски
+// Capture
+capture = Захват
+// Profiles
+profiles = Профили
+// Orientation
+orientation = Ориентация
+// Insets
+insets = Отступы
+// Icon alignment
+icon_alignment = Выравнивание иконки
+// Foreground color
+foreground_color = Цвет переднего плана
+// Do you want to delete this component?
+delete_component_confirm = Вы хотите удалить этот компонент?
+// Width
+width = Ширина
+// Height
+height = Высота
+// When duration
+when_duration = Когда продолжительность
+// Press any key
+press_any_key = Нажмите любую клавишу
+// Select
+select = Выбрать
+// Set default text color
+set_default_text_color = Установить цвет текста по умолчанию
+// Set text color
+set_text_color = Установить цвет текста
+// Is text enable?
+is_text_enable = Включен ли текст?
+// Is icon enable?
+is_icon_enable = Включена ли иконка?
+// Set color
+set_color = Установить цвет
+// Bind to text color?
+bind_to_text_color = Привязать к цвету текста?
+// Move out
+move_out = Переместить наружу
+// Move to
+move_to = Переместить в
+// Share
+share = Поделиться
+// Do you want to delete
+do_you_want_to_delete = Вы хотите удалить
+// Component
+component = компонент
+// Create new
+create_new = Создать новый
+// Selected profile
+selected_profile = Выбранный профиль
+// Export manager
+export_manager = Менеджер экспорта
+// View
+view = Просмотр
+// Select icon
+select_icon = Выбрать иконку
+// Filter
+filter = Фильтр
+// Add icon
+add_icon = Добавить иконку
+// Choose icon
+choose_icon = Выбрать иконку
+// Cancel
+cancel = Отмена
+// Create new profile
+create_new_profile = Создать новый профиль
+// Profile name
+profile_name = Имя профиля
+// Create
+create = создать
+// Is it Quad?
+is_it_quad = Это Quad?
+// Find in stashtab
+find_in_stashtab = Найти в вкладке тайника
+// App version
+app_version = Версия приложения
+// Taskbar will be hidden until you hover onto it
+taskbar_hover_tt = Панель задач будет скрыта, пока на нее не наведут
+// Enable support for poe2
+poe2_support_tt = Включить поддержку poe2
+// Change
+change = Изменить
+// Test push
+test_push = Тест пуша
+// Notify me when an update is available
+notify_me_when_an_update_is_available = Уведомлять меня, когда доступно обновление
+// Vulkan support enabled
+vulkan_support_enabled = Поддержка Vulkan включена
+// Hide taskbar
+hide_taskbar = Скрыть панель задач
+// POE 2 support
+poe_2_support = Поддержка POE 2
+// Component fade out time
+component_fade_out_time = Время затухания компонента
+// Min opacity
+min_opacity = Минимальная прозрачность
+// Max opacity
+max_opacity = Максимальная прозрачность
+// Notification sound alerts
+notification_sound_alerts = Звуковые оповещения уведомлений
+// Path of Exile folder
+path_of_exile_folder = Папка Path of Exile
+// Pushbullet AccessToken
+pushbullet_accesstoken = Pushbullet AccessToken
+// Whisper helper
+whisper_helper = Помощник с шепотом
+// Incoming notification
+incoming_notification = Входящее уведомление
+// Outgoing notification
+outgoing_notification = Исходящее уведомление
+// Chat scanner notification
+chat_scanner_notification = Уведомление чата-сканера
+// Upwards
+upwards = Вверх
+// Downwards
+downwards = Вниз
+// Flow direction
+flow_direction = Направление потока
+// Pre-group limit
+pre_group_limit = Лимит предварительной группы
+// Enabled
+enabled = Включено
+// When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
+automatic_paste_description = Когда вы копируете текст в формате сообщения о торговле, он автоматически вставляется в окно чата в PoE
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
+example_description = Пример: нажмите "Шепнуть", сообщение будет скопировано в буфер обмена => MT вставляет его в чат в PoE.
+// Close panel on kick button pressed
+close_panel_on_kick_button_pressed = Закрыть панель при нажатии кнопки выключить
+// Show league
+show_league = Показать лигу
+// Response buttons
+response_buttons = Кнопки ответа
+// Hotkeys
+hotkeys = Горячие клавиши
+// Close panel on leave button pressed
+close_panel_on_leave_button_pressed = Закрывать панель при нажатии кнопки выхода
+// Auto-close triggers
+auto_close_triggers = Авто-закрытие триггеров
+// Label
+label = Метка
+// Response text
+response_text = Текст ответа
+// Add button
+add_button = Добавить кнопку
+// Remove button
+remove_button = Удалить кнопку
+// Close notification panel after click?
+close_notif_panel_after_click = Закрыть панель уведомлений после клика?
+// Notification
+notification = Уведомление
+// Chat Scanner
+chat_scanner = Чат-сканер
+// Clicks
+clicks = Клики
+// Update notification
+update_notification = Уведомление об обновлении
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = Мы создали удобное приложение для удобства торговли. MercuryTrade сэкономило ваше время или улучшило ваш опыт — поддержите нас донатом или расскажите друзьям!
+// Thanks a lot for support
+thanks_for_support = Огромное спасибо за поддержку
+// Enable in-game dnd
+enable_in_game_dnd = Включить игровой режим "не беспокоить"
+// DND response
+dnd_response = Ответ на режим "не беспокоить"
+// Open tutorial
+open_tutorial = Открыть инструкцию
+// Open tests
+open_tests = Открыть тесты
+// Open patch notes
+open_patch_notes = Открыть заметки патча
+// Update event
+update_event = Событие обновления
+// General
+general = Основные настройки
+// Sound
+sound = Звук
+// Notification panel
+notification_panel = Панель уведомлений
+// Task bar
+task_bar = Панель задач
+// Support
+support = Поддержка
+// About
+about = О программе
+// DND on
+dnd_on = Не беспокоить включен
+// DND off
+dnd_off = Не беспокоить выключен
+// Pushbullet notifications on
+pushbullet_notifications_on = Уведомления Pushbullet включены
+// Pushbullet notifications off
+pushbullet_notifications_off = Уведомления Pushbullet выключены
+// Yes
+yes = Да
+// No
+no = Нет
+// OK
+ok = ОК
+// Disable
+disable = Отключить
+// Enable
+enable = Включить
+// Save
+save = Сохранить
+// Dismiss all
+dismiss_all = Сбросить все
+// Scale settings
+scale_settings = Настройки масштаба
+// Task panel
+task_panel = Панель задач
+// Item cell panel
+item_cell_panel = Панель ячеек предметов
+// Dismiss
+dismiss = Закрыть
+// New version available
+new_version_available = Доступна новая версия
+// Show messages containing the following words
+show_messages_containing_the_following_words = Показывать сообщения, содержащие следующие слова
+// Response message
+response_message = Сообщение-ответ
+// Status: stopped
+status_stopped = Статус: остановлен
+// Status: running
+status_running = Статус: запущен
+// Wrong game path!
+wrong_game_path = Неверный путь к игре!
+// Success!
+success = Успешно!
+// Select game path (check task manager if not sure)
+select_game_path = Выберите путь к игре (если не уверены, проверьте диспетчер задач)
+// Check for updates
+check_for_updates = Проверить обновления
+// Hamsters are running
+hamsters_are_running = Хомяки работают
+// You have the newest version
+you_have_the_newest_version = У вас установлена последняя версия
+// There was a problem with checking newest version, do you want to manually check it?
+there_was_a_problem_with_checking_newest_version = Возникла проблема с проверкой последней версии, хотите проверить вручную?
+// There is a newer version, do you want to go to github?
+there_is_a_newer_version = Есть новая версия, хотите перейти на GitHub?
+// Monthly donations
+monthly_donations = Ежемесячные пожертвования
+// Donate
+donate = Пожертвовать
+// Next
+next = Дальше
+// Previous
+previous = Назад
+// Download
+download = Скачать
+// Welcome to MercuryTrade
+welcome = Добро пожаловать в MercuryTrade
+// Restart
+restart = Перезапуск
+// New
+new = Новый
+// Group
+group = Группа
+// Showcase
+showcase = Витрина
+// Do you want to delete this profile?
+do_you_want_to_delete_this_profile = Вы действительно хотите удалить этот профиль?
+// Always refresh?
+always_refresh = Всегда обновлять?
+// Import to current profile
+import_to_current_profile = Импортировать в текущий профиль
+// Create new and import
+create_new_and_import = Создать новый и импортировать
+// Import manager
+import_manager = Менеджер импорта

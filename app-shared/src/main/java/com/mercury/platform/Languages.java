@@ -3,13 +3,17 @@ package com.mercury.platform;
 public enum Languages {
     en("english"),
     pl("polish"),
-    RU("russian"),
+    ru("russian"),
     ;
 
     private String name;
 
     Languages(String name) {
         this.name = name;
+    }
+
+    public static boolean isCJK() {
+        return false;
     }
 
     public String getName() {

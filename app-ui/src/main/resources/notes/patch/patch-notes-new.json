@@ -1,8 +1,7 @@
 [
-
   {
-    "version": "1.3.6",
-    "minor": [
+    "version": "1.3.7",
+    "minorChanges": [
       {
         "changed": ""
       }
@@ -18,15 +17,15 @@
   },
   {
     "version": "1.3.6",
-    "minor": [
+    "minorChanges": [
       {
         "changed": "Added parsing chinese messages"
       }
-    ]
+     ]
   },
   {
     "version": "1.3.5",
-    "minor": [
+    "minorChanges": [
       {
         "changed": "moved option to enable path of exile 2 support into in app settings, remember to save after changing"
       }

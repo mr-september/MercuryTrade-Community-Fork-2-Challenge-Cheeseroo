@@ -273,7 +273,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
             this.progressBar.setPreferredSize(new Dimension(300, 26));
             this.progressBar.setBackground(AppThemeColor.MSG_HEADER);
             this.progressBar.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER));
-            this.progressBar.setFont(componentsFactory.getFontByLang("0", FontStyle.ITALIC));
+            this.progressBar.setFont(componentsFactory.getFontByLang("0", FontStyle.REGULAR));
             barPanel.add(progressBar);
 
             root.add(barPanel, BorderLayout.CENTER);

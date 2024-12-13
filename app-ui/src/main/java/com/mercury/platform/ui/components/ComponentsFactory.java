@@ -7,13 +7,8 @@ import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.components.fields.style.MercuryComboBoxUI;
 import com.mercury.platform.ui.components.fields.style.MercuryScrollBarUI;
 import com.mercury.platform.ui.components.panel.misc.ToggleCallback;
-import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,16 +24,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
-import java.nio.file.Files;
 import java.text.NumberFormat;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory for each element which uses in application
@@ -47,18 +40,27 @@ public class ComponentsFactory {
     private final static Logger log = LogManager.getLogger(ComponentsFactory.class);
 
     private Font BOLD_FONT;
-    private Font ITALIC_FONT;
     private Font REGULAR_FONT;
-    private Font SMALLCAPS_FONT;
-    @Getter
     private Font DEFAULT_FONT;
+    private Font CJK_FONT;
+    private Font KR_FONT;
     private float scale;
+
+    private final static Map<TextAttribute, Float> boldAttr = new HashMap<TextAttribute, Float>() {{
+        put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
+        put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED);
+    }};
+
+    private final static Map<TextAttribute, Float> regularAttr = new HashMap<TextAttribute, Float>() {{
+        put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
+        put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED);
+    }};
+
 
     public ComponentsFactory() {
         this.scale = 1.0f;
         loadFonts();
 
-//        UIManager.getDefaults().put("Slider.horizontalThumbIcon",this.getImage("app/slider_thumb.png"));
         UIManager.put("ComboBox.selectionBackground", AppThemeColor.HEADER);
         UIManager.put("ComboBox.selectionForeground", AppThemeColor.ADR_POPUP_BG);
         UIManager.put("ComboBox.disabledForeground", AppThemeColor.ADR_FOOTER_BG);
@@ -69,26 +71,30 @@ public class ComponentsFactory {
      */
     private void loadFonts() {
         try {
-//            BOLD_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Fontin-Bold.ttf"));
-//            ITALIC_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Fontin-Italic.ttf"));
-//            REGULAR_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Fontin-Regular.ttf"));
-//            SMALLCAPS_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/Fontin-SmallCaps.ttf"));
+            Font base = Font.createFont(Font.TRUETYPE_FONT,
+                                        getClass().getClassLoader()
+                                                  .getResourceAsStream("font/NotoSans-VariableFont.ttf"));
+            CJK_FONT = Font.createFont(Font.TRUETYPE_FONT,
+                                       getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
+            KR_FONT = Font.createFont(Font.TRUETYPE_FONT,
+                                      getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
 
-            BOLD_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/SpaceMono-Bold.ttf"));
-            ITALIC_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/SpaceMono-Italic.ttf"));
-            REGULAR_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/SpaceMono-Regular.ttf"));
-            SMALLCAPS_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/SpaceMono-BoldItalic.ttf"));
-
-            DEFAULT_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
+            DEFAULT_FONT = base.deriveFont(regularAttr);
+            BOLD_FONT = base.deriveFont(boldAttr);
+            REGULAR_FONT = base.deriveFont(regularAttr);
 
             DEFAULT_FONT = DEFAULT_FONT.deriveFont(16f * scale);
             BOLD_FONT = BOLD_FONT.deriveFont(16f * scale);
-            ITALIC_FONT = ITALIC_FONT.deriveFont(16f * scale);
             REGULAR_FONT = REGULAR_FONT.deriveFont(16f * scale);
-            SMALLCAPS_FONT = SMALLCAPS_FONT.deriveFont(16f * scale);
+            CJK_FONT = CJK_FONT.deriveFont(16f * scale);
+            KR_FONT = KR_FONT.deriveFont(16f * scale);
 
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(DEFAULT_FONT);
+            genv.registerFont(BOLD_FONT);
+            genv.registerFont(REGULAR_FONT);
+            genv.registerFont(CJK_FONT);
+            genv.registerFont(KR_FONT);
 
         } catch (Exception e) {
             log.error(e);
@@ -126,7 +132,7 @@ public class ComponentsFactory {
                 CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER, 1),
                         BorderFactory.createLineBorder(button.getBackground(), 3)
-                );
+                                                                                  );
                 button.setBorder(compoundBorder);
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
@@ -140,11 +146,7 @@ public class ComponentsFactory {
         button.addActionListener(action -> {
             MercuryStoreCore.soundSubject.onNext(SoundType.CLICKS);
         });
-        if (isAscii(text)) {
-            button.setFont(getSelectedFont(fontStyle).deriveFont(scale * fontSize));
-        } else {
-            button.setFont(DEFAULT_FONT.deriveFont(scale * fontSize));
-        }
+        button.setFont(getSelectedFont(fontStyle, text).deriveFont(scale * fontSize));
         button.setBorder(border);
         button.addChangeListener(e -> {
             if (!button.getModel().isPressed()) {
@@ -164,7 +166,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-        );
+                                                                          );
 
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
     }
@@ -179,7 +181,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-        );
+                                                                          );
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
     }
 
@@ -187,19 +189,26 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-        );
+                                                                          );
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * fontSize);
     }
 
-    public JButton getBorderedButton(String text, float fontSize, Color background, Color outerBorderColor, Color innerBorderColor) {
+    public JButton getBorderedButton(String text,
+                                     float fontSize,
+                                     Color background,
+                                     Color outerBorderColor,
+                                     Color innerBorderColor) {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(outerBorderColor, 1),
                 BorderFactory.createLineBorder(innerBorderColor, 3)
-        );
+                                                                          );
         return getButton(FontStyle.BOLD, background, compoundBorder, text, scale * fontSize);
     }
 
-    public Component setUpToggleCallbacks(Component button, ToggleCallback firstState, ToggleCallback secondState, boolean initialState) {
+    public Component setUpToggleCallbacks(Component button,
+                                          ToggleCallback firstState,
+                                          ToggleCallback secondState,
+                                          boolean initialState) {
         button.addMouseListener(new MouseAdapter() {
             private boolean state = initialState;
 
@@ -232,7 +241,11 @@ public class ComponentsFactory {
      * @param iconSize icon size
      * @return JButton object with icon
      */
-    public JButton getIconButton(String iconPath, float iconSize, Color background, String tooltip, String textIfImgNotFound) {
+    public JButton getIconButton(String iconPath,
+                                 float iconSize,
+                                 Color background,
+                                 String tooltip,
+                                 String textIfImgNotFound) {
         JButton button = new JButton("") {
             @Override
             protected void paintBorder(Graphics g) {
@@ -240,9 +253,10 @@ public class ComponentsFactory {
                     super.paintBorder(g);
                 }
             }
+
             @Override
             public JToolTip createToolTip() {
-                JToolTip tip = ComponentsFactory.this.createTooltip();
+                JToolTip tip = ComponentsFactory.this.createTooltip(tooltip);
                 tip.setDoubleBuffered(true);
                 return tip;
             }
@@ -311,11 +325,11 @@ public class ComponentsFactory {
         return button;
     }
 
-    public JToolTip createTooltip() {
+    public JToolTip createTooltip(String text) {
         JToolTip toolTip = new JToolTip();
         toolTip.setBackground(AppThemeColor.SETTINGS_BG);
         toolTip.setForeground(AppThemeColor.TEXT_DEFAULT);
-        toolTip.setFont(getFont(FontStyle.REGULAR, 16));
+        toolTip.setFont(getSelectedFont(FontStyle.REGULAR, text, scale * 16f));
         toolTip.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER));
         return toolTip;
     }
@@ -337,7 +351,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 2)
-        );
+                                                                          );
         JButton iconButton = getIconButton(iconPath, iconSize, AppThemeColor.FRAME_ALPHA, tooltip);
         iconButton.setBorder(BorderFactory.createLineBorder(AppThemeColor.BUTTON, 2));
         return iconButton;
@@ -370,11 +384,7 @@ public class ComponentsFactory {
      */
     public JLabel getTextLabel(FontStyle fontStyle, Color frColor, TextAlignment alignment, float size, String text) {
         JLabel label = new JLabel(text);
-        if (isAscii(text)) {
-            label.setFont(getSelectedFont(fontStyle).deriveFont(scale * size));
-        } else {
-            label.setFont(DEFAULT_FONT.deriveFont(scale * size));
-        }
+        label.setFont(getSelectedFont(fontStyle, text).deriveFont(scale * size));
         label.setForeground(frColor);
         Border border = label.getBorder();
         label.setBorder(new CompoundBorder(border, new EmptyBorder(0, 5, 0, 5)));
@@ -400,7 +410,12 @@ public class ComponentsFactory {
         return label;
     }
 
-    public JLabel getTextLabel(FontStyle fontStyle, Color frColor, TextAlignment alignment, float size, Border border, String text) {
+    public JLabel getTextLabel(FontStyle fontStyle,
+                               Color frColor,
+                               TextAlignment alignment,
+                               float size,
+                               Border border,
+                               String text) {
         JLabel textLabel = getTextLabel(fontStyle, frColor, alignment, size, text);
         textLabel.setBorder(border);
         return textLabel;
@@ -475,7 +490,7 @@ public class ComponentsFactory {
         JLabel iconLabel = new JLabel() {
             @Override
             public JToolTip createToolTip() {
-                return ComponentsFactory.this.createTooltip();
+                return ComponentsFactory.this.createTooltip(tooltip);
             }
         };
         iconLabel.setToolTipText(tooltip);
@@ -500,14 +515,14 @@ public class ComponentsFactory {
     }
 
     public JTextField getTextField(String text) {
-        JTextField textField = getTextField(text, null, scale * 16);
-        textField.setFont(DEFAULT_FONT);
+        JTextField textField = getTextField(text, FontStyle.REGULAR, scale * 16);
+        textField.setFont(getSelectedFont(FontStyle.REGULAR, text));
         return textField;
     }
 
     public JPasswordField getPasswordField(String text) {
-        JPasswordField passwordField = getPasswordField(text, null, scale * 16);
-        passwordField.setFont(DEFAULT_FONT);
+        JPasswordField passwordField = getPasswordField(text, FontStyle.REGULAR, scale * 16);
+        passwordField.setFont(getSelectedFont(FontStyle.REGULAR, text));
         return passwordField;
     }
 
@@ -522,44 +537,40 @@ public class ComponentsFactory {
 
         JFormattedTextField field = new JFormattedTextField(formatter);
         field.setValue(value);
-        field.setFont(DEFAULT_FONT.deriveFont(scale * 18));
+        field.setFont(getSelectedFont(FontStyle.REGULAR, null).deriveFont(scale * 18));
         field.setFocusLostBehavior(JFormattedTextField.PERSIST);
         field.setForeground(AppThemeColor.TEXT_DEFAULT);
         field.setCaretColor(AppThemeColor.TEXT_DEFAULT);
         field.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-        ));
+                                                          ));
         field.setBackground(AppThemeColor.HEADER);
         return field;
     }
 
     public JTextField getTextField(String text, FontStyle style, float fontSize) {
         JTextField textField = new JTextField(text);
-        if (style != null) {
-            textField.setFont(getSelectedFont(style).deriveFont(scale * fontSize));
-        }
+        textField.setFont(getSelectedFont(style, text).deriveFont(scale * fontSize));
         textField.setForeground(AppThemeColor.TEXT_DEFAULT);
         textField.setCaretColor(AppThemeColor.TEXT_DEFAULT);
         textField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-        ));
+                                                              ));
         textField.setBackground(AppThemeColor.HEADER);
         return textField;
     }
 
     public JPasswordField getPasswordField(String text, FontStyle style, float fontSize) {
         JPasswordField passwordField = new JPasswordField(text);
-        if (style != null) {
-            passwordField.setFont(getSelectedFont(style).deriveFont(scale * fontSize));
-        }
+        passwordField.setFont(getSelectedFont(style, text).deriveFont(scale * fontSize));
         passwordField.setForeground(AppThemeColor.TEXT_DEFAULT);
         passwordField.setCaretColor(AppThemeColor.TEXT_DEFAULT);
         passwordField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-                                                              ));
+                                                                  ));
         passwordField.setBackground(AppThemeColor.HEADER);
         return passwordField;
     }
@@ -568,7 +579,7 @@ public class ComponentsFactory {
         JCheckBox checkBox = new JCheckBox() {
             @Override
             public JToolTip createToolTip() {
-                return ComponentsFactory.this.createTooltip();
+                return ComponentsFactory.this.createTooltip(tooltip);
             }
         };
         checkBox.setToolTipText(tooltip);
@@ -594,12 +605,7 @@ public class ComponentsFactory {
     }
 
     public Font getFontByLang(String text, FontStyle style) {
-        if (style != null) {
-            if (isAscii(text)) {
-                return getSelectedFont(style);
-            }
-        }
-        return DEFAULT_FONT;
+        return getSelectedFont(style, text);
     }
 
     public JPanel getSliderSettingsPanel(JLabel titleLabel, JLabel countLabel, JSlider slider) {
@@ -641,7 +647,7 @@ public class ComponentsFactory {
     }
 
     public Font getFont(FontStyle style, float fontSize) {
-        return getSelectedFont(style).deriveFont(scale * fontSize);
+        return getSelectedFont(style, null).deriveFont(scale * fontSize);
     }
 
     public JComboBox getComboBox(String[] child) {
@@ -661,7 +667,7 @@ public class ComponentsFactory {
 //        slider.setPaintLabels(true);
 //        slider.setUI(new WindowsSliderUI(slider));
         slider.setForeground(AppThemeColor.TEXT_DEFAULT);
-        slider.setFont(DEFAULT_FONT.deriveFont(15f));
+        slider.setFont(getSelectedFont(FontStyle.REGULAR, null).deriveFont(15f));
         slider.setRequestFocusEnabled(false);
         slider.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -775,7 +781,7 @@ public class ComponentsFactory {
         area.setLineWrap(true);
         area.setBackground(AppThemeColor.FRAME);
         area.setBorder(null);
-        area.setFont(DEFAULT_FONT.deriveFont(scale * 16f));
+        area.setFont(getSelectedFont(FontStyle.REGULAR, text).deriveFont(scale * 16f));
         area.setForeground(AppThemeColor.TEXT_DEFAULT);
         return area;
     }
@@ -806,33 +812,35 @@ public class ComponentsFactory {
         this.scale = scale;
     }
 
-    private Font getSelectedFont(FontStyle fontStyle) {
+    private Font getSelectedFont(FontStyle fontStyle, String text, Float deriveFont) {
+        Font result = null;
+        result = fetchByLanguage(text, fontStyle);
+
+        if (deriveFont != null) {
+            return result.deriveFont(deriveFont);
+        }
+        return result;
+    }
+
+    private Font getSelectedFont(FontStyle fontStyle, String text) {
+        return getSelectedFont(fontStyle, text, null);
+    }
+
+    private Font fetchByLanguage(String text, FontStyle fontStyle) {
+        if (isKorean(text)) {
+            return KR_FONT;
+        }
+        if (isCJK(text)) {
+            return CJK_FONT;
+        }
         switch (fontStyle) {
             case BOLD:
                 return BOLD_FONT;
-            case ITALIC:
-                return ITALIC_FONT;
             case REGULAR:
                 return REGULAR_FONT;
-            case SMALLCAPS:
-                return SMALLCAPS_FONT;
         }
         return DEFAULT_FONT;
-    }
 
-    private boolean isAscii(CharSequence sequence) {
-        if (sequence != null) {
-            for (int i = sequence.length() - 1; i >= 0; i--) {
-                if (!matches(sequence.charAt(i))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean matches(char c) {
-        return c <= '\u007f';
     }
 
     public JPanel getJPanel(LayoutManager layoutManager) {
@@ -894,66 +902,42 @@ public class ComponentsFactory {
         JPopupMenu contextMenu = new JPopupMenu();
         contextMenu.setBackground(AppThemeColor.FRAME);
         contextMenu.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER));
-        contextMenu.setFont(DEFAULT_FONT.deriveFont(scale * 16f));
+        contextMenu.setFont(getSelectedFont(FontStyle.REGULAR, null, scale * 16f));
         contextMenu.setForeground(AppThemeColor.TEXT_DEFAULT);
         return contextMenu;
     }
 
     public JMenuItem getMenuItem(String text) {
         JMenuItem menuItem = new JMenuItem(text);
-        menuItem.setFont(DEFAULT_FONT.deriveFont(scale * 16f));
+        menuItem.setFont(getSelectedFont(FontStyle.REGULAR, text, scale * 16f));
         menuItem.setForeground(AppThemeColor.TEXT_DEFAULT);
         return menuItem;
     }
 
     public JMenuItem getMenu(String text) {
         JMenu menu = new JMenu(text);
-        menu.setFont(DEFAULT_FONT.deriveFont(scale * 16f));
+        menu.setFont(getSelectedFont(FontStyle.REGULAR, text, scale * 16f));
         menu.setForeground(AppThemeColor.TEXT_DEFAULT);
         return menu;
     }
 
-//    @EqualsAndHashCode(callSuper = true)
-//    @Data
-//    private class TooltipMouseListener extends MouseAdapter {
-//        private String tooltip;
-//        private Timer tooltipTimer;
-//        private Timer tempTimer;
-//        private boolean fired = false;
-//
-//        public TooltipMouseListener (String tooltip) {
-//            this.tooltip = tooltip;
-//        }
-//
-//        @Override
-//        public void mouseEntered(MouseEvent e) {
-//            fired = false;
-//            this.tooltipTimer = new Timer(700, action -> {
-//                MercuryStoreCore.tooltipSubject.onNext(tooltip);
-//                fired = true;
-//                this.tooltipTimer.stop();
-//            });
-//            this.tooltipTimer.start();
-//        }
-//
-//        @Override
-//        public void mouseExited(MouseEvent e) {
-//            this.tooltipTimer.stop();
-//            if (fired) {
-//                MercuryStoreCore.tooltipSubject.onNext(null);
-//            }
-//        }
-//
-//        @Override
-//        public void mousePressed(MouseEvent e) {
-//            tempTimer = new Timer(100, action -> {
-//                this.tooltipTimer.stop();
-//                if (fired) {
-//                    MercuryStoreCore.tooltipSubject.onNext(null);
-//                }
-//                tempTimer.stop();
-//            });
-//            tempTimer.start();
-//        }
-//    }
+    /**
+     * Checking if text is chinese/japanese/korean(old korean)
+     *
+     * @param s
+     * @return
+     */
+    public static boolean isCJK(String s) {
+        if (StringUtils.isBlank(s)) {
+            return false; //TODO: check for configuration if language is set to china then return true
+        }
+        return s.codePoints().anyMatch(Character::isIdeographic);
+    }
+
+    public static boolean isKorean(String s) {
+        if (StringUtils.isBlank(s)) {
+            return false; //TODO: check for configuration if language is set to korean then return true
+        }
+        return s.codePoints().anyMatch(x -> Character.UnicodeScript.of(x).equals(Character.UnicodeScript.HANGUL));
+    }
 }

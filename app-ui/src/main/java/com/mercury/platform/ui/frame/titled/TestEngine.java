@@ -117,11 +117,11 @@ public class TestEngine {
         currency.add("Divine Vessel");
 
         nickNames.add("<QWE> ExtraLongNicknameExample");
-        nickNames.add("Example2");
-        nickNames.add("<QWE> Example3");
-        nickNames.add("Example4");
+        nickNames.add("Правление");
+        nickNames.add("źżąęćśłóść");
+        nickNames.add("울고싶지않아");
         nickNames.add("<QWE> Example5");
-        nickNames.add("Example6");
+        nickNames.add("神圣怨恨初火");
 
         offer.add("offer");
         offer.add(" ");
