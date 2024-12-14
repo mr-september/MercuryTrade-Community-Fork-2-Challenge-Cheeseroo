@@ -28,6 +28,7 @@
     <runtimeBits>64/32</runtimeBits>
     <maxHeapSize>256</maxHeapSize>
     <opt>-XX:+UseG1GC</opt>
+    <opt>-Dfile.encoding=UTF-8</opt>
   </jre>
   <versionInfo>
     <fileVersion>1.3.5.0</fileVersion>

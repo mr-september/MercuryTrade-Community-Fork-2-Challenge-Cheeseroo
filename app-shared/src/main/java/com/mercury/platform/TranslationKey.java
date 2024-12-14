@@ -117,7 +117,6 @@ public enum TranslationKey {
     selected_profile("Selected profile"),
     export_manager("Export manager"),
     view("View"),
-    select_icon("Select icon"),
     filter("Filter"),
     add_icon("Add icon"),
     choose_icon("Choose icon"),

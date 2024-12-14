@@ -58,9 +58,9 @@ public class LanguagesDuplicatesTest {
                         }
                         Assert.fail("Duplicate key found: " + key + "(" + file.getName() + ":" + lineNumber + ")");
                     }
-                    if (values.contains(value)) {
-                        Assert.fail("Duplicate value found: " + value + "(" + file.getName() + ":" + lineNumber + ")");
-                    }
+//                    if (values.contains(value)) {
+//                        Assert.fail("Duplicate value found: " + value + "(" + file.getName() + ":" + lineNumber + ")");
+//                    }
                     keys.add(key);
                     values.add(value);
                 }

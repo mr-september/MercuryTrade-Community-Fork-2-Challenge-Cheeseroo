@@ -72,12 +72,12 @@ public class ComponentsFactory {
     private void loadFonts() {
         try {
             Font base = Font.createFont(Font.TRUETYPE_FONT,
-                                        getClass().getClassLoader()
-                                                  .getResourceAsStream("font/NotoSans-VariableFont.ttf"));
+                    getClass().getClassLoader()
+                            .getResourceAsStream("font/NotoSans-VariableFont.ttf"));
             CJK_FONT = Font.createFont(Font.TRUETYPE_FONT,
-                                       getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
+                    getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
             KR_FONT = Font.createFont(Font.TRUETYPE_FONT,
-                                      getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
+                    getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
 
             DEFAULT_FONT = base.deriveFont(regularAttr);
             BOLD_FONT = base.deriveFont(boldAttr);
@@ -132,7 +132,7 @@ public class ComponentsFactory {
                 CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER, 1),
                         BorderFactory.createLineBorder(button.getBackground(), 3)
-                                                                                  );
+                );
                 button.setBorder(compoundBorder);
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
@@ -166,7 +166,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-                                                                          );
+        );
 
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
     }
@@ -181,7 +181,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-                                                                          );
+        );
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
     }
 
@@ -189,7 +189,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
-                                                                          );
+        );
         return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * fontSize);
     }
 
@@ -201,7 +201,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(outerBorderColor, 1),
                 BorderFactory.createLineBorder(innerBorderColor, 3)
-                                                                          );
+        );
         return getButton(FontStyle.BOLD, background, compoundBorder, text, scale * fontSize);
     }
 
@@ -351,7 +351,7 @@ public class ComponentsFactory {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 2)
-                                                                          );
+        );
         JButton iconButton = getIconButton(iconPath, iconSize, AppThemeColor.FRAME_ALPHA, tooltip);
         iconButton.setBorder(BorderFactory.createLineBorder(AppThemeColor.BUTTON, 2));
         return iconButton;
@@ -544,7 +544,7 @@ public class ComponentsFactory {
         field.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-                                                          ));
+        ));
         field.setBackground(AppThemeColor.HEADER);
         return field;
     }
@@ -557,7 +557,7 @@ public class ComponentsFactory {
         textField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-                                                              ));
+        ));
         textField.setBackground(AppThemeColor.HEADER);
         return textField;
     }
@@ -570,7 +570,7 @@ public class ComponentsFactory {
         passwordField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 3)
-                                                                  ));
+        ));
         passwordField.setBackground(AppThemeColor.HEADER);
         return passwordField;
     }

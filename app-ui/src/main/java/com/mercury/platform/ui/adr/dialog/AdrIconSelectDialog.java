@@ -23,7 +23,7 @@ public class AdrIconSelectDialog extends BaseDialog<String, String[]> {
 
     public AdrIconSelectDialog() {
         super(null, null, null);
-        this.setTitle(TranslationKey.select_icon.value());
+        this.setTitle(TranslationKey.choose_icon.value());
     }
 
     @Override
