@@ -1,0 +1,6 @@
+If you want to run this app from jar you need to type in cmd following command:
+
+java "-Dfile.encoding=UTF-8" -jar MercuryTrade.jar
+
+This s very important "-Dfile.encoding=UTF-8" since it loads application with UTF-8 charset so characters like ąśćł and some chinese/japanese characters needs that
+
