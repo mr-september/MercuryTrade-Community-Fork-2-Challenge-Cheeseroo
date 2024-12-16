@@ -37,6 +37,6 @@ echo zipping with exe completed
 echo zipping with lang started
 echo removing old lang files
 del lang.zip
-call powershell Compress-Archive ../app-shared/src/main/resources/lang lang.zip
+call powershell Compress-Archive ../app-shared/src/main/resources/lang/* lang.zip
 echo zipping with lang ended
 
