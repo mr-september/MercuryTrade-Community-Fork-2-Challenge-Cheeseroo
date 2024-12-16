@@ -1,22 +1,30 @@
 package com.mercury.platform;
 
 public enum Languages {
-    en("english"),
-    pl("polish"),
-    ru("russian"),
+    en(TranslationKey.english, "en"),
+    pl(TranslationKey.polish, "pl"),
+    ru(TranslationKey.russian, "ru"),
     ;
 
-    private String name;
+    private TranslationKey name;
+    private String shortName;
 
-    Languages(String name) {
+    Languages(TranslationKey name, String shortName) {
         this.name = name;
+        this.shortName = shortName;
     }
 
-    public static boolean isCJK() {
-        return false;
-    }
-
-    public String getName() {
+    public TranslationKey getName() {
         return name;
+    }
+
+    public String shortName() {
+        return shortName;
+    }
+
+
+    @Override
+    public String toString() {
+        return name.value();
     }
 }

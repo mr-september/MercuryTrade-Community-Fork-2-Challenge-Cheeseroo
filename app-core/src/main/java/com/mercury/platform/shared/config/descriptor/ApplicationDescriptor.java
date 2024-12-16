@@ -1,5 +1,6 @@
 package com.mercury.platform.shared.config.descriptor;
 
+import com.mercury.platform.Languages;
 import com.mercury.platform.core.misc.WhisperNotifierStatus;
 import lombok.Data;
 
@@ -18,4 +19,5 @@ public class ApplicationDescriptor implements Serializable {
     private boolean checkOutUpdate;
     private boolean hideTaskbarUntilHover;
     private boolean poe2;
+    private Languages languages;
 }

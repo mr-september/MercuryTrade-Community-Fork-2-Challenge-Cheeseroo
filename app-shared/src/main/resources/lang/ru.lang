@@ -429,7 +429,7 @@ welcome = Добро пожаловать в MercuryTrade
 // Restart
 restart = Перезапуск
 // New
-new = Новый
+new_btn = Новый
 // Group
 group = Группа
 // Showcase
@@ -444,3 +444,27 @@ import_to_current_profile = Импортировать в текущий про�
 create_new_and_import = Создать новый и импортировать
 // Import manager
 import_manager = Менеджер импорта
+// Feedback & Suggestions
+feedback_suggestions = Ошибки и предложения
+// not case sensitive
+not_case_sensitive = Регистр не важен
+// vulkan support
+vulkan_support = Поддержка Vulkan
+// Restore default location
+restore_default_location = Востановить оригинальное расположение элементов
+// Align this grid
+align_this_grid = Выровнять эту сетку
+// Paste import string here
+paste_here = Вставьте импортированный текст здесь
+// Copy this
+copy_this = Скопировать этот текст
+// english
+english = английский
+// russian
+russian = русский
+// polish
+polish = польский
+// Choose language
+choose_language = Выберите язык
+// Language change requires application restart.
+language_change_requires_application_restart = Изменение языка требует перезагрузки приложения.

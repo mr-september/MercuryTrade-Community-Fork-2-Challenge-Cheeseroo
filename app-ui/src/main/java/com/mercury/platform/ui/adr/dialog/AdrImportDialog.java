@@ -52,7 +52,7 @@ public class AdrImportDialog extends AdrDialog {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
         root.setBackground(AppThemeColor.ADR_BG);
-        JLabel header = this.componentsFactory.getTextLabel("Data (Ctrl + V for paste):", FontStyle.BOLD, 18);
+        JLabel header = this.componentsFactory.getTextLabel(TranslationKey.paste_here.value(":"), FontStyle.BOLD, 18);
         header.setForeground(AppThemeColor.TEXT_NICKNAME);
         root.add(header, BorderLayout.PAGE_START);
 

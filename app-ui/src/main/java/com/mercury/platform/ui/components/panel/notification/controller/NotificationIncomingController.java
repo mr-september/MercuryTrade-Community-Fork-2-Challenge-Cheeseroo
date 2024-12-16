@@ -6,6 +6,7 @@ import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +32,11 @@ public class NotificationIncomingController implements IncomingPanelController {
 
     @Override
     public void performKickLeave(String nickName) {
-        MercuryStoreCore.chatCommandSubject.onNext("/kick " + notificationDescriptor.getWhisperNickname());
+        if (StringUtils.isBlank(nickName)) {
+            MercuryStoreCore.chatCommandSubject.onNext("/leave");
+        } else {
+            MercuryStoreCore.chatCommandSubject.onNext("/kick " + notificationDescriptor.getWhisperNickname());
+        }
     }
 
     @Override

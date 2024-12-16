@@ -74,7 +74,7 @@ public class AboutPagePanel extends SettingsPagePanel {
         });
 
         JPanel feedbackPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
-        feedbackPanel.add(componentsFactory.getTextLabel("Feedback & Suggestions: ", FontStyle.REGULAR, 15));
+        feedbackPanel.add(componentsFactory.getTextLabel(TranslationKey.feedback_suggestions.value(": "), FontStyle.REGULAR, 15));
         feedbackPanel.add(githubButton);
 
         panel.add(feedbackPanel);

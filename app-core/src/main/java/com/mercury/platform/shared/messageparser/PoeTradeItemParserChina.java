@@ -22,6 +22,9 @@ class PoeTradeItemParserChina extends BaseRegexParser {
         tradeNotification.setWhisperNickname(matcher.group(1));
         tradeNotification.setSourceString(matcher.group(0));
         tradeNotification.setItemName(matcher.group(2));
+        tradeNotification.setTabName(matcher.group(5));
+        tradeNotification.setLeft(Integer.parseInt(matcher.group(6)));
+        tradeNotification.setTop(Integer.parseInt(matcher.group(7)));
         if (matcher.group(3) != null) {
             String[] split = matcher.group(3).split(" ");
             tradeNotification.setCurCount(Double.parseDouble(split[0]));

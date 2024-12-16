@@ -49,6 +49,13 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
                 this.controller.performHide();
             }
         });
+        JButton leaveButton = componentsFactory.getIconButton(IconConst.LEAVE, 16, AppThemeColor.MSG_HEADER, TranslationKey.leave.value());
+        leaveButton.addActionListener(e -> {
+            this.controller.performKickLeave(null);
+            if (this.notificationConfig.get().isDismissAfterLeave()) {
+                this.controller.performHide();
+            }
+        });
         JButton tradeButton = componentsFactory.getIconButton(IconConst.TRADE, 15, AppThemeColor.MSG_HEADER, TranslationKey.offer_trade.value());
         tradeButton.addActionListener(e -> {
             this.controller.performOfferTrade();
@@ -62,6 +69,7 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
         interactionPanel.add(inviteButton);
         interactionPanel.add(tradeButton);
         interactionPanel.add(kickButton);
+        interactionPanel.add(leaveButton);
         interactionPanel.add(openChatButton);
         interactionPanel.add(hideButton);
 

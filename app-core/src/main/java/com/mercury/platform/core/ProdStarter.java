@@ -1,5 +1,6 @@
 package com.mercury.platform.core;
 
+import com.mercury.platform.LangTranslator;
 import com.mercury.platform.core.misc.SoundNotifier;
 import com.mercury.platform.shared.FrameVisibleState;
 import com.mercury.platform.shared.HistoryManager;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,10 +28,11 @@ public class ProdStarter {
     public static FrameVisibleState APP_STATUS = FrameVisibleState.HIDE;
     private volatile int delay = 100;
 
-    public void startApplication(boolean alwaysVisible) {
+    public void startApplication(boolean alwaysVisible) throws IOException {
         MercuryConfigManager configuration = new MercuryConfigManager(new MercuryConfigurationSource());
         configuration.load();
         Configuration.set(configuration);
+        LangTranslator.getInstance().changeLanguage(Configuration.get().applicationConfiguration().get().getLanguages());
         new SoundNotifier();
         new ChatHelper();
         new HotKeysInterceptor();

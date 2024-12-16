@@ -316,7 +316,7 @@ public class FramesManager implements AsSubscriber {
             exit.addActionListener(e -> {
                 exit();
             });
-            MenuItem restore = new MenuItem("Restore default location");
+            MenuItem restore = new MenuItem(TranslationKey.restore_default_location.value());
             restore.addActionListener(e -> {
                 FramesManager.INSTANCE.restoreDefaultLocation();
             });
@@ -327,7 +327,7 @@ public class FramesManager implements AsSubscriber {
                 FramesManager.INSTANCE.showFrame(SettingsFrame.class);
             });
 
-            CheckboxMenuItem vulkanSupport = new CheckboxMenuItem("Vulkan support");
+            CheckboxMenuItem vulkanSupport = new CheckboxMenuItem(TranslationKey.vulkan_support.value());
             vulkanSupport.setState(VulkanManager.INSTANCE.getSetting());
             vulkanSupport.addItemListener(e -> {
                 VulkanManager.INSTANCE.changeSetting();

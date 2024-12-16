@@ -42,7 +42,6 @@ public class AppMain {
             logger.warn("standalone=" + standalone);
             logger.warn("dev=" + dev);
             logger.warn("hideLoadingIcon=" + hideLoadingIcon);
-            LangTranslator.getInstance().changeLanguage(Languages.pl);
 
             new ErrorHandler();
             if (!hideLoadingIcon) {

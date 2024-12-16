@@ -68,7 +68,7 @@ public class AdrExportDialog extends AdrDialog<List<AdrComponentDescriptor>> {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
         root.setBackground(AppThemeColor.ADR_BG);
-        JLabel header = this.componentsFactory.getTextLabel("Data (Ctrl + A for copy):", FontStyle.BOLD, 18);
+        JLabel header = this.componentsFactory.getTextLabel(TranslationKey.copy_this.value(":"), FontStyle.BOLD, 18);
         header.setForeground(AppThemeColor.TEXT_NICKNAME);
         root.add(header, BorderLayout.PAGE_START);
 

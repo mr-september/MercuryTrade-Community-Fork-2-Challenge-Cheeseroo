@@ -303,7 +303,7 @@ example_description = Przykład: kliknij przycisk „Szept”, wiadomość zosta
 // Close panel on kick button pressed
 close_panel_on_kick_button_pressed = Zamknij panel po naciśnięciu przycisku „Wyrzuć”
 // Show league
-show_league = Pokaż ligę
+show_league = Pokaż nazwę ligi
 // Response buttons
 response_buttons = Przycisk odpowiedzi
 // Hotkeys
@@ -429,7 +429,7 @@ welcome = Witaj w MercuryTrade
 // Restart
 restart = Zrestartuj
 // New
-new = Nowy
+new_btn = Nowy
 // Group
 group = Grupa
 // Showcase
@@ -444,3 +444,27 @@ import_to_current_profile = Zaimportuj do aktualnego profilu
 create_new_and_import = Utwórz nowy i zaimportuj
 // Import manager
 import_manager = Menadżer importu
+// Feedback & Suggestions
+feedback_suggestions = Błędy i sugestie
+// not case sensitive
+not_case_sensitive = wielkość znaków nie ma znaczenia
+// vulkan support
+vulkan_support = wsparcie dla Vulkan
+// Restore default location
+restore_default_location = Przywróć domyślne położenie elementów
+// Align this grid
+align_this_grid = Dopasuj siatkę
+// Paste import string here
+paste_here = Wklej zaimportowany tekst tutaj
+// Copy this
+copy_this = Skopiuj ten tekst
+// english
+english = angielski
+// russian
+russian = rosyjski
+// polish
+polish = polski
+// Choose language
+choose_language = Wybierz język
+// Language change requires application restart.
+language_change_requires_application_restart = Zmiana języka wymaga restartu aplikacji.

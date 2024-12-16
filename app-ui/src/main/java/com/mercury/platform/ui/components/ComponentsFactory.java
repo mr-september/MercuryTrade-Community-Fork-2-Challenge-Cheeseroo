@@ -182,7 +182,7 @@ public class ComponentsFactory {
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
         );
-        return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
+        return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 13f);
     }
 
     public JButton getBorderedButton(String text, float fontSize) {
@@ -609,7 +609,7 @@ public class ComponentsFactory {
     }
 
     public JPanel getSliderSettingsPanel(JLabel titleLabel, JLabel countLabel, JSlider slider) {
-        Dimension elementsSize = convertSize(new Dimension(160, 30));
+        Dimension elementsSize = convertSize(new Dimension((int)scale*250, 30));
         Dimension countSize = convertSize(new Dimension(40, 30));
         titleLabel.setPreferredSize(elementsSize);
         slider.setPreferredSize(elementsSize);
@@ -651,6 +651,16 @@ public class ComponentsFactory {
     }
 
     public JComboBox getComboBox(String[] child) {
+        JComboBox comboBox = new JComboBox<>(child);
+        comboBox.setBackground(AppThemeColor.HEADER);
+        comboBox.setForeground(AppThemeColor.TEXT_DEFAULT);
+        comboBox.setFont(BOLD_FONT.deriveFont(scale * 16f));
+        comboBox.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER, 1));
+        comboBox.setUI(MercuryComboBoxUI.createUI(comboBox));
+        return comboBox;
+    }
+
+    public <T> JComboBox<T> getComboBox(T[] child) {
         JComboBox comboBox = new JComboBox<>(child);
         comboBox.setBackground(AppThemeColor.HEADER);
         comboBox.setForeground(AppThemeColor.TEXT_DEFAULT);

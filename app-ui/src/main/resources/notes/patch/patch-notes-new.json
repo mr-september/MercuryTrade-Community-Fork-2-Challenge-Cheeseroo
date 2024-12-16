@@ -1,9 +1,21 @@
 [
   {
-    "version": "1.3.7",
+    "version": "1.3.6",
     "minorChanges": [
       {
-        "changed": ""
+        "changed": "Added option to change language, for now its only english, polish, russian (this one was translated by ai)"
+      },
+      {
+        "changed" : "Added option on incoming messages to leave party as sometimes you are not the one which does the invite or in poe2 atm all messages looks like incoming ones"
+      },
+      {
+        "changed" : "Added support for displaying more languages including most of west ones also chinese, japanese, korean"
+      },
+      {
+        "changed" : "Added parser for japanese messages and new one for different korean messages"
+      },
+      {
+        "changed": "Added parsing chinese messages"
       }
     ],
     "fix": [
@@ -14,14 +26,6 @@
         "changed": "Deleted no longer used code, should result in a bit smaller .jar file"
       }
     ]
-  },
-  {
-    "version": "1.3.6",
-    "minorChanges": [
-      {
-        "changed": "Added parsing chinese messages"
-      }
-     ]
   },
   {
     "version": "1.3.5",

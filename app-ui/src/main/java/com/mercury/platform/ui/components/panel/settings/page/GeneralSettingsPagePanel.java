@@ -1,6 +1,8 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
 
+import com.mercury.platform.LangTranslator;
+import com.mercury.platform.Languages;
 import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.misc.WhisperNotifierStatus;
 import com.mercury.platform.shared.CloneHelper;
@@ -11,8 +13,11 @@ import com.mercury.platform.shared.config.configration.PlainConfigurationService
 import com.mercury.platform.shared.config.descriptor.ApplicationDescriptor;
 import com.mercury.platform.shared.config.descriptor.VulkanDescriptor;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
+import com.mercury.platform.ui.dialog.AlertDialog;
+import com.mercury.platform.ui.dialog.OkDialog;
 import com.mercury.platform.ui.manager.HideSettingsManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.MercuryStoreUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,6 +99,13 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             this.applicationSnapshot.setNotifierStatus(WhisperNotifierStatus.valueOfPretty((String) notifierStatusPicker.getSelectedItem()));
         });
 
+
+        JComboBox<Languages> languagesPicker = this.componentsFactory.getComboBox(Languages.values());
+        languagesPicker.setSelectedItem(this.applicationSnapshot.getLanguages() == null ? Languages.en : this.applicationSnapshot.getLanguages());
+        languagesPicker.addActionListener(action -> {
+            this.applicationSnapshot.setLanguages((Languages) languagesPicker.getSelectedItem());
+        });
+
         JTextField gamePathField = this.componentsFactory.getTextField(this.applicationSnapshot.getGamePath());
         gamePathField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
@@ -125,7 +137,7 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         pushbulletTextField.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.BORDER, 1),
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 2)
-                                                                  ));
+        ));
         pushbulletTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -143,6 +155,8 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         pushbulletPanel.add(pushbulletTextField, BorderLayout.CENTER);
         pushbulletPanel.add(testPush, BorderLayout.LINE_END);
 
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.choose_language.value(), FontStyle.REGULAR, 16));
+        root.add(this.componentsFactory.wrapToSlide(languagesPicker, AppThemeColor.ADR_BG, 0, 0, 0, 2));
         root.add(this.componentsFactory.getTextLabel(TranslationKey.notify_me_when_an_update_is_available.value(), FontStyle.REGULAR, 16));
         root.add(checkEnable);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.vulkan_support_enabled.value(), FontStyle.REGULAR, 16));
@@ -170,6 +184,9 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
     @Override
     public void onSave() {
         HideSettingsManager.INSTANCE.apply(applicationSnapshot.getFadeTime(), applicationSnapshot.getMinOpacity(), applicationSnapshot.getMaxOpacity());
+        if (!this.applicationSnapshot.getLanguages().equals(this.applicationConfig.get().getLanguages())) {
+            SwingUtilities.invokeLater(() -> new OkDialog(null, TranslationKey.language_change_requires_application_restart.value(), this).setVisible(true));
+        }
         this.applicationConfig.set(CloneHelper.cloneObject(this.applicationSnapshot));
         this.vulkanConfig.set(CloneHelper.cloneObject(this.vulkanSnapshot));
         PushBulletManager.INSTANCE.reloadAccessToken();

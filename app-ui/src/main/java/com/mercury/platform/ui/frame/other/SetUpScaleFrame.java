@@ -40,7 +40,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
         rootPanel.setBorder(BorderFactory.createEmptyBorder(6, 6, 0, 6));
 
         JPanel header = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
-        header.add(componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, TextAlignment.LEFTOP, 18f, "Scale settings"));
+        header.add(componentsFactory.getTextLabel(FontStyle.REGULAR, AppThemeColor.TEXT_DEFAULT, TextAlignment.LEFTOP, 18f, TranslationKey.scale_settings.value()));
 
         JPanel root = componentsFactory.getTransparentPanel(new BorderLayout());
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.HEADER));

@@ -31,14 +31,17 @@ public class LangTranslator {
     }
 
     private Map<String, String> intializeTranslations(Languages lang) throws IOException {
-        System.out.println("intializating translation for " + lang.toString());
+        if (lang == null) {
+            lang = Languages.en;
+        }
+        System.out.println("intializating translation for " + lang.shortName());
         Map<String, String> translations = new HashMap<>();
         try {
-            InputStream is = this.getClass().getResourceAsStream("/lang/" + lang.toString() + ".lang");
+            InputStream is = this.getClass().getResourceAsStream("/lang/" + lang.shortName() + ".lang");
 
             if (is == null) {
                 System.out.println("first resource not exists");
-                is = this.getClass().getResourceAsStream("/" + lang.toString() + ".lang");
+                is = this.getClass().getResourceAsStream("/" + lang.shortName() + ".lang");
                 if (is == null) {
                     System.out.println("second resource not exists");
                     return translations;

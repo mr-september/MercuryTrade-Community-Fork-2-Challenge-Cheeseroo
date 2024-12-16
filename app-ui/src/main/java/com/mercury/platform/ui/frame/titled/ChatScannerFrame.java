@@ -236,7 +236,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         JPanel itemsPanel = componentsFactory.getTransparentPanel();
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
 
-        itemsPanel.add(componentsFactory.getTextLabel("not case sensitive", FontStyle.REGULAR, 17));
+        itemsPanel.add(componentsFactory.getTextLabel(TranslationKey.not_case_sensitive.value(), FontStyle.REGULAR, 17));
         itemsPanel.add(componentsFactory.getTextLabel("! - NOT (!wtb,!wts)", FontStyle.REGULAR, 17));
         itemsPanel.add(componentsFactory.getTextLabel(", - separator", FontStyle.REGULAR, 17));
         root.add(title, BorderLayout.PAGE_START);

@@ -224,6 +224,18 @@ public enum TranslationKey {
     import_to_current_profile("Import to current profile"),
     create_new_and_import("Create new and import"),
     import_manager("Import manager"),
+    feedback_suggestions("Feedback & Suggestions"),
+    not_case_sensitive("not case sensitive"),
+    vulkan_support("vulkan support"),
+    restore_default_location("Restore default location"),
+    align_this_grid("Align this grid"),
+    paste_here("Paste import string here"),
+    copy_this("Copy this"),
+    english("english"),
+    polish("polish"),
+    russian("russian"),
+    choose_language("Choose language"),
+    language_change_requires_application_restart("Language change requires application restart."),
     ;
 
     private String defaultValue;

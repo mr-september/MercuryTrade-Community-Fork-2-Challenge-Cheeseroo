@@ -164,13 +164,12 @@ public class ItemsGridFrame extends AbstractMovableComponentFrame {
 
         labelPanel.add(this.componentsFactory.wrapToSlide(tabType, AppThemeColor.FRAME), BorderLayout.LINE_START);
         Color titleColor = this.applicationConfig.get().isItemsGridEnable() ? AppThemeColor.TEXT_NICKNAME : AppThemeColor.TEXT_DISABLE;
-        JLabel titleLabel = componentsFactory.getTextLabel(FontStyle.BOLD, titleColor, TextAlignment.LEFTOP, 20f, "Align this grid(approximately)");
+        JLabel titleLabel = componentsFactory.getTextLabel(FontStyle.BOLD, titleColor, TextAlignment.LEFTOP, 20f, TranslationKey.align_this_grid.value());
         labelPanel.add(titleLabel, BorderLayout.CENTER);
         headerPanel.add(labelPanel, BorderLayout.CENTER);
 
         String title = (this.applicationConfig.get().isItemsGridEnable()) ? TranslationKey.disable.value() : TranslationKey.enable.value();
-        JButton disableButton = componentsFactory.getBorderedButton(title);
-        disableButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
+        JButton disableButton = componentsFactory.getButton(title);
         componentsFactory.setUpToggleCallbacks(disableButton,
                 () -> {
                     disableButton.setText(TranslationKey.enable.value());
@@ -184,8 +183,7 @@ public class ItemsGridFrame extends AbstractMovableComponentFrame {
                     applicationConfig.get().setItemsGridEnable(true);
                     repaint();
                 }, this.applicationConfig.get().isItemsGridEnable());
-        JButton hideButton = componentsFactory.getBorderedButton(TranslationKey.save.value());
-        hideButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
+        JButton hideButton = componentsFactory.getButton(TranslationKey.save.value());
         hideButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -198,8 +196,7 @@ public class ItemsGridFrame extends AbstractMovableComponentFrame {
             }
         });
 
-        JButton dismissAllButton = componentsFactory.getBorderedButton(TranslationKey.dismiss_all.value());
-        dismissAllButton.setPreferredSize(new Dimension((int) (90 * componentsFactory.getScale()), (int) (24 * componentsFactory.getScale())));
+        JButton dismissAllButton = componentsFactory.getButton(TranslationKey.dismiss_all.value());
         dismissAllButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

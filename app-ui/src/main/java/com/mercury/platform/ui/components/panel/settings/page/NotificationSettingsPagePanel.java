@@ -87,17 +87,13 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
         JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.ADR_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
-        JComboBox flowDirectionPicker = componentsFactory.getComboBox(new String[]{"Upwards", "Downwards"});
+        JComboBox flowDirectionPicker = componentsFactory.getComboBox(new String[]{TranslationKey.upwards.value(), TranslationKey.downwards.value()});
         flowDirectionPicker.addActionListener(e -> {
-            switch ((String) Objects.requireNonNull(flowDirectionPicker.getSelectedItem())) {
-                case "Upwards": {
-                    this.generalSnapshot.setFlowDirections(FlowDirections.UPWARDS);
-                    break;
-                }
-                case "Downwards": {
-                    this.generalSnapshot.setFlowDirections(FlowDirections.DOWNWARDS);
-                    break;
-                }
+            String value = (String) Objects.requireNonNull(flowDirectionPicker.getSelectedItem());
+            if (value.equals(TranslationKey.upwards.value())) {
+                this.generalSnapshot.setFlowDirections(FlowDirections.UPWARDS);
+            } else {
+                this.generalSnapshot.setFlowDirections(FlowDirections.DOWNWARDS);
             }
         });
         JLabel limitLabel = this.componentsFactory.getTextLabel(String.valueOf(this.generalSnapshot.getLimitCount()), FontStyle.REGULAR, 16);
