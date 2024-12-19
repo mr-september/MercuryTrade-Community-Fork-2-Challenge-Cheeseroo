@@ -37,8 +37,8 @@ public class TradeOutMessagesInterceptor extends MessageInterceptor {
     protected void process(String message) {
         if (this.config.get().isOutNotificationEnable()) {
             LocalizationMatcher localizationMatcher = this.clients.stream()
-                                                                  .filter(matcher -> matcher.isSuitableFor(message))
-                                                                  .findAny().orElse(null);
+                    .filter(matcher -> matcher.isSuitableFor(message))
+                    .findAny().orElse(null);
             if (localizationMatcher != null) {
                 localizationMatcher.processMessage(message);
             }
@@ -49,19 +49,23 @@ public class TradeOutMessagesInterceptor extends MessageInterceptor {
     protected MessageMatcher match() {
         return message ->
                 this.clients.stream()
-                            .filter(matcher -> matcher.isSuitableFor(message))
-                            .findAny().orElse(null) != null;
+                        .filter(matcher -> matcher.isSuitableFor(message))
+                        .findAny().orElse(null) != null;
     }
 
     private abstract class LocalizationMatcher {
         public boolean isSuitableFor(String message) {
             return message.contains("Hi, I would like") ||
-                   message.contains("Hi, I'd like") || message.contains("I'd like") ||
-                   message.contains("구매하고 싶습니다" /* "I would like to buy"*/) ||
+                    message.contains("Hi, I'd like") ||
+                    message.contains("I'd like") ||
                     message.contains("你好，我想購買") ||
-                   message.contains("Здравствуйте, хочу купить у вас") /* "Hello, I would like to buy" */ ||
-                   (message.contains("wtb") && message.contains("(stash")) ||
-                   message.contains("안녕하세요, 강탈" /* hello, ???*/); //pathofexile.com/trade/
+                    message.contains("こんにちは") ||
+                    message.contains("구매하고 싶습니다" /* "I would like to buy"*/) ||
+                    message.contains("Здравствуйте, хочу купить у вас") /* "Hello, I would like to buy" */ ||
+                    (message.contains("wtb") && message.contains("(stash")) ||
+                    message.contains("안녕하세요, 강탈") ||
+                    message.contains("Bonjour, je souhaiterais t'acheter") ||
+                    message.contains("안녕하세요"); //pathofexile.com/trade/
         }
 
         public abstract String trimString(String src);

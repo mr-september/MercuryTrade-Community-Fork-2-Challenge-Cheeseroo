@@ -5,12 +5,17 @@ import com.mercury.platform.shared.store.MercuryStoreCore;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MercuryNativeKeyListener implements NativeKeyListener {
     private boolean menuPressed;
     private boolean shiftPressed;
     private boolean ctrlpressed;
 
     private boolean block;
+
+    private Set<Integer> lastPressed = new HashSet<>();
 
     public MercuryNativeKeyListener() {
         MercuryStoreCore.blockHotkeySubject.subscribe(state -> this.block = state);
@@ -33,7 +38,11 @@ public class MercuryNativeKeyListener implements NativeKeyListener {
             }
             default: {
                 if (!this.block) {
-                    MercuryStoreCore.hotKeySubject.onNext(this.getDescriptor(nativeKeyEvent));
+                    if (!lastPressed.contains(nativeKeyEvent.getKeyCode())) {
+                        System.out.println("pressed " + nativeKeyEvent.getKeyChar());
+                        MercuryStoreCore.hotKeySubject.onNext(this.getDescriptor(nativeKeyEvent));
+                        lastPressed.add(nativeKeyEvent.getKeyCode());
+                    }
                 }
             }
         }
@@ -42,7 +51,9 @@ public class MercuryNativeKeyListener implements NativeKeyListener {
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
         if (!this.block) {
+            System.out.println("released " + nativeKeyEvent.getKeyChar());
             MercuryStoreCore.hotKeyReleaseSubject.onNext(this.getDescriptor(nativeKeyEvent));
+            lastPressed.remove(nativeKeyEvent.getKeyCode());
         }
         switch (nativeKeyEvent.getKeyCode()) {
             case 42: {

@@ -63,10 +63,10 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             this.applicationSnapshot.setHideTaskbarUntilHover(hideTaskbarUntilHover.isSelected());
         });
 
-        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), TranslationKey.poe2_support_tt.value());
-        poe2Support.addActionListener(action -> {
-            this.applicationSnapshot.setPoe2(poe2Support.isSelected());
-        });
+//        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), TranslationKey.poe2_support_tt.value());
+//        poe2Support.addActionListener(action -> {
+//            this.applicationSnapshot.setPoe2(poe2Support.isSelected());
+//        });
 
         JSlider fadeTimeSlider = this.componentsFactory.getSlider(0, 10, this.applicationSnapshot.getFadeTime(), AppThemeColor.SLIDE_BG);
         fadeTimeSlider.addChangeListener(e -> {
@@ -163,8 +163,8 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         root.add(vulkanEnableCheck);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.hide_taskbar.value(), FontStyle.REGULAR, 16));
         root.add(hideTaskbarUntilHover);
-        root.add(this.componentsFactory.getTextLabel(TranslationKey.poe_2_support.value(), FontStyle.REGULAR, 16));
-        root.add(poe2Support);
+//        root.add(this.componentsFactory.getTextLabel(TranslationKey.poe_2_support.value(), FontStyle.REGULAR, 16));
+//        root.add(poe2Support);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.component_fade_out_time.value(": "), FontStyle.REGULAR, 16));
         root.add(fadeTimeSlider);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.min_opacity.value(": "), FontStyle.REGULAR, 16));

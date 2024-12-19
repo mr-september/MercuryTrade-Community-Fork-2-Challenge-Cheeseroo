@@ -45,6 +45,7 @@ public class MessageParser {
                 new PoeTradeItemKoreanParser(),
                 new PoeTradeItemRussianParser(),
                 new PoeTradeItemParserChina(),
+                new PoeTradeItemParserFrench(),
                 new PoeTradeItemParserJapanese(),
                 new PoeTradeItemParserKorean2()
         );

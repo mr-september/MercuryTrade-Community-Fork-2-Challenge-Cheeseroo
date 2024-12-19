@@ -60,6 +60,7 @@ public class TradeIncMessagesInterceptor extends MessageInterceptor {
                     message.contains("Здравствуйте, хочу купить у вас") /* "Hello, I would like to buy" */ ||
                     (message.contains("wtb") && message.contains("(stash")) ||
                     message.contains("안녕하세요, 강탈") ||
+                    message.contains("Bonjour, je souhaiterais t'acheter") ||
                     message.contains("안녕하세요"); //pathofexile.com/trade/
         }
 
@@ -80,20 +81,12 @@ public class TradeIncMessagesInterceptor extends MessageInterceptor {
     private class EngIncLocalizationMatcher extends LocalizationMatcher {
         @Override
         public boolean isSuitableFor(String message) {
-            if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
-                return (message.contains("@")) && super.isSuitableFor(message);
-            } else {
-                return (message.contains("@From")) && super.isSuitableFor(message);
-            }
+            return (message.contains("@From")) && super.isSuitableFor(message);
         }
 
         @Override
         public String trimString(String src) {
-            if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
-                return StringUtils.substringAfter(src, "@");
-            } else {
-                return StringUtils.substringAfter(src, "@From");
-            }
+            return StringUtils.substringAfter(src, "@From");
         }
     }
 

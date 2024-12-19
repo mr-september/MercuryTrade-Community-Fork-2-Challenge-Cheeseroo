@@ -6,11 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 public class EngIncLocalizationMatcher extends LocalizationMatcher {
     @Override
     public boolean isSuitableFor(String message) {
-        if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
-            return message.contains("@");
-        } else {
-            return message.contains("@From");
-        }
+        return message.contains("@From");
     }
 
     @Override
@@ -20,10 +16,6 @@ public class EngIncLocalizationMatcher extends LocalizationMatcher {
 
     @Override
     public String trimString(String message) {
-        if (MainWindowHWNDFetch.INSTANCE.isPoe2()) {
-            return StringUtils.substringAfter(message, "@");
-        } else {
-            return StringUtils.substringAfter(message, "@From");
-        }
+        return StringUtils.substringAfter(message, "@From");
     }
 }

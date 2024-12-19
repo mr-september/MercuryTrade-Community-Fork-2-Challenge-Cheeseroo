@@ -1,18 +1,34 @@
 [
   {
+    "version": "1.3.7",
+    "minorChanges": [
+      {
+        "changed": "Added parser fo french messages"
+      },
+      {
+        "changed": "Removed poe2 support option since GGG fixed logging chat messagess"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Fixed hotkey shortcut firing more than once per press"
+      }
+    ]
+  },
+  {
     "version": "1.3.6",
     "minorChanges": [
       {
         "changed": "Added option to change language, for now its only english, polish, russian (this one was translated by ai)"
       },
       {
-        "changed" : "Added option on incoming messages to leave party as sometimes you are not the one which does the invite or in poe2 atm all messages looks like incoming ones"
+        "changed": "Added option on incoming messages to leave party as sometimes you are not the one which does the invite or in poe2 atm all messages looks like incoming ones"
       },
       {
-        "changed" : "Added support for displaying more languages including most of west ones also chinese, japanese, korean"
+        "changed": "Added support for displaying more languages including most of west ones also chinese, japanese, korean"
       },
       {
-        "changed" : "Added parser for japanese messages and new one for different korean messages"
+        "changed": "Added parser for japanese messages and new one for different korean messages"
       },
       {
         "changed": "Added parsing chinese messages"
@@ -21,9 +37,6 @@
     "fix": [
       {
         "changed": "Fixed searching in stash tab while item name contained a comma."
-      },
-      {
-        "changed": "Deleted no longer used code, should result in a bit smaller .jar file"
       }
     ]
   },
