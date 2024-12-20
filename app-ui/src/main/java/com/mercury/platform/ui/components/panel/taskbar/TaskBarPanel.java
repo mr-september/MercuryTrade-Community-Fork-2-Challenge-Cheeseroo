@@ -13,6 +13,7 @@ import com.mercury.platform.ui.components.panel.misc.ViewInit;
 import com.mercury.platform.ui.frame.movable.TaskBarFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.ToggleAdapter;
 import com.mercury.platform.ui.misc.TooltipConstants;
 import lombok.NonNull;
 
@@ -56,6 +57,16 @@ public class TaskBarPanel extends JPanel implements ViewInit {
 
         this.setBackground(AppThemeColor.FRAME);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+        JButton messageNotificationsHide = componentsFactory.getIconButton(
+                IconConst.MESSAGE_NOTIFICATION_ON,
+                24,
+                AppThemeColor.FRAME,
+                TranslationKey.hide_notifications.value());
+        ToggleAdapter toggleAdapter = createToggleAdapter(messageNotificationsHide);
+        MercuryStoreCore.showMessageHideButton.subscribe(a -> showHideMessageNotificationSubscribe(messageNotificationsHide, toggleAdapter));
+        messageNotificationsHide.addMouseListener(toggleAdapter);
+        messageNotificationsHide.addMouseListener(taskBarFrameMouseListener);
 
         JButton visibleMode = componentsFactory.getIconButton(
                 IconConst.VISIBLE_ALWAYS_MODE,
@@ -228,6 +239,8 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(chatFilter);
         this.add(Box.createRigidArea(new Dimension(3, 4)));
+        this.add(messageNotificationsHide);
+        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(visibleMode);
         this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(pushbulletNotification);
@@ -261,5 +274,24 @@ public class TaskBarPanel extends JPanel implements ViewInit {
     public int getWidthOf(int elementCount) {
         int size = this.getPreferredSize().width / (this.getComponentCount() / 2);
         return size * elementCount + 3;
+    }
+
+    private void showHideMessageNotificationSubscribe(JButton messageNotificationsHide, ToggleAdapter toggleAdapter) {
+        toggleAdapter.setState(true);
+        messageNotificationsHide.setIcon(componentsFactory.getIcon(IconConst.MESSAGE_NOTIFICATION_ON, 24));
+    }
+
+    private ToggleAdapter createToggleAdapter(JButton messageNotificationsHide) {
+        return componentsFactory.createListenerForToggleCallbacks(messageNotificationsHide,
+                () -> {
+                    messageNotificationsHide.setIcon(componentsFactory.getIcon(IconConst.MESSAGE_NOTIFICATION_OFF, 24));
+                    controller.hideMessageNotifications();
+                },
+                () -> {
+                    messageNotificationsHide.setIcon(componentsFactory.getIcon(IconConst.MESSAGE_NOTIFICATION_ON, 24));
+                    controller.showMessageNotifications();
+                },
+                true
+        );
     }
 }

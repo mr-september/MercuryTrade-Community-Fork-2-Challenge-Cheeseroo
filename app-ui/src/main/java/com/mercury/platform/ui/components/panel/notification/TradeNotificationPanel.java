@@ -1,6 +1,7 @@
 package com.mercury.platform.ui.components.panel.notification;
 
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.config.descriptor.ResponseButtonDescriptor;
 import com.mercury.platform.shared.entity.message.TradeNotificationDescriptor;
@@ -110,7 +111,9 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
         super.subscribe();
         this.chatSubscription = MercuryStoreCore.plainMessageSubject.subscribe(message -> {
             if (this.data.getWhisperNickname().equals(message.getNickName())) {
-                this.data.getRelatedMessages().add(message);
+                if (StringUtils.isNotBlank(message.getMessage())) {
+                    this.data.getRelatedMessages().add(message);
+                }
             }
         });
         this.playerJoinSubscription = MercuryStoreCore.playerJoinSubject.subscribe(nickname -> {
@@ -146,6 +149,7 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
                         BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER),
                         BorderFactory.createEmptyBorder(3, 3, 3, 3)));
                 chatHistory.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                chatHistory.setToolTipText(componentsFactory.wrapTextWithPadding(componentsFactory.getTooltipMessageForChatHistory(data)));
 //                MercuryStoreUI.showChatHistorySubject.onNext(new ChatHistoryDefinition(data.getRelatedMessages(),
 //                                                                                       e.getLocationOnScreen()));
             }
@@ -205,10 +209,11 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
                           String.valueOf(curCount);
         }
         if (!Objects.equals(curCountStr, "") && curIconPath != null) {
-            JButton currencyButton = componentsFactory.getIconButton("currency/" + curIconPath + ".png", 24, AppThemeColor.TRANSPARENT, "Find in stashtab");
+            JButton currencyButton = componentsFactory.getIconButton("currency/" + curIconPath + ".png", 24, AppThemeColor.TRANSPARENT, TranslationKey.find_in_stashtab.value());
             currencyButton.addActionListener((action) -> {
                 MercuryStoreCore.findInStashTab.onNext(curIconPath);
             });
+            currencyButton.setToolTipText(TranslationKey.find_in_stashtab.value());
             JPanel curPanel = this.componentsFactory.getJPanel(new GridBagLayout(), AppThemeColor.MSG_HEADER);
             curPanel.setAlignmentX(SwingConstants.LEFT);
             JLabel countLabel = this.componentsFactory.getTextLabel(curCountStr, FontStyle.BOLD, 17f);
@@ -241,30 +246,22 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
         if (this.notificationConfig.get().isShowLeague()) {
             if (data.getLeague() != null) {
                 String league = data.getLeague().trim();
-                if (league.length() == 0) {
+                if (league.isEmpty()) {
                     return result;
                 }
                 if (league.contains("Hardcore")) {
                     if (league.equals("Hardcore")) {
                         result = "HC " + result;
                     } else {
-                        result = String.valueOf(league.split(" ")[1].charAt(0)) + "HC " + result;
+                        result = league.split(" ")[1].charAt(0) + "HC " + result;
                     }
                 } else if (league.contains("Standard")) {
                     result = "Standard " + result;
                 } else {
-                    result = String.valueOf(league.charAt(0)) + "SC " + result;
+                    result = league.charAt(0) + "SC " + result;
                 }
             }
         }
         return result;
-    }
-
-    private void waitForNextAction() {
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            //silence in case of error and go on
-        }
     }
 }

@@ -75,6 +75,7 @@ public class ProdStarter {
                                 }
                                 APP_STATUS = FrameVisibleState.SHOW;
                                 MercuryStoreCore.frameVisibleSubject.onNext(FrameVisibleState.SHOW);
+                                MercuryStoreCore.showMessageHideButton.onNext(true);
                             }
                         }
                     }

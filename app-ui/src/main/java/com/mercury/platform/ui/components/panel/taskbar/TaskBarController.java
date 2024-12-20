@@ -29,4 +29,8 @@ public interface TaskBarController {
     void showSettings();
 
     void exit();
+
+    void hideMessageNotifications();
+
+    void showMessageNotifications();
 }

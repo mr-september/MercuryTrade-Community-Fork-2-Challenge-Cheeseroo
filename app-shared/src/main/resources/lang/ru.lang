@@ -468,3 +468,7 @@ polish = польский
 choose_language = Выберите язык
 // Language change requires application restart.
 language_change_requires_application_restart = Изменение языка требует перезагрузки приложения.
+// Hide notifications until next incoming or manually shown
+hide_notifications = Скрыть уведомления до следующего сообщения
+// Show notifications
+show_notifications = Показать уведомления

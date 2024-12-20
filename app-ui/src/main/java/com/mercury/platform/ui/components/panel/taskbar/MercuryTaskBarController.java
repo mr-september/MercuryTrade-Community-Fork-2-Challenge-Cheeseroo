@@ -3,7 +3,9 @@ package com.mercury.platform.ui.components.panel.taskbar;
 import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.movable.ItemsGridFrame;
+import com.mercury.platform.ui.frame.movable.NotificationFrame;
 import com.mercury.platform.ui.frame.movable.TaskBarFrame;
+import com.mercury.platform.ui.frame.other.NotificationAlertFrame;
 import com.mercury.platform.ui.frame.titled.ChatScannerFrame;
 import com.mercury.platform.ui.frame.titled.HistoryFrame;
 import com.mercury.platform.ui.frame.titled.SettingsFrame;
@@ -85,5 +87,15 @@ public class MercuryTaskBarController implements TaskBarController {
     @Override
     public void exit() {
         FramesManager.INSTANCE.exit();
+    }
+
+    @Override
+    public void hideMessageNotifications() {
+        FramesManager.INSTANCE.hideFrame(NotificationFrame.class);
+    }
+
+    @Override
+    public void showMessageNotifications() {
+        FramesManager.INSTANCE.showFrame(NotificationFrame.class);
     }
 }

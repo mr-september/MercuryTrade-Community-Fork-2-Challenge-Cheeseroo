@@ -1,5 +1,35 @@
 [
   {
+    "version": "1.3.9",
+    "features": [
+      {
+        "changed": "Added button in menu to hide/show notifications until pressed again or receiving another one"
+      }
+    ],
+    "minorChanges": [
+      {
+        "changed": "Added missing tooltips to few places"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Fixed a bug which resulted in not registering chat history per notification"
+      },
+      {
+        "changed": "Fixed a bug with find in stash option sometimes character \",\" wasn't replaced with empty string which resulted in unsuccessful finds"
+      },
+      {
+        "changed": "Added missing translations for \"find in stashtab\" sentence"
+      },
+      {
+        "changed": "Fixed messages popping on top of screen even if poe was minimized/alt-tabbed"
+      },
+      {
+        "changed": "Fixed messages popping even if dnd was on"
+      }
+    ]
+  },
+  {
     "version": "1.3.8",
     "minorChanges": [
       {

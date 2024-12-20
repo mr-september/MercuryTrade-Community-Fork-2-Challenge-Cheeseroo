@@ -247,7 +247,7 @@ create = stwórz
 // Is it Quad?
 is_it_quad = Czy to jest Quad?
 // Find in stashtab
-find_in_stashtab = Znajdź w zakładce
+find_in_stashtab = Znajdź w skrytce
 // App version
 app_version = Wersja aplikacji
 // Taskbar will be hidden until you hover onto it
@@ -468,3 +468,7 @@ polish = polski
 choose_language = Wybierz język
 // Language change requires application restart.
 language_change_requires_application_restart = Zmiana języka wymaga restartu aplikacji.
+// Hide notifications until next incoming or manually shown
+hide_notifications = Ukryj powiadomienia do następnej wiadomości
+// Show notifications
+show_notifications = Pokaż powiadomienia

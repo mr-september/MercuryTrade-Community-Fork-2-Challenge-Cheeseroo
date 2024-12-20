@@ -11,6 +11,7 @@ import com.mercury.platform.ui.components.fields.style.MercuryScrollBarUI;
 import com.mercury.platform.ui.components.panel.misc.ToggleCallback;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
+import com.mercury.platform.ui.misc.ToggleAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -132,6 +133,10 @@ public class ComponentsFactory {
         }
     }
 
+    public JButton getButton(FontStyle fontStyle, Color background, Border border, String text, float fontSize) {
+        return getButton(fontStyle, background, border, text, fontSize, null);
+    }
+
     /**
      * Get button with custom params
      *
@@ -142,13 +147,18 @@ public class ComponentsFactory {
      * @param fontSize   font size
      * @return JButton object
      */
-    public JButton getButton(FontStyle fontStyle, Color background, Border border, String text, float fontSize) {
+    public JButton getButton(FontStyle fontStyle, Color background, Border border, String text, float fontSize, String tooltip) {
         JButton button = new JButton(text) {
             @Override
             protected void paintBorder(Graphics g) {
                 if (!this.getModel().isPressed()) {
                     super.paintBorder(g);
                 }
+            }
+            @Override
+            public JToolTip createToolTip() {
+                JToolTip tip = ComponentsFactory.this.createTooltip(tooltip);
+                return tip;
             }
         };
         button.setBackground(background);
@@ -193,13 +203,23 @@ public class ComponentsFactory {
      * @param text text on button
      * @return Default app button
      */
-    public JButton getButton(String text) {
+    public JButton getButton(String text, String tooltip) {
         CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 1),
                 BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
         );
 
-        return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f);
+        return getButton(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 14f, tooltip);
+    }
+
+    /**
+     * Get button with default properties
+     *
+     * @param text text on button
+     * @return Default app button
+     */
+    public JButton getButton(String text) {
+        return getButton(text, null);
     }
 
     /**
@@ -240,21 +260,16 @@ public class ComponentsFactory {
                                           ToggleCallback firstState,
                                           ToggleCallback secondState,
                                           boolean initialState) {
-        button.addMouseListener(new MouseAdapter() {
-            private boolean state = initialState;
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (state) {
-                    firstState.onToggle();
-                    state = false;
-                } else {
-                    secondState.onToggle();
-                    state = true;
-                }
-            }
-        });
+        button.addMouseListener(createListenerForToggleCallbacks(button, firstState, secondState, initialState));
         return button;
+    }
+
+    public ToggleAdapter createListenerForToggleCallbacks(Component button,
+                                          ToggleCallback firstState,
+                                          ToggleCallback secondState,
+                                          boolean initialState) {
+        ToggleAdapter listener = new ToggleAdapter(firstState, secondState, initialState);
+        return listener;
     }
 
     public JButton getIconButton(String iconPath, float iconSize, Color background, String tooltip) {
@@ -365,7 +380,7 @@ public class ComponentsFactory {
         return toolTip;
     }
 
-    private String wrapTextWithPadding(String text) {
+    public String wrapTextWithPadding(String text) {
         StringBuilder b = new StringBuilder();
         b.append("<html>");
         b.append("<div style=\"padding: 2px 4px 2px 4px;\">");
@@ -999,7 +1014,7 @@ public class ComponentsFactory {
             b.append("<p>");
             b.append(d.isIncoming() ? "> " : "");
             b.append(d.getMessage());
-            b.append("<br/>");
+            //b.append("<br/>");
             b.append("</p>");
         });
         return b.toString();

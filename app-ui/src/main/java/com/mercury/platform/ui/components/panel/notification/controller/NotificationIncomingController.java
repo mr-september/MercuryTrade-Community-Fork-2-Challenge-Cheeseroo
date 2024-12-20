@@ -63,25 +63,10 @@ public class NotificationIncomingController implements IncomingPanelController {
     public void
     showITH() {
         if (notificationDescriptor instanceof ItemTradeNotificationDescriptor) {
-            this.copyItemNameToClipboard(((ItemTradeNotificationDescriptor) notificationDescriptor).getItemName());
             if (((ItemTradeNotificationDescriptor) notificationDescriptor).getTabName() != null) {
                 MercuryStoreUI.showItemGridSubject.onNext((ItemTradeNotificationDescriptor) notificationDescriptor);
             }
         }
-    }
-
-    private void copyItemNameToClipboard(@NonNull String itemName) {
-        Timer timer = new Timer(30, action -> {
-            try {
-                StringSelection selection = new StringSelection(itemName);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(selection, null);
-            } catch (IllegalStateException e) {
-                MercuryStoreCore.errorHandlerSubject.onNext(new MercuryError(e));
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
     private void closeMessagePanel() {

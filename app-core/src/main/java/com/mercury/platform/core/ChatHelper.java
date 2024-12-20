@@ -15,6 +15,8 @@ import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinUser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +31,7 @@ import java.io.IOException;
 public class ChatHelper implements AsSubscriber {
     private Robot robot;
     private static boolean clipboardMessageOn = true;
+    private final static Logger logger = LogManager.getLogger(ChatHelper.class);
 
     public ChatHelper() {
         subscribe();
@@ -177,7 +180,13 @@ public class ChatHelper implements AsSubscriber {
         this.gameToFront();
         StringSelection selection = new StringSelection(toBeFound);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        System.out.println(toBeFound);
         clipboard.setContents(selection, null);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            logger.error("Unexpected expection while waiting till clipboard contents will set", e);
+        }
         MercuryStoreCore.blockHotkeySubject.onNext(true);
 
         robot.keyRelease(KeyEvent.VK_ALT);
@@ -269,6 +278,6 @@ public class ChatHelper implements AsSubscriber {
         if (StringUtils.isBlank(textToSearch)) {
             return StringUtils.EMPTY;
         }
-        return textToSearch.replace(",", StringUtils.EMPTY);
+        return textToSearch.replaceAll(",", StringUtils.EMPTY);
     }
 }

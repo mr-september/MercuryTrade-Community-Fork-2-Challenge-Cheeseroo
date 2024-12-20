@@ -30,5 +30,9 @@ public class IconConst {
     public final static String APP_ICON = PREFIX + "app-icon.png";
     public final static String PUSHBULLET_NOTIFICATION = PREFIX + "notification.png";
     public final static String PUSHBULLET_NOTIFICATION_OFF = PREFIX + "notification_off.png";
+    public final static String MESSAGE_NOTIFICATION_OFF = PREFIX + "notifications-disable.png";
+    public final static String MESSAGE_NOTIFICATION_ON = PREFIX + "notifications-enable.png";
+
+
 
 }

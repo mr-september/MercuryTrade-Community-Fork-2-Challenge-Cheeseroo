@@ -1,5 +1,6 @@
 package com.mercury.platform.ui.components.panel.notification;
 
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.HotKeyType;
 import com.mercury.platform.shared.entity.message.ItemTradeNotificationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
@@ -53,10 +54,11 @@ public class ItemTradeOutNotificationPanel extends TradeOutNotificationPanel<Ite
             itemsPanel.setBorder(new EmptyBorder(0, 0, 2, 0));
 
             itemsWanted.forEach((item) -> {
-                JButton btn = this.componentsFactory.getButton(item);
+                JButton btn = this.componentsFactory.getButton(item, TranslationKey.find_in_stashtab.value());
                 btn.addActionListener((action) -> {
                     MercuryStoreCore.findInStashTab.onNext(item);
                 });
+                btn.setToolTipText(TranslationKey.find_in_stashtab.value());
                 btn.setForeground(AppThemeColor.INC_PANEL_ARROW);
                 btn.setBackground(AppThemeColor.FRAME);
                 btn.setBorder(new EmptyBorder(4,4,4,4));
@@ -68,10 +70,11 @@ public class ItemTradeOutNotificationPanel extends TradeOutNotificationPanel<Ite
             itemsPanel.setBackground(AppThemeColor.FRAME);
             itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
             itemsPanel.setBorder(new EmptyBorder(0, 0, 2, 0));
-            JButton btn = this.componentsFactory.getButton(this.data.getItemName());
+            JButton btn = this.componentsFactory.getButton(this.data.getItemName(), TranslationKey.find_in_stashtab.value());
             btn.addActionListener((action) -> {
                 MercuryStoreCore.findInStashTab.onNext(this.data.getItemName());
             });
+            btn.setToolTipText(TranslationKey.find_in_stashtab.value());
             btn.setForeground(AppThemeColor.INC_PANEL_ARROW);
             btn.setBackground(AppThemeColor.FRAME);
             btn.setBorder(new EmptyBorder(4,4,4,4));

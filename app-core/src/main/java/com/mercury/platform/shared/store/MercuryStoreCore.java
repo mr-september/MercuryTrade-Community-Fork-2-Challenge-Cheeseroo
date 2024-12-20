@@ -69,4 +69,5 @@ public class MercuryStoreCore {
 
     public static final PublishSubject<VulkanDescriptor> vulkanSupportSubject = PublishSubject.create();
     public static final PublishSubject<Component> checkForUpdatesSubject = PublishSubject.create();
+    public static final PublishSubject<Boolean> showMessageHideButton = PublishSubject.create();
     }

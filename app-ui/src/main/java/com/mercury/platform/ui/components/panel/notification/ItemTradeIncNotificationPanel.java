@@ -55,7 +55,7 @@ public class ItemTradeIncNotificationPanel extends TradeIncNotificationPanel<Ite
             itemsPanel.setBorder(new EmptyBorder(0, 0, 2, 0));
 
             itemsWanted.forEach((item) -> {
-                JButton btn = this.componentsFactory.getButton(item);
+                JButton btn = this.componentsFactory.getButton(item, TranslationKey.find_in_stashtab.value());
                 btn.setForeground(AppThemeColor.TEXT_IMPORTANT);
                 btn.setBackground(AppThemeColor.FRAME);
                 btn.setBorder(new EmptyBorder(4,4,4,4));
@@ -63,6 +63,7 @@ public class ItemTradeIncNotificationPanel extends TradeIncNotificationPanel<Ite
                     this.controller.showITH();
                     MercuryStoreCore.findInStashTab.onNext(item);
                 });
+                btn.setToolTipText(TranslationKey.find_in_stashtab.value());
                 itemsPanel.add(btn);
             });
 
@@ -71,7 +72,7 @@ public class ItemTradeIncNotificationPanel extends TradeIncNotificationPanel<Ite
             itemsPanel.setBackground(AppThemeColor.FRAME);
             itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
             itemsPanel.setBorder(new EmptyBorder(0, 0, 2, 0));
-            JButton btn = this.componentsFactory.getButton(this.data.getItemName());
+            JButton btn = this.componentsFactory.getButton(this.data.getItemName(), TranslationKey.find_in_stashtab.value());
             btn.setForeground(AppThemeColor.TEXT_IMPORTANT);
             btn.setBackground(AppThemeColor.FRAME);
             btn.setBorder(new EmptyBorder(4,4,4,4));
@@ -79,6 +80,7 @@ public class ItemTradeIncNotificationPanel extends TradeIncNotificationPanel<Ite
                 this.controller.showITH();
                 MercuryStoreCore.findInStashTab.onNext(this.data.getItemName());
             });
+            btn.setToolTipText(TranslationKey.find_in_stashtab.value());
             itemsPanel.add(btn);
         }
         return itemsPanel;

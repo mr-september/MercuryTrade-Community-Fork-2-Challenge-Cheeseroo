@@ -127,6 +127,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
                         PushBulletManager.INSTANCE.sendPush(notification.getSourceString(), notification.getWhisperNickname());
                     }
                     this.addNotification(notificationPanel);
+                    showFrame();
                 }
             });
         });
@@ -138,6 +139,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
                         .build();
                 PushBulletManager.INSTANCE.sendPush(message.getMessage().replaceAll("\\<[^>]*>", ""), message.getNickName());
                 this.addNotification(notificationPanel);
+                showFrame();
             });
         });
         MercuryStoreCore.removeNotificationSubject.subscribe(notification -> {
@@ -207,7 +209,6 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
 
     private void addNotification(NotificationPanel notificationPanel) {
         this.notificationPanels.add(notificationPanel);
-        this.setVisible(true);
         if (this.flowDirections.equals(FlowDirections.UPWARDS)) {
             this.container.add(
                     this.componentsFactory.wrapToSlide(
@@ -409,5 +410,15 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
         expandButton.setAlignmentY(SwingConstants.CENTER);
         root.add(expandButton, BorderLayout.CENTER);
         return this.componentsFactory.wrapToSlide(root, AppThemeColor.TRANSPARENT, 1, 1, 1, 1);
+    }
+    public void showFrame() {
+        if (!this.dnd) {
+            if (!this.notificationPanels.isEmpty()) {
+                if (ProdStarter.APP_STATUS.equals(FrameVisibleState.SHOW)) {
+                    MercuryStoreCore.showMessageHideButton.onNext(true);
+                    this.setVisible(true);
+                }
+            }
+        }
     }
 }
