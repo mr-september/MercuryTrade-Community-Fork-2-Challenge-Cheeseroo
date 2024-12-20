@@ -30,7 +30,7 @@ public class ItemsGridPanel extends JPanel implements ViewInit {
 
     public ItemsGridPanel() {
         super(new BorderLayout());
-        componentsFactory = new ComponentsFactory();
+        componentsFactory = ComponentsFactory.INSTANCE;
         defaultCells = new ArrayList<>();
         quadCells = new ArrayList<>();
         tabButtons = new HashMap<>();

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuListRenderer extends JButton implements ListCellRenderer<MenuEntry> {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     @Override
     public Component getListCellRendererComponent(JList<? extends MenuEntry> list, MenuEntry value, int index, boolean isSelected, boolean cellHasFocus) {

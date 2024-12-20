@@ -6,7 +6,7 @@ import com.mercury.platform.ui.components.ComponentsFactory;
 import javax.swing.*;
 
 public class NotificationTypeRenderer implements MCellRenderer<String> {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     @Override
     public JComponent getComponent(String data) {

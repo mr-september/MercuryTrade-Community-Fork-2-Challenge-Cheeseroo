@@ -1,5 +1,21 @@
 [
   {
+    "version": "1.3.8",
+    "minorChanges": [
+      {
+        "changed": "Startup time improved, should be around 2 sec +/- depending on your hardware"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "fixed bug which resulted in settings not being saved"
+      },
+      {
+        "changed": "fixed a bug which resulted in chat history per notification staying on the screen after notification was closed"
+      }
+    ]
+  },
+  {
     "version": "1.3.7",
     "minorChanges": [
       {

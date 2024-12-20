@@ -6,7 +6,7 @@ import com.mercury.platform.ui.components.fields.font.FontStyle;
 import javax.swing.*;
 
 public class PlainDoubleRenderer implements MCellRenderer<Double> {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     @Override
     public JComponent getComponent(Double data) {

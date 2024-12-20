@@ -33,7 +33,7 @@ public class AdrProgressBarNodePanel extends AdrNodePanel<AdrProgressBarDescript
         root.setBackground(AppThemeColor.SLIDE_BG);
         this.tracker = new MercuryTracker(descriptor);
         this.tracker.setValue((int) ((descriptor.getDuration() / 2) * 1000));
-        this.tracker.setFont(new ComponentsFactory().getFont(FontStyle.BOLD, 20));
+        this.tracker.setFont(ComponentsFactory.INSTANCE.getFont(FontStyle.BOLD, 20));
         this.tracker.setPreferredSize(new Dimension(150, 36));
         this.tracker.setShowCase(true);
         this.tracker.setBackground(AppThemeColor.ADR_TEXT_ARE_BG);

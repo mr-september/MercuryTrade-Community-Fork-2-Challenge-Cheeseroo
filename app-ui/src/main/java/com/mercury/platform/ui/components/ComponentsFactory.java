@@ -1,6 +1,8 @@
 package com.mercury.platform.ui.components;
 
 import com.mercury.platform.core.misc.SoundType;
+import com.mercury.platform.shared.MainWindowHWNDFetch;
+import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
@@ -30,8 +32,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Factory for each element which uses in application
@@ -39,12 +48,20 @@ import java.util.Map;
 public class ComponentsFactory {
     private final static Logger log = LogManager.getLogger(ComponentsFactory.class);
 
+    public static ComponentsFactory INSTANCE = ComponentsFactory.ComponentsFactoryHolder.HOLDER_INSTANCE;
+
+    private static class ComponentsFactoryHolder {
+        static final ComponentsFactory HOLDER_INSTANCE = new ComponentsFactory();
+    }
+
     private Font BOLD_FONT;
     private Font REGULAR_FONT;
     private Font DEFAULT_FONT;
     private Font CJK_FONT;
     private Font KR_FONT;
     private float scale;
+    private ExecutorService executor = Executors.newFixedThreadPool(3);
+    private List<Future<Font>> futures = new ArrayList<>();
 
     private final static Map<TextAttribute, Float> boldAttr = new HashMap<TextAttribute, Float>() {{
         put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
@@ -56,8 +73,7 @@ public class ComponentsFactory {
         put(TextAttribute.WIDTH, TextAttribute.WIDTH_SEMI_CONDENSED);
     }};
 
-
-    public ComponentsFactory() {
+    private ComponentsFactory() {
         this.scale = 1.0f;
         loadFonts();
 
@@ -71,13 +87,24 @@ public class ComponentsFactory {
      */
     private void loadFonts() {
         try {
-            Font base = Font.createFont(Font.TRUETYPE_FONT,
-                    getClass().getClassLoader()
-                            .getResourceAsStream("font/NotoSans-VariableFont.ttf"));
-            CJK_FONT = Font.createFont(Font.TRUETYPE_FONT,
-                    getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
-            KR_FONT = Font.createFont(Font.TRUETYPE_FONT,
-                    getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
+
+            Instant start = Instant.now();
+            Callable<Font> baseCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/NotoSans-VariableFont.ttf"));
+            Callable<Font> cjkCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
+            Callable<Font> krCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
+            futures.add(executor.submit(cjkCallable));
+            futures.add(executor.submit(krCallable));
+            futures.add(executor.submit(baseCallable));
+
+            Font base = futures.get(0).get();
+            CJK_FONT = futures.get(1).get();
+            KR_FONT = futures.get(2).get();
+
+
+//            Font base = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/NotoSans-VariableFont.ttf"));
+//            CJK_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
+//            KR_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
+            Instant load = Instant.now();
 
             DEFAULT_FONT = base.deriveFont(regularAttr);
             BOLD_FONT = base.deriveFont(boldAttr);
@@ -95,6 +122,10 @@ public class ComponentsFactory {
             genv.registerFont(REGULAR_FONT);
             genv.registerFont(CJK_FONT);
             genv.registerFont(KR_FONT);
+            Instant end = Instant.now();
+            System.out.println("loading fonts from file: " + (load.toEpochMilli() - start.toEpochMilli()) + " ms");
+            System.out.println("processing fonts took: " + (end.toEpochMilli() - load.toEpochMilli()) + " ms");
+            executor = null;
 
         } catch (Exception e) {
             log.error(e);
@@ -257,7 +288,7 @@ public class ComponentsFactory {
             @Override
             public JToolTip createToolTip() {
                 JToolTip tip = ComponentsFactory.this.createTooltip(tooltip);
-                tip.setDoubleBuffered(true);
+                //tip.setDoubleBuffered(true);
                 return tip;
             }
 
@@ -269,8 +300,8 @@ public class ComponentsFactory {
                 button.setBackground(button.getBackground());
             }
         });
-        if (tooltip.length() > 0) {
-            button.setToolTipText(tooltip);
+        if (!tooltip.isEmpty()) {
+            button.setToolTipText(wrapTextWithPadding(tooltip));
         }
 
         button.setFocusPainted(false);
@@ -332,6 +363,16 @@ public class ComponentsFactory {
         toolTip.setFont(getSelectedFont(FontStyle.REGULAR, text, scale * 16f));
         toolTip.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER));
         return toolTip;
+    }
+
+    private String wrapTextWithPadding(String text) {
+        StringBuilder b = new StringBuilder();
+        b.append("<html>");
+        b.append("<div style=\"padding: 2px 4px 2px 4px;\">");
+        b.append(text);
+        b.append("</div>");
+        b.append("</html>");
+        return b.toString();
     }
 
     public JButton getIconifiedTransparentButton(String iconPath, String tooltip) {
@@ -493,7 +534,7 @@ public class ComponentsFactory {
                 return ComponentsFactory.this.createTooltip(tooltip);
             }
         };
-        iconLabel.setToolTipText(tooltip);
+        iconLabel.setToolTipText(wrapTextWithPadding(tooltip));
         try {
             iconLabel.setIcon(getIcon(iconPath, (int) (scale * size)));
         } catch (Exception e) {
@@ -582,7 +623,7 @@ public class ComponentsFactory {
                 return ComponentsFactory.this.createTooltip(tooltip);
             }
         };
-        checkBox.setToolTipText(tooltip);
+        checkBox.setToolTipText(wrapTextWithPadding(tooltip));
         checkBox.setFocusPainted(false);
         checkBox.setBackground(AppThemeColor.TRANSPARENT);
 //        checkBox.setUI(new WindowsButtonUI());
@@ -609,7 +650,7 @@ public class ComponentsFactory {
     }
 
     public JPanel getSliderSettingsPanel(JLabel titleLabel, JLabel countLabel, JSlider slider) {
-        Dimension elementsSize = convertSize(new Dimension((int)scale*250, 30));
+        Dimension elementsSize = convertSize(new Dimension((int) scale * 250, 30));
         Dimension countSize = convertSize(new Dimension(40, 30));
         titleLabel.setPreferredSize(elementsSize);
         slider.setPreferredSize(elementsSize);
@@ -950,4 +991,18 @@ public class ComponentsFactory {
         }
         return s.codePoints().anyMatch(x -> Character.UnicodeScript.of(x).equals(Character.UnicodeScript.HANGUL));
     }
+
+    public String getTooltipMessageForChatHistory(NotificationDescriptor source) {
+        StringBuilder b = new StringBuilder();
+
+        source.getRelatedMessages().stream().forEach(d -> {
+            b.append("<p>");
+            b.append(d.isIncoming() ? "> " : "");
+            b.append(d.getMessage());
+            b.append("<br/>");
+            b.append("</p>");
+        });
+        return b.toString();
+    }
+
 }

@@ -14,7 +14,7 @@ public abstract class AdrPagePanel<T> extends JPanel {
     @Setter
     protected boolean fromGroup;
     protected T payload;
-    protected ComponentsFactory componentsFactory = new ComponentsFactory();
+    protected ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     protected boolean advancedExpanded;
     protected AdrComponentsFactory adrComponentsFactory = new AdrComponentsFactory(this.componentsFactory);
 

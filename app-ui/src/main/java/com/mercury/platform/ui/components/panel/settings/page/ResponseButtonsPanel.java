@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ResponseButtonsPanel extends JPanel implements ViewInit {
     private List<ResponseButtonDescriptor> buttons;
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     private HotKeyGroup hotKeyGroup;
 
     public ResponseButtonsPanel(List<ResponseButtonDescriptor> buttons, HotKeyGroup hotKeyGroup) {

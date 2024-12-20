@@ -96,18 +96,6 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
             });
             button.addActionListener(e -> {
                 this.controller.performResponse(buttonConfig.getResponseText());
-//                if (buttonConfig.isKickLeave()) {
-//                    waitForNextAction();
-//                    if (out) {
-//                        String playerNickname = this.notificationConfig.get().getPlayerNickname();
-//                        if (StringUtils.isNotEmpty(playerNickname)) {
-//                            this.controller.performKickLeave(playerNickname);
-//                        }
-//                    } else {
-//                        this.controller.performKickLeave(nicknameLabel.getText());
-//
-//                    }
-//                }
                 if (buttonConfig.isClose()) {
                     this.controller.performHide();
                 }
@@ -146,7 +134,7 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
     }
 
     protected JLabel getHistoryButton() {
-        JLabel chatHistory = componentsFactory.getIconLabel(IconConst.CHAT_HISTORY, 15);
+        JLabel chatHistory = componentsFactory.getIconLabel(IconConst.CHAT_HISTORY, 15, SwingConstants.RIGHT, this.componentsFactory.getTooltipMessageForChatHistory(data));
         chatHistory.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         chatHistory.addMouseListener(new MouseAdapter() {
             Border prevBorder;
@@ -158,15 +146,15 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
                         BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER),
                         BorderFactory.createEmptyBorder(3, 3, 3, 3)));
                 chatHistory.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                MercuryStoreUI.showChatHistorySubject.onNext(new ChatHistoryDefinition(data.getRelatedMessages(),
-                                                                                       e.getLocationOnScreen()));
+//                MercuryStoreUI.showChatHistorySubject.onNext(new ChatHistoryDefinition(data.getRelatedMessages(),
+//                                                                                       e.getLocationOnScreen()));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 chatHistory.setBorder(prevBorder);
                 chatHistory.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                MercuryStoreUI.hideChatHistorySubject.onNext(true);
+//                MercuryStoreUI.hideChatHistorySubject.onNext(true);
             }
         });
         return chatHistory;

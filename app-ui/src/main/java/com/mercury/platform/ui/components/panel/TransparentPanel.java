@@ -15,7 +15,7 @@ public abstract class TransparentPanel extends JPanel {
     protected VerticalScrollContainer verticalScrollContainer;
 
     public TransparentPanel() {
-        this.componentsFactory = new ComponentsFactory();
+        this.componentsFactory = ComponentsFactory.INSTANCE;
 
         this.setLayout(new BorderLayout());
         this.setBackground(AppThemeColor.SLIDE_BG);

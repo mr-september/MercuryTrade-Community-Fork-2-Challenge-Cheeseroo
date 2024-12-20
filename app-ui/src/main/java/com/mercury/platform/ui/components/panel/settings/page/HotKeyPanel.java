@@ -29,7 +29,7 @@ public class HotKeyPanel extends JPanel {
         this.descriptor = descriptor;
         this.setPreferredSize(new Dimension(110, 26));
 
-        ComponentsFactory componentsFactory = new ComponentsFactory();
+        ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
         this.button = componentsFactory.getBorderedButton(this.descriptor.getTitle());
         this.button.setFont(componentsFactory.getFont(FontStyle.BOLD, 17f));
         MouseAdapter mouseAdapter = new MouseAdapter() {

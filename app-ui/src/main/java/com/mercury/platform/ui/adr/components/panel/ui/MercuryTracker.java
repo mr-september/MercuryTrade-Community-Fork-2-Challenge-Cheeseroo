@@ -48,7 +48,7 @@ public class MercuryTracker extends JComponent {
     public MercuryTracker(AdrDurationComponentDescriptor descriptor) {
         this.descriptor = descriptor;
         this.setMaximum((int) (this.descriptor.getDuration() * 1000));
-        this.setFont(new ComponentsFactory().getFont(FontStyle.BOLD, this.descriptor.getFontSize()));
+        this.setFont(ComponentsFactory.INSTANCE.getFont(FontStyle.BOLD, this.descriptor.getFontSize()));
         this.setForeground(AppThemeColor.TEXT_DEFAULT);
         this.setBackground(AppThemeColor.TRANSPARENT);
         this.initUI();

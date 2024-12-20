@@ -10,7 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PlainIconRenderer implements MCellRenderer<String> {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     @Override
     public JComponent getComponent(String data) {

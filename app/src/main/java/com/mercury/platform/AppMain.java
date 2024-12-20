@@ -15,9 +15,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.util.JsonUtils;
 
 import javax.swing.*;
 import java.io.File;
+import java.time.Instant;
 
 public class AppMain {
 
@@ -30,10 +32,14 @@ public class AppMain {
     public static void main(String[] args) {
         Thread mercuryLoadingFrameThread = null;
         try {
+            Instant start = Instant.now();
             System.setProperty("sun.java2d.d3d", "false");
             System.setProperty("jna.nosys", "true");
 
             UIManager.put("ToolTipManager.enableToolTipMode", "allWindows");
+            ToolTipManager.sharedInstance().setInitialDelay(100);
+            ToolTipManager.sharedInstance().setReshowDelay(100);
+
             boolean standalone = BooleanUtils.toBoolean(System.getProperty("standalone"));
             boolean dev = BooleanUtils.toBoolean(System.getProperty("dev"));
             boolean hideLoadingIcon = BooleanUtils.toBoolean(System.getProperty("hideLoadingIcon"));
@@ -89,6 +95,8 @@ public class AppMain {
             if (!hideLoadingIcon) {
                 mercuryLoadingFrameThread.join();
             }
+            Instant end = Instant.now();
+            logger.warn("Startup time:"+ (end.toEpochMilli() - start.toEpochMilli()) + " ms");
         } catch (Exception ex) {
             ex.printStackTrace();
             logger.error(ex);

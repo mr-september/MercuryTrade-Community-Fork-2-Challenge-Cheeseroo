@@ -19,7 +19,7 @@ public abstract class AbstractScalableComponentFrame extends AbstractComponentFr
     protected AbstractScalableComponentFrame() {
         super();
         this.mainContainer = this.getContentPane();
-        this.stubComponentsFactory = new ComponentsFactory();
+        this.stubComponentsFactory = ComponentsFactory.INSTANCE;
         MercuryStoreUI.saveScaleSubject.subscribe(this::performScaling);
         this.registerDirectScaleHandler();
     }

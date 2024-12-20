@@ -20,7 +20,7 @@ public class AdrTreePanel extends JPanel {
     @Getter
     @Setter
     private AdrTreeNodeRenderer renderer;
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     @Getter
     private List<AdrComponentDescriptor> descriptors;
     private JPanel container;

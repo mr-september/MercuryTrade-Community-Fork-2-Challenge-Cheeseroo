@@ -10,7 +10,7 @@ import java.awt.*;
 
 
 public class IconsListCellRenderer implements ListCellRenderer<String> {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     private IconBundleConfigurationService config = Configuration.get().iconBundleConfiguration();
 
     @Override

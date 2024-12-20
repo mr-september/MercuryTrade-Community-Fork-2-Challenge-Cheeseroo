@@ -39,7 +39,6 @@ public class MercuryNativeKeyListener implements NativeKeyListener {
             default: {
                 if (!this.block) {
                     if (!lastPressed.contains(nativeKeyEvent.getKeyCode())) {
-                        System.out.println("pressed " + nativeKeyEvent.getKeyChar());
                         MercuryStoreCore.hotKeySubject.onNext(this.getDescriptor(nativeKeyEvent));
                         lastPressed.add(nativeKeyEvent.getKeyCode());
                     }
@@ -51,7 +50,6 @@ public class MercuryNativeKeyListener implements NativeKeyListener {
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
         if (!this.block) {
-            System.out.println("released " + nativeKeyEvent.getKeyChar());
             MercuryStoreCore.hotKeyReleaseSubject.onNext(this.getDescriptor(nativeKeyEvent));
             lastPressed.remove(nativeKeyEvent.getKeyCode());
         }

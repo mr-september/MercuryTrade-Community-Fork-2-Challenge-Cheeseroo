@@ -9,7 +9,7 @@ import javax.swing.*;
 
 
 public class AdrMainTreeNodeRenderer implements AdrTreeNodeRenderer {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     @Override
     public JPanel getViewOf(AdrTreeNode<AdrComponentDescriptor> treeNode) {

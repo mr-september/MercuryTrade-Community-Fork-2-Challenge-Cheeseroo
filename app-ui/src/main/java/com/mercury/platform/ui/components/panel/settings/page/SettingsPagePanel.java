@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class SettingsPagePanel extends JPanel implements ViewInit {
-    protected ComponentsFactory componentsFactory = new ComponentsFactory();
+    protected ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     protected AdrComponentsFactory adrComponentsFactory = new AdrComponentsFactory(this.componentsFactory);
     protected JPanel container;
 

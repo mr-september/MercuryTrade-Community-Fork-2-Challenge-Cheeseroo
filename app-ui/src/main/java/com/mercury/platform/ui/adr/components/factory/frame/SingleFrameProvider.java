@@ -27,6 +27,6 @@ public abstract class SingleFrameProvider implements FrameProvider {
 
     @Override
     public AdrComponentPanel getPanel() {
-        return new AdrDurationCellPanel((AdrDurationComponentDescriptor) this.descriptor, new ComponentsFactory());
+        return new AdrDurationCellPanel((AdrDurationComponentDescriptor) this.descriptor, ComponentsFactory.INSTANCE);
     }
 }

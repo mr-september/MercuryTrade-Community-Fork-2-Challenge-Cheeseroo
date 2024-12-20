@@ -37,7 +37,7 @@ public class AdrIconNodePanel extends AdrNodePanel<AdrIconDescriptor> {
         this.tracker.setPreferredSize(new Dimension(48, 48));
         this.tracker.setShowCase(true);
         this.tracker.setValue(new Random().nextInt((int) (this.descriptor.getDuration() * 1000)));
-        this.tracker.setFont(new ComponentsFactory().getFont(FontStyle.BOLD, 20));
+        this.tracker.setFont(ComponentsFactory.INSTANCE.getFont(FontStyle.BOLD, 20));
         this.tracker.setBackground(AppThemeColor.ADR_TEXT_ARE_BG);
 
         this.titleLabel = this.componentsFactory.getTextLabel(this.descriptor.getTitle());

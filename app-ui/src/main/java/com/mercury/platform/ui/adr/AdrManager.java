@@ -139,7 +139,7 @@ public class AdrManager implements AsSubscriber {
                         this.frames.add(this.frameProviderFactory.getProviderFor(descriptor).getFrame(true));
 
                         AdrCaptureOutComponentFrame outFrame = new AdrCaptureOutComponentFrame((AdrCaptureDescriptor) descriptor);
-                        outFrame.setPanel(new AdrCaptureOutPanel((AdrCaptureDescriptor) descriptor, new ComponentsFactory()));
+                        outFrame.setPanel(new AdrCaptureOutPanel((AdrCaptureDescriptor) descriptor, ComponentsFactory.INSTANCE));
                         outFrame.init();
                         outFrame.showComponent();
                         outFrame.enableSettings();
@@ -284,7 +284,7 @@ public class AdrManager implements AsSubscriber {
             if (component instanceof AdrCaptureDescriptor) {
                 this.frames.add(this.frameProviderFactory.getProviderFor(component).getFrame(showSettings));
                 AdrCaptureOutComponentFrame outFrame = new AdrCaptureOutComponentFrame((AdrCaptureDescriptor) component);
-                outFrame.setPanel(new AdrCaptureOutPanel((AdrCaptureDescriptor) component, new ComponentsFactory()));
+                outFrame.setPanel(new AdrCaptureOutPanel((AdrCaptureDescriptor) component, ComponentsFactory.INSTANCE));
                 outFrame.init();
                 if (showSettings) {
                     outFrame.showComponent();

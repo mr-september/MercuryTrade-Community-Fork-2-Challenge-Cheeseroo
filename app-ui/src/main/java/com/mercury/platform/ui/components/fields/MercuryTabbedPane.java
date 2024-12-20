@@ -25,7 +25,7 @@ public class MercuryTabbedPane extends JPanel {
         this.setLayout(new BorderLayout());
 
         headerButtons = new ArrayList<>();
-        componentsFactory = new ComponentsFactory();
+        componentsFactory = ComponentsFactory.INSTANCE;
         headersPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
         headersPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, -5, 0));
 

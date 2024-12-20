@@ -16,7 +16,7 @@ import java.awt.*;
 public abstract class AdrNodePanel<D extends AdrComponentDescriptor> extends JPanel implements ViewInit {
     @Getter
     protected D descriptor;
-    protected ComponentsFactory componentsFactory = new ComponentsFactory();
+    protected ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     protected AdrComponentsFactory adrComponentsFactory = new AdrComponentsFactory(this.componentsFactory);
     protected AdrMouseOverListener mouseListener;
     protected AdrTreeNode<AdrComponentDescriptor> treeNode;

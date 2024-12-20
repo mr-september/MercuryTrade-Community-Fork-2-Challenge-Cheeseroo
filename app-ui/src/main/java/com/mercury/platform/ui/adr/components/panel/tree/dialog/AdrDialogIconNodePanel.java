@@ -32,7 +32,7 @@ public class AdrDialogIconNodePanel extends AdrNodePanel<AdrIconDescriptor> {
         tracker.setPreferredSize(new Dimension(48, 48));
         tracker.setShowCase(true);
         tracker.setValue(new Random().nextInt((int) (this.descriptor.getDuration() * 1000)));
-        tracker.setFont(new ComponentsFactory().getFont(FontStyle.BOLD, 20));
+        tracker.setFont(ComponentsFactory.INSTANCE.getFont(FontStyle.BOLD, 20));
         tracker.setBackground(AppThemeColor.ADR_TEXT_ARE_BG);
 
         JLabel titleLabel = this.componentsFactory.getTextLabel(this.descriptor.getTitle());

@@ -36,6 +36,6 @@ public class TrackerGroupFrameProvider implements FrameProvider {
 
     @Override
     public AdrComponentPanel getPanel() {
-        return new AdrTrackerGroupPanel((AdrTrackerGroupDescriptor) this.descriptor, new ComponentsFactory());
+        return new AdrTrackerGroupPanel((AdrTrackerGroupDescriptor) this.descriptor, ComponentsFactory.INSTANCE);
     }
 }

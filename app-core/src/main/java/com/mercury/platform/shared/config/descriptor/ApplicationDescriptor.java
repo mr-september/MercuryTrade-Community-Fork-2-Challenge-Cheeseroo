@@ -19,5 +19,5 @@ public class ApplicationDescriptor implements Serializable {
     private boolean checkOutUpdate;
     private boolean hideTaskbarUntilHover;
     private boolean poe2;
-    private Languages languages;
+    private Languages languages = Languages.en;
 }

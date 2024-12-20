@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class AdrDialog<T> extends JDialog {
-    protected ComponentsFactory componentsFactory = new ComponentsFactory();
+    protected ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     @Getter
     protected T payload;
 

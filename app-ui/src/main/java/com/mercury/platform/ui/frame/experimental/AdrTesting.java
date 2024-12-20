@@ -41,7 +41,7 @@ public class AdrTesting extends JPanel {
         progress2.setStringPainted(true);
         progress1.setBackground(AppThemeColor.TRANSPARENT);
         progress1.setBorder(null);
-        progress2.setFont(new ComponentsFactory().getFont(FontStyle.BOLD, 82));
+        progress2.setFont(ComponentsFactory.INSTANCE.getFont(FontStyle.BOLD, 82));
         progress2.setForeground(AppThemeColor.TEXT_DEFAULT);
 
         JSlider slider = new JSlider();

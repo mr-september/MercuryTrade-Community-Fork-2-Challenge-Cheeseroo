@@ -17,6 +17,6 @@ public class CaptureInFrameProvider extends SingleFrameProvider {
 
     @Override
     public AdrComponentPanel getPanel() {
-        return new AdrCapturePanel((AdrCaptureDescriptor) this.descriptor, new ComponentsFactory());
+        return new AdrCapturePanel((AdrCaptureDescriptor) this.descriptor, ComponentsFactory.INSTANCE);
     }
 }

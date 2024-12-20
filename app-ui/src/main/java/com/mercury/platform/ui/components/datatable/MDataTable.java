@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MDataTable<T> extends JPanel implements ViewInit, ViewDestroy, AfterViewInit {
-    private ComponentsFactory componentsFactory = new ComponentsFactory();
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     private MColumn[] columns;
     private MDataService<T> dataService;
 

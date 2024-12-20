@@ -12,7 +12,7 @@ public abstract class BaseDialog<T, P> extends JDialog {
     @Setter
     protected DialogCallback<T> callback;
     protected P payload;
-    protected ComponentsFactory componentsFactory = new ComponentsFactory();
+    protected ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
 
     public BaseDialog(DialogCallback<T> callback, Component relative, P payload) {
         this.payload = payload;

@@ -23,7 +23,7 @@ public class HelpPanel extends JPanel implements ViewInit {
 
     public HelpPanel() {
         super();
-        componentsFactory = new ComponentsFactory();
+        componentsFactory = ComponentsFactory.INSTANCE;
         this.setBackground(AppThemeColor.TRANSPARENT);
         onViewInit();
     }
