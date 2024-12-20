@@ -1,5 +1,13 @@
 [
   {
+    "version": "1.4.0",
+    "fix": [
+      {
+        "changed": "Fixed loading fonts for chinese and korean letters"
+      }
+    ]
+  },
+  {
     "version": "1.3.9",
     "features": [
       {

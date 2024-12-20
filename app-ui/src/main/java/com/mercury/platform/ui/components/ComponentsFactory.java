@@ -97,9 +97,9 @@ public class ComponentsFactory {
             futures.add(executor.submit(krCallable));
             futures.add(executor.submit(baseCallable));
 
-            Font base = futures.get(0).get();
-            CJK_FONT = futures.get(1).get();
-            KR_FONT = futures.get(2).get();
+            Font base = futures.get(2).get();
+            CJK_FONT = futures.get(0).get();
+            KR_FONT = futures.get(1).get();
 
 
 //            Font base = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/NotoSans-VariableFont.ttf"));
