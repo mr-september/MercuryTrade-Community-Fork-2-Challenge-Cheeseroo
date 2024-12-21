@@ -237,7 +237,9 @@ public enum TranslationKey {
     choose_language("Choose language"),
     language_change_requires_application_restart("Language change requires application restart."),
     hide_notifications("Hide notifications until next incoming or manually shown"),
-    show_notifications("Show notifications")
+    show_notifications("Show notifications"),
+    disable_game_to_front("Disable game to front"),
+    disable_game_to_front_tt("Don't check this checkbox until you know what you are doing.<br/>It will disable force putting game to front<br/>which can sometimes make buttons on notification to invite/kick etc not working")
     ;
 
     private String defaultValue;

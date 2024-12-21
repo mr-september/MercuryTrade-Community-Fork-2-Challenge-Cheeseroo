@@ -10,7 +10,7 @@ class PoeTradeItemParserChina extends BaseRegexParser {
 
     // Tested for message 神圣怨恨初火: 你好，我想購買 Ghoul Hide, Advanced Marabout Garb 標價 1 exalted 在 Standard (倉庫頁 "asdac"; 位置: 左 5, 上 10)
     // coming from https://www.pathofexile.com/trade2/search/poe2/Standard 12.12.2024
-    private static final String poeTradePattern = "^(.+): 你好，我想購買 (.+) 標價 (\\d+ exalted) 在 (.+) \\(倉庫頁 \"(.+)\"; 位置: 左 (\\d+), 上 (\\d+)\\)$";
+    private static final String poeTradePattern = "^(.+): 你好，我想購買 (.+) 標價 (\\d+ exalted) 在 (.+) \\(倉庫頁 \"(.*)\"; 位置: 左 (\\d+), 上 (\\d+)\\)$";
 
     public PoeTradeItemParserChina() {
         super(poeTradePattern);

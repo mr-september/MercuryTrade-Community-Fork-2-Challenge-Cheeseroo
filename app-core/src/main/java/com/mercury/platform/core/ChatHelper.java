@@ -6,18 +6,13 @@ import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.descriptor.TaskBarDescriptor;
 import com.mercury.platform.shared.entity.message.MercuryError;
 import com.mercury.platform.shared.store.MercuryStoreCore;
-import com.sun.jna.Native;
 import com.sun.jna.Pointer;
-import com.sun.jna.platform.DesktopWindow;
-import com.sun.jna.platform.WindowUtils;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef;
-import com.sun.jna.platform.win32.WinUser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -26,6 +21,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.time.Instant;
 
 
 public class ChatHelper implements AsSubscriber {
@@ -217,28 +213,16 @@ public class ChatHelper implements AsSubscriber {
     final int SWP_SHOWWINDOW = 0x0040;
 
     private void gameToFront() {
+        if (Configuration.get().applicationConfiguration().get().isDisableGameToFront()) {
+            return;
+        }
+
+
         if (SystemUtils.IS_OS_WINDOWS) {
-            for (DesktopWindow window : MainWindowHWNDFetch.INSTANCE.getMainWindowList()) {
-                char[] className = new char[512];
-                User32.INSTANCE.GetClassName(window.getHWND(), className, 512);
-
-                User32.INSTANCE.ShowWindow(window.getHWND(), 5);
-
-                boolean isAtFront = User32.INSTANCE.SetForegroundWindow(window.getHWND());
-                int counter = 0;
-                while (!isAtFront && counter < 10) {
-                    isAtFront = User32.INSTANCE.SetForegroundWindow(window.getHWND());
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    counter++;
-                }
-
-                User32.INSTANCE.SetFocus(window.getHWND());
-
-            }
+            WinDef.HWND hwnd = MainWindowHWNDFetch.INSTANCE.findWindow();
+            User32.INSTANCE.ShowWindow(hwnd, 5);
+            User32.INSTANCE.SetForegroundWindow(hwnd);
+            User32.INSTANCE.SetFocus(hwnd);
         }
 
     }

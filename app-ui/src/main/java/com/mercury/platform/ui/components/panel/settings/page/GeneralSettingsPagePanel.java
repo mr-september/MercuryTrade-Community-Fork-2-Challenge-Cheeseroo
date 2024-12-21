@@ -63,6 +63,11 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
             this.applicationSnapshot.setHideTaskbarUntilHover(hideTaskbarUntilHover.isSelected());
         });
 
+        JCheckBox disableGameToFront = this.componentsFactory.getCheckBox(this.applicationSnapshot.isDisableGameToFront(), TranslationKey.disable_game_to_front_tt.value());
+        disableGameToFront.addActionListener(action -> {
+            this.applicationSnapshot.setDisableGameToFront(disableGameToFront.isSelected());
+        });
+
 //        JCheckBox poe2Support = this.componentsFactory.getCheckBox(this.applicationSnapshot.isPoe2(), TranslationKey.poe2_support_tt.value());
 //        poe2Support.addActionListener(action -> {
 //            this.applicationSnapshot.setPoe2(poe2Support.isSelected());
@@ -165,6 +170,8 @@ public class GeneralSettingsPagePanel extends SettingsPagePanel {
         root.add(hideTaskbarUntilHover);
 //        root.add(this.componentsFactory.getTextLabel(TranslationKey.poe_2_support.value(), FontStyle.REGULAR, 16));
 //        root.add(poe2Support);
+        root.add(this.componentsFactory.getTextLabel(TranslationKey.disable_game_to_front.value(), FontStyle.REGULAR, 16));
+        root.add(disableGameToFront);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.component_fade_out_time.value(": "), FontStyle.REGULAR, 16));
         root.add(fadeTimeSlider);
         root.add(this.componentsFactory.getTextLabel(TranslationKey.min_opacity.value(": "), FontStyle.REGULAR, 16));

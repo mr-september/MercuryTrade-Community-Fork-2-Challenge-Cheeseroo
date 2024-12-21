@@ -10,7 +10,7 @@ class PoeTradeItemParserJapanese extends BaseRegexParser {
 
     // Tested for message ナーフ神ジョナサン: こんにちは、Standard リーグで 3 exalted で売っている、あなたの Havoc Band, Emerald Ring を購入したいです (スタッシュタブ "~b/o 3 exalted"; 位置: 左から 6, 上から 7)
     // coming from https://www.pathofexile.com/trade2/search/poe2/Standard 12.12.2024
-    private static final String poeTradePattern = "^(.+): こんにちは、(.+) リーグで (.+) (.+) で売っている、あなたの (.+) を購入したいです \\(スタッシュタブ \"(.+)\"; 位置: 左から (\\d+), 上から (\\d+)\\)$";
+    private static final String poeTradePattern = "^(.+): こんにちは、(.+) リーグで (.+) (.+) で売っている、あなたの (.+) を購入したいです \\(スタッシュタブ \"(.*)\"; 位置: 左から (\\d+), 上から (\\d+)\\)$";
 
     public PoeTradeItemParserJapanese() {
         super(poeTradePattern);

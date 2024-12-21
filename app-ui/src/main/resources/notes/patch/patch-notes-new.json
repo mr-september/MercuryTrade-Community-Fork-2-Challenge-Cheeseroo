@@ -1,5 +1,21 @@
 [
   {
+    "version": "1.4.1",
+    "minorChanges": [
+      {
+        "changed": "Added checkbox to disable bringing game to top on action always (feature for advanced users - keep in mind that it can sometimes result in message/invite/kick not being sent or invite)"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Reduced delay between pressing button on notification (kick/leave/trade etc) and actual action firing to invite, message someone"
+      },
+      {
+        "changed": "Fixed parsing messages with empty stash tab names"
+      }
+    ]
+  },
+  {
     "version": "1.4.0",
     "fix": [
       {

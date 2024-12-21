@@ -472,3 +472,7 @@ language_change_requires_application_restart = Изменение языка т�
 hide_notifications = Скрыть уведомления до следующего сообщения
 // Show notifications
 show_notifications = Показать уведомления
+// Disable game to front
+disable_game_to_front = Отключить вывод игры на передний план
+// Don't check this checkbox until you know what you are doing. <br/> It will disable force putting game to front which can sometimes make buttons on notification to invite/kick etc not working
+disable_game_to_front_tt = Не отмечайте этот флажок, пока не узнаете, что делаете.<br/>Это отключит принудительное перемещение игры на передний план, что иногда может привести к тому,<br/>что кнопки на оповещении для приглашения/выгоняют и т.д. могут не работать

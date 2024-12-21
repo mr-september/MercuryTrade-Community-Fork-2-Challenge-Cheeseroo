@@ -31,12 +31,12 @@
     <opt>-Dfile.encoding=UTF-8</opt>
   </jre>
   <versionInfo>
-    <fileVersion>1.4.0.0</fileVersion>
-    <txtFileVersion>1.4.0</txtFileVersion>
+    <fileVersion>1.4.1.0</fileVersion>
+    <txtFileVersion>1.4.1</txtFileVersion>
     <fileDescription>MercuryTrade</fileDescription>
     <copyright>Morph21</copyright>
-    <productVersion>1.4.0.0</productVersion>
-    <txtProductVersion>1.4.0</txtProductVersion>
+    <productVersion>1.4.1.0</productVersion>
+    <txtProductVersion>1.4.1</txtProductVersion>
     <productName>MercuryTrade</productName>
     <companyName>Morph</companyName>
     <internalName>MercuryTrade</internalName>

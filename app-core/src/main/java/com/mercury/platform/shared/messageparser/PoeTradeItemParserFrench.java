@@ -10,7 +10,7 @@ class PoeTradeItemParserFrench extends BaseRegexParser {
 
     // Tested for message Sillmar: Bonjour, je souhaiterais t'acheter Call of the Brotherhood, Topaz Ring pour 15 exalted dans la ligue Standard (onglet de réserve "A vendre" ; 6e en partant de la gauche, 1e en partant du haut)
     // coming from https://www.pathofexile.com/trade2/search/poe2/Standard 18.12.2024
-    private static final String poeTradePattern = "^(.+): Bonjour, je souhaiterais t'acheter (.+) pour (.+) dans la ligue (.+) \\(onglet de réserve \"(.+)\" ; (\\d+)e en partant de la gauche, (\\d+)e en partant du haut\\)$";
+    private static final String poeTradePattern = "^(.+): Bonjour, je souhaiterais t'acheter (.+) pour (.+) dans la ligue (.+) \\(onglet de réserve \"(.*)\" ; (\\d+)e en partant de la gauche, (\\d+)e en partant du haut\\)$";
 
     public PoeTradeItemParserFrench() {
         super(poeTradePattern);

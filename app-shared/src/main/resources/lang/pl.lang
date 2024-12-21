@@ -472,3 +472,7 @@ language_change_requires_application_restart = Zmiana języka wymaga restartu ap
 hide_notifications = Ukryj powiadomienia do następnej wiadomości
 // Show notifications
 show_notifications = Pokaż powiadomienia
+// Disable game to front
+disable_game_to_front = Wyłącz przenoszenie gry na wierzch
+// Don't check this checkbox until you know what you are doing. <br/> It will disable force putting game to front which can sometimes make buttons on notification to invite/kick etc not working
+disable_game_to_front_tt = Nie zaznaczaj tego pola, dopóki nie wiesz, co robisz.<br/>Spowoduje to wyłączenie wymuszania przeniesienia gry na wierzch,<br/>co czasami może spowodować, że przyciski na powiadomieniu do zapraszania/wyrzucania itp. mogą przestać działać

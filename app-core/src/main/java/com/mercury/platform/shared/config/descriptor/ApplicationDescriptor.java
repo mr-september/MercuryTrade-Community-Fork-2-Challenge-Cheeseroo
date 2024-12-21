@@ -20,4 +20,5 @@ public class ApplicationDescriptor implements Serializable {
     private boolean hideTaskbarUntilHover;
     private boolean poe2;
     private Languages languages = Languages.en;
+    private boolean disableGameToFront;
 }
