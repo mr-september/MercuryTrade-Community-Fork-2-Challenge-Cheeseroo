@@ -40,6 +40,11 @@ public class NotificationIncomingController implements IncomingPanelController {
     }
 
     @Override
+    public void performWhoIs() {
+        MercuryStoreCore.chatCommandSubject.onNext("/whois " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
+    }
+
+    @Override
     public void performOfferTrade() {
         MercuryStoreCore.chatCommandSubject.onNext("/tradewith " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }

@@ -7,4 +7,6 @@ public interface IncomingPanelController extends NotificationController {
     void performKickLeave(String nickName);
 
     void showITH();
+
+    void performWhoIs();
 }

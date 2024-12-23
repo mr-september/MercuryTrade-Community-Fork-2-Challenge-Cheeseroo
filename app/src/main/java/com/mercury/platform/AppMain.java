@@ -36,8 +36,6 @@ public class AppMain {
             System.setProperty("jna.nosys", "true");
 
             UIManager.put("ToolTipManager.enableToolTipMode", "allWindows");
-            ToolTipManager.sharedInstance().setInitialDelay(100);
-            ToolTipManager.sharedInstance().setReshowDelay(100);
 
             boolean standalone = BooleanUtils.toBoolean(System.getProperty("standalone"));
             boolean dev = BooleanUtils.toBoolean(System.getProperty("dev"));

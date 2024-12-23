@@ -62,6 +62,8 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
         });
         JButton openChatButton = componentsFactory.getIconButton(IconConst.CHAT_OPEN, 15, AppThemeColor.MSG_HEADER, TranslationKey.open_chat.value());
         openChatButton.addActionListener(e -> controller.performOpenChat());
+        JButton whoIsButton = componentsFactory.getIconButton(IconConst.WHO_IS, 15, AppThemeColor.MSG_HEADER, TranslationKey.who_is.value());
+        whoIsButton.addActionListener(e -> controller.performWhoIs());
         JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 15, AppThemeColor.MSG_HEADER, TranslationKey.close.value());
         hideButton.addActionListener(action -> {
             this.controller.performHide();
@@ -70,6 +72,7 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
         interactionPanel.add(tradeButton);
         interactionPanel.add(kickButton);
         interactionPanel.add(leaveButton);
+        interactionPanel.add(whoIsButton);
         interactionPanel.add(openChatButton);
         interactionPanel.add(hideButton);
 

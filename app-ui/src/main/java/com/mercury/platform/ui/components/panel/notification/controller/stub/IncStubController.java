@@ -37,4 +37,9 @@ public class IncStubController implements IncomingPanelController {
     public void showITH() {
 
     }
+
+    @Override
+    public void performWhoIs() {
+
+    }
 }

@@ -3,6 +3,9 @@
     "version": "1.4.2",
     "minorChanges": [
       {
+        "changed": "Added who is button to incoming notifications"
+      },
+      {
         "changed": "Added parser for Thai language"
       },
       {
@@ -21,6 +24,9 @@
       },
       {
         "changed": "Fixed time not showing short for minutes when more than 20 minutes passed after some resolutions"
+      },
+      {
+        "changed": "Fixed tooltips showing too quickly"
       }
     ]
   },
