@@ -3,6 +3,7 @@ package com.mercury.platform.ui.components.panel.notification.controller;
 
 import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 
@@ -15,12 +16,12 @@ public class NotificationOutgoingController implements OutgoingPanelController {
 
     @Override
     public void visitHideout() {
-        MercuryStoreCore.chatCommandSubject.onNext("/hideout " + notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.chatCommandSubject.onNext("/hideout " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }
 
     @Override
     public void performWhoIs() {
-        MercuryStoreCore.chatCommandSubject.onNext("/whois " + notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.chatCommandSubject.onNext("/whois " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }
 
     @Override
@@ -30,7 +31,7 @@ public class NotificationOutgoingController implements OutgoingPanelController {
 
     @Override
     public void performOfferTrade() {
-        MercuryStoreCore.chatCommandSubject.onNext("/tradewith " + notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.chatCommandSubject.onNext("/tradewith " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }
 
     @Override
@@ -40,17 +41,17 @@ public class NotificationOutgoingController implements OutgoingPanelController {
 
     @Override
     public void performKickLeave(String nickName) {
-        MercuryStoreCore.chatCommandSubject.onNext("/kick " + nickName);
+        MercuryStoreCore.chatCommandSubject.onNext("/kick " + StringUtils.trim(nickName));
     }
 
     @Override
     public void performOpenChat() {
-        MercuryStoreCore.openChatSubject.onNext(notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.openChatSubject.onNext(StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }
 
     @Override
     public void performResponse(String response) {
-        MercuryStoreCore.chatCommandSubject.onNext("@" + notificationDescriptor.getWhisperNickname() + " " + response);
+        MercuryStoreCore.chatCommandSubject.onNext("@" + StringUtils.trim(notificationDescriptor.getWhisperNickname()) + " " + response);
     }
 
     private void closeMessagePanel() {

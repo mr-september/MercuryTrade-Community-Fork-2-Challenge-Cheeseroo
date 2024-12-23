@@ -26,7 +26,7 @@ public class NotificationIncomingController implements IncomingPanelController {
 
     @Override
     public void performInvite() {
-        MercuryStoreCore.chatCommandSubject.onNext("/invite " + notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.chatCommandSubject.onNext("/invite " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
         showITH();
     }
 
@@ -35,13 +35,13 @@ public class NotificationIncomingController implements IncomingPanelController {
         if (StringUtils.isBlank(nickName)) {
             MercuryStoreCore.chatCommandSubject.onNext("/leave");
         } else {
-            MercuryStoreCore.chatCommandSubject.onNext("/kick " + notificationDescriptor.getWhisperNickname());
+            MercuryStoreCore.chatCommandSubject.onNext("/kick " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
         }
     }
 
     @Override
     public void performOfferTrade() {
-        MercuryStoreCore.chatCommandSubject.onNext("/tradewith " + notificationDescriptor.getWhisperNickname());
+        MercuryStoreCore.chatCommandSubject.onNext("/tradewith " + StringUtils.trim(notificationDescriptor.getWhisperNickname()));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class NotificationIncomingController implements IncomingPanelController {
 
     @Override
     public void performResponse(@NonNull String responseText) {
-        MercuryStoreCore.chatCommandSubject.onNext("@" + notificationDescriptor.getWhisperNickname() + " " + responseText);
+        MercuryStoreCore.chatCommandSubject.onNext("@" + StringUtils.trim(notificationDescriptor.getWhisperNickname()) + " " + responseText);
     }
 
     @Override

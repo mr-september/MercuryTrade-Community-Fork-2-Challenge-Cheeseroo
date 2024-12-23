@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 
 class PoeTradeStashTabParser extends BaseRegexParser {
 
-//    private static final String poeTradeStashTabPattern = "^(.*\\s)?(.+): (.+ to buy your\\s+?(.+?)(\\s+?listed for\\s+?([\\d\\.]+?)\\s+?(.+))?\\s+?in\\s+?(.+?)\\s+?\\(stash tab \"(.*)\"; position: left (\\d+), top (\\d+)\\)\\s*?(.*))$";
+    // example message Morph_MT: Hi, I would like to buy your Djinn Barya listed for 1 exalted in Standard (stash tab "~price 1 exalted"; position: left 1, top 20)
     private static final String poeTradeStashTabPattern = "^(.*\\s)?(.+): ((.+ to buy your\\s+?(.+?))listed for\\s+?([\\d\\.]+?)\\s+?(.+)\\s+?in\\s+?(.+?)\\s+?\\(stash tab \"(.*)\"; position: left (\\d+), top (\\d+)\\)\\s*?(.*)$)";
 
     public PoeTradeStashTabParser() {
@@ -19,7 +19,7 @@ class PoeTradeStashTabParser extends BaseRegexParser {
     protected NotificationDescriptor parse(Matcher matcher, String whisper) {
         ItemTradeNotificationDescriptor tradeNotification = new ItemTradeNotificationDescriptor();
         tradeNotification.setWhisperNickname(matcher.group(2));
-        tradeNotification.setSourceString(matcher.group(3));
+        tradeNotification.setSourceString(matcher.group(0));
         tradeNotification.setItemName(matcher.group(5));
         if (matcher.group(6) != null) {
             tradeNotification.setCurCount(Double.parseDouble(matcher.group(6)));

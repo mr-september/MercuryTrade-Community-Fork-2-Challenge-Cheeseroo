@@ -1,5 +1,30 @@
 [
   {
+    "version": "1.4.2",
+    "minorChanges": [
+      {
+        "changed": "Added parser for Thai language"
+      },
+      {
+        "changed": "Added parser for Spanish language"
+      },
+      {
+        "changed": "Added parser for German language"
+      },
+      {
+        "changed": "Added parser for Brazilian language"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Fixed option to resend messages on outgoing notifications for every language"
+      },
+      {
+        "changed": "Fixed time not showing short for minutes when more than 20 minutes passed after some resolutions"
+      }
+    ]
+  },
+  {
     "version": "1.4.1",
     "minorChanges": [
       {

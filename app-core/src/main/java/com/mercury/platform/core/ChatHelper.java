@@ -72,6 +72,7 @@ public class ChatHelper implements AsSubscriber {
     private void executeMessage(String message) {
         clipboardMessageOn = false;
         this.gameToFront();
+
         StringSelection selection = new StringSelection(message);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, null);

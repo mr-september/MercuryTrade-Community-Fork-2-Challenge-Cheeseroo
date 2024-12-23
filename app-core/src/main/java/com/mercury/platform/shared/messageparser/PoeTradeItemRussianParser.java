@@ -19,7 +19,7 @@ class PoeTradeItemRussianParser extends BaseRegexParser {
         // Copy-paste of PoeTradeItemKoreanParser.
         ItemTradeNotificationDescriptor tradeNotification = new ItemTradeNotificationDescriptor();
         tradeNotification.setWhisperNickname(matcher.group("name"));
-        tradeNotification.setSourceString(matcher.group("stashtab"));
+        tradeNotification.setSourceString(matcher.group(0));
         tradeNotification.setItemName(matcher.group("item"));
         if (matcher.group("price") != null) {
             tradeNotification.setCurCount(Double.parseDouble(matcher.group("price")));
@@ -34,12 +34,6 @@ class PoeTradeItemRussianParser extends BaseRegexParser {
         tradeNotification.setTop(Integer.parseInt(matcher.group("top")));
 //            tradeNotification.setOffer(matcher.group(12));
         tradeNotification.setType(NotificationType.INC_ITEM_MESSAGE);
-
-        final int indexAfterName = whisper.indexOf(":");
-        if (indexAfterName != -1) {
-            final int sourceStringStart = indexAfterName + ": ".length();
-            tradeNotification.setSourceString(whisper.substring(sourceStringStart));
-        }
 
         return tradeNotification;
     }

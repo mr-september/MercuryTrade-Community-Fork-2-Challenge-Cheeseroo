@@ -3,16 +3,10 @@ package com.mercury.platform.shared.messageparser;
 import com.mercury.platform.shared.entity.message.CurrencyTradeNotificationDescriptor;
 import com.mercury.platform.shared.entity.message.ItemTradeNotificationDescriptor;
 import com.mercury.platform.shared.entity.message.NotificationDescriptor;
-import com.mercury.platform.shared.entity.message.NotificationType;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Parses trade whispers to extract information like
@@ -47,7 +41,11 @@ public class MessageParser {
                 new PoeTradeItemParserChina(),
                 new PoeTradeItemParserFrench(),
                 new PoeTradeItemParserJapanese(),
-                new PoeTradeItemParserKorean2()
+                new PoeTradeItemParserKorean2(),
+                new PoeTradeItemParserBrazilian(),
+                new PoeTradeItemParserThai(),
+                new PoeTradeItemParserGerman(),
+                new PoeTradeItemParserSpanish()
         );
     }
 

@@ -65,7 +65,11 @@ public class TradeOutMessagesInterceptor extends MessageInterceptor {
                     (message.contains("wtb") && message.contains("(stash")) ||
                     message.contains("안녕하세요, 강탈") ||
                     message.contains("Bonjour, je souhaiterais t'acheter") ||
-                    message.contains("안녕하세요"); //pathofexile.com/trade/
+                    message.contains("안녕하세요") || //pathofexile.com/trade/
+                    message.contains("ich möchte") ||
+                    message.contains("Olá, eu gostaria") ||
+                    message.contains("Hola, quisiera comprar") ||
+                    message.contains("สวัสดี เราต้องการซื้อ");
         }
 
         public abstract String trimString(String src);
