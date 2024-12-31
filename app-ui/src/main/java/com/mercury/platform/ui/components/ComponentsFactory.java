@@ -1,7 +1,10 @@
 package com.mercury.platform.ui.components;
 
+import com.mercury.platform.Languages;
+import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.misc.SoundType;
 import com.mercury.platform.shared.MainWindowHWNDFetch;
+import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -34,10 +37,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -62,7 +63,6 @@ public class ComponentsFactory {
     private Font KR_FONT;
     private float scale;
     private ExecutorService executor = Executors.newFixedThreadPool(3);
-    private List<Future<Font>> futures = new ArrayList<>();
 
     private final static Map<TextAttribute, Float> boldAttr = new HashMap<TextAttribute, Float>() {{
         put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
@@ -93,18 +93,14 @@ public class ComponentsFactory {
             Callable<Font> baseCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/NotoSans-VariableFont.ttf"));
             Callable<Font> cjkCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
             Callable<Font> krCallable = () -> Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
-            futures.add(executor.submit(cjkCallable));
-            futures.add(executor.submit(krCallable));
-            futures.add(executor.submit(baseCallable));
+            Future<Font> cjkFuture = executor.submit(cjkCallable);
+            Future<Font> krFuture = executor.submit(krCallable);
+            Future<Font> baseFuture = executor.submit(baseCallable);
 
-            Font base = futures.get(2).get();
-            CJK_FONT = futures.get(0).get();
-            KR_FONT = futures.get(1).get();
+            Font base = baseFuture.get();
+            CJK_FONT = cjkFuture.get();
+            KR_FONT = krFuture.get();
 
-
-//            Font base = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/NotoSans-VariableFont.ttf"));
-//            CJK_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/GoNotoCJKCore.ttf"));
-//            KR_FONT = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream("font/HayashiSerif.ttf"));
             Instant load = Instant.now();
 
             DEFAULT_FONT = base.deriveFont(regularAttr);
@@ -155,6 +151,7 @@ public class ComponentsFactory {
                     super.paintBorder(g);
                 }
             }
+
             @Override
             public JToolTip createToolTip() {
                 JToolTip tip = ComponentsFactory.this.createTooltip(tooltip);
@@ -195,6 +192,66 @@ public class ComponentsFactory {
             }
         });
         return button;
+    }
+
+    public JMenuItem getMenuItem(String text, String tooltip) {
+        CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 1),
+                BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
+        );
+
+        return getMenuItem(FontStyle.BOLD, AppThemeColor.BUTTON, compoundBorder, text, scale * 16f, tooltip);
+    }
+
+    public JMenuItem getMenuItem(FontStyle fontStyle, Color background, Border border, String text, float fontSize, String tooltip) {
+        JMenuItem menuItem = new JMenuItem(text) {
+            @Override
+            protected void paintBorder(Graphics g) {
+                if (!this.getModel().isPressed()) {
+                    super.paintBorder(g);
+                }
+            }
+
+            @Override
+            public JToolTip createToolTip() {
+                JToolTip tip = ComponentsFactory.this.createTooltip(tooltip);
+                return tip;
+            }
+        };
+        menuItem.setBackground(background);
+        menuItem.setForeground(AppThemeColor.TEXT_DEFAULT);
+        menuItem.setFocusPainted(false);
+        menuItem.addMouseListener(new MouseAdapter() {
+            Border prevBorder;
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                this.prevBorder = menuItem.getBorder();
+                CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER, 1),
+                        BorderFactory.createLineBorder(menuItem.getBackground(), 3)
+                );
+                menuItem.setBorder(compoundBorder);
+                menuItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                menuItem.setBorder(prevBorder);
+                menuItem.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        menuItem.addActionListener(action -> {
+            MercuryStoreCore.soundSubject.onNext(SoundType.CLICKS);
+        });
+        menuItem.setFont(getSelectedFont(fontStyle, text).deriveFont(scale * fontSize));
+        menuItem.setBorder(border);
+        menuItem.addChangeListener(e -> {
+            if (!menuItem.getModel().isPressed()) {
+                menuItem.setBackground(menuItem.getBackground());
+            }
+        });
+        return menuItem;
     }
 
     /**
@@ -265,9 +322,9 @@ public class ComponentsFactory {
     }
 
     public ToggleAdapter createListenerForToggleCallbacks(Component button,
-                                          ToggleCallback firstState,
-                                          ToggleCallback secondState,
-                                          boolean initialState) {
+                                                          ToggleCallback firstState,
+                                                          ToggleCallback secondState,
+                                                          boolean initialState) {
         ToggleAdapter listener = new ToggleAdapter(firstState, secondState, initialState);
         return listener;
     }
@@ -631,6 +688,56 @@ public class ComponentsFactory {
         return passwordField;
     }
 
+    public JCheckBoxMenuItem checkBoxMenuItem(boolean value, String label) {
+        CompoundBorder border = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 1),
+                BorderFactory.createLineBorder(AppThemeColor.BUTTON, 3)
+        );
+        JCheckBoxMenuItem checkBoxMenuItem = new JCheckBoxMenuItem(label, value) {
+            @Override
+            protected void paintBorder(Graphics g) {
+                if (!this.getModel().isPressed()) {
+                    super.paintBorder(g);
+                }
+            }
+        };
+        checkBoxMenuItem.setBackground(AppThemeColor.BUTTON);
+        checkBoxMenuItem.setForeground(AppThemeColor.TEXT_DEFAULT);
+        checkBoxMenuItem.setFont(getFontByLang(label, FontStyle.REGULAR));
+
+        checkBoxMenuItem.addMouseListener(new MouseAdapter() {
+            Border prevBorder;
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                this.prevBorder = checkBoxMenuItem.getBorder();
+                CompoundBorder compoundBorder = BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(AppThemeColor.ADR_SELECTED_BORDER, 1),
+                        BorderFactory.createLineBorder(checkBoxMenuItem.getBackground(), 3)
+                );
+                checkBoxMenuItem.setBorder(compoundBorder);
+                checkBoxMenuItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                checkBoxMenuItem.setBorder(prevBorder);
+                checkBoxMenuItem.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        checkBoxMenuItem.addActionListener(action -> {
+            MercuryStoreCore.soundSubject.onNext(SoundType.CLICKS);
+        });
+        checkBoxMenuItem.setBorder(border);
+        checkBoxMenuItem.addChangeListener(e -> {
+            if (!checkBoxMenuItem.getModel().isPressed()) {
+                checkBoxMenuItem.setBackground(checkBoxMenuItem.getBackground());
+            }
+        });
+
+        return checkBoxMenuItem;
+    }
+
     public JCheckBox getCheckBox(String tooltip) {
         JCheckBox checkBox = new JCheckBox() {
             @Override
@@ -710,7 +817,7 @@ public class ComponentsFactory {
         JComboBox comboBox = new JComboBox<>(child);
         comboBox.setBackground(AppThemeColor.HEADER);
         comboBox.setForeground(AppThemeColor.TEXT_DEFAULT);
-        comboBox.setFont(BOLD_FONT.deriveFont(scale * 16f));
+        comboBox.setFont(getSelectedFont(FontStyle.BOLD, child[0], 16f));
         comboBox.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER, 1));
         comboBox.setUI(MercuryComboBoxUI.createUI(comboBox));
         return comboBox;
@@ -720,7 +827,7 @@ public class ComponentsFactory {
         JComboBox comboBox = new JComboBox<>(child);
         comboBox.setBackground(AppThemeColor.HEADER);
         comboBox.setForeground(AppThemeColor.TEXT_DEFAULT);
-        comboBox.setFont(BOLD_FONT.deriveFont(scale * 16f));
+        comboBox.setFont(getSelectedFont(FontStyle.BOLD, child[0].toString(), 16f));
         comboBox.setBorder(BorderFactory.createLineBorder(AppThemeColor.BORDER, 1));
         comboBox.setUI(MercuryComboBoxUI.createUI(comboBox));
         return comboBox;
@@ -1002,7 +1109,12 @@ public class ComponentsFactory {
 
     public static boolean isKorean(String s) {
         if (StringUtils.isBlank(s)) {
-            return false; //TODO: check for configuration if language is set to korean then return true
+            Languages languages = Configuration.get().applicationConfiguration().get().getLanguages();
+            if (languages != null && languages.equals(Languages.kr)) {
+                return true;
+            } else {
+                return false;
+            }
         }
         return s.codePoints().anyMatch(x -> Character.UnicodeScript.of(x).equals(Character.UnicodeScript.HANGUL));
     }

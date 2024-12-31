@@ -11,6 +11,7 @@ import com.mercury.platform.shared.config.descriptor.adr.AdrVisibleState;
 import com.mercury.platform.shared.entity.message.MercuryError;
 import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.entity.message.PlainMessageDescriptor;
+import org.jnativehook.mouse.NativeMouseEvent;
 import rx.subjects.PublishSubject;
 
 import java.awt.*;
@@ -70,4 +71,8 @@ public class MercuryStoreCore {
     public static final PublishSubject<VulkanDescriptor> vulkanSupportSubject = PublishSubject.create();
     public static final PublishSubject<Component> checkForUpdatesSubject = PublishSubject.create();
     public static final PublishSubject<Boolean> showMessageHideButton = PublishSubject.create();
-    }
+
+    public static final PublishSubject<NativeMouseEvent> hideSystemTraySubject = PublishSubject.create();
+    public static final PublishSubject<Boolean> enableDisableHideSystemTrayListenerSubject = PublishSubject.create();
+    public static final PublishSubject<Boolean> checkForUpdates = PublishSubject.create();
+}

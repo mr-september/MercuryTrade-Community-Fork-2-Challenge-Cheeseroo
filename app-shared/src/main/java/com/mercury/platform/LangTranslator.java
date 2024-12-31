@@ -67,7 +67,7 @@ public class LangTranslator {
 
             return translations;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Loading translations error", e);
         } finally {
             return translations;
         }

@@ -7,6 +7,7 @@ import com.mercury.platform.shared.HistoryManager;
 import com.mercury.platform.shared.config.Configuration;
 import com.mercury.platform.shared.config.MercuryConfigManager;
 import com.mercury.platform.shared.config.MercuryConfigurationSource;
+import com.mercury.platform.shared.config.descriptor.ApplicationDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrVisibleState;
 import com.mercury.platform.shared.hotkey.ClipboardListener;
 import com.mercury.platform.shared.hotkey.HotKeysInterceptor;
@@ -20,6 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -89,5 +92,15 @@ public class ProdStarter {
         }
         MercuryStoreCore.showingDelaySubject.subscribe(state -> this.delay = 300);
         MercuryStoreCore.shutdownAppSubject.subscribe(state -> System.exit(0));
+
+        ApplicationDescriptor config = configuration.applicationConfiguration().get();
+        if (config.isCheckOutUpdate()) {
+            if (config.getLastCheckForUpdateDate() == null || config.getLastCheckForUpdateDate().plusHours(24).isBefore(LocalDateTime.now())) {
+                MercuryStoreCore.checkForUpdates.onNext(true);
+                config.setLastCheckForUpdateDate(LocalDateTime.now());
+                MercuryStoreCore.saveConfigSubject.onNext(true);
+            }
+        }
+
     }
 }

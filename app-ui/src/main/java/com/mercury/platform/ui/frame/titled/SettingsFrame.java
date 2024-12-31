@@ -17,6 +17,7 @@ import com.mercury.platform.ui.dialog.OkDialog;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
+import com.mercury.platform.ui.misc.UpdateCheck;
 import com.mercury.platform.ui.misc.note.Note;
 import com.mercury.platform.ui.misc.note.NotesLoader;
 import org.apache.commons.lang3.StringUtils;
@@ -177,7 +178,8 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
             SwingWorker worker = new SwingWorker() {
                 @Override
                 protected Object doInBackground() throws Exception {
-                    SettingsFrame.this.checkForUpdates();
+                    UpdateCheck.checkForUpdates(false);
+//                    SettingsFrame.this.checkForUpdates();
                     checkUpdates.setText(TranslationKey.check_for_updates.value());
                     checkUpdates.setEnabled(true);
                     return null;
@@ -249,67 +251,6 @@ public class SettingsFrame extends AbstractTitledComponentFrame {
     public void hideComponent() {
         super.hideComponent();
         MercuryStoreCore.showingDelaySubject.onNext(true);
-    }
-
-    public void checkForUpdates() {
-        GithubReleaseResponse response = getNewestVersion();
-
-        if (response == null) {
-            AlertDialog dialog = new AlertDialog(callback -> {
-                if (callback) {
-                    try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/releases/latest"));
-                    } catch (Exception e) {
-                        logger.error(e);
-                    }
-                }
-            }, TranslationKey.there_was_a_problem_with_checking_newest_version.value(), SettingsFrame.this);
-            dialog.setTitle(TranslationKey.check_for_updates.value());
-            dialog.setVisible(true);
-        } else if (StringUtils.isNotEmpty(response.getTag_name()) && response.getTag_name().equals(MercuryConstants.APP_VERSION)) {
-            OkDialog dialog = new OkDialog(null, TranslationKey.you_have_the_newest_version.value(), SettingsFrame.this);
-            dialog.setTitle(TranslationKey.check_for_updates.value());
-            dialog.setVisible(true);
-        } else {
-            AlertDialog dialog = new AlertDialog(callback -> {
-                if (callback) {
-                    try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/releases/latest"));
-                    } catch (Exception e) {
-                        logger.error(e);
-                    }
-                }
-            }, TranslationKey.there_is_a_newer_version.value(), SettingsFrame.this);
-            dialog.setTitle(TranslationKey.check_for_updates.value());
-            dialog.setVisible(true);
-        }
-    }
-
-    private GithubReleaseResponse getNewestVersion() {
-        try {
-            URL url = new URL("https://api.github.com/repos/Morph21/MercuryTrade-Community-Fork/releases/latest");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestProperty("User-Agent", "request");
-            con.setRequestMethod("GET");
-            int code = con.getResponseCode();
-            if (code == 200) {
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuilder content = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    content.append(inputLine);
-                }
-                in.close();
-                con.disconnect();
-                return gson.fromJson(content.toString(), GithubReleaseResponse.class);
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            logger.error(e);
-            return null;
-        }
     }
 
 }

@@ -234,6 +234,7 @@ public enum TranslationKey {
     english("english"),
     polish("polish"),
     russian("russian"),
+    korean("korean"),
     choose_language("Choose language"),
     language_change_requires_application_restart("Language change requires application restart."),
     hide_notifications("Hide notifications until next incoming or manually shown"),

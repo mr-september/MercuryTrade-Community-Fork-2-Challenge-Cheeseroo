@@ -12,6 +12,8 @@ import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.adr.AdrManager;
 import com.mercury.platform.ui.adr.AdrState;
+import com.mercury.platform.ui.components.ComponentsFactory;
+import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.frame.AbstractComponentFrame;
 import com.mercury.platform.ui.frame.AbstractOverlaidFrame;
 import com.mercury.platform.ui.frame.AbstractScalableComponentFrame;
@@ -24,6 +26,7 @@ import com.mercury.platform.ui.frame.setup.location.SetUpLocationCommander;
 import com.mercury.platform.ui.frame.setup.scale.SetUpScaleCommander;
 import com.mercury.platform.ui.frame.titled.*;
 import com.mercury.platform.ui.manager.routing.SettingsRoutManager;
+import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
 import com.mercury.platform.ui.misc.note.Note;
 import com.mercury.platform.ui.misc.note.NotesLoader;
@@ -35,17 +38,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jnativehook.mouse.NativeMouseEvent;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.InputStream;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class FramesManager implements AsSubscriber {
+    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     private final static Logger logger = LogManager.getLogger(FramesManager.class);
     public static FramesManager INSTANCE = FramesManagerHolder.HOLDER_INSTANCE;
     private Map<Class, AbstractOverlaidFrame> framesMap;
@@ -126,8 +132,8 @@ public class FramesManager implements AsSubscriber {
                     if (frame instanceof AbstractComponentFrame) {
                         if (config.getFadeTime() > 0) {
                             ((AbstractComponentFrame) frame).enableHideEffect(config.getFadeTime(),
-                                                                              config.getMinOpacity(),
-                                                                              config.getMaxOpacity());
+                                    config.getMinOpacity(),
+                                    config.getMaxOpacity());
                         } else {
                             ((AbstractComponentFrame) frame).disableHideEffect();
                             frame.setOpacity(config.getMaxOpacity() / 100f);
@@ -258,7 +264,7 @@ public class FramesManager implements AsSubscriber {
     public void restoreDefaultLocation() {
         this.framesMap.forEach((k, v) -> {
             FramesConfigurationServiceImpl service = (FramesConfigurationServiceImpl) Configuration.get()
-                                                                                                   .framesConfiguration();
+                    .framesConfiguration();
             if (service != null) {
                 FrameDescriptor settings = service.getDefault().get(k.getSimpleName());
                 if (settings != null) {
@@ -311,28 +317,32 @@ public class FramesManager implements AsSubscriber {
 
     private void createTrayIcon() {
         if (SystemUtils.IS_OS_WINDOWS) {
-            PopupMenu trayMenu = new PopupMenu();
-            MenuItem exit = new MenuItem(TranslationKey.exit.value());
+            JPopupMenu trayMenu = this.componentsFactory.getContextPanel();
+
+            JMenuItem exit = this.componentsFactory.getMenuItem(TranslationKey.exit.value(), null);
             exit.addActionListener(e -> {
                 exit();
             });
-            MenuItem restore = new MenuItem(TranslationKey.restore_default_location.value());
+
+            JMenuItem restore = this.componentsFactory.getMenuItem(TranslationKey.restore_default_location.value(), null);
             restore.addActionListener(e -> {
                 FramesManager.INSTANCE.restoreDefaultLocation();
+                hideSystemTray(trayMenu);
             });
 
 
-            MenuItem settings = new MenuItem(TranslationKey.settings.value());
+            JMenuItem settings = this.componentsFactory.getMenuItem(TranslationKey.settings.value(), null);
             settings.addActionListener(e -> {
                 FramesManager.INSTANCE.showFrame(SettingsFrame.class);
+                hideSystemTray(trayMenu);
             });
 
-            CheckboxMenuItem vulkanSupport = new CheckboxMenuItem(TranslationKey.vulkan_support.value());
-            vulkanSupport.setState(VulkanManager.INSTANCE.getSetting());
+            JCheckBoxMenuItem vulkanSupport = this.componentsFactory.checkBoxMenuItem(VulkanManager.INSTANCE.getSetting(), TranslationKey.vulkan_support.value());
             vulkanSupport.addItemListener(e -> {
                 VulkanManager.INSTANCE.changeSetting();
                 MercuryStoreUI.settingsSaveSubject.onNext(true);
             });
+
             trayMenu.add(restore);
             trayMenu.add(settings);
             trayMenu.add(vulkanSupport);
@@ -344,8 +354,23 @@ public class FramesManager implements AsSubscriber {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.trayIcon = new TrayIcon(icon, "MercuryTrade", trayMenu);
+            this.trayIcon = new TrayIcon(icon, "MercuryTrade");
             this.trayIcon.setImageAutoSize(true);
+
+            trayIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseReleased(java.awt.event.MouseEvent e) {
+                    if (e.isPopupTrigger()) {
+                        showJPopupMenu(e, trayMenu);
+                    }
+                }
+            });
+
+            MercuryStoreCore.hideSystemTraySubject.subscribe(nativeMouseEvent -> {
+                if (!isClickInsidePopup(nativeMouseEvent, trayMenu)) {
+                    hideSystemTray(trayMenu);
+                }
+            });
 
             SystemTray tray = SystemTray.getSystemTray();
             try {
@@ -356,7 +381,49 @@ public class FramesManager implements AsSubscriber {
         }
     }
 
+    private static void showJPopupMenu(MouseEvent e, JPopupMenu popupMenu) {
+        // Position the JPopupMenu near the tray icon
+        Point point = e.getPoint();
+        SwingUtilities.invokeLater(() -> {
+            //popupMenu.setInvoker(null);
+            popupMenu.setVisible(true);
+            popupMenu.setLocation(point.x, point.y - (int) popupMenu.bounds().getHeight());
+            MercuryStoreCore.enableDisableHideSystemTrayListenerSubject.onNext(true);
+        });
+
+    }
+
+    private static boolean isClickInsidePopup(NativeMouseEvent me, JPopupMenu popupMenu) {
+        // Calculate the bounds of the JPopupMenu
+        if (popupMenu.isShowing()) {
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice g2d = ge.getDefaultScreenDevice();
+            double scale = g2d.getDisplayMode().getWidth() / Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+
+            Rectangle bounds = popupMenu.getBounds();
+            Point locationOnScreen = popupMenu.getLocationOnScreen();
+            bounds.setLocation(locationOnScreen);
+
+            logger.warn("point");
+            logger.warn(me.getX());
+            logger.warn(me.getY());
+            logger.warn("point scaled");
+            logger.warn(me.getX() / scale);
+            logger.warn(me.getY() / scale);
+            logger.warn("bounds");
+            logger.warn(bounds.getX());
+            logger.warn(bounds.getY());
+            return bounds.contains(me.getX() / scale, me.getY() / scale);
+        }
+        return false;
+    }
+
     private static class FramesManagerHolder {
         static final FramesManager HOLDER_INSTANCE = new FramesManager();
+    }
+
+    private void hideSystemTray(JPopupMenu trayMenu) {
+        trayMenu.setVisible(false);
+        MercuryStoreCore.enableDisableHideSystemTrayListenerSubject.onNext(false);
     }
 }

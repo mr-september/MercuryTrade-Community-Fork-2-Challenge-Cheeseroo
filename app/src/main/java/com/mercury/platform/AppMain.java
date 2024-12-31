@@ -10,6 +10,8 @@ import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.other.MercuryLoadingFrame;
 import com.mercury.platform.ui.frame.titled.GamePathChooser;
 import com.mercury.platform.ui.manager.FramesManager;
+import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.UpdateCheck;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -58,6 +60,7 @@ public class AppMain {
             }
 
             checkCreateAppDataFolder();
+            new UpdateCheck();
 
             if (dev) {
                 new DevStarter().startApplication();

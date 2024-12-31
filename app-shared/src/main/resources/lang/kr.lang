@@ -1,0 +1,480 @@
+// Close
+close = 닫기
+// Start
+start = 시작
+// Pause
+pause = 일시정지
+// Stop
+stop = 정지
+// Reset
+reset = 초기화
+// Do not Disturb. MercuryTrade goes invisible.
+do_not_disturb = 방해 금지. MercuryTrade가 보이지 않습니다.
+// SuperTradeMode. All notifications you receive will be unfolded.
+trade_mode = 슈퍼 트레이드 모드. 받은 모든 알림이 펼쳐집니다.
+// Chat Scanner. All chat messages with matching words will be displayed in a separate window.
+chat_filter = 채팅 스캐너. 일치하는 단어가 포함된 모든 채팅 메시지가 별도의 창에 표시됩니다.
+// Travel to your hideout
+travel_hideout = 은신처로 이동
+// See IG help
+helpig = IG 도움말 보기
+// Overseer settings
+adr_settings = 관리자 설정
+// Timer. Just a simple timer.
+timer = 타이머. 간단한 타이머입니다.
+// History. Browse through all notifications you received previously.
+history = 기록. 이전에 받은 모든 알림을 탐색합니다.
+// Panel unlock. Unlock panels to reposition.
+unlock_panel_tt = 패널 잠금 해제. 패널을 잠금 해제하여 위치를 조정합니다.
+// Settings
+settings = 설정
+// Item Grid. Align this grid with your in-game stash.
+item_grid = 아이템 그리드. 이 그리드를 게임 내 보관함에 맞춥니다.
+// Scale. Adjust MercuryTrade components size to your taste.
+scale_settings_tt = 크기 조정. MercuryTrade 구성 요소의 크기를 원하는 대로 조정합니다.
+// Exit
+exit = 종료
+// Pushbullet notifications on trade messages
+pushbullet_notification_active = 거래 메시지에 대한 Pushbullet 알림
+// Invite player
+invite = 플레이어 초대
+// Still interested?
+still_interested = 여전히 관심이 있습니까?
+// Repeat message
+repeat_message = 메시지 반복
+// Kick player
+kick = 플레이어 추방
+// Expand / collapse
+expand_collapse = 확장 / 축소
+// Message this player
+open_chat = 이 플레이어에게 메시지 보내기
+// Who is?
+who_is = 누구입니까?
+// Show chat history
+switch_chat = 채팅 기록 표시
+// Visit player's hideout
+visit_ho = 플레이어의 은신처 방문
+// Leave from party
+leave = 파티에서 나가기
+// Quick response
+quick_response = 빠른 응답
+// Restore message
+history_reload = 메시지 복원
+// Travel to this player's hideout
+ho_in = 이 플레이어의 은신처로 이동
+// Is this tab a Quad Tab? Specify once for Mercury to know
+is_it_quad_tt = 이 탭이 쿼드 탭입니까? Mercury가 알 수 있도록 한 번 지정하세요.
+// Clear history
+history_clear = 기록 지우기
+// This box will appear if "Pre-group limit" is exceeded. All consecutive notifications will be grouped together to save screen space. Toggling this button will expand or collapse the whole group.
+notification_settings = "사전 그룹 제한"을 초과하면 이 상자가 나타납니다. 연속된 모든 알림이 화면 공간을 절약하기 위해 그룹화됩니다. 이 버튼을 토글하면 전체 그룹이 확장되거나 축소됩니다.
+// Todo
+adr_profile_settings = 할 일
+// Icons group
+adr_create_icon_group = 아이콘 그룹
+// Progress bars group
+adr_create_pb_group = 진행 막대 그룹
+// Icon
+adr_create_icon = 아이콘
+// Progress bar
+adr_create_progress_bar = 진행 막대
+// Import
+adr_import_component = 가져오기
+// Share component
+adr_export_button = 구성 요소 공유
+// Remove component
+adr_remove_button = 구성 요소 제거
+// Add component
+adr_add_component = 구성 요소 추가
+// Duplicate component
+adr_duplicate_button = 구성 요소 복제
+// Move component
+adr_move_button = 구성 요소 이동
+// Visible component's
+adr_visible_button = 보이는 구성 요소
+// Tab
+tab = 탭
+// Always play a sound
+always_play_a_sound = 항상 소리를 재생
+// Only when tabbed out
+only_when_tabbed_out = 다른 탭일 때만
+// Never
+never = 절대 하지 않음
+// Server is currently down, please try again later.
+server_down = 서버가 현재 다운되었습니다. 나중에 다시 시도하세요.
+// Offer trade
+offer_trade = 거래 제안
+// Close notification
+close_notification = 알림 닫기
+// Still interested button
+still_interested_button = 여전히 관심 있는 버튼
+// Chat history
+chat_history = 채팅 기록
+// To hideout
+to_hideout = 은신처로 이동
+// Dnd
+dnd = 방해 금지
+// You have latest version.
+you_have_latest_version = 최신 버전을 보유하고 있습니다.
+// Title
+title = 제목
+// Opacity
+opacity = 불투명도
+// Size
+size = 크기
+// Location
+location = 위치
+// Sector size
+sector_size = 섹터 크기
+// Sector location
+sector_location = 섹터 위치
+// Fps: high value can cause a drop fps
+fps_high_warn = FPS: 높은 값은 FPS 저하를 유발할 수 있습니다.
+// Advanced
+advanced = 고급
+// Component's padding
+component_padding = 구성 요소 여백
+// Group's type
+group_type = 그룹 유형
+// Group's orientation
+group_orientation = 그룹 방향
+// Progress bar's size
+progress_bar_size = 진행 막대 크기
+// Progress bar's orientation
+progress_bar_orientation = 진행 막대 방향
+// Icon size
+icon_size = 아이콘 크기
+// Always visible
+always_visible = 항상 보이기
+// HotKey
+hot_key = 단축키
+// Text format
+text_format = 텍스트 형식
+// Text outline
+text_outline = 텍스트 윤곽
+// Font size
+font_size = 글꼴 크기
+// Invert timer
+invert_timer = 타이머 반전
+// Duration
+duration = 지속 시간
+// Sound alert
+sound_alert = 사운드 알림
+// Sound volume
+sound_volume = 사운드 볼륨
+// Delay
+delay = 지연
+// Background color
+background_color = 배경색
+// Text color
+text_color = 텍스트 색상
+// Border color
+border_color = 테두리 색상
+// Animation mask
+animation_mask = 애니메이션 마스크
+// Invert mask
+invert_mask = 마스크 반전
+// Mask color
+mask_color = 마스크 색상
+// Capture
+capture = 캡처
+// Profiles
+profiles = 프로필
+// Orientation
+orientation = 방향
+// Insets
+insets = 인셋
+// Icon alignment
+icon_alignment = 아이콘 정렬
+// Foreground color
+foreground_color = 전경색
+// Do you want to delete this component?
+delete_component_confirm = 이 구성 요소를 삭제하시겠습니까?
+// Width
+width = 너비
+// Height
+height = 높이
+// When duration
+when_duration = 지속 시간일 때
+// Press any key
+press_any_key = 아무 키나 누르세요
+// Select
+select = 선택
+// Set default text color
+set_default_text_color = 기본 텍스트 색상 설정
+// Set text color
+set_text_color = 텍스트 색상 설정
+// Is text enable?
+is_text_enable = 텍스트 활성화 여부
+// Is icon enable?
+is_icon_enable = 아이콘 활성화 여부
+// Set color
+set_color = 색상 설정
+// Bind to text color?
+bind_to_text_color = 텍스트 색상에 연결?
+// Move out
+move_out = 밖으로 이동
+// Move to
+move_to = 이동
+// Share
+share = 공유
+// Do you want to delete
+do_you_want_to_delete = 삭제하시겠습니까
+// Component
+component = 구성 요소
+// Create new
+create_new = 새로 만들기
+// Selected profile
+selected_profile = 선택된 프로필
+// Export manager
+export_manager = 내보내기 관리자
+// View
+view = 보기
+// Filter
+filter = 필터
+// Add icon
+add_icon = 아이콘 추가
+// Choose icon
+choose_icon = 아이콘 선택
+// Cancel
+cancel = 취소
+// Create new profile
+create_new_profile = 새 프로필 생성
+// Profile name
+profile_name = 프로필 이름
+// Create
+create = 생성
+// Is it Quad?
+is_it_quad = 쿼드인가요?
+// Find in stashtab
+find_in_stashtab = 보관함 탭에서 찾기
+// App version
+app_version = 앱 버전
+// Taskbar will be hidden until you hover onto it
+taskbar_hover_tt = 마우스를 가져갈 때까지 작업 표시줄이 숨겨집니다.
+// Enable support for poe2
+poe2_support_tt = POE2 지원 활성화
+// Change
+change = 변경
+// Test push
+test_push = 테스트 푸시
+// Notify me when an update is available
+notify_me_when_an_update_is_available = 업데이트가 가능하면 알림
+// Vulkan support enabled
+vulkan_support_enabled = Vulkan 지원 활성화
+// Hide taskbar
+hide_taskbar = 작업 표시줄 숨기기
+// POE 2 support
+poe_2_support = POE 2 지원
+// Component fade out time
+component_fade_out_time = 구성 요소 페이드 아웃 시간
+// Min opacity
+min_opacity = 최소 불투명도
+// Max opacity
+max_opacity = 최대 불투명도
+// Notification sound alerts
+notification_sound_alerts = 알림 사운드 경고
+// Path of Exile folder
+path_of_exile_folder = Path of Exile 폴더
+// Pushbullet AccessToken
+pushbullet_accesstoken = Pushbullet 액세스 토큰
+// Whisper helper
+whisper_helper = 귓속말 도우미
+// Incoming notification
+incoming_notification = 수신 알림
+// Outgoing notification
+outgoing_notification = 발신 알림
+// Chat scanner notification
+chat_scanner_notification = 채팅 스캐너 알림
+// Upwards
+upwards = 위쪽
+// Downwards
+downwards = 아래쪽
+// Flow direction
+flow_direction = 흐름 방향
+// Pre-group limit
+pre_group_limit = 사전 그룹 제한
+// Enabled
+enabled = 활성화됨
+// When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
+automatic_paste_description = 거래 메시지 형식의 텍스트를 복사하면 PoE의 채팅 창에 자동으로 붙여넣어집니다.
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
+example_description = 예: '귓속말' 버튼을 클릭하면 메시지가 클립보드에 복사됩니다 => MT가 PoE 채팅 창에 붙여넣습니다.
+// Close panel on kick button pressed
+close_panel_on_kick_button_pressed = 추방 버튼을 눌렀을 때 패널 닫기
+// Show league
+show_league = 리그 표시
+// Response buttons
+response_buttons = 응답 버튼
+// Hotkeys
+hotkeys = 단축키
+// Close panel on leave button pressed
+close_panel_on_leave_button_pressed = 떠나기 버튼을 눌렀을 때 패널 닫기
+// Auto-close triggers
+auto_close_triggers = 자동 닫기 트리거
+// Label
+label = 라벨
+// Response text
+response_text = 응답 텍스트
+// Add button
+add_button = 버튼 추가
+// Remove button
+remove_button = 버튼 제거
+// Close notification panel after click?
+close_notif_panel_after_click = 클릭 후 알림 패널 닫기?
+// Notification
+notification = 알림
+// Chat Scanner
+chat_scanner = 채팅 스캐너
+// Clicks
+clicks = 클릭 수
+// Update notification
+update_notification = 업데이트 알림
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = 우리는 주로 거래 목적으로 사용하기 쉬운 애플리케이션 형태로 편리한 도구를 만드는 것을 목표로 했습니다. MercuryTrade가 시간을 절약하거나 경험을 개선하는 데 성공했다면, 기부하거나 친구에게 알려주시면 감사하겠습니다. 이름이 앱 내 명예의 전당에 표시되길 원한다면 거래 내역에 이 정보를 제공하세요!
+// Thanks a lot for support
+thanks_for_support = 지원해 주셔서 감사합니다.
+// Enable in-game dnd
+enable_in_game_dnd = 게임 내 방해 금지 활성화
+// DND response
+dnd_response = 방해 금지 응답
+// Open tutorial
+open_tutorial = 튜토리얼 열기
+// Open tests
+open_tests = 테스트 열기
+// Open patch notes
+open_patch_notes = 패치 노트 열기
+// Update event
+update_event = 이벤트 업데이트
+// General
+general = 일반
+// Sound
+sound = 소리
+// Notification panel
+notification_panel = 알림 패널
+// Task bar
+task_bar = 작업 표시줄
+// Support
+support = 지원
+// About
+about = 정보
+// DND on
+dnd_on = 방해 금지 활성화
+// DND off
+dnd_off = 방해 금지 비활성화
+// Pushbullet notifications on
+pushbullet_notifications_on = Pushbullet 알림 활성화
+// Pushbullet notifications off
+pushbullet_notifications_off = Pushbullet 알림 비활성화
+// Yes
+yes = 예
+// No
+no = 아니요
+// OK
+ok = 확인
+// Disable
+disable = 비활성화
+// Enable
+enable = 활성화
+// Save
+save = 저장
+// Dismiss all
+dismiss_all = 모두 무시
+// Scale settings
+scale_settings = 크기 설정
+// Task panel
+task_panel = 작업 패널
+// Item cell panel
+item_cell_panel = 아이템 셀 패널
+// Dismiss
+dismiss = 무시
+// New version available
+new_version_available = 새 버전 이용 가능
+// Show messages containing the following words
+show_messages_containing_the_following_words = 다음 단어를 포함하는 메시지 표시
+// Response message
+response_message = 응답 메시지
+// Status: stopped
+status_stopped = 상태: 중지됨
+// Status: running
+status_running = 상태: 실행 중
+// Wrong game path!
+wrong_game_path = 잘못된 게임 경로!
+// Success!
+success = 성공!
+// Select game path (check task manager if not sure)
+select_game_path = 게임 경로 선택 (확실하지 않으면 작업 관리자 확인)
+// Check for updates
+check_for_updates = 업데이트 확인
+// Hamsters are running
+hamsters_are_running = 햄스터가 달리고 있습니다.
+// You have the newest version
+you_have_the_newest_version = 최신 버전을 사용 중입니다.
+// There was a problem with checking newest version, do you want to manually check it?
+there_was_a_problem_with_checking_newest_version = 최신 버전을 확인하는 데 문제가 발생했습니다. 수동으로 확인하시겠습니까?
+// There is a newer version, do you want to go to github?
+there_is_a_newer_version = 최신 버전이 있습니다. GitHub로 이동하시겠습니까?
+// Monthly donations
+monthly_donations = 월별 기부
+// Donate
+donate = 기부
+// Next
+next = 다음
+// Previous
+previous = 이전
+// Download
+download = 다운로드
+// Welcome to MercuryTrade
+welcome = MercuryTrade에 오신 것을 환영합니다
+// Restart
+restart = 다시 시작
+// New
+new_btn = 새로 만들기
+// Group
+group = 그룹
+// Showcase
+showcase = 쇼케이스
+// Do you want to delete this profile?
+do_you_want_to_delete_this_profile = 이 프로필을 삭제하시겠습니까?
+// Always refresh?
+always_refresh = 항상 새로 고침?
+// Import to current profile
+import_to_current_profile = 현재 프로필로 가져오기
+// Create new and import
+create_new_and_import = 새로 만들고 가져오기
+// Import manager
+import_manager = 가져오기 관리자
+// Feedback & Suggestions
+feedback_suggestions = 피드백 및 제안
+// Not case sensitive
+not_case_sensitive = 대소문자 구분 없음
+// Vulkan support
+vulkan_support = Vulkan 지원
+// Restore default location
+restore_default_location = 기본 위치 복원
+// Align this grid
+align_this_grid = 이 그리드 정렬
+// Paste import string here
+paste_here = 가져오기 문자열 여기에 붙여넣기
+// Copy this
+copy_this = 이것 복사
+// English
+english = 영어
+// Russian
+russian = 러시아어
+// Polish
+polish = 폴란드어
+// Korean
+korean = 한국어
+// Choose language
+choose_language = 언어 선택
+// Language change requires application restart.
+language_change_requires_application_restart = 언어 변경에는 애플리케이션 재시작이 필요합니다.
+// Hide notifications until next incoming or manually shown
+hide_notifications = 다음 수신까지 또는 수동으로 표시될 때까지 알림 숨기기
+// Show notifications
+show_notifications = 알림 표시
+// Disable game to front
+disable_game_to_front = 게임을 앞으로 가져오기 비활성화
+// Don't check this checkbox until you know what you are doing.<br/>It will disable force putting game to front<br/>which can sometimes make buttons on notification to invite/kick etc not working
+disable_game_to_front_tt = 이 확인란을 선택하기 전에 내용을 충분히 이해하세요.<br/>이 설정은 게임을 앞으로 강제로 가져오기를 비활성화합니다.<br/>때로는 알림에서 초대/추방 버튼이 작동하지 않을 수 있습니다.

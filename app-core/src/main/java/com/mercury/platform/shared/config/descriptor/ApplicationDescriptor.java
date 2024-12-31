@@ -5,6 +5,8 @@ import com.mercury.platform.core.misc.WhisperNotifierStatus;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class ApplicationDescriptor implements Serializable {
@@ -21,4 +23,5 @@ public class ApplicationDescriptor implements Serializable {
     private boolean poe2;
     private Languages languages = Languages.en;
     private boolean disableGameToFront;
+    private LocalDateTime lastCheckForUpdateDate;
 }

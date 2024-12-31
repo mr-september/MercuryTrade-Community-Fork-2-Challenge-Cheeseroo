@@ -4,6 +4,7 @@ public enum Languages {
     en(TranslationKey.english, "en"),
     pl(TranslationKey.polish, "pl"),
     ru(TranslationKey.russian, "ru"),
+    kr(TranslationKey.korean, "kr"),
     ;
 
     private TranslationKey name;

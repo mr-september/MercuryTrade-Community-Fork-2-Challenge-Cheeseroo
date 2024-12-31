@@ -464,6 +464,8 @@ english = английский
 russian = русский
 // polish
 polish = польский
+// Korean
+korean = Корейский
 // Choose language
 choose_language = Выберите язык
 // Language change requires application restart.

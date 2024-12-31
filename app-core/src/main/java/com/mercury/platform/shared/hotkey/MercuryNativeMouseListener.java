@@ -6,9 +6,16 @@ import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
 
 public class MercuryNativeMouseListener implements NativeMouseListener {
-    @Override
-    public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+    private boolean hideSystemTrayEnable = false;
+
+    public MercuryNativeMouseListener() {
+        MercuryStoreCore.enableDisableHideSystemTrayListenerSubject.subscribe(state -> {
+            this.hideSystemTrayEnable = state;
+        });
     }
+
+    @Override
+    public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {}
 
     @Override
     public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
@@ -18,11 +25,13 @@ public class MercuryNativeMouseListener implements NativeMouseListener {
         if (!hotKeyDescriptor.getTitle().equals("Mouse left")) {
             MercuryStoreCore.hotKeySubject.onNext(hotKeyDescriptor);
         }
+        if (hideSystemTrayEnable) {
+            MercuryStoreCore.hideSystemTraySubject.onNext(nativeMouseEvent);
+        }
     }
 
     @Override
-    public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
-    }
+    public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {}
 
     private String getModifiersText(int code) {
         switch (code) {
