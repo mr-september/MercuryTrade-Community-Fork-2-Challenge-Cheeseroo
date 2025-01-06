@@ -12,6 +12,8 @@ import com.mercury.platform.ui.components.panel.notification.controller.Outgoing
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.TooltipConstants;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import rx.Subscription;
 
 import javax.swing.*;
@@ -20,6 +22,7 @@ import java.awt.*;
 
 public abstract class TradeOutNotificationPanel<T extends TradeNotificationDescriptor> extends TradeNotificationPanel<T, OutgoingPanelController> {
     private Subscription autoCloseSubscription;
+    private final static Logger logger = LogManager.getLogger(TradeOutNotificationPanel.class);
 
     @Override
     protected JPanel getHeader() {
@@ -89,11 +92,15 @@ public abstract class TradeOutNotificationPanel<T extends TradeNotificationDescr
         this.autoCloseSubscription = MercuryStoreCore.plainMessageSubject.subscribe(message -> {
             if (this.data.getWhisperNickname().equals(message.getNickName())) {
 
-                if (this.notificationConfig.get()
-                        .getAutoCloseTriggers().stream()
-                        .anyMatch(it -> message.getMessage().toLowerCase()
-                                .contains(StringUtils.normalizeSpace(it.toLowerCase())))) {
-                    this.controller.performHide();
+                try {
+                    if (this.notificationConfig.get()
+                            .getAutoCloseTriggers().stream()
+                            .anyMatch(it -> message.getMessage().toLowerCase()
+                                    .contains(StringUtils.normalizeSpace(it.toLowerCase())))) {
+                        this.controller.performHide();
+                    }
+                } catch (Exception e) {
+                    logger.error("Failed on subscribing to notification on auto close subscribtion", e);
                 }
             }
         });
