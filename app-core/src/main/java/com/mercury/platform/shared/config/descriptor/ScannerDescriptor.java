@@ -8,4 +8,6 @@ import java.io.Serializable;
 public class ScannerDescriptor implements Serializable {
     private String words;
     private String responseMessage;
+    private boolean enablePlusTextDetection = true;
+    private String defaultPlusTextResponse = "I'll join";
 }

@@ -8,4 +8,6 @@ public interface ScannerPanelController extends NotificationController {
     void performLeave();
 
     void performWhoIs();
+    
+    void performGlobalChatResponse(String plusText);
 }

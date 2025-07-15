@@ -7,6 +7,7 @@ import com.mercury.platform.shared.config.configration.PlainConfigurationService
 import com.mercury.platform.shared.config.descriptor.HotKeyPair;
 import com.mercury.platform.shared.config.descriptor.HotKeysSettingsDescriptor;
 import com.mercury.platform.shared.config.descriptor.NotificationSettingsDescriptor;
+import com.mercury.platform.shared.config.descriptor.ScannerDescriptor;
 import com.mercury.platform.shared.entity.message.FlowDirections;
 import com.mercury.platform.shared.IconConst;
 import com.mercury.platform.shared.hotkey.ClipboardListener;
@@ -25,10 +26,12 @@ import java.util.stream.Collectors;
 public class NotificationSettingsPagePanel extends SettingsPagePanel {
     private PlainConfigurationService<NotificationSettingsDescriptor> notificationService;
     private PlainConfigurationService<HotKeysSettingsDescriptor> hotKeyService;
+    private PlainConfigurationService<ScannerDescriptor> scannerService;
     private NotificationSettingsDescriptor generalSnapshot;
     private List<HotKeyPair> incHotKeySnapshot;
     private List<HotKeyPair> outHotKeySnapshot;
     private List<HotKeyPair> scannerHotKeySnapshot;
+    private ScannerDescriptor scannerSnapshot;
 
     private HotKeyGroup incHotkeyGroup;
     private HotKeyGroup outHotkeyGroup;
@@ -40,10 +43,12 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         super.onViewInit();
         this.notificationService = Configuration.get().notificationConfiguration();
         this.hotKeyService = Configuration.get().hotKeysConfiguration();
+        this.scannerService = Configuration.get().scannerConfiguration();
         this.generalSnapshot = CloneHelper.cloneObject(notificationService.get());
         this.incHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getIncNHotKeysList());
         this.outHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getOutNHotKeysList());
         this.scannerHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getScannerNHotKeysList());
+        this.scannerSnapshot = CloneHelper.cloneObject(scannerService.get());
 
         this.incHotkeyGroup = new HotKeyGroup();
         this.outHotkeyGroup = new HotKeyGroup();
@@ -71,6 +76,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         this.hotKeyService.get().setIncNHotKeysList(CloneHelper.cloneObject(this.incHotKeySnapshot));
         this.hotKeyService.get().setOutNHotKeysList(CloneHelper.cloneObject(this.outHotKeySnapshot));
         this.hotKeyService.get().setScannerNHotKeysList(CloneHelper.cloneObject(this.scannerHotKeySnapshot));
+        this.scannerService.set(CloneHelper.cloneObject(this.scannerSnapshot));
     }
 
     @Override
@@ -79,6 +85,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         this.incHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getIncNHotKeysList());
         this.outHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getOutNHotKeysList());
         this.scannerHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getScannerNHotKeysList());
+        this.scannerSnapshot = CloneHelper.cloneObject(scannerService.get());
         this.removeAll();
         this.onViewInit();
     }
@@ -277,22 +284,33 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         });
         propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enabled.value(":"), FontStyle.REGULAR, 16));
         propertiesPanel.add(enabled);
-//        JLabel quickResponseLabel = this.componentsFactory.getIconLabel(HotKeyType.N_QUICK_RESPONSE.getIconPath(), 18);
-//        quickResponseLabel.setFont(this.componentsFactory.getFont(FontStyle.REGULAR,16));
-//        quickResponseLabel.setForeground(AppThemeColor.TEXT_DEFAULT);
-//        quickResponseLabel.setBorder(BorderFactory.createEmptyBorder(0,4,0,0));
-//        quickResponseLabel.setText("Response message:");
-//        propertiesPanel.add(quickResponseLabel);
-//        JTextField quickResponseField = this.componentsFactory.getTextField(this.scannerSnapshot.getResponseMessage(), FontStyle.BOLD, 15f);
-//        quickResponseField.addFocusListener(new FocusAdapter() {
-//            @Override
-//            public void focusLost(FocusEvent e) {
-//                scannerSnapshot.setResponseMessage(quickResponseField.getText());
-//            }
-//        });
-//        propertiesPanel.add(this.componentsFactory.wrapToSlide(quickResponseField,AppThemeColor.ADR_BG,0,0,0,4));
+        
+        // Add "+text" feature configuration
+        JCheckBox plusTextEnabled = this.componentsFactory.getCheckBox(this.scannerSnapshot.isEnablePlusTextDetection());
+        plusTextEnabled.addActionListener(action -> {
+            this.scannerSnapshot.setEnablePlusTextDetection(plusTextEnabled.isSelected());
+        });
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.enable_plus_text_detection.value(":"), FontStyle.REGULAR, 16));
+        propertiesPanel.add(plusTextEnabled);
+        
+        propertiesPanel.add(this.componentsFactory.getTextLabel(TranslationKey.default_plus_text_response.value(":"), FontStyle.REGULAR, 16));
+        JTextField defaultResponseField = this.componentsFactory.getTextField(this.scannerSnapshot.getDefaultPlusTextResponse(), FontStyle.REGULAR, 15f);
+        defaultResponseField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                scannerSnapshot.setDefaultPlusTextResponse(defaultResponseField.getText());
+            }
+        });
+        propertiesPanel.add(defaultResponseField);
+        
+        // Add description for the feature
+        JPanel descriptionPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
+        descriptionPanel.add(this.componentsFactory.getTextLabel(TranslationKey.plus_text_feature_description.value(), FontStyle.REGULAR, 14), BorderLayout.PAGE_START);
+        descriptionPanel.add(this.componentsFactory.getTextLabel("Example: 'free uber elder +elder' will show a button to send '+elder' to global chat", FontStyle.REGULAR, 14), BorderLayout.CENTER);
+        
         root.add(propertiesPanel, BorderLayout.PAGE_START);
-        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getScannerNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.enabled.value()), BorderLayout.CENTER);
+        root.add(this.componentsFactory.wrapToSlide(descriptionPanel, AppThemeColor.ADR_BG, 4, 4, 4, 4), BorderLayout.CENTER);
+        root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getScannerNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.hotkeys.value()), BorderLayout.PAGE_END);
         root.setVisible(false);
         return root;
     }

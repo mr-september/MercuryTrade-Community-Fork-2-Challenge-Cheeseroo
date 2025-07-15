@@ -162,11 +162,14 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         if (this.running) {
             List<String> contains = new ArrayList<>();
             List<String> notContains = new ArrayList<>();
+            List<String> startExclusions = new ArrayList<>();
 
             Arrays.stream(strings).forEach(str -> {
                 str = str.toLowerCase().trim();
                 if (!str.isEmpty()) {
-                    if (str.contains("!")) {
+                    if (str.startsWith("^")) {
+                        startExclusions.add(str.substring(1));
+                    } else if (str.contains("!")) {
                         notContains.add(str.replace("!", ""));
                     } else {
                         contains.add(str);
@@ -191,6 +194,19 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                             PlainMessageDescriptor descriptor = new PlainMessageDescriptor();
                             descriptor.setNickName(matcher.group(2));
                             descriptor.setMessage(messageBuilder.build(matcher.group(3)));
+                            
+                            // Check for "+text" pattern in the message
+                            String originalMessage = matcher.group(3);
+                            Pattern plusTextPattern = Pattern.compile("\\+\\w+");
+                            Matcher plusTextMatcher = plusTextPattern.matcher(originalMessage);
+                            if (plusTextMatcher.find()) {
+                                descriptor.setHasPlusText(true);
+                                // Get the first "+text" occurrence
+                                descriptor.setPlusText(plusTextMatcher.group());
+                            } else {
+                                descriptor.setHasPlusText(false);
+                                descriptor.setPlusText(null);
+                            }
 
                             expiresMessages.put(descriptor.getNickName(), message);
                             if (notificationConfig.get().isScannerNotificationEnable()) {
@@ -210,6 +226,14 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                         final String separator = message.contains("] $") ? "] $" : "] #";
                         message = StringUtils.substringAfter(message, separator).toLowerCase();
                         message = StringUtils.substringAfter(message, ": ").toLowerCase();
+                        
+                        // Check for start-of-message exclusions
+                        for (String startExclusion : startExclusions) {
+                            if (message.startsWith(startExclusion)) {
+                                return false;
+                            }
+                        }
+                        
                         return notContains.stream().noneMatch(message::contains)
                                 && contains.stream().anyMatch(message::contains);
                     };
@@ -238,6 +262,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
 
         itemsPanel.add(componentsFactory.getTextLabel(TranslationKey.not_case_sensitive.value(), FontStyle.REGULAR, 17));
         itemsPanel.add(componentsFactory.getTextLabel("! - NOT (!wtb,!wts)", FontStyle.REGULAR, 17));
+        itemsPanel.add(componentsFactory.getTextLabel("^ - NOT START (^+,^-)", FontStyle.REGULAR, 17));
         itemsPanel.add(componentsFactory.getTextLabel(", - separator", FontStyle.REGULAR, 17));
         root.add(title, BorderLayout.PAGE_START);
         root.add(itemsPanel, BorderLayout.CENTER);

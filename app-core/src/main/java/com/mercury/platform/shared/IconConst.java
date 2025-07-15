@@ -15,6 +15,8 @@ public class IconConst {
     public final static String BACK_TO_HIDEOUT = PREFIX + "backToHideout.png";
     public final static String WHO_IS = PREFIX + "who-is.png";
     public final static String CHAT_SCANNER_RESPONSE = PREFIX + "chat_scanner_response.png";
+    public final static String CHAT_SCANNER_RESPONSE_GLOBAL = PREFIX + "chat_scanner_response_global.png";
+    public final static String CHAT_SCANNER_RESPONSE_WHISPER = PREFIX + "chat_scanner_response_whisper.png";
     public final static String HIDEOUT = PREFIX + "hideout.png";
     public final static String VISIBLE_DND_MODE = PREFIX + "visible-dnd-mode.png";
     public final static String VISIBLE_ALWAYS_MODE = PREFIX + "visible-always-mode.png";

@@ -58,6 +58,12 @@ public class NotificationScannerController implements ScannerPanelController {
         MercuryStoreCore.chatCommandSubject.onNext("@" + notificationDescriptor.getNickName() + " " + response);
     }
 
+    @Override
+    public void performGlobalChatResponse(String plusText) {
+        // Send the "+text" to global chat (not as a whisper)
+        MercuryStoreCore.chatCommandSubject.onNext(plusText);
+    }
+
     private void closeMessagePanel() {
         Timer timer = new Timer(30, action -> {
             MercuryStoreCore.removeScannerNotificationSubject.onNext(notificationDescriptor);

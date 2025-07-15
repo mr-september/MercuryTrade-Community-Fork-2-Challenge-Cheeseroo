@@ -7,4 +7,6 @@ public class PlainMessageDescriptor {
     boolean incoming;
     String nickName;
     String message;
+    String plusText;
+    boolean hasPlusText;
 }

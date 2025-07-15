@@ -50,4 +50,9 @@ public class ScannerStubController implements ScannerPanelController {
     public void performWhoIs() {
 
     }
+
+    @Override
+    public void performGlobalChatResponse(String plusText) {
+
+    }
 }

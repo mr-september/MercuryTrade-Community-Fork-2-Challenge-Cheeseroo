@@ -156,6 +156,17 @@ public enum HotKeyType implements Serializable {
             return TranslationKey.quick_response.value();
         }
     },
+    N_GLOBAL_CHAT_RESPONSE {
+        @Override
+        public String getIconPath() {
+            return IconConst.CHAT_SCANNER_RESPONSE_GLOBAL;
+        }
+
+        @Override
+        public String getTooltip() {
+            return TranslationKey.plus_text_response.value();
+        }
+    },
     T_TO_HIDEOUT {
         @Override
         public String getIconPath() {

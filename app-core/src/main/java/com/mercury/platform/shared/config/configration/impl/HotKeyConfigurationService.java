@@ -36,10 +36,9 @@ public class HotKeyConfigurationService extends BaseConfigurationService<HotKeys
 
         List<HotKeyPair> scannerNDataList = new ArrayList<>();
         scannerNDataList.add(new HotKeyPair(HotKeyType.N_QUICK_RESPONSE, new HotKeyDescriptor()));
+        scannerNDataList.add(new HotKeyPair(HotKeyType.N_GLOBAL_CHAT_RESPONSE, new HotKeyDescriptor()));
         scannerNDataList.add(new HotKeyPair(HotKeyType.N_VISITE_HIDEOUT, new HotKeyDescriptor()));
-        scannerNDataList.add(new HotKeyPair(HotKeyType.N_TRADE_PLAYER, new HotKeyDescriptor()));
         scannerNDataList.add(new HotKeyPair(HotKeyType.N_LEAVE, new HotKeyDescriptor()));
-        scannerNDataList.add(new HotKeyPair(HotKeyType.N_OPEN_CHAT, new HotKeyDescriptor()));
         scannerNDataList.add(new HotKeyPair(HotKeyType.N_CLOSE_NOTIFICATION, new HotKeyDescriptor()));
 
         hotKeysSettingsDescriptor.setIncNHotKeysList(incNDataList);
@@ -78,13 +77,14 @@ public class HotKeyConfigurationService extends BaseConfigurationService<HotKeys
             this.selectedProfile.getHotkeysSettingsDescriptor()
                     .getOutNHotKeysList().add(new HotKeyPair(HotKeyType.N_WHO_IS, new HotKeyDescriptor()));
         }
-
+        
+        // Add validation for new global chat response hotkey
         if (this.selectedProfile.getHotkeysSettingsDescriptor()
                 .getScannerNHotKeysList().stream()
-                .filter(it -> HotKeyType.N_WHO_IS.equals(it.getType()))
+                .filter(it -> HotKeyType.N_GLOBAL_CHAT_RESPONSE.equals(it.getType()))
                 .findAny().orElse(null) == null) {
             this.selectedProfile.getHotkeysSettingsDescriptor()
-                    .getScannerNHotKeysList().add(new HotKeyPair(HotKeyType.N_WHO_IS, new HotKeyDescriptor()));
+                    .getScannerNHotKeysList().add(new HotKeyPair(HotKeyType.N_GLOBAL_CHAT_RESPONSE, new HotKeyDescriptor()));
         }
     }
 
