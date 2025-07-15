@@ -25,7 +25,7 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: '8'
-        distribution: 'zulu'
+        distribution: 'temurin'
     
     - name: Cache Maven dependencies
       uses: actions/cache@v3
@@ -68,15 +68,16 @@ jobs:
         # Download and install Launch4j
         wget -O launch4j.tgz "https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/launch4j-3.50-linux-x64.tgz/download"
         tar -xzf launch4j.tgz
-        chmod +x launch4j/launch4j
-        
-        # Create symbolic link for easier access
-        sudo ln -sf $(pwd)/launch4j/launch4j /usr/local/bin/launch4j
+        echo "Contents of extracted directory:"
+        ls -la launch4j/
+        echo "Verifying Launch4j JAR is available:"
+        ls -la launch4j/launch4j.jar
+        echo "Launch4j installation complete"
     
     - name: Create Windows executable with Launch4j
       run: |
         cd release_files
-        launch4j release_config.xml
+        java -jar ../launch4j/launch4j.jar release_config.xml
         ls -la
         cd ..
     
