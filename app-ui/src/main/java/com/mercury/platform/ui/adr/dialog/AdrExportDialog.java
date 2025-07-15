@@ -2,8 +2,10 @@ package com.mercury.platform.ui.adr.dialog;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mercury.platform.TranslationKey;
 import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
+import com.mercury.platform.shared.config.json.deserializer.LocalDateTimeAdapter;
 import com.mercury.platform.ui.adr.components.panel.tree.AdrTreePanel;
 import com.mercury.platform.ui.adr.components.panel.tree.dialog.AdrDialogTreeNodeRenderer;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
@@ -17,6 +19,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AdrExportDialog extends AdrDialog<List<AdrComponentDescriptor>> {
@@ -107,6 +110,9 @@ public class AdrExportDialog extends AdrDialog<List<AdrComponentDescriptor>> {
     }
 
     private String getPayloadAsJson() {
-        return new Gson().toJson(this.payload);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        return gson.toJson(this.payload);
     }
 }

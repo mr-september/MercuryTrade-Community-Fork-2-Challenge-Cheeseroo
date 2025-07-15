@@ -11,6 +11,7 @@ import com.mercury.platform.shared.config.descriptor.adr.AdrComponentDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrProfileDescriptor;
 import com.mercury.platform.shared.config.descriptor.adr.AdrTrackerGroupDescriptor;
 import com.mercury.platform.shared.config.json.deserializer.AdrComponentJsonAdapter;
+import com.mercury.platform.shared.config.json.deserializer.LocalDateTimeAdapter;
 import com.mercury.platform.shared.entity.message.MercuryError;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.adr.components.panel.tree.AdrTreePanel;
@@ -24,6 +25,7 @@ import com.mercury.platform.ui.misc.MercuryStoreUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -161,6 +163,7 @@ public class AdrImportDialog extends AdrDialog {
         try {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(AdrComponentDescriptor.class, new AdrComponentJsonAdapter())
+                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                     .create();
             JsonParser jsonParser = new JsonParser();
             return gson.fromJson(

@@ -107,23 +107,39 @@ jobs:
         ls -la release_files/
         echo "Checking if JAR file exists:"
         ls -la release_files/MercuryTrade.jar
-        echo "Running Launch4j to create EXE..."
+        echo "Running Launch4j to create release EXE..."
         cd release_files
         java -jar ../launch4j/launch4j.jar release_config.xml
         
         if [ -f "MercuryTrade.exe" ]; then
-          echo "✅ EXE file created successfully"
+          echo "✅ Release EXE file created successfully"
           ls -la MercuryTrade.exe
         else
-          echo "❌ EXE file not found"
+          echo "❌ Release EXE file not found"
           echo "Contents of release_files after launch4j:"
           ls -la
           exit 1
         fi
+        
+        echo "Running Launch4j to create debug EXE..."
+        java -jar ../launch4j/launch4j.jar debug_config.xml
+        
+        if [ -f "MercuryTrade-debug.exe" ]; then
+          echo "✅ Debug EXE file created successfully"
+          ls -la MercuryTrade-debug.exe
+        else
+          echo "❌ Debug EXE file not found"
+          echo "Contents of release_files after debug launch4j:"
+          ls -la
+          exit 1
+        fi
     
-    - name: Upload EXE artifact
+    - name: Upload EXE artifacts
       uses: actions/upload-artifact@v4
       with:
         name: mercury-trade-exe
-        path: release_files/MercuryTrade.exe
+        path: |
+          release_files/MercuryTrade.exe
+          release_files/MercuryTrade-debug.exe
+          release_files/log4j2.xml
         retention-days: 7
