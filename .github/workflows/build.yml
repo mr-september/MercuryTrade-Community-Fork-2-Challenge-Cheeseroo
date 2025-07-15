@@ -89,20 +89,35 @@ jobs:
     
     - name: Install Launch4j
       run: |
+        echo "Downloading Launch4j..."
         wget -O launch4j.tgz "https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/launch4j-3.50-linux-x64.tgz/download"
+        echo "Extracting Launch4j..."
         tar -xzf launch4j.tgz
-        chmod +x launch4j/launch4j
-        sudo ln -sf $(pwd)/launch4j/launch4j /usr/local/bin/launch4j
+        echo "Contents of extracted directory:"
+        ls -la launch4j/
+        echo "Verifying Launch4j JAR is available..."
+        ls -la launch4j/launch4j.jar
+        echo "Launch4j installation complete"
     
     - name: Test Launch4j EXE creation
       run: |
+        echo "Current directory:"
+        pwd
+        echo "Contents of release_files directory:"
+        ls -la release_files/
+        echo "Checking if JAR file exists:"
+        ls -la release_files/MercuryTrade.jar
+        echo "Running Launch4j to create EXE..."
         cd release_files
-        launch4j release_config.xml
+        java -jar ../launch4j/launch4j.jar release_config.xml
+        
         if [ -f "MercuryTrade.exe" ]; then
           echo "✅ EXE file created successfully"
           ls -la MercuryTrade.exe
         else
           echo "❌ EXE file not found"
+          echo "Contents of release_files after launch4j:"
+          ls -la
           exit 1
         fi
     
