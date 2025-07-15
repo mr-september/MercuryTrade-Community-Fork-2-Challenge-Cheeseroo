@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
-  <headerType>gui</headerType>
+  <headerType>console</headerType>
   <jar>MercuryTrade.jar</jar>
-  <outfile>MercuryTrade.exe</outfile>
-  <errTitle>MercuryTrade needs java to work. Please install java first</errTitle>
+  <outfile>MercuryTrade-debug.exe</outfile>
+  <errTitle>MercuryTrade Debug - Java Error</errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
   <priority>normal</priority>
@@ -15,8 +15,8 @@
   <manifest></manifest>
   <icon>app-icon.ico</icon>
   <singleInstance>
-    <mutexName>MercuryTrade</mutexName>
-    <windowTitle>MercuryTrade</windowTitle>
+    <mutexName>MercuryTrade-Debug</mutexName>
+    <windowTitle>MercuryTrade Debug</windowTitle>
   </singleInstance>
   <jre>
     <path></path>
@@ -31,18 +31,20 @@
     <opt>-Dfile.encoding=UTF-8</opt>
     <opt>-Djava.awt.headless=false</opt>
     <opt>-Dlogback.configurationFile=logback.xml</opt>
+    <opt>-verbose:gc</opt>
+    <opt>-XX:+PrintGCDetails</opt>
   </jre>
   <versionInfo>
     <fileVersion>1.4.2.0</fileVersion>
-    <txtFileVersion>1.4.2</txtFileVersion>
-    <fileDescription>MercuryTrade</fileDescription>
+    <txtFileVersion>1.4.2-debug</txtFileVersion>
+    <fileDescription>MercuryTrade Debug</fileDescription>
     <copyright>Morph21</copyright>
     <productVersion>1.4.2.0</productVersion>
-    <txtProductVersion>1.4.2</txtProductVersion>
-    <productName>MercuryTrade</productName>
+    <txtProductVersion>1.4.2-debug</txtProductVersion>
+    <productName>MercuryTrade Debug</productName>
     <companyName>Morph</companyName>
-    <internalName>MercuryTrade</internalName>
-    <originalFilename>MercuryTrade.exe</originalFilename>
+    <internalName>MercuryTrade-Debug</internalName>
+    <originalFilename>MercuryTrade-debug.exe</originalFilename>
     <trademarks></trademarks>
     <language>ENGLISH_US</language>
   </versionInfo>
