@@ -46,6 +46,16 @@ public class TaskBarSettingsPagePanel extends SettingsPagePanel {
         root.add(componentsFactory.getTextLabel(TranslationKey.dnd_response.value(":"), FontStyle.REGULAR));
         root.add(this.componentsFactory.wrapToSlide(responseField, AppThemeColor.ADR_BG));
 
+        JTextField channelField = componentsFactory.getTextField(this.taskBarSnapshot.getJoinChannelNumber(), FontStyle.REGULAR, 16f);
+        channelField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                taskBarSnapshot.setJoinChannelNumber(channelField.getText());
+            }
+        });
+        root.add(componentsFactory.getTextLabel(TranslationKey.join_channel_number.value(":"), FontStyle.REGULAR));
+        root.add(this.componentsFactory.wrapToSlide(channelField, AppThemeColor.ADR_BG));
+
         JPanel hotKeysPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.SETTINGS_BG);
         hotKeysPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_DEFAULT_BORDER));
         root.add(this.componentsFactory.getIconLabel(IconConst.HIDEOUT, 24, SwingConstants.CENTER, TranslationKey.travel_hideout.value()));

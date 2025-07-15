@@ -32,6 +32,20 @@ public class TaskBarPanel extends JPanel implements ViewInit {
     private JButton showHelpIG;
     private MouseListener taskBarFrameMouseListener;
 
+    private JButton dndButton;
+    private JButton chatFilterButton;
+    private JButton timerButton;
+    private JButton historyButton;
+    private JButton settingsButton;
+    private JButton scaleButton;
+    private JButton moveButton;
+    private JButton exitButton;
+    private JButton helpButton;
+    private JButton joinChannelButton;
+
+    private JLabel appIcon;
+    private JLabel hPanel;
+
     public TaskBarPanel(@NonNull TaskBarController controller, @NonNull ComponentsFactory factory, MouseListener taskBarFrameMouseListener) {
         this.controller = controller;
         this.componentsFactory = factory;
@@ -137,6 +151,11 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         });
         this.showHelpIG.addMouseListener(taskBarFrameMouseListener);
 
+        this.joinChannelButton.addActionListener(action -> {
+            this.controller.performJoinChannel();
+        });
+        this.joinChannelButton.addMouseListener(taskBarFrameMouseListener);
+
         JButton adr = componentsFactory.getIconButton(
                 IconConst.OVERSEER,
                 24,
@@ -160,15 +179,31 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         });
         chatFilter.addMouseListener(taskBarFrameMouseListener);
 
-        JButton historyButton = componentsFactory.getIconButton(
-                IconConst.HISTORY,
-                24,
+        this.historyButton = componentsFactory.getIconButton(
+                "app/history.png",
+                20,
                 AppThemeColor.FRAME,
-                TranslationKey.history.value());
-        historyButton.addActionListener(action -> {
-            this.controller.showHistory();
-        });
-        historyButton.addMouseListener(taskBarFrameMouseListener);
+                "");
+        this.settingsButton = componentsFactory.getIconButton(
+                "app/settings.png",
+                20,
+                AppThemeColor.FRAME,
+                "");
+        this.helpButton = componentsFactory.getIconButton(
+                "app/help.png",
+                20,
+                AppThemeColor.FRAME,
+                "");
+        this.joinChannelButton = componentsFactory.getIconButton(
+                "icons/channel.svg",
+                20,
+                AppThemeColor.FRAME,
+                TranslationKey.join_channel.value() + " " + this.taskBarService.get().getJoinChannelNumber());
+        this.scaleButton = componentsFactory.getIconButton(
+                "app/scale-bg.png",
+                45,
+                AppThemeColor.FRAME,
+                "");
 
         JButton pinButton = componentsFactory.getIconButton(
                 IconConst.DRAG_AND_DROP,
@@ -259,6 +294,8 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(exitButton);
         this.add(Box.createRigidArea(new Dimension(3, 4)));
+        this.add(joinChannelButton);
+        this.add(Box.createRigidArea(new Dimension(3, 4)));
     }
 
     private void getPushbullet(boolean pushbulletEnabled, JButton pushbulletNotification) {
@@ -293,5 +330,13 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 },
                 true
         );
+    }
+
+    public JButton getHelpButton() {
+        return helpButton;
+    }
+
+    public JButton getJoinChannelButton() {
+        return joinChannelButton;
     }
 }

@@ -1,6 +1,9 @@
 package com.mercury.platform.ui.components.panel.taskbar;
 
 import com.mercury.platform.TranslationKey;
+import com.mercury.platform.shared.config.Configuration;
+import com.mercury.platform.shared.config.configration.PlainConfigurationService;
+import com.mercury.platform.shared.config.descriptor.TaskBarDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.frame.movable.ItemsGridFrame;
 import com.mercury.platform.ui.frame.movable.NotificationFrame;
@@ -13,7 +16,17 @@ import com.mercury.platform.ui.frame.other.HelpIGFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class MercuryTaskBarController implements TaskBarController {
+    private PlainConfigurationService<TaskBarDescriptor> taskBarService;
+
+    public MercuryTaskBarController() {
+        this.taskBarService = Configuration.get().taskBarConfiguration();
+    }
+
     @Override
     public void enableDND() {
         MercuryStoreUI.repaintSubject.onNext(TaskBarFrame.class);
@@ -97,5 +110,11 @@ public class MercuryTaskBarController implements TaskBarController {
     @Override
     public void showMessageNotifications() {
         FramesManager.INSTANCE.showFrame(NotificationFrame.class);
+    }
+
+    @Override
+    public void performJoinChannel() {
+        String channelNumber = this.taskBarService.get().getJoinChannelNumber();
+        MercuryStoreCore.chatCommandSubject.onNext("/global " + channelNumber);
     }
 }

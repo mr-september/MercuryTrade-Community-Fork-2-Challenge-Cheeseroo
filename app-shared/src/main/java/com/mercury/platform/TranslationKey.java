@@ -10,6 +10,8 @@ public enum TranslationKey {
     trade_mode("SuperTradeMode. All notifications you receive will be unfolded."),
     chat_filter("Chat Scanner. All chat messages with matching words will be displayed in a separate window."),
     travel_hideout("Travel to your hideout"),
+    join_channel("Join global channel"),
+    join_channel_number("Channel number"),
     helpig("See IG help"),
     adr_settings("Overseer settings"),
     timer("Timer. Just a simple timer."),

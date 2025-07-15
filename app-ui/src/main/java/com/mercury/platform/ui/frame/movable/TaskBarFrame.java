@@ -251,6 +251,11 @@ public class TaskBarFrame extends AbstractMovableComponentFrame {
             public void showMessageNotifications() {
 
             }
+
+            @Override
+            public void performJoinChannel() {
+
+            }
         };
         JPanel panel = factory.getTransparentPanel(new BorderLayout());
         TaskBarPanel taskBarPanel = new TaskBarPanel(controller, factory, createHideListener());
