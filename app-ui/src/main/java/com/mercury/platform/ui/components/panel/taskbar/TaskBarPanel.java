@@ -190,7 +190,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 AppThemeColor.FRAME,
                 "");
         this.joinChannelButton = componentsFactory.getIconButton(
-                "icons/channel.svg",
+                "app/join_channel.png",
                 20,
                 AppThemeColor.FRAME,
                 TranslationKey.join_channel.value() + " " + this.taskBarService.get().getJoinChannelNumber());
@@ -279,6 +279,8 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(pushbulletNotification);
         this.add(Box.createRigidArea(new Dimension(2, 4)));
+        this.add(joinChannelButton);
+        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(this.showHelpIG);
         this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(historyButton);
@@ -292,8 +294,6 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         this.add(settingsButton);
         this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(exitButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
-        this.add(joinChannelButton);
         this.add(Box.createRigidArea(new Dimension(3, 4)));
     }
 
