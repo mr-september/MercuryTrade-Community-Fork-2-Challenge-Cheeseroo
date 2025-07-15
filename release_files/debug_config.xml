@@ -30,7 +30,7 @@
     <opt>-XX:+UseG1GC</opt>
     <opt>-Dfile.encoding=UTF-8</opt>
     <opt>-Djava.awt.headless=false</opt>
-    <opt>-Dlogback.configurationFile=logback.xml</opt>
+    <opt>-Dlog4j.configurationFile=log4j2.xml</opt>
     <opt>-verbose:gc</opt>
     <opt>-XX:+PrintGCDetails</opt>
   </jre>
