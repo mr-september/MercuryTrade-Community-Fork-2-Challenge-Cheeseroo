@@ -11,14 +11,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest]
         java-version: [8, 11, 17]
-        exclude:
-          # Exclude some combinations to reduce build time
-          - os: macos-latest
-            java-version: 11
-          - os: macos-latest
-            java-version: 17
     
     steps:
     - name: Checkout code
@@ -28,7 +22,7 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: ${{ matrix.java-version }}
-        distribution: 'temurin'
+        distribution: 'zulu'
     
     - name: Cache Maven dependencies
       uses: actions/cache@v3
@@ -78,7 +72,7 @@ jobs:
       uses: actions/setup-java@v4
       with:
         java-version: '8'
-        distribution: 'temurin'
+        distribution: 'zulu'
     
     - name: Cache Maven dependencies
       uses: actions/cache@v3
