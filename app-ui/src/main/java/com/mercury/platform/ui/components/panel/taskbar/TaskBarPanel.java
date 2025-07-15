@@ -151,11 +151,6 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         });
         this.showHelpIG.addMouseListener(taskBarFrameMouseListener);
 
-        this.joinChannelButton.addActionListener(action -> {
-            this.controller.performJoinChannel();
-        });
-        this.joinChannelButton.addMouseListener(taskBarFrameMouseListener);
-
         JButton adr = componentsFactory.getIconButton(
                 IconConst.OVERSEER,
                 24,
@@ -199,6 +194,10 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 20,
                 AppThemeColor.FRAME,
                 TranslationKey.join_channel.value() + " " + this.taskBarService.get().getJoinChannelNumber());
+        this.joinChannelButton.addActionListener(action -> {
+            this.controller.performJoinChannel();
+        });
+        this.joinChannelButton.addMouseListener(taskBarFrameMouseListener);
         this.scaleButton = componentsFactory.getIconButton(
                 "app/scale-bg.png",
                 45,
