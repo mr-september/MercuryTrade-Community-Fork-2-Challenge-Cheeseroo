@@ -24,16 +24,16 @@
 
 <p align="center">
 <a href="https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN">
-  <img src="https://raw.githubusercontent.com/andreostrovsky/donate-with-paypal/925c5a9e397363c6f7a477973fdeed485df5fdd9/blue.svg" alt="PayPal" height="28">
+  <img src="https://raw.githubusercontent.com/andreostrovsky/donate-with-paypal/925c5a9e397363c6f7a477973fdeed485df5fdd9/blue.svg" alt="PayPal" height="36">
 </a>
 <a href="https://ko-fi.com/Q5Q11I49GI">
-  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" height="28">
+  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" height="36">
 </a>
 <a href="https://liberapay.com/mr-september/donate">
-  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="28">
+  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="36">
 </a>
 <a href="https://nowpayments.io/donation?api_key=5b5fabd5-2c33-4525-99a3-bf27f587780c" target="_blank" rel="noreferrer noopener">
-  <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments" height="28">
+  <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments" height="36">
 </a>
 </p>
 
