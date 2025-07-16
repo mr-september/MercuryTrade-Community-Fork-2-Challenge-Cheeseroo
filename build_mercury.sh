@@ -1,5 +1,6 @@
 #!/bin/bash
-# MercuryTrade Build Script (Linux/macOS equivalent of build_mercury_with_zip.bat)
+# MercuryTrade Build Script - Comprehensive build with packaging
+# This script builds the JAR, creates Windows EXE, and packages everything for release
 
 set -e  # Exit on any error
 
@@ -43,21 +44,29 @@ cd release_files
 # Clean up old files
 rm -f MercuryTrade-*.zip
 
-# Create JAR package
-echo "Creating JAR package..."
+# Create JAR package with proper structure including resources
+echo "Creating JAR package with resources..."
+rm -rf MercuryTrade-jar
 mkdir -p MercuryTrade-jar
 cp MercuryTrade.jar MercuryTrade-jar/
 cp HOW_TO_RUN_JAR.txt MercuryTrade-jar/
+# Copy the entire MercuryTrade directory structure (including resources)
+cp -r MercuryTrade/* MercuryTrade-jar/
 zip -r MercuryTrade-jar.zip MercuryTrade-jar/
 rm -rf MercuryTrade-jar/
+echo "JAR package completed with resources"
 
-# Create EXE package (if EXE exists)
+# Create EXE package with proper structure including resources (if EXE exists)
 if [ -f "MercuryTrade.exe" ]; then
-    echo "Creating EXE package..."
+    echo "Creating EXE package with resources..."
+    rm -rf MercuryTrade-exe
     mkdir -p MercuryTrade-exe
     cp MercuryTrade.exe MercuryTrade-exe/
+    # Copy the entire MercuryTrade directory structure (including resources)
+    cp -r MercuryTrade/* MercuryTrade-exe/
     zip -r MercuryTrade-exe.zip MercuryTrade-exe/
     rm -rf MercuryTrade-exe/
+    echo "EXE package completed with resources"
 else
     echo "MercuryTrade.exe not found. Skipping EXE package."
 fi
@@ -66,10 +75,29 @@ fi
 echo "Creating language package..."
 zip -r lang.zip ../app-shared/src/main/resources/lang/*
 
+# Clean up standalone files
+echo "Cleaning up standalone files..."
+rm -f MercuryTrade.jar
+rm -f MercuryTrade.exe
+echo "Standalone files removed"
+
 cd ..
 
 echo "Build and packaging completed!"
+echo ""
 echo "Files created in release_files/:"
-ls -la release_files/*.zip 2>/dev/null || echo "No zip files found"
-ls -la release_files/*.jar 2>/dev/null || echo "No jar files found"
-ls -la release_files/*.exe 2>/dev/null || echo "No exe files found"
+echo "  - MercuryTrade-jar.zip (complete package with resources)"
+if [ -f "release_files/MercuryTrade-exe.zip" ]; then
+    echo "  - MercuryTrade-exe.zip (complete package with resources)"
+fi
+echo "  - lang.zip"
+echo ""
+echo "The zip files include the complete directory structure with:"
+echo "  - MercuryTrade.jar or MercuryTrade.exe"
+echo "  - HOW_TO_RUN_JAR.txt (for JAR package)"
+echo "  - README.txt"
+echo "  - MercuryTrade.l4j.ini"
+echo "  - resources/app/helpIGImg.png"
+echo ""
+echo "Note: Standalone JAR and EXE files have been cleaned up."
+echo "This matches the original Morph21 release format."

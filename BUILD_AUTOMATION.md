@@ -48,7 +48,20 @@ Each release automatically creates:
 
 #### Using the Shell Script (Linux/macOS)
 ```bash
+# Full build with packaging (creates zip files)
 ./build_mercury.sh
+
+# Simple build without packaging
+./build_mercury_simple.sh
+```
+
+#### Using the Batch Scripts (Windows)
+```batch
+REM Full build with packaging (creates zip files)
+build_mercury.bat
+
+REM Simple build without packaging
+build_mercury_simple.bat
 ```
 
 #### Using Maven Directly
@@ -58,18 +71,6 @@ mvn clean package
 
 # Copy to release directory
 cp app/target/MercuryTrade.jar release_files/
-```
-
-#### Using Windows Batch Scripts (Legacy)
-```batch
-REM Build with packaging
-build_mercury_with_zip.bat
-
-REM Build without packaging
-build_mercury.bat
-
-REM Package only (if already built)
-just_zip.bat
 ```
 
 ### Installing Launch4j (for EXE creation)
@@ -118,10 +119,16 @@ Download from [Launch4j website](http://launch4j.sourceforge.net/)
 - Version numbering scheme
 
 ### Legacy Support
-The original batch scripts are still available for local development:
-- `build_mercury.bat` - Basic build
-- `build_mercury_with_zip.bat` - Build with packaging
-- `just_zip.bat` - Package only
+The build scripts have been consolidated for clarity:
+- `build_mercury.sh` / `build_mercury.bat` - Full build with packaging
+- `build_mercury_simple.sh` / `build_mercury_simple.bat` - Simple build without packaging
+- `scripts/install_maven3.ps1` - Maven installation helper (moved to scripts directory)
+
+### What Changed
+- ✅ **Consolidated**: Multiple build scripts merged into two clear options
+- ✅ **Simplified**: Removed redundant packaging-only scripts
+- ✅ **Organized**: Utility scripts moved to scripts/ directory
+- ✅ **Preserved**: All functionality maintained, just better organized
 
 ## 🐛 Troubleshooting
 
