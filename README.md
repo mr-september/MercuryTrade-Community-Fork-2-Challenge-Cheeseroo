@@ -271,6 +271,9 @@ We welcome contributions from the community! Here's how you can help:
 
 ## 📝 Changelog
 
+### Version 1.6.1 and 1.6.2 - Debugging and Debloating 🧀
+- Fixed and unfixed and refixed some mistakes. Oops.
+
 ### Version 1.6.0 - Public Release 🧀
 - **NEW**: Plus Text Feature for modern chat patterns
 - **NEW**: Start operator (^) for advanced filtering
