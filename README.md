@@ -13,7 +13,7 @@
 [![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://java.com/download)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.TXT)
 
-> 🚀 **Lightning Fast** | 🔧 **Highly Customizable** | 💎 **Community Driven**
+🚀 **Lightning Fast** | 🔧 **Highly Customizable** | 💎 **Community Driven**
 
 ### 📥 Download Now
 [🏷️ **Latest Release**](https://github.com/mr-september/MercuryTrade-Community-Fork/releases) | [☕ **Java 8+**](https://java.com/download) | [📚 **Documentation**](https://github.com/mr-september/MercuryTrade-Community-Fork/wiki)
@@ -163,7 +163,7 @@ Focus on your gameplay:
 ## 💻 System Requirements
 
 - **Java**: Version 8 or higher
-- **Operating System**: Windows 10/11, macOS 10.14+, Linux (Ubuntu 18.04+)
+- **Operating System**: Windows 10/11, Linux (Ubuntu 18.04+)
 - **Memory**: 512MB RAM minimum (1GB recommended)
 - **Path of Exile**: Windowed or Borderless mode required
 - **Screen Resolution**: 1024x768 minimum (1920x1080+ recommended)
