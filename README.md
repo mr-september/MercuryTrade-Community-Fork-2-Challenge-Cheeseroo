@@ -1,152 +1,298 @@
-### This fork was created for those of you who prefer mercury trade. I will do my best to solve issues here. Every help will be appreciated.
-___
+# MercuryTrade Community Fork 2: Lightning Shockeroo ⚡
 
-Already more than 10k happy users! Don't forget to support it! And if you want your name to be featured in our in-app Hall of Fame (see Support tab) please provide this information within the transaction!
+<p align="center">
+  <img src="http://i.imgur.com/VjzWm5F.png" alt="MercuryTrade Screenshot"/>
+</p>
 
-If you want to help with development with donations it's possible to do it by paypal or liberapay
+**MercuryTrade Community Fork 2: Lightning Shockaroo** is a powerful, feature-rich overlay application for Path of Exile that revolutionizes your trading experience and gameplay monitoring. Built by active PoE players, this fork introduces cutting-edge enhancements while maintaining the reliability you expect.
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FPFD6SGZ2E5GU)
-<noscript><a href="https://liberapay.com/Morph21/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+[![GitHub release](https://img.shields.io/github/release/mr-september/MercuryTrade-Community-Fork.svg)](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
+[![GitHub downloads](https://img.shields.io/github/downloads/mr-september/MercuryTrade-Community-Fork/total.svg)](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
+[![Java Version](https://img.shields.io/badge/Java-8%2B-blue.svg)](https://java.com/download)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.TXT)
 
-<br>
+> 🚀 **Lightning Fast** | 🔧 **Highly Customizable** | 💎 **Community Driven**
 
-# MercuryTrade
+### 📥 Download Now
+[🏷️ **Latest Release**](https://github.com/mr-september/MercuryTrade-Community-Fork/releases) | [☕ **Java 8+**](https://java.com/download) | [📚 **Documentation**](https://github.com/mr-september/MercuryTrade-Community-Fork/wiki)
 
-Download and Install Java: [https://java.com/download](https://java.com/download)
+## 💖 Support the Project
 
-Download MercuryTrade.jar: [Latest release](https://github.com/Morph21/MercuryTrade-Community-Fork/releases)
+**Already more than 10k happy users!** This project is maintained by passionate Path of Exile players in their free time. Your support helps us continue developing new features and fixing bugs.
 
-**ALTERNATIVE LAUNCHER**: MercuryTrade.**RAR**: [Latest release](https://github.com/Morph21/MercuryTrade-Community-Fork/releases). Unpack and run the attached .exe as administrator! Try this launcher when **something is not working**.
+### 💰 Donate
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q11I49GI)
 
-I have a problem: [Troubleshooting](https://github.com/Morph21/MercuryTrade-Community-Fork/wiki)
-
-Feedback and suggestions: [Github](https://github.com/Morph21/MercuryTrade-Community-Fork/issues)
-
-User-agreement: [Link](https://github.com/Morph21/MercuryTrade-Community-Fork/wiki/User-agreement)
-
+### 🌟 Other Ways to Help
+- ⭐ **Star the repository** to show your support
+- 🐦 **Share** to help others discover MercuryTrade
+- 📝 **Write reviews** and share your experience
+- 🎥 **Create content** - tutorials, guides, or showcase videos
 
 ---
- <p align="center">
- <img src="http://i.imgur.com/VjzWm5F.png"/>
-  </p>
-  
-**MercuryTrade** is an overlay application for Path of Exile written in Java. Initially designed to facilitate trading interactions, today it's an immense platform that drastically improves user experience for the players. It went through countless design iterations and made by active Path of Exile players who use this tool themselves on a regular basis.
+
+## Table of Contents
+
+- [🚀 Quick Start](#-quick-start)
+- [⚡ New Lightning Features](#-new-lightning-features)
+- [🎯 Core Features](#-core-features)
+- [💻 System Requirements](#-system-requirements)
+- [🔧 Installation](#-installation)
+- [📖 Usage Guide](#-usage-guide)
+- [🛠️ Building from Source](#️-building-from-source)
+- [🤝 Contributing](#-contributing)
+- [ Changelog](#-changelog)
+
+## 🚀 Quick Start
+
+**Get up and running in under 5 minutes:**
+
+1. **Download Java 8+**: [https://java.com/download](https://java.com/download)
+2. **Get MercuryTrade**: [Latest Release](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
+3. **Launch**: Double-click `MercuryTrade.jar` or run `MercuryTrade.exe`
+4. **Configure**: Set Path of Exile to **Windowed** or **Borderless** mode
+5. **Ready to Trade!** 🎉
+
+> ⚠️ **Important**: Path of Exile must NOT be in fullscreen mode for the overlay to work properly.
+
+## ⚡ New Lightning Features
+
+### 🔍 Improved Chat Scanner with "+text" REsponse Support
+**Plus Text Feature** automatically detects and responds to modern Path of Exile chat pattern:
+
+- **Smart Detection**: Automatically identifies "+text" patterns like "Free elder +elder"
+- **Global Chat Integration**: One-click response in global chat with "+elder"
+- **Hotkey Support**: Full keyboard shortcut integration for power users
+- **Backwards Compatible**: Traditional whispers like "invite please" still available
+
+### 🎯 Enhanced Filtering with Start Operator (^)
+Powerful new filtering capabilities for chat scanner:
+
+- **Start Filtering**: Use `^` operator to filter OUT (exclude) messages that START with specific characters
+- **Multiple Filters**: Combine `^+`, `^-`, `^!` for comprehensive filtering
+
+### 🚀 Lightning-Fast Performance
+- **Optimized Rendering**: Improved UI, responsiveness, and reduced memory usage
+- **Background Processing**: Non-blocking operations for smoother gameplay
+
+## 🎯 Core Features
+
+### 🎪 Mercury: Overseer - Your Ultimate Tracker
+<p align="center">
+  <img src="http://i.imgur.com/K79RBBK.png" alt="Mercury Overseer"/>
+</p>
+
+**Overseer** transforms your PoE experience with customizable overlay timers:
+- **Flask Tracking**: Never miss a flask refresh again
+- **Vaal Skill Monitoring**: Track your vaal buffs with precision
+- **Cooldown Management**: Monitor all your skill cooldowns
+- **Screen Capture**: Duplicate parts of your screen for enhanced visibility
+- **100% Legal**: No game interaction - just smart visual overlays
+
+### 📢 Smart Notifications
+<p align="center">
+  <img src="http://i.imgur.com/4XIGPYh.png" alt="Smart Notifications"/>
+</p>
+
+Advanced notification system with:
+- **Instant Alerts**: Immediate trade and scanner notifications
+- **Quick Responses**: Customizable response buttons ("Sold", "Wait 3m", etc.)
+- **Full Hotkey Support**: Every button is keyboard accessible
+- **Smart Grouping**: Multiple notifications stack intelligently
+- **Ignore System**: Hide notifications for already sold items
+
+### 🔍 Intelligent Chat Scanner
+<p align="center">
+  <img src="http://i.imgur.com/qglL2Fb.png" alt="Chat Scanner"/>
+</p>
+
+Powerful chat monitoring with:
+- **Keyword Detection**: Find exactly what you're looking for
+- **Exclusion Filter**: Use `!` to exclude unwanted matches
+- **Start Exclude Filter**: New `^` operator to exclude messages starting with a string or symbol
+- **Service Monitoring**: Track carries, crafting services, and more
+
+### 📚 Complete Trading History
+<p align="center">
+  <img src="http://i.imgur.com/wO82SbG.png" alt="Trading History"/>
+</p>
+
+Never lose track of your trades:
+- **Persistent Storage**: All notifications saved automatically
+- **Easy Restoration**: Bring back previous trade notifications
+- **Crash Recovery**: History survives client crashes
+- **Search & Filter**: Find past trades quickly
+
+### 🎯 Visual Stash Highlighting
+<p align="center">
+  <img src="http://i.imgur.com/FA8J8Fp.png" alt="Stash Highlighting"/>
+</p>
+
+Find your items instantly:
+- **Precise Highlighting**: Exact stash location overlay
+- **Customizable Grid**: Adapts to your screen resolution
+- **Quick Setup**: Easy alignment with your stash tabs
+- **Visual Feedback**: Clear indication of item locations
+
+### 🚫 Do Not Disturb Mode
+<p align="center">
+  <img src="http://i.imgur.com/jEKVqd0.png" alt="Do Not Disturb"/>
+</p>
+
+Focus on your gameplay:
+- **Hidden Mode**: Silently processes trades in background
+- **One-Click Toggle**: Easy activation from taskbar
+- **Selective Hiding**: Choose what to hide and what to show
+- **Smart Resume**: Instantly return to normal operation
+
+## 💻 System Requirements
+
+- **Java**: Version 8 or higher
+- **Operating System**: Windows 10/11, macOS 10.14+, Linux (Ubuntu 18.04+)
+- **Memory**: 512MB RAM minimum (1GB recommended)
+- **Path of Exile**: Windowed or Borderless mode required
+- **Screen Resolution**: 1024x768 minimum (1920x1080+ recommended)
+
+## 🔧 Installation
+
+### Option 1: JAR File (Recommended)
+1. Download and install [Java 8+](https://java.com/download)
+2. Download `MercuryTrade.jar` from [Latest Release](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
+3. Double-click the JAR file or run: `java -jar MercuryTrade.jar`
+
+### Option 2: Windows Executable
+1. Download `MercuryTrade.exe` from [Latest Release](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
+2. **Run as Administrator** (recommended for full functionality)
+3. If the JAR version doesn't work, try this alternative launcher
+
+### First Time Setup
+1. **Tutorial**: Follow the built-in tutorial on first launch
+2. **Game Path**: Set your Path of Exile installation directory
+3. **Display Mode**: Ensure PoE is in Windowed or Borderless mode
+4. **Configuration**: Customize notifications, hotkeys, and appearance
+
+## 📖 Usage Guide
+
+### Getting Started
+1. **Launch MercuryTrade** before starting Path of Exile
+2. **Configure your settings** via the settings panel
+3. **Set up hotkeys** for quick responses
+4. **Test notifications** with the built-in test system
+
+### Advanced Configuration
+- **Custom Response Buttons**: Create your own quick-reply messages
+- **Sound Notifications**: Configure audio alerts for different events
+- **Visual Customization**: Adjust colors, fonts, and transparency
+- **Multi-Profile Support**: Different settings for different characters
+
+### Pro Tips
+- Use **Ctrl+Alt+R** to quickly restore the last trade notification
+- Set up **item highlighting** for faster stash navigation
+- Configure **Do Not Disturb** for mapping sessions
+- Use **chat scanner** for trial rotations and service hunting
+
+## 🛠️ Building from Source
+
+### Prerequisites
+- **Java 8+** and **Maven 3.6+**
+- **Git** for version control
+- **Launch4j** (optional, for Windows EXE generation)
+
+### Build Instructions
+```bash
+# Clone the repository
+git clone https://github.com/mr-september/MercuryTrade-Community-Fork.git
+cd MercuryTrade-Community-Fork
+
+# Build with Maven
+mvn clean package
+
+# Or use the build script
+./build_mercury.sh
+```
+
+### Creating Releases
+```bash
+# Tag a new version
+git tag v1.5.0
+git push origin v1.5.0
+
+# Automated builds will create release artifacts
+```
+
+For detailed build instructions, see [BUILD_AUTOMATION.md](BUILD_AUTOMATION.md).
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+### Ways to Contribute
+- 🐛 **Bug Reports**: Found an issue? [Create an issue](https://github.com/mr-september/MercuryTrade-Community-Fork/issues)
+- 💡 **Feature Requests**: Have an idea? [Suggest it here](https://github.com/mr-september/MercuryTrade-Community-Fork/issues)
+- 🔧 **Code Contributions**: Submit pull requests for bug fixes or new features
+- 📚 **Documentation**: Help improve our docs and guides
+- 🌍 **Translations**: Help translate the application to new languages
+
+### Development Setup
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and test thoroughly
+4. Commit your changes: `git commit -m 'Add amazing feature'`
+5. Push to the branch: `git push origin feature/amazing-feature`
+6. Open a Pull Request
+
+### Code Style
+- Follow existing code conventions
+- Include tests for new features
+- Update documentation as needed
+
+### 🎯 What Your Support Enables
+- 🚀 **Faster Development**: More time for features and bug fixes
+- 🧪 **Better Testing**: Comprehensive testing across different systems
+- 📈 **Enhanced Features**: More advanced functionality and improvements
+- 🌐 **Community Growth**: Better documentation and user support
+
+## 📝 Changelog
+
+### Version 1.6.0 - Lightning Release ⚡
+- **NEW**: Plus Text Feature for modern chat patterns
+- **NEW**: Start operator (^) for advanced filtering
+- **IMPROVED**: Performance optimizations and UI enhancements
+- **FIXED**: Various stability improvements and bug fixes
+
+### Version 1.5.0 - Fork 2 Beginnings ⚡
+- **NEW**: New button to join channel (useful when the channel is crowded and you get kicked between instances). Default 820 but can be set to anything you want.
+- **IMPROVED**: Performance optimizations and UI enhancements
+- **FIXED**: Various stability improvements and bug fixes
+
+### Previous Versions
+- **v1.4.x**: Enhanced notification system and chat scanner improvements
+- **v1.3.x**: Overseer system with capture functionality
+- **v1.2.x**: Stash highlighting and history management
+- **v1.1.x**: Core trading functionality and notification system
+
+For complete changelog, see [Releases](https://github.com/mr-september/MercuryTrade-Community-Fork/releases).
 
 ---
-## FUNCTIONALITY:
----
-&nbsp; *Major feature:* **Mercury: Overseer**
-
- <p align="center">
- <img src="http://i.imgur.com/K79RBBK.png"/>
-  </p>
-
-**Overseer** is a huge platform within the app made specifically to track things. We are talking about tracking your flasks, vaal buffs, cooldowns and other things you tell it to. Incorporating this feature into your PoE toolbox will make your experience with Path of Exile more enjoyable than ever before as your durations won't be getting lost behind the whole garbage-clutter of the Buffs bar. Being extremely flexible and customizable you can tailor it however you want.
-
-Overseer is essentially "a customizable and nicely looking set of overlay timers": you press a button and it tracks the time since - that's it. It's obviously 100% legit as there is no interaction with the game whatsoever. It's basically a clever trick, but gets the job done.
-
-Recently Overseer has got a new component: **Capture** - allows you to literally duplicate a part of your screen to display it somewhere else. This feature is especially neat for Vaal Skills for more convenient tracking. Also flasks, charge based abilities, UI counters etc.
-
-&nbsp; *Major feature:* **Notification**
 
 <p align="center">
-  <img src="http://i.imgur.com/4XIGPYh.png"/>
+  <strong>MercuryTrade Community Fork 2: Lightning Shockaroo</strong> ⚡
 </p>
-
-When you receive a trade related message or scanner message this notification panel pops up. It contains all the information you need to make a decision. It offers a set of fully customizable "quick response buttons" - such as "Sold" / "No" / "Wait 3m" / etc - as well as buttons to invite, kick and trade with the person who made the offer. There are also "?" - "Still Interested?" and a chat-history button. 
-
-**All the buttons are hotkeyable!**
-
-You can ignore an item: sold an item 5 hours ago yet people are still spamming you with trade offers? We can't filter out this from chat, but we can make MercuryTrade ignore it! Notifications for ignored items won't appear.
-
-
-Outgoing trade offers and messages from chat scanner to be diplayed as notifications as well. It has a different panel layout for the essentials such as "Visit Hideout" and "Leave" buttons.
 
 <p align="center">
-  <img src="http://i.imgur.com/4fcWtwm.png"/>
+  <em>Electrifying your Path of Exile experience!</em><br>
+  Made with ❤️ by the Path of Exile community, for the Path of Exile community.
 </p>
-
-<p align="center"> <i>Multiple notifications</i> </p>
-
-If you've received multiple notifications before dismissing your current one, they will stack up like a deck of cards underneath (or on top) of each other and won't clutter the screen.
-<p> The box on the left - "Group" - will appear if "Pre-group limit" is exceeded (this limit is also customizable). All consecutive notifications will be grouped together to save screen space. Toggling this button will expand the whole group. </p>
-
 
 <p align="center">
-  <img src="http://i.imgur.com/Iw2kDCO.png"/>
+  <a href="https://github.com/mr-september/MercuryTrade-Community-Fork/releases">📥 Download</a> •
+  <a href="https://github.com/mr-september/MercuryTrade-Community-Fork/issues">🐛 Report Bug</a> •
+  <a href="https://github.com/mr-september/MercuryTrade-Community-Fork/issues">💡 Request Feature</a> •
+  <a href="https://github.com/mr-september/MercuryTrade-Community-Fork/discussions">💬 Discussions</a> •
+  <a href="https://github.com/mr-september/MercuryTrade-Community-Fork/wiki">📚 Wiki</a>
 </p>
-
-<p align="center"> <i>Not only Response buttons are fully customizable, look how many things you can actually tweak to your taste!</i> </p>
-
-#
-
-&nbsp; *Major feature:* **Chat scanner**
-<p align="center">
-  <img src="http://i.imgur.com/qglL2Fb.png"/>
-</p>
-
-Set up words to look for (or not!) in chat. Extremely useful for when buying something specific from chat, looking for Trials, specific challenged and other things you might be interested in. Works in conjunction with the notification panel.
-
-#
-
-
-&nbsp; *Minor feature:* **History**
 
 <p align="center">
-  <img src="http://i.imgur.com/wO82SbG.png"/>
+  <sub>🚀 Join thousands of traders who've upgraded their PoE experience with Lightning Shockaroo!</sub>
 </p>
-
-<p align="center"> <i>History</i> </p>
-
-Each notification you receive is stored in a separate file by **MercuryTrade**. History allows you to access that file in a useful way to interact with customers. Comes in handy if you want to reach a person you traded with some time ago or in case your client has crashed - your in-game chat will be lost, but History will not.
-
-Use "Restore" button to bring back related notification.
-
-#
-
-&nbsp; *Minor feature:* **Stash Highlight**
-
-<p align="center">
-  <img src="http://i.imgur.com/FA8J8Fp.png"/>
-</p>
-
-<p align="center"> <i>Mouse over this little box to highlight the location.</i> </p>
-
-<br/>
-
-Mercury can highlight the stash location of the item somebody's buying. You will have to set up this Item Grid to align it with your stash, because different people play on different screen resolutions.
-
-<p align="center">
-  <img src="http://i.imgur.com/TOD1lM7.png"/>
-</p>
-
-<p align="center"> <i>Item Grid set up.</i> </p>
-
-#
-
-&nbsp; *Minor feature:* **Do not Disturb**
-
-<p align="center">
-  <img src="http://i.imgur.com/jEKVqd0.png"/>
-</p>
-
-<p align="center"> <i>DND on TaskBar panel</i> </p>
-
-Activate this mode if you don't want to see (and hear!) anything from the application for a while. **MercuryTrade** will continue working in hidden mode.
-
----
-## HOW TO BUILD
----
-Instructions about how to build jar and exe files are over here:
-
-https://github.com/Morph21/MercuryTrade-Community-Fork/wiki/How-to-compile-and-run-MercuryTrade
-
-
----
-## HOW TO INSTALL:
----
-
-Download and install Java on your computer, then open MercuryTrade.jar. Because the program operates on top of a Path of Exile window as an overlay, **make sure your client is not in fullscreen mode**.
-
-Upon launch you'll be greeted with a short overview of the application (identical to this ReadMe) and patch notes. Afterwards you should see **Task Panel** and **Notification Panel**.
-

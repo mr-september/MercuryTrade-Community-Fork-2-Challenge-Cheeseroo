@@ -61,7 +61,8 @@ public class NotificationScannerController implements ScannerPanelController {
     @Override
     public void performGlobalChatResponse(String plusText) {
         // Send the "+text" to global chat (not as a whisper)
-        MercuryStoreCore.chatCommandSubject.onNext(plusText);
+        // Need to prefix with "#" for global chat in Path of Exile
+        MercuryStoreCore.chatCommandSubject.onNext("#" + plusText);
     }
 
     private void closeMessagePanel() {

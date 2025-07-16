@@ -63,7 +63,8 @@ if (plusTextMatcher.find()) {
 @Override
 public void performGlobalChatResponse(String plusText) {
     // Send the "+text" to global chat (not as a whisper)
-    MercuryStoreCore.chatCommandSubject.onNext(plusText);
+    // Need to prefix with "#" for global chat
+    MercuryStoreCore.chatCommandSubject.onNext("#" + plusText);
 }
 ```
 
@@ -79,9 +80,3 @@ public void performGlobalChatResponse(String plusText) {
 - Existing whisper/private message functionality remains unchanged
 - Traditional response buttons continue to work as before
 - Feature can be disabled if not needed
-
-## Future Enhancements
-- Support for multiple "+text" patterns in a single message
-- Configurable regex patterns for different use cases
-- Statistics tracking for "+text" usage
-- Integration with party/group management features
