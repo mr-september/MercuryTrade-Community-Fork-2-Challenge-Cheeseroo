@@ -93,6 +93,9 @@ jobs:
         wget -O launch4j.tgz "https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/launch4j-3.50-linux-x64.tgz/download"
         echo "Extracting Launch4j..."
         tar -xzf launch4j.tgz
+        echo "Fixing line endings in Launch4j scripts..."
+        sed -i 's/\r$//' launch4j/launch4j
+        sed -i 's/\r$//' launch4j/launch4jc
         echo "Contents of extracted directory:"
         ls -la launch4j/
         echo "Verifying Launch4j JAR is available..."
@@ -109,7 +112,18 @@ jobs:
         ls -la release_files/MercuryTrade.jar
         echo "Running Launch4j to create release EXE..."
         cd release_files
-        java -jar ../launch4j/launch4j.jar release_config.xml
+        
+        # Try multiple Launch4j methods for robustness
+        if [ -x "../launch4j/launch4j" ]; then
+          echo "Using Launch4j script..."
+          ../launch4j/launch4j release_config.xml
+        elif [ -f "../launch4j/launch4j.jar" ]; then
+          echo "Using Launch4j JAR directly..."
+          java -jar ../launch4j/launch4j.jar release_config.xml
+        else
+          echo "No Launch4j found, exiting..."
+          exit 1
+        fi
         
         if [ -f "MercuryTrade.exe" ]; then
           echo "✅ Release EXE file created successfully"
@@ -122,7 +136,18 @@ jobs:
         fi
         
         echo "Running Launch4j to create debug EXE..."
-        java -jar ../launch4j/launch4j.jar debug_config.xml
+        
+        # Try multiple Launch4j methods for debug version
+        if [ -x "../launch4j/launch4j" ]; then
+          echo "Using Launch4j script for debug..."
+          ../launch4j/launch4j debug_config.xml
+        elif [ -f "../launch4j/launch4j.jar" ]; then
+          echo "Using Launch4j JAR directly for debug..."
+          java -jar ../launch4j/launch4j.jar debug_config.xml
+        else
+          echo "No Launch4j found for debug, exiting..."
+          exit 1
+        fi
         
         if [ -f "MercuryTrade-debug.exe" ]; then
           echo "✅ Debug EXE file created successfully"

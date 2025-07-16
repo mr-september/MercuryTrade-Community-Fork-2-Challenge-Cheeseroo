@@ -13,9 +13,21 @@ mvn clean package
 echo "Copying MercuryTrade.jar from app/target to release_files"
 cp app/target/MercuryTrade.jar release_files/
 
-# Check if Launch4j is available
-if command -v launch4j &> /dev/null; then
+# Check if Launch4j is available (local or system)
+if [ -x "launch4j/launch4j" ]; then
     echo "Creating Windows executable with Launch4j..."
+    cd release_files
+    ../launch4j/launch4j release_config.xml
+    cd ..
+    echo "Launch4j EXE creation completed"
+elif [ -f "launch4j/launch4j.jar" ]; then
+    echo "Creating Windows executable with Launch4j (using JAR)..."
+    cd release_files
+    java -jar ../launch4j/launch4j.jar release_config.xml
+    cd ..
+    echo "Launch4j EXE creation completed"
+elif command -v launch4j &> /dev/null; then
+    echo "Creating Windows executable with Launch4j (system)..."
     cd release_files
     launch4j release_config.xml
     cd ..
