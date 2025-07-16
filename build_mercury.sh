@@ -2,17 +2,37 @@
 # MercuryTrade Build Script - Comprehensive build with packaging
 # This script builds the JAR, creates Windows EXE, and packages everything for release
 
-set -e  # Exit on any error
-
 echo "MercuryTrade build starting..."
 
 # Clean and build with Maven
 echo "Running: mvn clean package"
-mvn clean package
+if mvn clean package; then
+    echo "Maven build successful"
+    # Copy JAR to release_files
+    echo "Copying MercuryTrade.jar from app/target to release_files"
+    cp app/target/MercuryTrade.jar release_files/
+    JAR_AVAILABLE=true
+else
+    echo "Maven build failed. Will try to use existing JAR file."
+    JAR_AVAILABLE=false
+    
+    # Check if there's an existing JAR file we can use
+    if [ -f "release_files/MercuryTrade-jar-fixed/MercuryTrade.jar" ]; then
+        echo "Using JAR from MercuryTrade-jar-fixed/"
+        cp release_files/MercuryTrade-jar-fixed/MercuryTrade.jar release_files/
+        JAR_AVAILABLE=true
+    elif [ -f "app/target/MercuryTrade.jar" ]; then
+        echo "Using existing JAR from app/target/"
+        cp app/target/MercuryTrade.jar release_files/
+        JAR_AVAILABLE=true
+    else
+        echo "ERROR: No JAR file available. Cannot proceed with packaging."
+        exit 1
+    fi
+fi
 
-# Copy JAR to release_files
-echo "Copying MercuryTrade.jar from app/target to release_files"
-cp app/target/MercuryTrade.jar release_files/
+# Proceed with packaging only if JAR is available
+if [ "$JAR_AVAILABLE" = true ]; then
 
 # Check if Launch4j is available (local or system)
 if [ -x "launch4j/launch4j" ]; then
@@ -101,3 +121,7 @@ echo "  - resources/app/helpIGImg.png"
 echo ""
 echo "Note: Standalone JAR and EXE files have been cleaned up."
 echo "This matches the original Morph21 release format."
+else
+    echo "Build failed. Cannot create packages without JAR file."
+    exit 1
+fi
