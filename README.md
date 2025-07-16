@@ -106,7 +106,7 @@ Powerful new filtering capabilities for chat scanner:
 
 ### 📢 Smart Notifications
 <p align="center">
-  <img src="http://i.imgur.com/4XIGPYh.png" alt="Smart Notifications"/>
+  <img src="https://github.com/user-attachments/assets/817ca186-8f16-40d0-8a7b-5ae52e52fac2" alt="Smart Notifications"/>
 </p>
 
 Advanced notification system with:
