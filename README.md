@@ -32,6 +32,9 @@
 <a href="https://liberapay.com/mr-september/donate">
   <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="28">
 </a>
+<a href="https://nowpayments.io/donation?api_key=5b5fabd5-2c33-4525-99a3-bf27f587780c" target="_blank" rel="noreferrer noopener">
+  <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments" height="28">
+</a>
 </p>
 
 
