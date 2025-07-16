@@ -22,7 +22,6 @@
 
 **Already more than 10k happy users!** This project is maintained by passionate Path of Exile players in their free time. Your support helps us continue developing new features and fixing bugs.
 
-### 💰 Donate
 <p align="center">
 <a href="https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN">
   <img src="https://raw.githubusercontent.com/andreostrovsky/donate-with-paypal/925c5a9e397363c6f7a477973fdeed485df5fdd9/blue.svg" alt="PayPal" height="28">
