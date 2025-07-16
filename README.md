@@ -118,7 +118,7 @@ Advanced notification system with:
 
 ### 🔍 Intelligent Chat Scanner
 <p align="center">
-  <img src="http://i.imgur.com/qglL2Fb.png" alt="Chat Scanner"/>
+  <img src="https://github.com/user-attachments/assets/12a9f41b-18ee-40b7-af88-7a1b64c3614f" alt="Chat Scanner"/>
 </p>
 
 Powerful chat monitoring with:
