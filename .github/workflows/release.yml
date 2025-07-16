@@ -128,16 +128,16 @@ jobs:
           ## MercuryTrade ${{ steps.get_version.outputs.version }}
           
           ### Downloads
-          - **MercuryTrade.jar**: For users with Java 8+ installed
-          - **MercuryTrade.exe**: Windows executable (recommended for Windows users)
-          - **Language files**: Additional language packs
+          - **MercuryTrade-jar.zip**: Contains the JAR file for users with Java 8+ installed
+          - **MercuryTrade-exe.zip**: Contains the Windows executable (recommended for Windows users)
+          - **MercuryTrade-lang.zip**: Additional language packs
           
           ### Changes
           ${{ steps.changelog.outputs.CHANGELOG }}
           
           ### Installation
-          - **JAR file**: Download the jar file and run with `java -jar MercuryTrade.jar`
-          - **EXE file**: Download and run the executable directly on Windows
+          - **JAR version**: Extract the zip file and run with `java -jar MercuryTrade.jar`
+          - **EXE version**: Extract the zip file and run the executable directly on Windows
           
           ### Requirements
           - Java 8 or higher
@@ -146,8 +146,6 @@ jobs:
           release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-jar.zip
           release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-exe.zip
           release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-lang.zip
-          release_files/MercuryTrade.jar
-          release_files/MercuryTrade.exe
         draft: false
         prerelease: false
       env:
