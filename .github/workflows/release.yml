@@ -85,15 +85,19 @@ jobs:
       run: |
         cd release_files
         
-        # Create JAR package
+        # Create JAR package with complete directory structure including resources
         mkdir -p MercuryTrade-jar
         cp MercuryTrade.jar MercuryTrade-jar/
         cp HOW_TO_RUN_JAR.txt MercuryTrade-jar/
+        # Copy the entire MercuryTrade directory structure (including resources)
+        cp -r MercuryTrade/* MercuryTrade-jar/
         zip -r MercuryTrade-${{ steps.get_version.outputs.version }}-jar.zip MercuryTrade-jar/
         
-        # Create EXE package
+        # Create EXE package with complete directory structure including resources
         mkdir -p MercuryTrade-exe
         cp MercuryTrade.exe MercuryTrade-exe/
+        # Copy the entire MercuryTrade directory structure (including resources)
+        cp -r MercuryTrade/* MercuryTrade-exe/
         zip -r MercuryTrade-${{ steps.get_version.outputs.version }}-exe.zip MercuryTrade-exe/
         
         # Create language package
