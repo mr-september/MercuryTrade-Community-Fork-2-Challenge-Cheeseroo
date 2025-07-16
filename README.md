@@ -1,10 +1,12 @@
-# MercuryTrade Community Fork 2: Lightning Shockeroo ⚡
+<div align="center">
+
+# MercuryTrade Community Fork 2: Challenge Cheeseroo 🧀
 
 <p align="center">
   <img src="http://i.imgur.com/VjzWm5F.png" alt="MercuryTrade Screenshot"/>
 </p>
 
-**MercuryTrade Community Fork 2: Lightning Shockaroo** is a powerful, feature-rich overlay application for Path of Exile that revolutionizes your trading experience and gameplay monitoring. Built by active PoE players, this fork introduces cutting-edge enhancements while maintaining the reliability you expect.
+**MercuryTrade Community Fork 2: Challenge Cheeseroo** is a powerful, feature-rich overlay application for Path of Exile that revolutionizes your trading experience and gameplay monitoring. Built by active PoE players, this fork introduces cutting-edge enhancements while maintaining the reliability you expect.
 
 [![GitHub release](https://img.shields.io/github/release/mr-september/MercuryTrade-Community-Fork.svg)](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
 [![GitHub downloads](https://img.shields.io/github/downloads/mr-september/MercuryTrade-Community-Fork/total.svg)](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
@@ -21,21 +23,33 @@
 **Already more than 10k happy users!** This project is maintained by passionate Path of Exile players in their free time. Your support helps us continue developing new features and fixing bugs.
 
 ### 💰 Donate
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN)
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q11I49GI)
+<p align="center">
+<a href="https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN">
+  <img src="https://raw.githubusercontent.com/andreostrovsky/donate-with-paypal/925c5a9e397363c6f7a477973fdeed485df5fdd9/blue.svg" alt="PayPal" height="28">
+</a>
+<a href="https://ko-fi.com/Q5Q11I49GI">
+  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" height="28">
+</a>
+<a href="https://liberapay.com/mr-september/donate">
+  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="28">
+</a>
+</p>
+
 
 ### 🌟 Other Ways to Help
-- ⭐ **Star the repository** to show your support
-- 🐦 **Share** to help others discover MercuryTrade
-- 📝 **Write reviews** and share your experience
-- 🎥 **Create content** - tutorials, guides, or showcase videos
+⭐ **Star the repository** to show your support  
+🐦 **Share** to help others discover MercuryTrade  
+📝 **Write reviews** and share your experience  
+🎥 **Create content** - tutorials, guides, or showcase videos
 
 ---
+
+</div>
 
 ## Table of Contents
 
 - [🚀 Quick Start](#-quick-start)
-- [⚡ New Lightning Features](#-new-lightning-features)
+- [🧀 New Features](#-new-features)
 - [🎯 Core Features](#-core-features)
 - [💻 System Requirements](#-system-requirements)
 - [🔧 Installation](#-installation)
@@ -56,7 +70,7 @@
 
 > ⚠️ **Important**: Path of Exile must NOT be in fullscreen mode for the overlay to work properly.
 
-## ⚡ New Lightning Features
+## 🧀 New Features
 
 ### 🔍 Improved Chat Scanner with "+text" REsponse Support
 **Plus Text Feature** automatically detects and responds to modern Path of Exile chat pattern:
@@ -255,13 +269,13 @@ We welcome contributions from the community! Here's how you can help:
 
 ## 📝 Changelog
 
-### Version 1.6.0 - Lightning Release ⚡
+### Version 1.6.0 - Public Release 🧀
 - **NEW**: Plus Text Feature for modern chat patterns
 - **NEW**: Start operator (^) for advanced filtering
 - **IMPROVED**: Performance optimizations and UI enhancements
 - **FIXED**: Various stability improvements and bug fixes
 
-### Version 1.5.0 - Fork 2 Beginnings ⚡
+### Version 1.5.0 - Fork 2 Beginnings 🧀
 - **NEW**: New button to join channel (useful when the channel is crowded and you get kicked between instances). Default 820 but can be set to anything you want.
 - **IMPROVED**: Performance optimizations and UI enhancements
 - **FIXED**: Various stability improvements and bug fixes
@@ -277,7 +291,7 @@ For complete changelog, see [Releases](https://github.com/mr-september/MercuryTr
 ---
 
 <p align="center">
-  <strong>MercuryTrade Community Fork 2: Lightning Shockaroo</strong> ⚡
+  <strong>MercuryTrade Community Fork 2: Challenge Cheeseroo</strong> 🧀
 </p>
 
 <p align="center">
@@ -294,5 +308,18 @@ For complete changelog, see [Releases](https://github.com/mr-september/MercuryTr
 </p>
 
 <p align="center">
-  <sub>🚀 Join thousands of traders who've upgraded their PoE experience with Lightning Shockaroo!</sub>
+  <sub>🚀 Join thousands of exiles who've upgraded their PoE experience with Challenge Cheeseroo!</sub>
 </p>
+
+## Star History
+
+<div align="center">
+  <h2>Star History</h2>
+  <a href="https://www.star-history.com/#mr-september/MercuryTrade-Community-Fork-2-Challenge-Cheeseroo&Date">
+   <picture>
+     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=mr-september/MercuryTrade-Community-Fork-2-Challenge-Cheeseroo&type=Date&theme=dark" />
+     <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=mr-september/MercuryTrade-Community-Fork-2-Challenge-Cheeseroo&type=Date" />
+     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=mr-september/MercuryTrade-Community-Fork-2-Challenge-Cheeseroo&type=Date" />
+   </picture>
+  </a>
+</div>
