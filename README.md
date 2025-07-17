@@ -57,7 +57,6 @@
 - [🔧 Installation](#-installation)
 - [📖 Usage Guide](#-usage-guide)
 - [🛠️ Building from Source](#️-building-from-source)
-- [🤝 Contributing](#-contributing)
 - [ Changelog](#-changelog)
 
 ## 🚀 Quick Start
@@ -238,36 +237,6 @@ git push origin v1.5.0
 ```
 
 For detailed build instructions, see [BUILD_AUTOMATION.md](BUILD_AUTOMATION.md).
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### Ways to Contribute
-- 🐛 **Bug Reports**: Found an issue? [Create an issue](https://github.com/mr-september/MercuryTrade-Community-Fork/issues)
-- 💡 **Feature Requests**: Have an idea? [Suggest it here](https://github.com/mr-september/MercuryTrade-Community-Fork/issues)
-- 🔧 **Code Contributions**: Submit pull requests for bug fixes or new features
-- 📚 **Documentation**: Help improve our docs and guides
-- 🌍 **Translations**: Help translate the application to new languages
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and test thoroughly
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
-
-### Code Style
-- Follow existing code conventions
-- Include tests for new features
-- Update documentation as needed
-
-### 🎯 What Your Support Enables
-- 🚀 **Faster Development**: More time for features and bug fixes
-- 🧪 **Better Testing**: Comprehensive testing across different systems
-- 📈 **Enhanced Features**: More advanced functionality and improvements
-- 🌐 **Community Growth**: Better documentation and user support
 
 ## 📝 Changelog
 
