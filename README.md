@@ -18,9 +18,9 @@
 ### 📥 Download Now
 [🏷️ **Latest Release**](https://github.com/mr-september/MercuryTrade-Community-Fork/releases) | [☕ **Java 8+**](https://java.com/download) | [📚 **Documentation**](https://github.com/mr-september/MercuryTrade-Community-Fork/wiki)
 
-## 💖 Support the Project
+## 💖 Support FOSS Projects
 
-**Already more than 10k happy users!** This project is maintained by passionate Path of Exile players in their free time. Your support helps us continue developing new features and fixing bugs.
+**My work developing, contributing to, and maintaing FOSS software is made possible solely by your donations. Your support is vital to the ongoing development of open-source software.**
 
 <p align="center">
 <a href="https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN">
