@@ -24,7 +24,7 @@
 
 <p align="center">
 <a href="https://www.paypal.com/donate/?hosted_button_id=WFXL2T42BBCRN">
-  <img src="https://raw.githubusercontent.com/andreostrovsky/donate-with-paypal/925c5a9e397363c6f7a477973fdeed485df5fdd9/blue.svg" alt="PayPal" height="36">
+  <img src="https://raw.githubusercontent.com/mr-september/central_automation_hub/refs/heads/main/bluePayPalbutton.svg" alt="PayPal" height="36">
 </a>
 <a href="https://ko-fi.com/Q5Q11I49GI">
   <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Ko-fi" height="36">
