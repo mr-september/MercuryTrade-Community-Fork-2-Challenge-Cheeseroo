@@ -316,8 +316,6 @@ For complete changelog, see [Releases](https://github.com/mr-september/MercuryTr
   <sub>🚀 Join thousands of exiles who've upgraded their PoE experience with Challenge Cheeseroo!</sub>
 </p>
 
-## Star History
-
 <div align="center">
   <h2>Star History</h2>
   <a href="https://www.star-history.com/#mr-september/MercuryTrade-Community-Fork-2-Challenge-Cheeseroo&Date">
