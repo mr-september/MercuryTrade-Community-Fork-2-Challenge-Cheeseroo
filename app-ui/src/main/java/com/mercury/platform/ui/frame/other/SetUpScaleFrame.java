@@ -19,7 +19,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
     private Map<String, Float> scaleData;
 
     private final static int MIN_SCALE = 5;
-    private final static int MAX_SCALE = 20;
+    private final static int MAX_SCALE = 100; // Increased from 20 to allow up to 1000% (10x) scaling
 
     public SetUpScaleFrame() {
         super();

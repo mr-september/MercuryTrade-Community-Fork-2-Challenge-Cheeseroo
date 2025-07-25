@@ -247,7 +247,11 @@ public enum TranslationKey {
     hide_notifications("Hide notifications until next incoming or manually shown"),
     show_notifications("Show notifications"),
     disable_game_to_front("Disable game to front"),
-    disable_game_to_front_tt("Don't check this checkbox until you know what you are doing.<br/>It will disable force putting game to front<br/>which can sometimes make buttons on notification to invite/kick etc not working")
+    disable_game_to_front_tt("Don't check this checkbox until you know what you are doing.<br/>It will disable force putting game to front<br/>which can sometimes make buttons on notification to invite/kick etc not working"),
+    auto_scaling("Auto-Scaling"),
+    recommended_value("Recommended: %s"),
+    set_to_recommended("Set to recommended"),
+    current_value("Current: %s")
     ;
 
     private String defaultValue;

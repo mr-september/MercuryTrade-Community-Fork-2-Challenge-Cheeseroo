@@ -44,6 +44,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+// Display detection imports
+import com.mercury.platform.ui.scaling.DisplayDetector;
+import com.mercury.platform.ui.scaling.ScalingLookupTable;
+
 /**
  * Factory for each element which uses in application
  */
@@ -81,6 +85,120 @@ public class ComponentsFactory {
         UIManager.put("ComboBox.selectionBackground", AppThemeColor.HEADER);
         UIManager.put("ComboBox.selectionForeground", AppThemeColor.ADR_POPUP_BG);
         UIManager.put("ComboBox.disabledForeground", AppThemeColor.ADR_FOOTER_BG);
+    }
+
+    // Cache for display detection to avoid repeated expensive operations
+    private volatile DisplayDetector.DisplayInfo cachedDisplayInfo = null;
+    private volatile long lastDisplayDetectionTime = 0;
+    private static final long DISPLAY_CACHE_DURATION_MS = 30000; // 30 seconds cache
+
+    /**
+     * Detects the current display configuration and provides scaling recommendations.
+     * This method performs detection but does not automatically apply scaling.
+     * Results are cached for 30 seconds to improve performance.
+     * 
+     * @return DisplayDetector.DisplayInfo containing the detected display characteristics
+     */
+    public DisplayDetector.DisplayInfo detectDisplayConfiguration() {
+        long currentTime = System.currentTimeMillis();
+        
+        // Return cached result if it's still valid
+        if (cachedDisplayInfo != null && 
+            (currentTime - lastDisplayDetectionTime) < DISPLAY_CACHE_DURATION_MS) {
+            return cachedDisplayInfo;
+        }
+        
+        // Perform new detection and cache result
+        synchronized (this) {
+            // Double-check in case another thread updated it
+            if (cachedDisplayInfo != null && 
+                (currentTime - lastDisplayDetectionTime) < DISPLAY_CACHE_DURATION_MS) {
+                return cachedDisplayInfo;
+            }
+            
+            cachedDisplayInfo = DisplayDetector.detectPrimaryDisplay();
+            lastDisplayDetectionTime = currentTime;
+            return cachedDisplayInfo;
+        }
+    }
+
+    /**
+     * Forces a refresh of the cached display configuration.
+     * Call this when you know the display setup has changed.
+     */
+    public void refreshDisplayConfiguration() {
+        synchronized (this) {
+            cachedDisplayInfo = null;
+            lastDisplayDetectionTime = 0;
+        }
+    }
+
+    /**
+     * Gets scaling recommendations for the current display configuration.
+     * This method uses the lookup table to provide optimal scaling values.
+     * 
+     * @return ScalingLookupTable.ScalingRecommendation with recommended scaling values
+     */
+    public ScalingLookupTable.ScalingRecommendation getScalingRecommendations() {
+        try {
+            DisplayDetector.DisplayInfo displayInfo = detectDisplayConfiguration();
+            ScalingLookupTable.DisplayConfig displayConfig = displayInfo.toDisplayConfig();
+            return ScalingLookupTable.calculateRecommendation(displayConfig);
+        } catch (Exception e) {
+            // Fallback to safe default if detection fails
+            System.err.println("[ComponentsFactory] Failed to get scaling recommendations, using defaults: " + e.getMessage());
+            return new ScalingLookupTable.ScalingRecommendation(
+                1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 
+                "Fallback recommendation due to detection failure"
+            );
+        }
+    }
+
+    /**
+     * Detects all available displays in a multi-monitor setup.
+     * 
+     * @return Array of DisplayInfo objects for all detected displays
+     */
+    public DisplayDetector.DisplayInfo[] detectAllDisplays() {
+        return DisplayDetector.detectAllDisplays();
+    }
+
+    /**
+     * Gets a formatted string with current display information for debugging.
+     * This method provides human-readable display configuration details.
+     * 
+     * @return Formatted string containing display information and scaling recommendations
+     */
+    public String getDisplayConfigurationInfo() {
+        DisplayDetector.DisplayInfo displayInfo = detectDisplayConfiguration();
+        ScalingLookupTable.ScalingRecommendation recommendation = getScalingRecommendations();
+        
+        StringBuilder info = new StringBuilder();
+        info.append("=== Display Configuration ===\n");
+        info.append(displayInfo.toString()).append("\n");
+        info.append("Current Application Scale: ").append((scale * 100)).append("%\n");
+        info.append("\n=== Scaling Recommendations ===\n");
+        info.append("Base Scale: ").append((recommendation.baseScale * 100)).append("%\n");
+        info.append("Notification Scale: ").append((recommendation.notificationScale * 100)).append("%\n");
+        info.append("Taskbar Scale: ").append((recommendation.taskbarScale * 100)).append("%\n");
+        info.append("Item Cell Scale: ").append((recommendation.itemCellScale * 100)).append("%\n");
+        info.append("Other Scale: ").append((recommendation.otherScale * 100)).append("%\n");
+        info.append("Reasoning: ").append(recommendation.reasoning).append("\n");
+        
+        return info.toString();
+    }
+
+    /**
+     * Checks if the current scaling is optimal for the detected display.
+     * 
+     * @return true if current scale is within 10% of recommended base scale
+     */
+    public boolean isCurrentScalingOptimal() {
+        ScalingLookupTable.ScalingRecommendation recommendation = getScalingRecommendations();
+        float recommendedScale = recommendation.baseScale;
+        float tolerance = 0.1f; // 10% tolerance
+        
+        return Math.abs(scale - recommendedScale) <= tolerance;
     }
 
     /**
