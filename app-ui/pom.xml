@@ -11,13 +11,14 @@
     </parent>
     <packaging>jar</packaging>
     <artifactId>app-ui</artifactId>
+    <version>1.6.2</version>
 
     <dependencies>
         <!--internal-->
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-core</artifactId>
-            <version>${project.version}</version>
+            <version>1.6.2</version>
         </dependency>
         <dependency>
             <groupId>com.home.mercury</groupId>
