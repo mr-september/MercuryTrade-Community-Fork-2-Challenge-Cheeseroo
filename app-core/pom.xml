@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.home.mercury</groupId>
         <artifactId>MercuryTrade</artifactId>
-        <version>${project.version}</version>
+        <version>1.6.2</version>
     </parent>
 
     <packaging>jar</packaging>
@@ -26,10 +26,6 @@
         <dependency>
             <groupId>com.1stleg</groupId>
             <artifactId>jnativehook</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -86,16 +82,20 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.github.sheigutn</groupId>
             <artifactId>pushbullet-java-8</artifactId>
             <version>1.3.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.websocket</groupId>
+                    <artifactId>javax.websocket-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
@@ -111,8 +111,14 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <release>8</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>
