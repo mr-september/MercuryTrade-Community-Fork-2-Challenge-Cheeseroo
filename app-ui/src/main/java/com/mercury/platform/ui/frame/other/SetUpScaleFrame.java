@@ -85,7 +85,7 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
     }
 
     private JPanel getScaleSettingsPanel() {
-        JPanel root = componentsFactory.getTransparentPanel(new GridLayout(2, 1));
+        JPanel root = componentsFactory.getTransparentPanel(new GridLayout(1, 1));
         JLabel iconLabel = componentsFactory.getTextLabel(
             FontStyle.REGULAR,
             AppThemeColor.TEXT_DEFAULT,
@@ -110,6 +110,9 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
             repaint();
         });
 
+        // Text scaling feature is not fully implemented yet
+        // TODO: Add textScaleSubject to MercuryStoreUI and wire up text scaling
+        /*
         JLabel textLabel = componentsFactory.getTextLabel(
                 FontStyle.REGULAR,
                 AppThemeColor.TEXT_DEFAULT,
@@ -133,8 +136,10 @@ public class SetUpScaleFrame extends AbstractOverlaidFrame {
             repaint();
         });
         
-        root.add(componentsFactory.getSliderSettingsPanel(iconLabel, iconValue, iconSlider));
         root.add(componentsFactory.getSliderSettingsPanel(textLabel, textValue, textSlider));
+        */
+        
+        root.add(componentsFactory.getSliderSettingsPanel(iconLabel, iconValue, iconSlider));
         return root;
     }
 
