@@ -4,7 +4,7 @@ All notable changes to MercuryTrade Community Fork 2: Challenge Cheeseroo will b
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [1.6.3] - 2026-03-30
 
 ### Added
 - Comprehensive CodeQL security analysis integration with GitHub Actions
