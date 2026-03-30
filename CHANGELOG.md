@@ -121,7 +121,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Version History
 
-- **1.6.x**: Security hardening, CodeQL integration, and build system improvements
+- **1.7.x**: Security hardening, CodeQL integration, and build system improvements
+- **1.6.x**: Repository cleanup and documentation improvements
 - **1.5.x**: Community features and channel management
 - **1.4.x**: Enhanced notification and scanning systems
 - **1.3.x**: Overseer and capture functionality
