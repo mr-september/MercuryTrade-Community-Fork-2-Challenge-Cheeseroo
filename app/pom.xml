@@ -6,23 +6,23 @@
     <parent>
         <groupId>com.home.mercury</groupId>
         <artifactId>MercuryTrade</artifactId>
-        <version>1.6.2</version>
+        <version>1.7.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <packaging>jar</packaging>
     <artifactId>app</artifactId>
-    <version>1.6.2</version>
+    <version>1.7.0</version>
     <dependencies>
         <!--internal-->
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-ui</artifactId>
-            <version>1.6.2</version>
+            <version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-core</artifactId>
-            <version>1.6.2</version>
+            <version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
