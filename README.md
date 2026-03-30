@@ -240,27 +240,28 @@ For detailed build instructions, see [BUILD_AUTOMATION.md](BUILD_AUTOMATION.md).
 
 ## 📝 Changelog
 
-### Version 1.6.1 and 1.6.2 - Debugging and Debloating 🧀
-- Fixed and unfixed and refixed some mistakes. Oops.
+For a complete list of changes, see the [CHANGELOG.md](CHANGELOG.md) file.
 
-### Version 1.6.0 - Public Release 🧀
-- **NEW**: Plus Text Feature for modern chat patterns
-- **NEW**: Start operator (^) for advanced filtering
-- **IMPROVED**: Performance optimizations and UI enhancements
-- **FIXED**: Various stability improvements and bug fixes
+### Recent Highlights
 
-### Version 1.5.0 - Fork 2 Beginnings 🧀
-- **NEW**: New button to join channel (useful when the channel is crowded and you get kicked between instances). Default 820 but can be set to anything you want.
-- **IMPROVED**: Performance optimizations and UI enhancements
-- **FIXED**: Various stability improvements and bug fixes
+**v1.6.x - Security & Build Improvements**
+- Comprehensive CodeQL security analysis integration
+- Java 8 compatibility enhancements
+- Maven multi-module build fixes
+- GitHub Actions CI/CD improvements
 
-### Previous Versions
-- **v1.4.x**: Enhanced notification system and chat scanner improvements
-- **v1.3.x**: Overseer system with capture functionality
-- **v1.2.x**: Stash highlighting and history management
-- **v1.1.x**: Core trading functionality and notification system
+**v1.6.0 - Public Release**
+- Auto-scaling with display detection
+- Enhanced EDT safety for UI operations
+- Configuration service hardening
+- Performance optimizations
 
-For complete changelog, see [Releases](https://github.com/mr-september/MercuryTrade-Community-Fork/releases).
+**v1.5.0 - Community Features**
+- Channel join button for crowded channels
+- Performance and UI enhancements
+- Stability improvements
+
+For detailed release notes, see [Releases](https://github.com/mr-september/MercuryTrade-Community-Fork/releases).
 
 ---
 

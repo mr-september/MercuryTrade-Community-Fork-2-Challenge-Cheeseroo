@@ -78,3 +78,12 @@ release_files/resources/
 release_files/launch4j.log
 release_files/lang.zip
 
+# Build and test logs
+*.log
+build_mercury*.log
+mvn-selected-tests.log
+targeted-app-ui-tests.log
+app-core-selected-tests.log
+app-ui-selected-tests.log
+maven_err*.txt
+
