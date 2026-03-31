@@ -61,6 +61,7 @@ public class HistoryManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void add(NotificationDescriptor notificationDescriptor) {
         JSONParser parser = new JSONParser();
         try {

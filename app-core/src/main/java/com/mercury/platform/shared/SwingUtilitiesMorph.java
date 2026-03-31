@@ -367,6 +367,9 @@ public class SwingUtilitiesMorph {
         }
     }
 
+    // Maintain a static 1x1 dummy image purely to extract an impartial coordinate space for font metrics when JComponent and Graphics are completely inaccessible.
+    private static final java.awt.image.BufferedImage FONT_METRICS_DUMMY = new java.awt.image.BufferedImage(1, 1, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+
     public static FontMetrics getFontMetrics(JComponent c, Graphics g,
                                              Font font) {
         if (c != null) {
@@ -375,6 +378,9 @@ public class SwingUtilitiesMorph {
             // mismatches when printing.
             return c.getFontMetrics(font);
         }
-        return Toolkit.getDefaultToolkit().getFontMetrics(font);
+        if (g != null) {
+            return g.getFontMetrics(font);
+        }
+        return FONT_METRICS_DUMMY.createGraphics().getFontMetrics(font);
     }
 }

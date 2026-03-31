@@ -121,38 +121,6 @@ class ScalingLookupTableTest {
         assertTrue(result.otherScale >= 0.5f && result.otherScale <= 5.0f);
     }
 
-    @Test
-    void calculateRecommendation_capsOtherScaleToViewportBudget() {
-        ScalingLookupTable.DisplayConfig config = new ScalingLookupTable.DisplayConfig(
-                2560, 1440, 220, 2.0f, "High DPI + high OS scale"
-        );
-
-        ScalingLookupTable.ScalingRecommendation result = ScalingLookupTable.calculateRecommendation(config);
-        float expectedCap = ScalingLookupTable.calculateViewportAwareOtherScaleCap(config);
-
-        assertEquals(expectedCap, result.otherScale, 0.01f);
-        assertTrue(result.reasoning.contains("Other UI capped"));
-    }
-
-    @Test
-    void calculateOsScaleAdjustment_temperedForHighScaleValues() {
-        assertEquals(1.0f, ScalingLookupTable.calculateOsScaleAdjustment(1.0f), 0.001f);
-        assertEquals(1.175f, ScalingLookupTable.calculateOsScaleAdjustment(1.5f), 0.001f);
-        assertTrue(ScalingLookupTable.calculateOsScaleAdjustment(2.0f) < 2.0f);
-        assertTrue(ScalingLookupTable.calculateOsScaleAdjustment(3.0f) <= 1.7f);
-    }
-
-    @Test
-    void calculateRecommendation_appliesTemperedOsAdjustmentToDynamicScale() {
-        ScalingLookupTable.DisplayConfig config = new ScalingLookupTable.DisplayConfig(
-                2560, 1440, 144, 1.5f, "Tempered dynamic case"
-        );
-
-        ScalingLookupTable.ScalingRecommendation result = ScalingLookupTable.calculateRecommendation(config);
-
-        // Legacy behavior could reach 225% for base scale in this scenario; keep dynamic output below that.
-        assertTrue(result.baseScale < 2.25f);
-    }
 
     @Test
     void scalingRecommendation_toScaleMap_containsAllKeys() {

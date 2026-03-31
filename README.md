@@ -179,7 +179,8 @@ Focus on your gameplay:
 ### Option 2: Windows Executable
 1. Download `MercuryTrade.exe` from [Latest Release](https://github.com/mr-september/MercuryTrade-Community-Fork/releases)
 2. **Run as Administrator** (recommended for full functionality)
-3. If the JAR version doesn't work, try this alternative launcher
+
+> 💡 **Note on Windows SmartScreen**: The `.exe` is provided as a convenient wrapper around the `.jar` to streamline launching on Windows. Because it is an open-source community tool currently without a commercial digital certificate, Windows may flag it as an "unrecognized app". This is a common false-positive; you can bypass it simply by clicking "More info" > "Run anyway". If you prefer, the underlying `.jar` (Option 1) provides identical functionality.
 
 ### First Time Setup
 1. **Tutorial**: Follow the built-in tutorial on first launch
