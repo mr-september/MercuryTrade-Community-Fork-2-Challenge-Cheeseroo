@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 
 public class MessageFileHandler implements AsSubscriber {
     private static final String dateRGPattern = "^\\n?[0-9]{4}\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])\\s([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$";
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final Logger logger = LogManager.getLogger(MessageFileHandler.class);
     private String logFilePath;
     private Date lastMessageDate = new Date();
@@ -80,8 +82,11 @@ public class MessageFileHandler implements AsSubscriber {
             Matcher m = p.matcher(message);
             if (m.find()) {
                 try {
-                    Date date = new Date(StringUtils.substring(message, 0, 20));
+                    Date date = DATE_FORMAT.parse(StringUtils.substring(message, 0, 20));
                     return date.after(lastMessageDate);
+                } catch (ParseException e) {
+                    logger.error("Error while parsing date from message: " + message, e);
+                    return false;
                 } catch (Exception e) {
                     logger.error("Error while parsing message: " + message, e);
                     return false;
@@ -95,7 +100,11 @@ public class MessageFileHandler implements AsSubscriber {
         this.interceptors.forEach(interceptor -> {
             resultMessages.forEach(message -> {
                 if (interceptor.match(message)) {
-                    this.lastMessageDate = new Date(StringUtils.substring(message, 0, 20));
+                    try {
+                        this.lastMessageDate = DATE_FORMAT.parse(StringUtils.substring(message, 0, 20));
+                    } catch (ParseException e) {
+                        logger.error("Error while parsing date from message: " + message, e);
+                    }
                 }
             });
         });

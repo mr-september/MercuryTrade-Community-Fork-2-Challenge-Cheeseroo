@@ -86,4 +86,9 @@ targeted-app-ui-tests.log
 app-core-selected-tests.log
 app-ui-selected-tests.log
 maven_err*.txt
+build_log.txt
+AUDIT_REPORT.md
+
+# Maven repository
+.m2/
 

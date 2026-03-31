@@ -1103,6 +1103,16 @@ public class ComponentsFactory {
         this.scale = scale;
     }
 
+    /**
+     * Creates a copy of this ComponentsFactory with the same scale.
+     * Useful for testing where a fresh instance is needed.
+     */
+    public ComponentsFactory copy() {
+        ComponentsFactory copy = new ComponentsFactory();
+        copy.setScale(this.scale);
+        return copy;
+    }
+
     private Font getSelectedFont(FontStyle fontStyle, String text, Float deriveFont) {
         Font result = null;
         result = fetchByLanguage(text, fontStyle);

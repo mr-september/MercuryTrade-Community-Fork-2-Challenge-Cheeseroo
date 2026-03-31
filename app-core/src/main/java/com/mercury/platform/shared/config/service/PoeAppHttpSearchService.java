@@ -1,19 +1,19 @@
 package com.mercury.platform.shared.config.service;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,21 +103,17 @@ public class PoeAppHttpSearchService extends HttpItemSearchService {
 
     @Override
     public String test() {
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost request = new HttpPost("http://poe.trade/search");
         setRequestHeaders(request);
-        try {
-            request.setEntity(new UrlEncodedFormEntity(getFormData(), HTTP.UTF_8));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        request.setEntity(new UrlEncodedFormEntity(getFormData(), Consts.UTF_8));
         HttpResponse response = null;
         try {
             response = httpClient.execute(request);
             if (response != null) {
                 String url = response.getFirstHeader("Location").getValue();
                 try {
-                    response.getEntity().consumeContent();
+                    EntityUtils.consume(response.getEntity());
 
                     HttpGet httpGet = new HttpGet(url);
                     response = httpClient.execute(httpGet);

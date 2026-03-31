@@ -308,8 +308,15 @@ public class TaskBarPanel extends JPanel implements ViewInit {
     }
 
     public int getWidthOf(int elementCount) {
-        int size = this.getPreferredSize().width / (this.getComponentCount() / 2);
-        return size * elementCount + 3;
+        Component[] comps = this.getComponents();
+        int width = 0;
+        
+        // Structure: button(0), spacer(1), button(2), spacer(3), ...
+        for (int i = 0; i < elementCount * 2 && i < comps.length; i++) {
+            width += comps[i].getPreferredSize().width;
+        }
+        
+        return width;
     }
 
     private void showHideMessageNotificationSubscribe(JButton messageNotificationsHide, ToggleAdapter toggleAdapter) {
