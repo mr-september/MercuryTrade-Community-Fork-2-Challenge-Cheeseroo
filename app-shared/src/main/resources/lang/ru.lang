@@ -8,8 +8,8 @@ pause = Пауза
 stop = Остановить
 // Reset
 reset = Сброс
-// Do not Disturb. MercuryTrade goes invisible.
-do_not_disturb = Не беспокоить. MercuryTrade становится невидимым.
+// Do not Disturb. MercuryChat goes invisible.
+do_not_disturb = Не беспокоить. MercuryChat становится невидимым.
 // SuperTradeMode. All notifications you receive will be unfolded.
 trade_mode = СуперТорговыйРежим. Все уведомления будут раскрыты.
 // Chat Scanner. All chat messages with matching words will be displayed in a separate window.
@@ -30,8 +30,8 @@ unlock_panel_tt = Разблокировка панели. Разблокиру�
 settings = Настройки
 // Item Grid. Align this grid with your in-game stash.
 item_grid = Решетка предметов. Совместите эту решетку с вашим игровым тайником.
-// Scale. Adjust MercuryTrade components size to your taste.
-scale_settings_tt = Масштаб. Настройте размеры компонентов MercuryTrade на свой вкус.
+// Scale. Adjust MercuryChat components size to your taste.
+scale_settings_tt = Масштаб. Настройте размеры компонентов MercuryChat на свой вкус.
 // Exit
 exit = Выход
 // Pushbullet notifications on trade messages
@@ -298,8 +298,8 @@ pre_group_limit = Лимит предварительной группы
 enabled = Включено
 // When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
 automatic_paste_description = Когда вы копируете текст в формате сообщения о торговле, он автоматически вставляется в окно чата в PoE
-// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
-example_description = Пример: нажмите "Шепнуть", сообщение будет скопировано в буфер обмена => MT вставляет его в чат в PoE.
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MC will paste it into chat in PoE.
+example_description = Пример: нажмите "Шепнуть", сообщение будет скопировано в буфер обмена => MC вставляет его в чат в PoE.
 // Close panel on kick button pressed
 close_panel_on_kick_button_pressed = Закрыть панель при нажатии кнопки выключить
 // Show league
@@ -330,8 +330,8 @@ chat_scanner = Чат-сканер
 clicks = Клики
 // Update notification
 update_notification = Уведомление об обновлении
-// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
-donate_text = Мы создали удобное приложение для удобства торговли. MercuryTrade сэкономило ваше время или улучшило ваш опыт — поддержите нас донатом или расскажите друзьям!
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryChat successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = Мы создали удобное приложение для удобства торговли. MercuryChat сэкономило ваше время или улучшило ваш опыт — поддержите нас донатом или расскажите друзьям!
 // Thanks a lot for support
 thanks_for_support = Огромное спасибо за поддержку
 // Enable in-game dnd
@@ -424,8 +424,8 @@ next = Дальше
 previous = Назад
 // Download
 download = Скачать
-// Welcome to MercuryTrade
-welcome = Добро пожаловать в MercuryTrade
+// Welcome to MercuryChat
+welcome = Добро пожаловать в MercuryChat
 // Restart
 restart = Перезапуск
 // New

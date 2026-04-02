@@ -182,13 +182,13 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
             this.currentInterceptor = new MessageInterceptor() {
                 @Override
                 protected void process(String stubMessage) {
-                    messageBuilder.setChunkStrings(Arrays.asList(strings));
+                    messageBuilder.setChunkStrings(contains);
                     String message = StringUtils.substringAfter(stubMessage, "] $");
                     if (message.isEmpty()) {
                         message = StringUtils.substringAfter(stubMessage, "] #");
                     }
                     if (!message.isEmpty()) {
-                        Pattern pattern = Pattern.compile("^(\\<.+?\\>)?\\s?(.+?):(.+)$");
+                        Pattern pattern = Pattern.compile("^(?:.*\\s)?(.+?):\\s?(.+)$");
                         Matcher matcher = pattern.matcher(message);
                         if (matcher.find() && !expiresMessages.containsValue(message)) {
                             PlainMessageDescriptor descriptor = new PlainMessageDescriptor();

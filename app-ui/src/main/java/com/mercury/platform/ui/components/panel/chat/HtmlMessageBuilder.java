@@ -1,7 +1,7 @@
 package com.mercury.platform.ui.components.panel.chat;
 
 
-import org.apache.commons.lang3.StringUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +25,8 @@ public class HtmlMessageBuilder {
         stringBuilder.append("<html>");
         this.stubMessage = message;
         this.chunkStrings.forEach(it -> {
-            if (StringUtils.containsIgnoreCase(message, it)) {
-                this.stubMessage = stubMessage.replaceAll("(?i)" + it, "<font color=\"#FFD393\">" + it + "</font>");
+            if (!it.isEmpty()) {
+                this.stubMessage = stubMessage.replaceAll("(?i)" + java.util.regex.Pattern.quote(it), "<font color=\"#FFD393\">$0</font>");
             }
         });
         stringBuilder.append(this.stubMessage);

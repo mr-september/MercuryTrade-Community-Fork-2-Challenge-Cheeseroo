@@ -8,8 +8,8 @@ pause = Wstrzymaj
 stop = Zatrzymaj
 // Reset
 reset = Resetuj
-// Do not Disturb. MercuryTrade goes invisible.
-do_not_disturb = Nie przeszkadzać. MercuryTrade staje się niewidzialny.
+// Do not Disturb. MercuryChat goes invisible.
+do_not_disturb = Nie przeszkadzać. MercuryChat staje się niewidzialny.
 // SuperTradeMode. All notifications you receive will be unfolded.
 trade_mode = SuperTradeMode. Wszystkie otrzymane powiadomienia zostaną rozwinięte.
 // Chat Scanner. All chat messages with matching words will be displayed in a separate window.
@@ -30,8 +30,8 @@ unlock_panel_tt = Odblokowanie panelu. Odblokuj panele, aby zmienić ich położ
 settings = Ustawienia
 // Item Grid. Align this grid with your in-game stash.
 item_grid = Siatka przedmiotów. Wyrównaj tę siatkę z twoją skrytką w grze.
-// Scale. Adjust MercuryTrade components size to your taste.
-scale_settings_tt = Skaluj. Dostosuj rozmiar komponentów MercuryTrade do swoich preferencji.
+// Scale. Adjust MercuryChat components size to your taste.
+scale_settings_tt = Skaluj. Dostosuj rozmiar komponentów MercuryChat do swoich preferencji.
 // Exit
 exit = Wyjście
 // Pushbullet notifications on trade messages
@@ -298,8 +298,8 @@ pre_group_limit = Limit przed łączeniem grupy
 enabled = Włączone
 // When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
 automatic_paste_description = Gdy skopiujesz tekst w formacie wiadomości handlowej, zostanie on automatycznie wklejony do okna czatu w PoE
-// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
-example_description = Przykład: kliknij przycisk „Szept”, wiadomość zostanie skopiowana do twojego schowka => MT wklei ją do czatu w PoE.
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MC will paste it into chat in PoE.
+example_description = Przykład: kliknij przycisk „Szept”, wiadomość zostanie skopiowana do twojego schowka => MC wklei ją do czatu w PoE.
 // Close panel on kick button pressed
 close_panel_on_kick_button_pressed = Zamknij panel po naciśnięciu przycisku „Wyrzuć”
 // Show league
@@ -330,8 +330,8 @@ chat_scanner = Skaner czatu
 clicks = Kliknięcia
 // Update notification
 update_notification = Powiadomienie o aktualizacji
-// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
-donate_text = Staraliśmy się stworzyć użyteczne narzędzie w formie łatwej w użyciu aplikacji, głównie w celu handlowym. Jeśli MercuryTrade pomyślnie oszczędził Ci czas lub poprawił doświadczenie, możesz nam podziękować, dokonując darowizny lub opowiadając o nas znajomym. Jeśli chcesz, aby Twoje imię pojawiło się w naszej aplikacji w sekcji Hall of Fame, prosimy o podanie tej informacji w transakcji!
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryChat successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = Staraliśmy się stworzyć użyteczne narzędzie w formie łatwej w użyciu aplikacji, głównie w celu handlowym. Jeśli MercuryChat pomyślnie oszczędził Ci czas lub poprawił doświadczenie, możesz nam podziękować, dokonując darowizny lub opowiadając o nas znajomym. Jeśli chcesz, aby Twoje imię pojawiło się w naszej aplikacji w sekcji Hall of Fame, prosimy o podanie tej informacji w transakcji!
 // Thanks a lot for support
 thanks_for_support = Dziękujemy za wsparcie
 // Enable in-game dnd
@@ -424,8 +424,8 @@ next = Następny
 previous = Poprzedni
 // download
 download = Pobierz
-// Welcome to MercuryTrade
-welcome = Witaj w MercuryTrade
+// Welcome to MercuryChat
+welcome = Witaj w MercuryChat
 // Restart
 restart = Zrestartuj
 // New

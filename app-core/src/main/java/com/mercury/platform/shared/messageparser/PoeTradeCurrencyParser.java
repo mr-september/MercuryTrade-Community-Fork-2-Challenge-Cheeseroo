@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 class PoeTradeCurrencyParser extends BaseRegexParser {
 
-    private static final String poeCurrencyPattern = "^(.*\\s)?(.+): (.+ to buy your (\\d+(\\.\\d+)?)? (.+) for my (\\d+(\\.\\d+)?)? (.+) in(.*?)\\.?\\s*(offer.*)?)$";
+    private static final String poeCurrencyPattern = "^(.*\\s)?(.+): (.+ to buy your (\\d+(\\.\\d+)?)? (.+) for my (\\d+(\\.\\d+)?)? (.+) in\\s+(.+?))$";
 
     public PoeTradeCurrencyParser() {
         super(poeCurrencyPattern);
@@ -21,22 +21,29 @@ class PoeTradeCurrencyParser extends BaseRegexParser {
     protected NotificationDescriptor parse(Matcher matcher, String whisper) {
         CurrencyTradeNotificationDescriptor tradeNotification = new CurrencyTradeNotificationDescriptor();
         if (matcher.group(6).contains("&") || matcher.group(6)
-                                                     .contains(",")) {  //todo this shit for bulk map
-            String bulkItems = matcher.group(4) + " " + matcher.group(6);
+                                                      .contains(",")) {  //todo this shit for bulk map
+            String bulkItems = matcher.group(4).trim() + " " + matcher.group(6).trim();
             tradeNotification.setItems(Arrays.stream(StringUtils.split(bulkItems, ",&"))
                                              .map(String::trim)
                                              .collect(Collectors.toList()));
         } else {
-            tradeNotification.setCurrForSaleCount(Double.parseDouble(matcher.group(4)));
-            tradeNotification.setCurrForSaleTitle(matcher.group(6));
+            tradeNotification.setCurrForSaleCount(Double.parseDouble(matcher.group(4).trim()));
+            tradeNotification.setCurrForSaleTitle(matcher.group(6).trim());
         }
 
-        tradeNotification.setWhisperNickname(matcher.group(2));
-        tradeNotification.setSourceString(matcher.group(3));
-        tradeNotification.setCurCount(Double.parseDouble(matcher.group(7)));
-        tradeNotification.setCurrency(matcher.group(9));
-        tradeNotification.setLeague(matcher.group(10));
-        tradeNotification.setOffer(matcher.group(11));
+        tradeNotification.setWhisperNickname(matcher.group(2).trim());
+        tradeNotification.setSourceString(matcher.group(3).trim());
+        tradeNotification.setCurCount(Double.parseDouble(matcher.group(7).trim()));
+        tradeNotification.setCurrency(matcher.group(9).trim());
+        String leagueAndOffer = matcher.group(10).trim();
+        if (leagueAndOffer.endsWith(".")) {
+            leagueAndOffer = leagueAndOffer.substring(0, leagueAndOffer.length() - 1).trim();
+        }
+        String[] split = leagueAndOffer.split("\\s+", 2);
+        tradeNotification.setLeague(split[0].trim());
+        if (split.length > 1) {
+            tradeNotification.setOffer(split[1].trim());
+        }
         tradeNotification.setType(NotificationType.INC_CURRENCY_MESSAGE);
         return tradeNotification;
     }

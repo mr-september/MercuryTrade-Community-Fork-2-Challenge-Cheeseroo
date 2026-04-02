@@ -73,7 +73,7 @@ public class NotesFrame extends AbstractTitledComponentFrame {
         JButton gitHub = componentsFactory.getBorderedButton("GitHub");
         gitHub.addActionListener(action -> {
             try {
-                Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/releases/latest"));
+                Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/releases/latest"));
             } catch (Exception e1) {
                 e1.printStackTrace();
             }

@@ -9,7 +9,7 @@ import com.mercury.platform.ui.components.ComponentsFactory;
 public class DisplayDetectionTest {
     
     public static void main(String[] args) {
-        System.out.println("=== Mercury Trade Display Detection Test ===\n");
+        System.out.println("=== MercuryChat Display Detection Test ===\n");
         
         try {
             // Test basic display detection

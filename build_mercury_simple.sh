@@ -1,29 +1,29 @@
 #!/bin/bash
-# MercuryTrade Simple Build Script - Build without packaging
+# MercuryChat Simple Build Script - Build without packaging
 # This script builds the JAR and creates Windows EXE without creating zip packages
 
-echo "MercuryTrade simple build starting (no packaging)..."
+echo "MercuryChat simple build starting (no packaging)..."
 
 # Clean and build with Maven
 echo "Running: mvn clean package"
 if mvn clean package; then
     echo "Maven build successful"
     # Copy JAR to release_files
-    echo "Copying MercuryTrade.jar from app/target to release_files"
-    cp app/target/MercuryTrade.jar release_files/
+    echo "Copying MercuryChat.jar from app/target to release_files"
+    cp app/target/MercuryChat.jar release_files/
     JAR_AVAILABLE=true
 else
     echo "Maven build failed. Will try to use existing JAR file."
     JAR_AVAILABLE=false
     
     # Check if there's an existing JAR file we can use
-    if [ -f "release_files/MercuryTrade-jar-fixed/MercuryTrade.jar" ]; then
-        echo "Using JAR from MercuryTrade-jar-fixed/"
-        cp release_files/MercuryTrade-jar-fixed/MercuryTrade.jar release_files/
+    if [ -f "release_files/MercuryChat-jar-fixed/MercuryChat.jar" ]; then
+        echo "Using JAR from MercuryChat-jar-fixed/"
+        cp release_files/MercuryChat-jar-fixed/MercuryChat.jar release_files/
         JAR_AVAILABLE=true
-    elif [ -f "app/target/MercuryTrade.jar" ]; then
+    elif [ -f "app/target/MercuryChat.jar" ]; then
         echo "Using existing JAR from app/target/"
-        cp app/target/MercuryTrade.jar release_files/
+        cp app/target/MercuryChat.jar release_files/
         JAR_AVAILABLE=true
     else
         echo "ERROR: No JAR file available. Cannot proceed with EXE creation."

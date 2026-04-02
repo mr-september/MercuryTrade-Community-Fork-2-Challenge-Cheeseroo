@@ -18,16 +18,30 @@ public class ScaleConfigurationService extends BaseConfigurationService<Map<Stri
     public void validate() {
         if (this.selectedProfile.getScaleDataMap() == null) {
             this.selectedProfile.setScaleDataMap(this.getDefault());
+        } else {
+            Map<String, Float> scaleDataMap = this.selectedProfile.getScaleDataMap();
+            this.getDefault().forEach((k, v) -> {
+                if (!scaleDataMap.containsKey(k)) {
+                    scaleDataMap.put(k, v);
+                }
+            });
         }
     }
 
     @Override
     public Float get(String key) {
-        return this.selectedProfile.getScaleDataMap().computeIfAbsent(key, k -> {
-            this.selectedProfile.getScaleDataMap().put(key, this.getDefault().get(key));
+        Map<String, Float> map = this.selectedProfile.getScaleDataMap();
+        if (!map.containsKey(key) || map.get(key) == null) {
+            Float defaultValue = this.getDefault().getOrDefault(key, 1.0f);
+            map.put(key, defaultValue);
             MercuryStoreCore.saveConfigSubject.onNext(true);
-            return this.getDefault().get(key);
-        });
+        }
+        return map.get(key);
+    }
+
+    @Override
+    public void set(Map<String, Float> map) {
+        this.selectedProfile.setScaleDataMap(new HashMap<>(map));
     }
 
     @Override
@@ -64,11 +78,6 @@ public class ScaleConfigurationService extends BaseConfigurationService<Map<Stri
 
     @Override
     public Map<String, Float> getMap() {
-        return this.selectedProfile.getScaleDataMap();
-    }
-
-    @Override
-    public void set(Map<String, Float> map) {
-        this.selectedProfile.setScaleDataMap(map);
+        return new HashMap<>(this.selectedProfile.getScaleDataMap());
     }
 }

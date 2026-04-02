@@ -1,8 +1,21 @@
 # Changelog
 
-All notable changes to MercuryTrade Community Fork 2: Challenge Cheeseroo will be documented in this file.
+All notable changes to MercuryChat will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [1.8.0] - Upcoming
+
+### Added
+- Systematic rebranding of the project from MercuryTrade to **MercuryChat**
+- Comprehensive Developer & Build Guide with automated release workflows
+
+### Fixed
+- Taskbar icon padding alignment on the right side
+
+### Changed
+- Consolidated `BUILD_AUTOMATION.md` into `README.md` for better searchability
+- Refined project documentation for professional tone and maturity
 
 ## [1.7.0] - 2026-03-30
 
@@ -25,6 +38,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Repository structure cleanup and temporary file removal
 - Updated .gitignore with comprehensive patterns for internal documents and logs
 - Enhanced build automation documentation
+- Systematic rebranding of the project from MercuryTrade to **MercuryChat** (maintaining generic "mercury" package and internal naming conventions)
 
 ## [1.6.2] - 2025-10-11
 

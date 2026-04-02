@@ -46,7 +46,7 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
     public AdrManagerFrame(AdrProfileDescriptor selectedProfile) {
         super();
         this.processingHideEvent = false;
-        this.setTitle("MercuryTrade ADR");
+        this.setTitle("MercuryChat ADR");
         this.setFocusable(true);
         this.setFocusableWindowState(true);
         this.setAlwaysOnTop(false);
@@ -149,7 +149,7 @@ public class AdrManagerFrame extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Mercury: Overseer";
+        return "MercuryChat: Overseer";
     }
 
     public void addNewNode(AdrComponentDescriptor descriptor, AdrComponentDescriptor parent) {

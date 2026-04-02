@@ -33,7 +33,7 @@ public abstract class AbstractOverlaidFrame extends JFrame implements AsSubscrib
     protected LayoutManager layout;
 
     protected AbstractOverlaidFrame() {
-        super("MercuryTrade");
+        super("MercuryChat");
         if (!this.getClass().equals(MercuryLoadingFrame.class)) {
             this.framesConfig = Configuration.get().framesConfiguration();
             this.applicationConfig = Configuration.get().applicationConfiguration();

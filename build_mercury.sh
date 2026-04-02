@@ -1,29 +1,29 @@
 #!/bin/bash
-# MercuryTrade Build Script - Comprehensive build with packaging
+# MercuryChat Build Script - Comprehensive build with packaging
 # This script builds the JAR, creates Windows EXE, and packages everything for release
 
-echo "MercuryTrade build starting..."
+echo "MercuryChat build starting..."
 
 # Clean and build with Maven
 echo "Running: mvn clean package"
 if mvn clean package; then
     echo "Maven build successful"
     # Copy JAR to release_files
-    echo "Copying MercuryTrade.jar from app/target to release_files"
-    cp app/target/MercuryTrade.jar release_files/
+    echo "Copying MercuryChat.jar from app/target to release_files"
+    cp app/target/MercuryChat.jar release_files/
     JAR_AVAILABLE=true
 else
     echo "Maven build failed. Will try to use existing JAR file."
     JAR_AVAILABLE=false
     
     # Check if there's an existing JAR file we can use
-    if [ -f "release_files/MercuryTrade-jar-fixed/MercuryTrade.jar" ]; then
-        echo "Using JAR from MercuryTrade-jar-fixed/"
-        cp release_files/MercuryTrade-jar-fixed/MercuryTrade.jar release_files/
+    if [ -f "release_files/MercuryChat-jar-fixed/MercuryChat.jar" ]; then
+        echo "Using JAR from MercuryChat-jar-fixed/"
+        cp release_files/MercuryChat-jar-fixed/MercuryChat.jar release_files/
         JAR_AVAILABLE=true
-    elif [ -f "app/target/MercuryTrade.jar" ]; then
+    elif [ -f "app/target/MercuryChat.jar" ]; then
         echo "Using existing JAR from app/target/"
-        cp app/target/MercuryTrade.jar release_files/
+        cp app/target/MercuryChat.jar release_files/
         JAR_AVAILABLE=true
     else
         echo "ERROR: No JAR file available. Cannot proceed with packaging."
@@ -62,33 +62,33 @@ echo "Creating release packages..."
 cd release_files
 
 # Clean up old files
-rm -f MercuryTrade-*.zip
+rm -f MercuryChat-*.zip MercuryTrade-*.zip
 
 # Create JAR package with proper structure including resources
 echo "Creating JAR package with resources..."
-rm -rf MercuryTrade-jar
-mkdir -p MercuryTrade-jar
-cp MercuryTrade.jar MercuryTrade-jar/
-cp HOW_TO_RUN_JAR.txt MercuryTrade-jar/
-# Copy the entire MercuryTrade directory structure (including resources)
-cp -r MercuryTrade/* MercuryTrade-jar/
-zip -r MercuryTrade-jar.zip MercuryTrade-jar/
-rm -rf MercuryTrade-jar/
+rm -rf MercuryChat-jar
+mkdir -p MercuryChat-jar
+cp MercuryChat.jar MercuryChat-jar/
+cp HOW_TO_RUN_JAR.txt MercuryChat-jar/
+# Copy the entire MercuryChat directory structure (including resources)
+cp -r MercuryChat/* MercuryChat-jar/
+zip -r MercuryChat-jar.zip MercuryChat-jar/
+rm -rf MercuryChat-jar/
 echo "JAR package completed with resources"
 
 # Create EXE package with proper structure including resources (if EXE exists)
-if [ -f "MercuryTrade.exe" ]; then
+if [ -f "MercuryChat.exe" ]; then
     echo "Creating EXE package with resources..."
-    rm -rf MercuryTrade-exe
-    mkdir -p MercuryTrade-exe
-    cp MercuryTrade.exe MercuryTrade-exe/
-    # Copy the entire MercuryTrade directory structure (including resources)
-    cp -r MercuryTrade/* MercuryTrade-exe/
-    zip -r MercuryTrade-exe.zip MercuryTrade-exe/
-    rm -rf MercuryTrade-exe/
+    rm -rf MercuryChat-exe
+    mkdir -p MercuryChat-exe
+    cp MercuryChat.exe MercuryChat-exe/
+    # Copy the entire MercuryChat directory structure (including resources)
+    cp -r MercuryChat/* MercuryChat-exe/
+    zip -r MercuryChat-exe.zip MercuryChat-exe/
+    rm -rf MercuryChat-exe/
     echo "EXE package completed with resources"
 else
-    echo "MercuryTrade.exe not found. Skipping EXE package."
+    echo "MercuryChat.exe not found. Skipping EXE package."
 fi
 
 # Create language package
@@ -97,8 +97,8 @@ zip -r lang.zip ../app-shared/src/main/resources/lang/*
 
 # Clean up standalone files
 echo "Cleaning up standalone files..."
-rm -f MercuryTrade.jar
-rm -f MercuryTrade.exe
+rm -f MercuryChat.jar
+rm -f MercuryChat.exe
 echo "Standalone files removed"
 
 cd ..
@@ -106,17 +106,17 @@ cd ..
 echo "Build and packaging completed!"
 echo ""
 echo "Files created in release_files/:"
-echo "  - MercuryTrade-jar.zip (complete package with resources)"
-if [ -f "release_files/MercuryTrade-exe.zip" ]; then
-    echo "  - MercuryTrade-exe.zip (complete package with resources)"
+echo "  - MercuryChat-jar.zip (complete package with resources)"
+if [ -f "release_files/MercuryChat-exe.zip" ]; then
+    echo "  - MercuryChat-exe.zip (complete package with resources)"
 fi
 echo "  - lang.zip"
 echo ""
 echo "The zip files include the complete directory structure with:"
-echo "  - MercuryTrade.jar or MercuryTrade.exe"
+echo "  - MercuryChat.jar or MercuryChat.exe"
 echo "  - HOW_TO_RUN_JAR.txt (for JAR package)"
 echo "  - README.txt"
-echo "  - MercuryTrade.l4j.ini"
+echo "  - MercuryChat.l4j.ini"
 echo "  - resources/app/helpIGImg.png"
 echo ""
 echo "Note: Standalone JAR and EXE files have been cleaned up."

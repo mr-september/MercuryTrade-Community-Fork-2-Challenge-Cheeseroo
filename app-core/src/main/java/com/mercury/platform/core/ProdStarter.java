@@ -57,7 +57,7 @@ public class ProdStarter {
                         User32.INSTANCE.GetClassName(hwnd, className, 512);
                         User32.INSTANCE.GetWindowText(hwnd, title, 512);
 
-                        if (Native.toString(title).equals("MercuryTrade ADR")) {
+                        if (Native.toString(title).equals("MercuryChat ADR")) {
                             MercuryStoreCore.adrVisibleSubject.onNext(AdrVisibleState.SHOW);
                         } else {
                             MercuryStoreCore.adrVisibleSubject.onNext(AdrVisibleState.HIDE);

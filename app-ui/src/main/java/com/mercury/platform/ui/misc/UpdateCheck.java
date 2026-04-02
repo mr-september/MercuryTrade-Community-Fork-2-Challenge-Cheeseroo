@@ -39,7 +39,7 @@ public class UpdateCheck {
             AlertDialog dialog = new AlertDialog(callback -> {
                 if (callback) {
                     try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/releases/latest"));
+                        Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/releases/latest"));
                     } catch (Exception e) {
                         logger.error(e);
                     }
@@ -58,7 +58,7 @@ public class UpdateCheck {
             AlertDialog dialog = new AlertDialog(callback -> {
                 if (callback) {
                     try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/releases/latest"));
+                        Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/releases/latest"));
                     } catch (Exception e) {
                         logger.error(e);
                     }
@@ -71,7 +71,7 @@ public class UpdateCheck {
 
     private static GithubReleaseResponse getNewestVersion() {
         try {
-            URL url = new URL("https://api.github.com/repos/Morph21/MercuryTrade-Community-Fork/releases/latest");
+            URL url = new URL("https://api.github.com/repos/mr-september/MercuryChat/releases/latest");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("User-Agent", "request");
             con.setRequestMethod("GET");

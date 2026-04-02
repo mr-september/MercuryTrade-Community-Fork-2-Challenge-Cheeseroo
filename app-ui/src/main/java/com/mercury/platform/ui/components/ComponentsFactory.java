@@ -983,6 +983,14 @@ public class ComponentsFactory {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.addMouseWheelListener(e -> MercuryStoreUI.scrollToEndSubject.onNext(false));
+        scrollPane.getViewport().addChangeListener(e -> {
+            JViewport viewport = (JViewport) e.getSource();
+            Point position = viewport.getViewPosition();
+            if (position.x != 0) {
+                position.x = 0;
+                viewport.setViewPosition(position);
+            }
+        });
 
         container.getParent().setBackground(AppThemeColor.TRANSPARENT);
         JScrollBar vBar = scrollPane.getVerticalScrollBar();

@@ -18,7 +18,7 @@ import java.nio.file.StandardOpenOption;
  */
 public class UpdateClientStarter implements Runnable {
     private static final Logger LOGGER = LogManager.getLogger(UpdateClientStarter.class.getSimpleName());
-    private static final String JARS_FILE_PATH = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryTrade\\temp" : "AppData/Local/MercuryTrade/temp" ;
+    private static final String JARS_FILE_PATH = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryChat\\temp" : "AppData/Local/MercuryChat/temp" ;
 
     private UpdaterClient updaterClient;
 
@@ -26,7 +26,7 @@ public class UpdateClientStarter implements Runnable {
     public void run() {
         updaterClient = new UpdaterClient(MercuryConstants.SERVER_HOST, MercuryConstants.APP_VERSION, MercuryConstants.PORT);
         updaterClient.registerListener(handler -> {
-            Files.write(Paths.get(JARS_FILE_PATH + "\\MercuryTrade.jar"), handler.getBytes(), StandardOpenOption.CREATE);
+            Files.write(Paths.get(JARS_FILE_PATH + "\\MercuryChat.jar"), handler.getBytes(), StandardOpenOption.CREATE);
             setMercuryVersion(getIncrementedVersion(MercuryConstants.APP_VERSION));
             MercuryStoreCore.updateReadySubject.onNext(true);
         });

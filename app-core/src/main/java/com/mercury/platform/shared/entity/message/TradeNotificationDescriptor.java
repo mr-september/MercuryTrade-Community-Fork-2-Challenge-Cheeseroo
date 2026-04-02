@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class TradeNotificationDescriptor extends NotificationDescriptor {
-    private String offer;
+    private String offer = "";
     private Double curCount;
     private String currency;
     private String league;

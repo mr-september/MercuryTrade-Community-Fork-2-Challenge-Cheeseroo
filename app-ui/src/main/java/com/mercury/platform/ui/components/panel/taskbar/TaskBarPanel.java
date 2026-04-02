@@ -268,33 +268,19 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         exitButton.addMouseListener(taskBarFrameMouseListener);
 
         this.add(this.toHideout);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(adr);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(chatFilter);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(messageNotificationsHide);
-        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(visibleMode);
-        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(pushbulletNotification);
-        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(joinChannelButton);
-        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(this.showHelpIG);
-        this.add(Box.createRigidArea(new Dimension(2, 4)));
         this.add(historyButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(itemGrid);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(pinButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(scaleButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(settingsButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
         this.add(exitButton);
-        this.add(Box.createRigidArea(new Dimension(3, 4)));
     }
 
     private void getPushbullet(boolean pushbulletEnabled, JButton pushbulletNotification) {
@@ -311,8 +297,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         Component[] comps = this.getComponents();
         int width = 0;
         
-        // Structure: button(0), spacer(1), button(2), spacer(3), ...
-        for (int i = 0; i < elementCount * 2 && i < comps.length; i++) {
+        for (int i = 0; i < elementCount && i < comps.length; i++) {
             width += comps[i].getPreferredSize().width;
         }
         

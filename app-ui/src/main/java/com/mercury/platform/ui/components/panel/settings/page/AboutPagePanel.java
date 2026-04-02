@@ -45,7 +45,7 @@ public class AboutPagePanel extends SettingsPagePanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JPanel titlePanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
-        titlePanel.add(componentsFactory.getTextLabel("MercuryTrade", FontStyle.REGULAR, 15));
+        titlePanel.add(componentsFactory.getTextLabel("MercuryChat", FontStyle.REGULAR, 15));
         panel.add(titlePanel);
         JPanel versionPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
         versionPanel.add(componentsFactory.getTextLabel(TranslationKey.app_version.value(": ") + MercuryConstants.APP_VERSION, FontStyle.REGULAR, 15));
@@ -56,7 +56,7 @@ public class AboutPagePanel extends SettingsPagePanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URI("https://github.com/Morph21/MercuryTrade-Community-Fork/issues"));
+                    Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/issues"));
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

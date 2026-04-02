@@ -4,7 +4,7 @@ public class TooltipConstants {
     //Shared
 //    public static final String CLOSE_BUTTON = "Close";
 //    //TaskBar tooltips
-//    public static final String VISIBLE_MODE = "Do not Disturb. MercuryTrade goes invisible.";
+//    public static final String VISIBLE_MODE = "Do not Disturb. MercuryChat goes invisible.";
 //    public static final String TRADE_MODE = "SuperTradeMode. All notifications you receive will be unfolded.";
 //    public static final String CHAT_FILTER = "Chat Scanner. All chat messages with matching words will be displayed in a separate window.";
 //    public static final String HIDEOUT = "Travel to your hideout";
@@ -15,7 +15,7 @@ public class TooltipConstants {
 //    public static final String SETUP_FRAMES_LOCATION = "Panel unlock. Unlock panels to reposition.";
 //    public static final String SETTINGS = "Settings";
 //    public static final String ITEM_GRID = "Item Grid. Align this grid with your in-game stash.";
-//    public static final String SCALE_SETTINGS = "Scale. Adjust MercuryTrade components size to your taste.";
+//    public static final String SCALE_SETTINGS = "Scale. Adjust MercuryChat components size to your taste.";
 //    public static final String EXIT = "Exit";
 //    public static final String PUSHBULLET_NOTIFICATION_ACTIVE = "Pushbullet notifications on trade messages";
 //

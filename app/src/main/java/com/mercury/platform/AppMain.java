@@ -12,6 +12,7 @@ import com.mercury.platform.ui.frame.titled.GamePathChooser;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.UpdateCheck;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -25,8 +26,8 @@ import java.time.Instant;
 public class AppMain {
 
     private static final Logger logger = LogManager.getLogger(AppMain.class);
-    private static boolean shouldLogPerformance = false;
-    private static String MERCURY_TRADE_FOLDER = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryTrade" : "AppData/Local/MercuryTrade";
+    private static final String MERCURY_CHAT_FOLDER = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryChat" : "AppData/Local/MercuryChat";
+    private static final String LEGACY_MERCURY_TRADE_FOLDER = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryTrade" : "AppData/Local/MercuryTrade";
 
     private static MercuryLoadingFrame mercuryLoadingFrame;
 
@@ -92,7 +93,7 @@ public class AppMain {
                 MercuryStoreCore.appLoadingSubject.onNext(false);
             }
 
-            if (!hideLoadingIcon) {
+            if (!hideLoadingIcon && mercuryLoadingFrameThread != null) {
                 mercuryLoadingFrameThread.join();
             }
             Instant end = Instant.now();
@@ -119,11 +120,21 @@ public class AppMain {
     }
 
     private static void checkCreateAppDataFolder() {
-        File mercuryTradeFolder = new File(MERCURY_TRADE_FOLDER);
-        if (!mercuryTradeFolder.exists()) {
-            boolean mercuryTradeFolderCreated = mercuryTradeFolder.mkdirs();
-            if (!mercuryTradeFolderCreated) {
-                logger.error("Mercury trade folder in location %s couldn't be created - check permissions");
+        File mercuryChatFolder = new File(MERCURY_CHAT_FOLDER);
+        if (!mercuryChatFolder.exists()) {
+            File legacyFolder = new File(LEGACY_MERCURY_TRADE_FOLDER);
+            if (legacyFolder.exists()) {
+                try {
+                    FileUtils.copyDirectory(legacyFolder, mercuryChatFolder);
+                    logger.info("Successfully migrated data from MercuryTrade to MercuryChat");
+                } catch (Exception e) {
+                    logger.error("Failed to migrate data from MercuryTrade to MercuryChat", e);
+                }
+            } else {
+                boolean mercuryChatFolderCreated = mercuryChatFolder.mkdirs();
+                if (!mercuryChatFolderCreated) {
+                    logger.error("MercuryChat folder in location {} couldn't be created - check permissions", MERCURY_CHAT_FOLDER);
+                }
             }
         }
     }

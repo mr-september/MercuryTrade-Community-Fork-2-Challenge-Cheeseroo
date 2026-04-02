@@ -18,23 +18,23 @@ class PoeAppItemParser extends BaseRegexParser {
     protected NotificationDescriptor parse(Matcher matcher, String whisper) {
         ItemTradeNotificationDescriptor tradeNotification = new ItemTradeNotificationDescriptor();
 
-        tradeNotification.setWhisperNickname(matcher.group(2));
-        tradeNotification.setSourceString(matcher.group(3));
-        tradeNotification.setItemName(matcher.group(4));
+        tradeNotification.setWhisperNickname(matcher.group(2).trim());
+        tradeNotification.setSourceString(matcher.group(3).trim());
+        tradeNotification.setItemName(matcher.group(4).trim());
         if (matcher.group(5) != null) {
-            tradeNotification.setCurCount(Double.parseDouble(matcher.group(6)));
-            tradeNotification.setCurrency(matcher.group(7));
+            tradeNotification.setCurCount(Double.parseDouble(matcher.group(6).trim()));
+            tradeNotification.setCurrency(matcher.group(7).trim());
         } else {
             tradeNotification.setCurCount(0d);
             tradeNotification.setCurrency("???");
         }
-        tradeNotification.setLeague(matcher.group(8));
+        tradeNotification.setLeague(matcher.group(8).trim());
         if (matcher.group(9) != null) {
-            tradeNotification.setTabName(matcher.group(9));
-            tradeNotification.setLeft(Integer.parseInt(matcher.group(10)));
-            tradeNotification.setTop(Integer.parseInt(matcher.group(11)));
+            tradeNotification.setTabName(matcher.group(9).trim());
+            tradeNotification.setLeft(Integer.parseInt(matcher.group(10).trim()));
+            tradeNotification.setTop(Integer.parseInt(matcher.group(11).trim()));
         }
-        tradeNotification.setOffer(matcher.group(12));
+        tradeNotification.setOffer(matcher.group(12).trim());
         tradeNotification.setType(NotificationType.INC_ITEM_MESSAGE);
         return tradeNotification;
     }

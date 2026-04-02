@@ -1,17 +1,17 @@
 @echo off
 cls
-echo MercuryTrade simple build starting (no packaging)
+echo MercuryChat simple build starting (no packaging)
 echo mvn clean package
 call mvn clean package
 if %errorlevel% neq 0 (
     echo Maven build failed. Checking for existing JAR file...
-    if exist "release_files\MercuryTrade-jar-fixed\MercuryTrade.jar" (
-        echo Using JAR from MercuryTrade-jar-fixed\
-        copy "release_files\MercuryTrade-jar-fixed\MercuryTrade.jar" "release_files\"
+    if exist "release_files\MercuryChat-jar-fixed\MercuryChat.jar" (
+        echo Using JAR from MercuryChat-jar-fixed\
+        copy "release_files\MercuryChat-jar-fixed\MercuryChat.jar" "release_files\"
         set JAR_AVAILABLE=true
-    ) else if exist "app\target\MercuryTrade.jar" (
+    ) else if exist "app\target\MercuryChat.jar" (
         echo Using existing JAR from app\target\
-        copy "app\target\MercuryTrade.jar" "release_files\"
+        copy "app\target\MercuryChat.jar" "release_files\"
         set JAR_AVAILABLE=true
     ) else (
         echo ERROR: No JAR file available. Cannot proceed with EXE creation.
@@ -19,15 +19,15 @@ if %errorlevel% neq 0 (
     )
 ) else (
     echo Maven build successful
-    echo Copying MercuryTrade.jar from app/target to release_files
+    echo Copying MercuryChat.jar from app/target to release_files
     cd app\target
-    copy MercuryTrade.jar "..\..\release_files"
+    copy MercuryChat.jar "..\..\release_files"
     cd ..\..
     set JAR_AVAILABLE=true
 )
 
 if "%JAR_AVAILABLE%"=="true" (
-    echo Launching launch4j.exe to generate MercuryTrade.exe from .jar file
+    echo Launching launch4j.exe to generate MercuryChat.exe from .jar file
     cd launch4j
     launch4jc.exe ../release_files/release_config.xml
     cd ..

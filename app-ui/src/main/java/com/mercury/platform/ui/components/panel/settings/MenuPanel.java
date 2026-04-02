@@ -45,7 +45,7 @@ public class MenuPanel extends JPanel implements ViewInit {
         list.addListSelectionListener(e ->
                 list.getSelectedValue().getAction().onClick());
 
-        JLabel appIcon = this.componentsFactory.getTextLabel("MercuryTrade", FontStyle.BOLD, 22);
+        JLabel appIcon = this.componentsFactory.getTextLabel("MercuryChat", FontStyle.BOLD, 22);
         appIcon.setIcon(this.componentsFactory.getIcon(IconConst.APP_ICON, 50));
         appIcon.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         appIcon.setBackground(AppThemeColor.FRAME);

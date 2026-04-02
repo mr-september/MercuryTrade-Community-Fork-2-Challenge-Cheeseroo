@@ -220,7 +220,7 @@ public class HistoryFrame extends AbstractTitledComponentFrame {
 
     @Override
     protected String getFrameTitle() {
-        return "Mercury: History";
+        return "MercuryChat: History";
     }
 
     @Override

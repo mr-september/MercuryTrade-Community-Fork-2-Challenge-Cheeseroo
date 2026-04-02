@@ -1,5 +1,5 @@
 @echo off
-echo MercuryTrade Debug Launcher
+echo MercuryChat Debug Launcher
 echo ===========================
 
 echo.
@@ -13,21 +13,21 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo Checking if MercuryTrade.jar exists...
-if not exist "MercuryTrade.jar" (
-    echo ERROR: MercuryTrade.jar not found in current directory
-    echo Please ensure MercuryTrade.jar is in the same folder as this script
+echo Checking if MercuryChat.jar exists...
+if not exist "MercuryChat.jar" (
+    echo ERROR: MercuryChat.jar not found in current directory
+    echo Please ensure MercuryChat.jar is in the same folder as this script
     pause
     exit /b 1
 )
 
 echo.
-echo Attempting to run MercuryTrade.jar directly...
-echo Command: java -jar MercuryTrade.jar
+echo Attempting to run MercuryChat.jar directly...
+echo Command: java -jar MercuryChat.jar
 echo.
 
-java -jar MercuryTrade.jar
+java -jar MercuryChat.jar
 
 echo.
-echo MercuryTrade exited with code: %errorlevel%
+echo MercuryChat exited with code: %errorlevel%
 pause

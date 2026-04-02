@@ -150,8 +150,13 @@ public class TaskBarFrame extends AbstractMovableComponentFrame {
         this.setContentPane(panel);
         this.pack();
         this.repaint();
-        this.MIN_WIDTH = taskBarPanel.getWidthOf(4);
-        this.MAX_WIDTH = taskBarPanel.getPreferredSize().width;
+        int insets = 0;
+        if (this.getRootPane().getBorder() != null) {
+            Insets borderInsets = this.getRootPane().getBorder().getBorderInsets(this.getRootPane());
+            insets = borderInsets.left + borderInsets.right;
+        }
+        this.MIN_WIDTH = taskBarPanel.getWidthOf(4) + insets;
+        this.MAX_WIDTH = taskBarPanel.getPreferredSize().width + insets;
         this.setWidth(MIN_WIDTH);
 
         this.setMaximumSize(taskBarPanel.getPreferredSize());
@@ -261,8 +266,13 @@ public class TaskBarFrame extends AbstractMovableComponentFrame {
         TaskBarPanel taskBarPanel = new TaskBarPanel(controller, factory, createHideListener());
         panel.add(taskBarPanel, BorderLayout.CENTER);
         panel.setBackground(AppThemeColor.FRAME);
-        this.MIN_WIDTH = taskBarPanel.getWidthOf(4);
-        this.MAX_WIDTH = taskBarPanel.getPreferredSize().width;
+        int insets = 0;
+        if (this.getRootPane().getBorder() != null) {
+            Insets borderInsets = this.getRootPane().getBorder().getBorderInsets(this.getRootPane());
+            insets = borderInsets.left + borderInsets.right;
+        }
+        this.MIN_WIDTH = taskBarPanel.getWidthOf(4) + insets;
+        this.MAX_WIDTH = taskBarPanel.getPreferredSize().width + insets;
         this.setSize(new Dimension(MIN_WIDTH, this.getHeight()));
         this.setMinimumSize(new Dimension(MIN_WIDTH, taskBarPanel.getHeight()));
         this.setMaximumSize(new Dimension(MAX_WIDTH, taskBarPanel.getHeight()));

@@ -25,31 +25,53 @@ public class FramesConfigurationServiceImpl extends BaseConfigurationService<Map
     public void validate() {
         if (this.selectedProfile.getFrameDescriptorMap() == null) {
             this.selectedProfile.setFrameDescriptorMap(this.getDefault());
+        } else {
+            Map<String, FrameDescriptor> map = this.selectedProfile.getFrameDescriptorMap();
+            this.getDefault().forEach((k, v) -> {
+                if (!map.containsKey(k)) {
+                    map.put(k, new FrameDescriptor(new Point(v.getFrameLocation()), new Dimension(v.getFrameSize())));
+                }
+            });
         }
     }
 
     @Override
     public FrameDescriptor get(String key) {
-        return this.selectedProfile.getFrameDescriptorMap().computeIfAbsent(key, k -> {
-            this.selectedProfile.getFrameDescriptorMap().put(key, this.getDefault().get(key));
+        Map<String, FrameDescriptor> map = this.selectedProfile.getFrameDescriptorMap();
+        if (!map.containsKey(key) || map.get(key) == null) {
+            FrameDescriptor defaultValue = this.getDefault().get(key);
+            if (defaultValue == null) {
+                defaultValue = new FrameDescriptor(new Point(0, 0), new Dimension(600, 400));
+            }
+            map.put(key, new FrameDescriptor(new Point(defaultValue.getFrameLocation()), new Dimension(defaultValue.getFrameSize())));
             MercuryStoreCore.saveConfigSubject.onNext(true);
-            return this.getDefault().get(key);
-        });
+        }
+        return map.get(key);
     }
 
     @Override
     public Map<String, FrameDescriptor> getMap() {
-        return this.selectedProfile.getFrameDescriptorMap();
+        return this.copyMap(this.selectedProfile.getFrameDescriptorMap());
     }
 
     @Override
     public void set(Map<String, FrameDescriptor> map) {
-        this.selectedProfile.setFrameDescriptorMap(map);
+        this.selectedProfile.setFrameDescriptorMap(this.copyMap(map));
     }
 
     @Override
     public Map<String, FrameDescriptor> getDefault() {
-        return defaultFramesSettings;
+        return this.copyMap(this.defaultFramesSettings);
+    }
+
+    private Map<String, FrameDescriptor> copyMap(Map<String, FrameDescriptor> map) {
+        Map<String, FrameDescriptor> copy = new HashMap<>();
+        if (map != null) {
+            map.forEach((k, v) -> {
+                copy.put(k, new FrameDescriptor(new Point(v.getFrameLocation()), new Dimension(v.getFrameSize())));
+            });
+        }
+        return copy;
     }
 
     @Override

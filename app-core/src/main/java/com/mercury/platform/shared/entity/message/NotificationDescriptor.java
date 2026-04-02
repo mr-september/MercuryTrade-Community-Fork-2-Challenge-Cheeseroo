@@ -28,6 +28,6 @@ public class NotificationDescriptor {
     }
 
     public void setSourceString(String sourceString) {
-        this.sourceString = StringUtils.trim(sourceString).replaceFirst(".*?: ", "");
+        this.sourceString = StringUtils.trim(sourceString).replaceFirst("^[^:]+: ", "");
     }
 }

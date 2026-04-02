@@ -48,7 +48,7 @@ public class PushBulletManager {
     public void sendPush(String content) {
         config = Configuration.get().taskBarConfiguration().get();
         if (pushbullet != null && config.isPushbulletOn()) {
-            pushbullet.push(new SendableNotePush("MercuryTrade", content));
+            pushbullet.push(new SendableNotePush("MercuryChat", content));
         }
     }
 
@@ -56,7 +56,7 @@ public class PushBulletManager {
         config = Configuration.get().taskBarConfiguration().get();
         if (pushbullet != null && config.isPushbulletOn()) {
             try {
-                pushbullet.push(new SendableNotePush("MercuryTrade - " + nickName, content));
+                pushbullet.push(new SendableNotePush("MercuryChat - " + nickName, content));
             } catch (PushbulletApiException e) {
                 logger.error(e.getMessage());
             }
@@ -65,7 +65,7 @@ public class PushBulletManager {
 
     public void testPush() {
         if (pushbullet != null && config.isPushbulletOn()) {
-            pushbullet.push(new SendableNotePush("MercuryTrade" , "Test notification"));
+            pushbullet.push(new SendableNotePush("MercuryChat" , "Test notification"));
         }
     }
     private static class PushBulletManagerHolder {

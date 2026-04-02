@@ -8,8 +8,8 @@ pause = 일시정지
 stop = 정지
 // Reset
 reset = 초기화
-// Do not Disturb. MercuryTrade goes invisible.
-do_not_disturb = 방해 금지. MercuryTrade가 보이지 않습니다.
+// Do not Disturb. MercuryChat goes invisible.
+do_not_disturb = 방해 금지. MercuryChat가 보이지 않습니다.
 // SuperTradeMode. All notifications you receive will be unfolded.
 trade_mode = 슈퍼 트레이드 모드. 받은 모든 알림이 펼쳐집니다.
 // Chat Scanner. All chat messages with matching words will be displayed in a separate window.
@@ -30,8 +30,8 @@ unlock_panel_tt = 패널 잠금 해제. 패널을 잠금 해제하여 위치를 
 settings = 설정
 // Item Grid. Align this grid with your in-game stash.
 item_grid = 아이템 그리드. 이 그리드를 게임 내 보관함에 맞춥니다.
-// Scale. Adjust MercuryTrade components size to your taste.
-scale_settings_tt = 크기 조정. MercuryTrade 구성 요소의 크기를 원하는 대로 조정합니다.
+// Scale. Adjust MercuryChat components size to your taste.
+scale_settings_tt = 크기 조정. MercuryChat 구성 요소의 크기를 원하는 대로 조정합니다.
 // Exit
 exit = 종료
 // Pushbullet notifications on trade messages
@@ -298,8 +298,8 @@ pre_group_limit = 사전 그룹 제한
 enabled = 활성화됨
 // When you copy a text which is in format of trade message it will be automatically pasted into chat window in PoE
 automatic_paste_description = 거래 메시지 형식의 텍스트를 복사하면 PoE의 채팅 창에 자동으로 붙여넣어집니다.
-// Example: click on 'Whisper' button, message will be copied to your clipboard => MT will paste it into chat in PoE.
-example_description = 예: '귓속말' 버튼을 클릭하면 메시지가 클립보드에 복사됩니다 => MT가 PoE 채팅 창에 붙여넣습니다.
+// Example: click on 'Whisper' button, message will be copied to your clipboard => MC will paste it into chat in PoE.
+example_description = 예: '귓속말' 버튼을 클릭하면 메시지가 클립보드에 복사됩니다 => MC가 PoE 채팅 창에 붙여넣습니다.
 // Close panel on kick button pressed
 close_panel_on_kick_button_pressed = 추방 버튼을 눌렀을 때 패널 닫기
 // Show league
@@ -330,8 +330,8 @@ chat_scanner = 채팅 스캐너
 clicks = 클릭 수
 // Update notification
 update_notification = 업데이트 알림
-// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryTrade successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
-donate_text = 우리는 주로 거래 목적으로 사용하기 쉬운 애플리케이션 형태로 편리한 도구를 만드는 것을 목표로 했습니다. MercuryTrade가 시간을 절약하거나 경험을 개선하는 데 성공했다면, 기부하거나 친구에게 알려주시면 감사하겠습니다. 이름이 앱 내 명예의 전당에 표시되길 원한다면 거래 내역에 이 정보를 제공하세요!
+// We aimed to create a convenience tool in form of an easy-to-use application, primarily for trading purposes. If MercuryChat successfully managed to save your time or improve your experience, you can thank us by donating or telling your friends. If you want your name to be featured in our in-app Hall of Fame please provide this information within the transaction!
+donate_text = 우리는 주로 거래 목적으로 사용하기 쉬운 애플리케이션 형태로 편리한 도구를 만드는 것을 목표로 했습니다. MercuryChat가 시간을 절약하거나 경험을 개선하는 데 성공했다면, 기부하거나 친구에게 알려주시면 감사하겠습니다. 이름이 앱 내 명예의 전당에 표시되길 원한다면 거래 내역에 이 정보를 제공하세요!
 // Thanks a lot for support
 thanks_for_support = 지원해 주셔서 감사합니다.
 // Enable in-game dnd
@@ -424,8 +424,8 @@ next = 다음
 previous = 이전
 // Download
 download = 다운로드
-// Welcome to MercuryTrade
-welcome = MercuryTrade에 오신 것을 환영합니다
+// Welcome to MercuryChat
+welcome = MercuryChat에 오신 것을 환영합니다
 // Restart
 restart = 다시 시작
 // New

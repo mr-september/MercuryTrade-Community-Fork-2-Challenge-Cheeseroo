@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IconBundleConfigurationServiceImpl extends BaseConfigurationService<List<String>> implements IconBundleConfigurationService {
-    private static final String ICONS_PATH = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryTrade\\icons" : "AppData/Local/MercuryTrade/icons";
+    private static final String ICONS_PATH = SystemUtils.IS_OS_WINDOWS ? System.getenv("USERPROFILE") + "\\AppData\\Local\\MercuryChat\\icons" : "AppData/Local/MercuryChat/icons";
     private Map<String, URL> iconBundle = new HashMap<>();
 
     public IconBundleConfigurationServiceImpl(ProfileDescriptor selectedProfile) {

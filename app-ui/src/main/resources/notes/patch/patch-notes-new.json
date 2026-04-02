@@ -1,5 +1,60 @@
 [
   {
+    "version": "1.8.0",
+    "minorChanges": [
+      {
+        "changed": "Systematic rebranding of the project from MercuryTrade to MercuryChat"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Fixed taskbar icon padding alignment on the right side"
+      }
+    ]
+  },
+  {
+    "version": "1.7.0",
+    "minorChanges": [
+      {
+        "changed": "Technical maintenance and stability improvements"
+      }
+    ]
+  },
+  {
+    "version": "1.6.0",
+    "features": [
+      {
+        "changed": "Added auto-scaling feature with display detection and scaling recommendations"
+      }
+    ],
+    "minorChanges": [
+      {
+        "changed": "Replaced placeholder graphics with finalized assets"
+      }
+    ]
+  },
+  {
+    "version": "1.5.0",
+    "features": [
+      {
+        "changed": "Added button to join chat channel"
+      },
+      {
+        "changed": "Added default channel 820 with customizable settings"
+      }
+    ],
+    "minorChanges": [
+      {
+        "changed": "Performance optimizations and UI enhancements"
+      }
+    ],
+    "fix": [
+      {
+        "changed": "Various stability improvements and bug fixes"
+      }
+    ]
+  },
+  {
     "version": "1.4.2",
     "minorChanges": [
       {
@@ -182,10 +237,10 @@
     "version": "1.3.3",
     "features": [
       {
-        "changed": "Added an option to run MT without poe running. Check MercuryTrade.l4j.ini file"
+        "changed": "Added an option to run MC without poe running. Check MercuryChat.l4j.ini file"
       },
       {
-        "changed": "Added an option to disable loading icon while starting MercuryTrade. Check MercuryTrade.l4j.ini file"
+        "changed": "Added an option to disable loading icon while starting MercuryChat. Check MercuryChat.l4j.ini file"
       }
     ]
   },
@@ -212,7 +267,7 @@
     "version": "1.3.0",
     "fix": [
       {
-        "changed": "Icon in taskbar should look like MercuryTrade instead of java"
+        "changed": "Icon in taskbar should look like MercuryChat instead of java"
       }
     ]
   },
@@ -234,7 +289,7 @@
         "changed": "Fixed java icon showing in taskbar"
       },
       {
-        "changed": "Fixed error which was causing MercuryTrade to stop working when unexpected data was logged in Client.txt file"
+        "changed": "Fixed error which was causing MercuryChat to stop working when unexpected data was logged in Client.txt file"
       },
       {
         "changed": "Fixed error which prevent from adding path to Korean client"
@@ -360,7 +415,7 @@
     "version": "1.1.8",
     "features": [
       {
-        "changed": "Added possibility to change betrayal image for any image you want. Read more in README file located in MercuryTrade/resources/app"
+        "changed": "Added possibility to change betrayal image for any image you want. Read more in README file located in MercuryChat/resources/app"
       }
     ],
     "fix": [
@@ -371,7 +426,7 @@
         "changed": "Fixed error which prevented to use openjdk (You still need to use java 1.8)"
       },
       {
-        "changed": "Fixed infinite mercury trade icon loading while error occured"
+        "changed": "Fixed infinite mercury chat icon loading while error occured"
       }
     ]
   },
@@ -425,7 +480,7 @@
         "changed": "Automatic hotkeyless whisper after copy trade message is now available"
       },
       {
-        "changed": "Changing sounds of notification is now available (check README.txt in MercuryTrade/resources/app"
+        "changed": "Changing sounds of notification is now available (check README.txt in MercuryChat/resources/app"
       }
     ],
     "minorChanges": [
@@ -475,7 +530,7 @@
     ],
     "features": [
       {
-        "changed": "Added Vulkan support, it's possible to turn it on from tray settings icon or from settings menu of MT"
+        "changed": "Added Vulkan support, it's possible to turn it on from tray settings icon or from settings menu of MC"
       },
       {
         "changed": "Added button to dismiss all stash tabs options from grid aligner"

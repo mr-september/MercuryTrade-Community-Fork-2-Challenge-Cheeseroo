@@ -20,6 +20,7 @@ public class PoeTradeItemKoreanParserTest {
     @MethodSource("provideOutgoingKoreanPoetradeItemPurchase")
     void parseKoreanItemTrade(String whisper, String actualNickname, String actualItemName,
                               double actualCurrencyAmount, String actualCurrencyType, int actualLeft, int actualTop, String actualLeague, String actualSourceString) throws Exception {
+        System.err.println("TEST DEBUG WHISPER: " + whisper);
         // Given
         final PoeTradeItemKoreanParser parser = new PoeTradeItemKoreanParser();
 

@@ -177,7 +177,7 @@ public class FramesManager implements AsSubscriber {
             List<Note> notes = notesLoader.getPatchNotesFromString(json);
             NotesFrame patchNotesFrame = new NotesFrame(notes, NotesFrame.NotesType.PATCH);
             patchNotesFrame.init();
-            patchNotesFrame.setFrameTitle("MercuryTrade v" + notesLoader.getVersionFrom(json));
+            patchNotesFrame.setFrameTitle("MercuryChat v" + notesLoader.getVersionFrom(json));
             patchNotesFrame.showComponent();
         });
         MercuryStoreUI.packSubject.subscribe(className -> this.framesMap.get(className).pack());
@@ -354,7 +354,7 @@ public class FramesManager implements AsSubscriber {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.trayIcon = new TrayIcon(icon, "MercuryTrade");
+            this.trayIcon = new TrayIcon(icon, "MercuryChat");
             this.trayIcon.setImageAutoSize(true);
 
             trayIcon.addMouseListener(new java.awt.event.MouseAdapter() {

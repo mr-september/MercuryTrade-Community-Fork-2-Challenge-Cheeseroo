@@ -120,8 +120,9 @@ public class MercuryConfigManager implements ConfigManager, AsSubscriber {
             File configFolder = new File(dataSource.getConfigurationPath());
             File iconFolder = new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons");
             if (!configFolder.exists() || !configFile.exists() || !iconFolder.exists()) {
-                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "temp").mkdir();
-                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons").mkdir();
+                configFolder.mkdirs();
+                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "temp").mkdirs();
+                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons").mkdirs();
                 new File(dataSource.getConfigurationFilePath()).createNewFile();
 
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

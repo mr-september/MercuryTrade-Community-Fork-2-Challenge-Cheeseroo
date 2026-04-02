@@ -1,7 +1,7 @@
 {"notes":[
   {
     "title" : "Overview",
-    "text" : "MercuryTrade is an overlay application for Path of Exile. It's designed to facilitate all possible trading interactions providing a much better user experience for the players. All the future updates will be available for download via this application. \n\nThis one minute overview will cover other features as well. \n\nMercuryTrade is 100% legit: no memory manipulations, no injectors!",
+    "text" : "MercuryChat is an overlay application for Path of Exile. It's designed to facilitate all possible trading interactions providing a much better user experience for the players. All the future updates will be available for download via this application. \n\nThis one minute overview will cover other features as well. \n\nMercuryChat is 100% legit: no memory manipulations, no injectors!",
     "image" : "app/app-icon.png",
     "layout" : "VERTICAL"
   },
@@ -31,13 +31,13 @@
   },
   {
     "title" : "Minor feature: Accessibility status",
-    "text" : "MercuryTrade notifications have an indication for when a person comes in or leaves your hideout - that way you can offer a trade as soon as possible and keep track of all the people without even closing your stash. Extremely useful when you trade with many people at once!",
+    "text" : "MercuryChat notifications have an indication for when a person comes in or leaves your hideout - that way you can offer a trade as soon as possible and keep track of all the people without even closing your stash. Extremely useful when you trade with many people at once!",
     "image" : "notes/first/7.png",
     "layout" : "VERTICAL"
   },
   {
     "title" : "Main feature: History",
-    "text" : "Each notification you receive is stored by MercuryTrade in a separate file. \n\nYou won't be losing potential trades due to client crashes or relogs anymore!",
+    "text" : "Each notification you receive is stored by MercuryChat in a separate file. \n\nYou won't be losing potential trades due to client crashes or relogs anymore!",
     "image" : "notes/first/3.png",
     "layout" : "VERTICAL"
   },
@@ -55,13 +55,13 @@
   },
   {
     "title" : "Minor feature: \"Do not Disturb\" mode",
-    "text" : "\n\nActivate this mode if you don't want to see (and hear!) anything from the application for a while. MercuryTrade will continue working in hidden mode.",
+    "text" : "\n\nActivate this mode if you don't want to see (and hear!) anything from the application for a while. MercuryChat will continue working in hidden mode.",
     "image" : "notes/first/9.png",
     "layout" : "VERTICAL"
   },
   {
     "title" : "Feedback and Suggestions",
-    "text" : "\t                   MercuryTrade \n\nThat's it! We expect you to enjoy the app as much as we do! \nMake sure to send us your feedback and suggestions if you have any - you won't be ignored! \n\n              > > Panels will be unlocked for you to reposition < <",
+    "text" : "\t                   MercuryChat \n\nThat's it! We expect you to enjoy the app as much as we do! \nMake sure to send us your feedback and suggestions if you have any - you won't be ignored! \n\n              > > Panels will be unlocked for you to reposition < <",
     "image" : "app/app-icon-medium.png",
     "layout" : "VERTICAL"
   }

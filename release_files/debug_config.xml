@@ -2,9 +2,9 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>MercuryTrade.jar</jar>
-  <outfile>MercuryTrade-debug.exe</outfile>
-  <errTitle>MercuryTrade Debug - Java Error</errTitle>
+  <jar>MercuryChat.jar</jar>
+  <outfile>MercuryChat-debug.exe</outfile>
+  <errTitle>MercuryChat Debug - Java Error</errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
   <priority>normal</priority>
@@ -15,8 +15,8 @@
   <manifest></manifest>
   <icon>app-icon.ico</icon>
   <singleInstance>
-    <mutexName>MercuryTrade-Debug</mutexName>
-    <windowTitle>MercuryTrade Debug</windowTitle>
+    <mutexName>MercuryChat-Debug</mutexName>
+    <windowTitle>MercuryChat Debug</windowTitle>
   </singleInstance>
   <jre>
     <path></path>
@@ -39,16 +39,16 @@
     <opt>-XX:+PrintGCDetails</opt>
   </jre>
   <versionInfo>
-    <fileVersion>1.4.2.0</fileVersion>
-    <txtFileVersion>1.4.2-debug</txtFileVersion>
-    <fileDescription>MercuryTrade Debug</fileDescription>
+    <fileVersion>1.8.0.0</fileVersion>
+    <txtFileVersion>1.8.0</txtFileVersion>
+    <fileDescription>MercuryChat</fileDescription>
     <copyright>Morph21</copyright>
-    <productVersion>1.4.2.0</productVersion>
-    <txtProductVersion>1.4.2-debug</txtProductVersion>
-    <productName>MercuryTrade Debug</productName>
+    <productVersion>1.8.0.0</productVersion>
+    <txtProductVersion>1.8.0</txtProductVersion>
+    <productName>MercuryChat Debug</productName>
     <companyName>Morph</companyName>
-    <internalName>MercuryTrade-Debug</internalName>
-    <originalFilename>MercuryTrade-debug.exe</originalFilename>
+    <internalName>MercuryChat-Debug</internalName>
+    <originalFilename>MercuryChat-debug.exe</originalFilename>
     <trademarks></trademarks>
     <language>ENGLISH_US</language>
   </versionInfo>
