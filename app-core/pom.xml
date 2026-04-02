@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-shared</artifactId>
-            <version>1.7.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.jodah</groupId>

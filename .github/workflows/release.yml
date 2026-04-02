@@ -60,7 +60,7 @@ jobs:
     
     - name: Copy JAR to release files
       run: |
-        cp app/target/MercuryTrade.jar release_files/
+        cp app/target/MercuryChat.jar release_files/
         ls -la release_files/
     
     - name: Install Launch4j
@@ -86,22 +86,22 @@ jobs:
         cd release_files
         
         # Create JAR package with complete directory structure including resources
-        mkdir -p MercuryTrade-jar
-        cp MercuryTrade.jar MercuryTrade-jar/
-        cp HOW_TO_RUN_JAR.txt MercuryTrade-jar/
-        # Copy the entire MercuryTrade directory structure (including resources)
-        cp -r MercuryTrade/* MercuryTrade-jar/
-        zip -r MercuryTrade-${{ steps.get_version.outputs.version }}-jar.zip MercuryTrade-jar/
+        mkdir -p MercuryChat-jar
+        cp MercuryChat.jar MercuryChat-jar/
+        cp HOW_TO_RUN_JAR.txt MercuryChat-jar/
+        # Copy the entire MercuryChat directory structure (including resources)
+        cp -r MercuryChat/* MercuryChat-jar/
+        zip -r MercuryChat-${{ steps.get_version.outputs.version }}-jar.zip MercuryChat-jar/
         
         # Create EXE package with complete directory structure including resources
-        mkdir -p MercuryTrade-exe
-        cp MercuryTrade.exe MercuryTrade-exe/
-        # Copy the entire MercuryTrade directory structure (including resources)
-        cp -r MercuryTrade/* MercuryTrade-exe/
-        zip -r MercuryTrade-${{ steps.get_version.outputs.version }}-exe.zip MercuryTrade-exe/
+        mkdir -p MercuryChat-exe
+        cp MercuryChat.exe MercuryChat-exe/
+        # Copy the entire MercuryChat directory structure (including resources)
+        cp -r MercuryChat/* MercuryChat-exe/
+        zip -r MercuryChat-${{ steps.get_version.outputs.version }}-exe.zip MercuryChat-exe/
         
         # Create language package
-        zip -r MercuryTrade-${{ steps.get_version.outputs.version }}-lang.zip ../app-shared/src/main/resources/lang/*
+        zip -r MercuryChat-${{ steps.get_version.outputs.version }}-lang.zip ../app-shared/src/main/resources/lang/*
         
         # List created files
         ls -la *.zip
@@ -127,29 +127,29 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
-        name: MercuryTrade ${{ steps.get_version.outputs.version }}
+        name: MercuryChat ${{ steps.get_version.outputs.version }}
         body: |
-          ## MercuryTrade ${{ steps.get_version.outputs.version }}
+          ## MercuryChat ${{ steps.get_version.outputs.version }}
           
           ### Downloads
-          - **MercuryTrade-jar.zip**: Contains the JAR file for users with Java 8+ installed
-          - **MercuryTrade-exe.zip**: Contains the Windows executable (recommended for Windows users)
-          - **MercuryTrade-lang.zip**: Additional language packs
+          - **MercuryChat-jar.zip**: Contains the JAR file for users with Java 8+ installed
+          - **MercuryChat-exe.zip**: Contains the Windows executable (recommended for Windows users)
+          - **MercuryChat-lang.zip**: Additional language packs
           
           ### Changes
           ${{ steps.changelog.outputs.CHANGELOG }}
           
           ### Installation
-          - **JAR version**: Extract the zip file and run with `java -jar MercuryTrade.jar`
+          - **JAR version**: Extract the zip file and run with `java -jar MercuryChat.jar`
           - **EXE version**: Extract the zip file and run the executable directly on Windows
           
           ### Requirements
           - Java 8 or higher
           - Windows 7 or higher (for .exe version)
         files: |
-          release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-jar.zip
-          release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-exe.zip
-          release_files/MercuryTrade-${{ steps.get_version.outputs.version }}-lang.zip
+          release_files/MercuryChat-${{ steps.get_version.outputs.version }}-jar.zip
+          release_files/MercuryChat-${{ steps.get_version.outputs.version }}-exe.zip
+          release_files/MercuryChat-${{ steps.get_version.outputs.version }}-lang.zip
         draft: false
         prerelease: false
       env:

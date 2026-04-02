@@ -17,12 +17,12 @@
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-ui</artifactId>
-            <version>1.7.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.home.mercury</groupId>
             <artifactId>app-core</artifactId>
-            <version>1.7.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>

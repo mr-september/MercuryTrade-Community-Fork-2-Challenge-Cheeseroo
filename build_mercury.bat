@@ -38,8 +38,6 @@ cd release_files
 echo removing old zip files
 del MercuryChat-jar.zip
 del MercuryChat-exe.zip
-del MercuryTrade-jar.zip
-del MercuryTrade-exe.zip
 
 REM Create JAR package with proper structure
 echo Creating JAR package with resources...

@@ -62,7 +62,7 @@ echo "Creating release packages..."
 cd release_files
 
 # Clean up old files
-rm -f MercuryChat-*.zip MercuryTrade-*.zip
+rm -f MercuryChat-*.zip
 
 # Create JAR package with proper structure including resources
 echo "Creating JAR package with resources..."

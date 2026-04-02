@@ -43,9 +43,9 @@ jobs:
     
     - name: Check if JAR was created
       run: |
-        if [ -f "app/target/MercuryTrade.jar" ]; then
+        if [ -f "app/target/MercuryChat.jar" ]; then
           echo "✅ JAR file created successfully"
-          ls -la app/target/MercuryTrade.jar
+          ls -la app/target/MercuryChat.jar
         else
           echo "❌ JAR file not found"
           exit 1
@@ -56,8 +56,8 @@ jobs:
       uses: actions/upload-artifact@v4
       if: matrix.os == 'ubuntu-latest' && matrix.java-version == 8
       with:
-        name: mercury-trade-jar
-        path: app/target/MercuryTrade.jar
+        name: mercury-chat-jar
+        path: app/target/MercuryChat.jar
         retention-days: 7
 
   test-launch4j:
@@ -85,7 +85,7 @@ jobs:
       run: mvn clean package -DskipTests
     
     - name: Copy JAR to release files
-      run: cp app/target/MercuryTrade.jar release_files/
+      run: cp app/target/MercuryChat.jar release_files/
     
     - name: Install Launch4j
       run: |
@@ -109,7 +109,7 @@ jobs:
         echo "Contents of release_files directory:"
         ls -la release_files/
         echo "Checking if JAR file exists:"
-        ls -la release_files/MercuryTrade.jar
+        ls -la release_files/MercuryChat.jar
         echo "Running Launch4j to create release EXE..."
         cd release_files
         
@@ -125,9 +125,9 @@ jobs:
           exit 1
         fi
         
-        if [ -f "MercuryTrade.exe" ]; then
+        if [ -f "MercuryChat.exe" ]; then
           echo "✅ Release EXE file created successfully"
-          ls -la MercuryTrade.exe
+          ls -la MercuryChat.exe
         else
           echo "❌ Release EXE file not found"
           echo "Contents of release_files after launch4j:"
@@ -149,9 +149,9 @@ jobs:
           exit 1
         fi
         
-        if [ -f "MercuryTrade-debug.exe" ]; then
+        if [ -f "MercuryChat-debug.exe" ]; then
           echo "✅ Debug EXE file created successfully"
-          ls -la MercuryTrade-debug.exe
+          ls -la MercuryChat-debug.exe
         else
           echo "❌ Debug EXE file not found"
           echo "Contents of release_files after debug launch4j:"
@@ -162,9 +162,9 @@ jobs:
     - name: Upload EXE artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: mercury-trade-exe
+        name: mercury-chat-exe
         path: |
-          release_files/MercuryTrade.exe
-          release_files/MercuryTrade-debug.exe
+          release_files/MercuryChat.exe
+          release_files/MercuryChat-debug.exe
           release_files/log4j2.xml
         retention-days: 7

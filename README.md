@@ -189,15 +189,14 @@ For a detailed history of changes, see [CHANGELOG.md](CHANGELOG.md).
 ### Recent Highlights
 
 **v1.8.0 - Project Refinement (Upcoming)**
-- Documentation overhaul: Consolidated build automation into a central Developer Guide
-- Professional refinement: Standardized project tone and documentation maturity
-- Systematic rebranding to MercuryChat and UI padding fixes
+- Renaming to MercuryChat and UI padding fixes
 
 **v1.7.0 - Security & Build Improvements**
 - Comprehensive CodeQL security analysis integration
 - Java 8 compatibility enhancements
 - Maven multi-module build fixes
 - GitHub Actions CI/CD improvements
+- Deep refactoring of entire project for stability and performance
 
 - **v1.5.0**: Community-requested feature enhancements for channel management.
 

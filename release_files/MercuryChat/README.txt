@@ -1,9 +1,9 @@
 Here you can put your own sound files to change existing ones.
 
-Simply put a sound file inside this folder and name it like the one which is used in MT. 
+Simply put a sound file inside this folder and name it like the one which is used in MercuryChat. 
 
 
-The list of files which MT uses has names:
+The list of files which MercuryChat uses has names:
 button-pressed.wav
 chat-filter.wav
 icq-message.wav

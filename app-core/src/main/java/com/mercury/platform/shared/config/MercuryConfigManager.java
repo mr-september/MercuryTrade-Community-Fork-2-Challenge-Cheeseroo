@@ -118,17 +118,35 @@ public class MercuryConfigManager implements ConfigManager, AsSubscriber {
         try {
             File configFile = new File(dataSource.getConfigurationFilePath());
             File configFolder = new File(dataSource.getConfigurationPath());
-            File iconFolder = new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons");
+            File iconFolder = new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons");
+
             if (!configFolder.exists() || !configFile.exists() || !iconFolder.exists()) {
+                // Check for legacy data to migrate
+                String legacyPath = dataSource.getConfigurationPath().replace("MercuryChat", "MercuryTrade");
+                File legacyFolder = new File(legacyPath);
+                if (legacyFolder.exists()) {
+                    logger.info("Legacy configuration found at {}. Migrating...", legacyPath);
+                    try {
+                        FileUtils.copyDirectory(legacyFolder, configFolder);
+                        logger.info("Migration from MercuryTrade to MercuryChat completed successfully.");
+                    } catch (IOException e) {
+                        logger.error("Failed to migrate legacy configuration from MercuryTrade.", e);
+                    }
+                }
+
                 configFolder.mkdirs();
-                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "temp").mkdirs();
-                new File(dataSource.getConfigurationPath() +  (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons").mkdirs();
-                new File(dataSource.getConfigurationFilePath()).createNewFile();
+                new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "temp").mkdirs();
+                new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons").mkdirs();
+                if (!configFile.exists()) {
+                    new File(dataSource.getConfigurationFilePath()).createNewFile();
+                }
 
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 InputStream resourceAsStream = classLoader.getResourceAsStream("app/local-updater.jar");
-                File dest = new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "local-updater.jar");
-                FileUtils.copyInputStreamToFile(resourceAsStream, dest);
+                if (resourceAsStream != null) {
+                    File dest = new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "local-updater.jar");
+                    FileUtils.copyInputStreamToFile(resourceAsStream, dest);
+                }
             }
             this.profileDescriptors = this.jsonHelper.readArrayData(new TypeToken<List<ProfileDescriptor>>() {
             });
