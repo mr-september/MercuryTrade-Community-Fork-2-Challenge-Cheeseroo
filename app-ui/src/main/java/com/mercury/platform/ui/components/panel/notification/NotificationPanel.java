@@ -17,6 +17,7 @@ import com.mercury.platform.ui.components.panel.misc.ViewInit;
 import com.mercury.platform.ui.frame.movable.NotificationFrame;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import lombok.Getter;
 import lombok.Setter;
 import rx.Subscription;
@@ -46,9 +47,11 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
     @Setter
     protected boolean duplicate;
     protected JPanel contentPanel;
+    private NotificationLayoutMetrics layoutMetrics;
     @Setter
     private float paintAlphaValue = 1f;
     private Subscription settingsPostSubscription;
+    private Timer timeAgoTimer;
 
     @Setter
     @Getter
@@ -67,6 +70,7 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
 
     public void setComponentsFactory(ComponentsFactory factory) {
         this.componentsFactory = factory;
+        this.layoutMetrics = new NotificationLayoutMetrics(factory);
     }
 
     public void onHotKeyPressed(HotKeyDescriptor descriptor) {
@@ -78,16 +82,21 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
 
     @Override
     public void subscribe() {
-        this.settingsPostSubscription = MercuryStoreUI.settingsPostSubject.subscribe(state -> {
-            this.updateHotKeyPool();
-        });
+        this.settingsPostSubscription = MercuryStoreUI.settingsPostSubject.subscribe(
+                SwingUiExecutor.onEdt(state -> this.updateHotKeyPool()));
     }
 
     protected abstract void updateHotKeyPool();
 
     @Override
     public void onViewDestroy() {
-        this.settingsPostSubscription.unsubscribe();
+        if (this.settingsPostSubscription != null && !this.settingsPostSubscription.isUnsubscribed()) {
+            this.settingsPostSubscription.unsubscribe();
+        }
+        if (this.timeAgoTimer != null) {
+            this.timeAgoTimer.stop();
+            this.timeAgoTimer = null;
+        }
     }
 
     @Override
@@ -112,7 +121,10 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
         //root.setPreferredSize(new Dimension((int) (38 * this.componentsFactory.getScale()), (int) (26 * this.componentsFactory.getScale())));
         root.setBackground(AppThemeColor.MSG_HEADER);
         JLabel timeLabel = componentsFactory.getTextLabel(FontStyle.BOLD, AppThemeColor.TEXT_MISC, TextAlignment.CENTER, 14, "0s");
-        Timer timeAgo = new Timer(1000, new ActionListener() {
+        if (this.timeAgoTimer != null) {
+            this.timeAgoTimer.stop();
+        }
+        this.timeAgoTimer = new Timer(1000, new ActionListener() {
             private int seconds = 0;
 
             @Override
@@ -130,7 +142,7 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
                 timeLabel.setText(labelText);
             }
         });
-        timeAgo.start();
+        this.timeAgoTimer.start();
         root.add(timeLabel, BorderLayout.CENTER);
         return root;
     }
@@ -152,6 +164,10 @@ public abstract class NotificationPanel<T, C> extends JPanel implements AsSubscr
             frame.pack();
         });
         return expandButton;
+    }
+
+    protected NotificationLayoutMetrics getLayoutMetrics() {
+        return this.layoutMetrics;
     }
 
     protected void onBlur() {

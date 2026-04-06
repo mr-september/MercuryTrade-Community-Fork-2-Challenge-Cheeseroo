@@ -34,8 +34,9 @@ public abstract class NotificationPanelProvider<T, C> {
             panel.setController(this.controller);
         }
         panel.setComponentsFactory(this.componentsFactory);
-        panel.subscribe();
         panel.onViewInit();
+        panel.subscribe();
+        this.data = null;
         this.componentsFactory = null;
         this.controller = null;
         return panel;

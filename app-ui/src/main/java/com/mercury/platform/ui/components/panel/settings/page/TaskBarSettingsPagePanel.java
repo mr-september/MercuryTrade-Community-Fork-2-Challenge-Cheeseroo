@@ -25,7 +25,8 @@ public class TaskBarSettingsPagePanel extends SettingsPagePanel {
         this.taskBarService = Configuration.get().taskBarConfiguration();
         this.taskBarSnapshot = CloneHelper.cloneObject(this.taskBarService.get());
 
-        JPanel root = componentsFactory.getJPanel(new GridLayout(0, 2), AppThemeColor.ADR_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel root = componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.ADR_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
 
         JTextField responseField = componentsFactory.getTextField(this.taskBarSnapshot.getDndResponseText(), FontStyle.REGULAR, 16f);
@@ -56,18 +57,18 @@ public class TaskBarSettingsPagePanel extends SettingsPagePanel {
         root.add(componentsFactory.getTextLabel(TranslationKey.join_channel_number.value(":"), FontStyle.REGULAR));
         root.add(this.componentsFactory.wrapToSlide(channelField, AppThemeColor.ADR_BG));
 
-        JPanel hotKeysPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.SETTINGS_BG);
+        JPanel hotKeysPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.SETTINGS_BG);
         hotKeysPanel.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_DEFAULT_BORDER));
         root.add(this.componentsFactory.getIconLabel(IconConst.HIDEOUT, 24, SwingConstants.CENTER, TranslationKey.travel_hideout.value()));
         HotKeyGroup hotKeyGroup = new HotKeyGroup(true);
-        HotKeyPanel hotKeyHideoutPanel = new HotKeyPanel(this.taskBarSnapshot.getHideoutHotkey());
+        HotKeyPanel hotKeyHideoutPanel = new HotKeyPanel(this.taskBarSnapshot.getHideoutHotkey(), this.componentsFactory);
         hotKeyGroup.registerHotkey(hotKeyHideoutPanel);
         root.add(this.componentsFactory.wrapToSlide(hotKeyHideoutPanel, AppThemeColor.SETTINGS_BG, 2, 4, 1, 1));
         this.container.add(this.componentsFactory.wrapToSlide(root));
         this.container.add(this.componentsFactory.wrapToSlide(hotKeysPanel));
 
         root.add(this.componentsFactory.getIconLabel(IconConst.HELP_IG, 24, SwingConstants.CENTER, TranslationKey.helpig.value()));
-        HotKeyPanel hotKeyHelpIGPanel = new HotKeyPanel(this.taskBarSnapshot.getHelpIGHotkey());
+        HotKeyPanel hotKeyHelpIGPanel = new HotKeyPanel(this.taskBarSnapshot.getHelpIGHotkey(), this.componentsFactory);
         hotKeyGroup.registerHotkey(hotKeyHelpIGPanel);
         root.add(this.componentsFactory.wrapToSlide(hotKeyHelpIGPanel, AppThemeColor.SETTINGS_BG, 2, 4, 1, 1));
 
@@ -83,7 +84,6 @@ public class TaskBarSettingsPagePanel extends SettingsPagePanel {
     @Override
     public void restore() {
         this.taskBarSnapshot = CloneHelper.cloneObject(this.taskBarService.get());
-        this.removeAll();
-        this.onViewInit();
+        this.initializePage();
     }
 }

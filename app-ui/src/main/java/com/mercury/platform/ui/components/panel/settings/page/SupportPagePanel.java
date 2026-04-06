@@ -28,7 +28,7 @@ public class SupportPagePanel extends SettingsPagePanel {
 
 
         JTextArea donateText = componentsFactory.getSimpleTextArea(TranslationKey.donate_text.value());
-        donateText.setPreferredSize(new Dimension(300, 450));
+        donateText.setPreferredSize(this.layoutMetrics.getSupportTextSize());
         JPanel donateButtonPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
         donateButtonPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
         donatePanel.add(donateButtonPanel);
@@ -65,7 +65,7 @@ public class SupportPagePanel extends SettingsPagePanel {
         JScrollBar vBar = scrollPane.getVerticalScrollBar();
         vBar.setBackground(AppThemeColor.SLIDE_BG);
         vBar.setUI(new MercuryScrollBarUI());
-        vBar.setPreferredSize(new Dimension(14, Integer.MAX_VALUE));
+        vBar.setPreferredSize(this.layoutMetrics.getSupportScrollbarSize());
         vBar.setUnitIncrement(3);
         vBar.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 2));
         vBar.addAdjustmentListener(e -> repaint());
@@ -105,7 +105,7 @@ public class SupportPagePanel extends SettingsPagePanel {
 
     @Override
     public void restore() {
-
+        this.initializePage();
     }
 
     private class DonationPair {

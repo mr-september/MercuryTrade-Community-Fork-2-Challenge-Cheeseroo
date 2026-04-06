@@ -66,7 +66,7 @@ public class ComponentsFactory {
     private Font CJK_FONT;
     private Font KR_FONT;
     private float scale;
-    private ExecutorService executor = Executors.newFixedThreadPool(3);
+    private ExecutorService executor;
 
     private final static Map<TextAttribute, Float> boldAttr = new HashMap<TextAttribute, Float>() {{
         put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD);
@@ -80,11 +80,21 @@ public class ComponentsFactory {
 
     private ComponentsFactory() {
         this.scale = 1.0f;
+        this.executor = Executors.newFixedThreadPool(3);
         loadFonts();
 
         UIManager.put("ComboBox.selectionBackground", AppThemeColor.HEADER);
         UIManager.put("ComboBox.selectionForeground", AppThemeColor.ADR_POPUP_BG);
         UIManager.put("ComboBox.disabledForeground", AppThemeColor.ADR_FOOTER_BG);
+    }
+
+    private ComponentsFactory(ComponentsFactory source) {
+        this.BOLD_FONT = source.BOLD_FONT;
+        this.REGULAR_FONT = source.REGULAR_FONT;
+        this.DEFAULT_FONT = source.DEFAULT_FONT;
+        this.CJK_FONT = source.CJK_FONT;
+        this.KR_FONT = source.KR_FONT;
+        this.scale = source.scale;
     }
 
     // Cache for display detection to avoid repeated expensive operations
@@ -525,16 +535,8 @@ public class ComponentsFactory {
 
         button.setBorder(BorderFactory.createLineBorder(AppThemeColor.TRANSPARENT, 4));
         button.setVerticalAlignment(SwingConstants.CENTER);
-        BufferedImage icon = null;
-        try {
-            URL resource = getClass().getClassLoader().getResource(iconPath);
-            if (resource != null) {
-                BufferedImage buttonIcon = ImageIO.read(resource);
-                icon = Scalr.resize(buttonIcon, (int) (scale * iconSize));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        BufferedImage sourceIcon = readImageResource(iconPath);
+        BufferedImage icon = sourceIcon == null ? null : Scalr.resize(sourceIcon, Math.round(scale * iconSize));
         if (icon != null) {
             button.setIcon(new ImageIcon(icon));
         } else {
@@ -688,32 +690,32 @@ public class ComponentsFactory {
      */
     public JLabel getIconLabel(String iconPath, int size) {
         JLabel iconLabel = new JLabel();
-        try {
-            iconLabel.setIcon(getIcon(iconPath, (int) (scale * size)));
-        } catch (Exception e) {
-            return getTextLabel(StringUtils.substringBetween(iconPath, "/", "."));
+        ImageIcon icon = getIcon(iconPath, (int) (scale * size));
+        if (!hasImage(icon)) {
+            return getTextLabel(extractFallbackIconText(iconPath));
         }
+        iconLabel.setIcon(icon);
         return iconLabel;
     }
 
     public JLabel getIconLabel(String iconPath, int size, int aligment) {
         JLabel iconLabel = new JLabel();
-        try {
-            iconLabel.setIcon(getIcon(iconPath, (int) (scale * size)));
-        } catch (Exception e) {
-            return getTextLabel(StringUtils.substringBetween(iconPath, "/", "."));
+        ImageIcon icon = getIcon(iconPath, (int) (scale * size));
+        if (!hasImage(icon)) {
+            return getTextLabel(extractFallbackIconText(iconPath));
         }
+        iconLabel.setIcon(icon);
         iconLabel.setHorizontalAlignment(aligment);
         return iconLabel;
     }
 
     public JLabel getIconLabel(URL url, int size) {
         JLabel iconLabel = new JLabel();
-        try {
-            iconLabel.setIcon(getIcon(url, (int) (scale * size)));
-        } catch (Exception e) {
-            return getTextLabel(StringUtils.substringBetween(url.getPath(), "/", "."));
+        ImageIcon icon = getIcon(url, (int) (scale * size));
+        if (!hasImage(icon)) {
+            return getTextLabel(extractFallbackIconText(url.getPath()));
         }
+        iconLabel.setIcon(icon);
         return iconLabel;
     }
 
@@ -725,23 +727,22 @@ public class ComponentsFactory {
             }
         };
         iconLabel.setToolTipText(wrapTextWithPadding(tooltip));
-        try {
-            iconLabel.setIcon(getIcon(iconPath, (int) (scale * size)));
-        } catch (Exception e) {
-            return getTextLabel(StringUtils.substringBetween(iconPath, "/", "."));
+        ImageIcon icon = getIcon(iconPath, (int) (scale * size));
+        if (!hasImage(icon)) {
+            return getTextLabel(extractFallbackIconText(iconPath));
         }
+        iconLabel.setIcon(icon);
         iconLabel.setHorizontalAlignment(alignment);
         return iconLabel;
     }
 
     public JLabel getIconLabel(String iconPath) {
         JLabel iconLabel = new JLabel();
-        try {
-            BufferedImage buttonIcon = ImageIO.read(getClass().getClassLoader().getResource(iconPath));
-            iconLabel.setIcon(new ImageIcon(buttonIcon));
-        } catch (Exception e) {
-            return getTextLabel(StringUtils.substringBetween(iconPath, "/", "."));
+        BufferedImage buttonIcon = readImageResource(iconPath);
+        if (buttonIcon == null) {
+            return getTextLabel(extractFallbackIconText(iconPath));
         }
+        iconLabel.setIcon(new ImageIcon(buttonIcon));
         return iconLabel;
     }
 
@@ -992,7 +993,9 @@ public class ComponentsFactory {
             }
         });
 
-        container.getParent().setBackground(AppThemeColor.TRANSPARENT);
+        if (container.getParent() != null) {
+            container.getParent().setBackground(AppThemeColor.TRANSPARENT);
+        }
         JScrollBar vBar = scrollPane.getVerticalScrollBar();
         vBar.setBackground(AppThemeColor.SLIDE_BG);
         vBar.setUI(new MercuryScrollBarUI());
@@ -1022,35 +1025,17 @@ public class ComponentsFactory {
     }
 
     public ImageIcon getIcon(String iconPath, float size) {
-        BufferedImage icon = null;
-        try {
-            BufferedImage buttonIcon = ImageIO.read(getClass().getClassLoader().getResource(iconPath));
-            icon = Scalr.resize(buttonIcon, (int) (scale * size));
-        } catch (IOException e) {
-            log.error(e);
-        }
-        return new ImageIcon(icon);
+        BufferedImage icon = readImageResource(iconPath);
+        return new ImageIcon(icon == null ? null : Scalr.resize(icon, Math.round(scale * size)));
     }
 
     public ImageIcon getIcon(URL iconPath, float size) {
-        BufferedImage icon = null;
-        try {
-            BufferedImage buttonIcon = ImageIO.read(iconPath);
-            icon = Scalr.resize(buttonIcon, (int) (scale * size));
-        } catch (IOException e) {
-            log.error(e);
-        }
-        return new ImageIcon(icon);
+        BufferedImage icon = readImageResource(iconPath);
+        return new ImageIcon(icon == null ? null : Scalr.resize(icon, Math.round(scale * size)));
     }
 
     public ImageIcon getImage(String iconPath) {
-        BufferedImage icon = null;
-        try {
-            icon = ImageIO.read(getClass().getClassLoader().getResource(iconPath));
-        } catch (IOException e) {
-            log.error(e);
-        }
-        return new ImageIcon(icon);
+        return new ImageIcon(readImageResource(iconPath));
     }
 
     public ImageIcon getImageLocal(String iconPath) {
@@ -1071,6 +1056,18 @@ public class ComponentsFactory {
 
     public Dimension convertSize(Dimension initialSize) {
         return new Dimension((int) (initialSize.width * scale), (int) (initialSize.height * scale));
+    }
+
+    private boolean hasImage(ImageIcon icon) {
+        return icon != null && icon.getImage() != null;
+    }
+
+    private String extractFallbackIconText(String iconPath) {
+        String fallbackText = StringUtils.substringBetween(iconPath, "/", ".");
+        if (StringUtils.isBlank(fallbackText)) {
+            return "icon";
+        }
+        return fallbackText;
     }
 
     public JTextArea getSimpleTextArea(String text) {
@@ -1116,9 +1113,28 @@ public class ComponentsFactory {
      * Useful for testing where a fresh instance is needed.
      */
     public ComponentsFactory copy() {
-        ComponentsFactory copy = new ComponentsFactory();
-        copy.setScale(this.scale);
-        return copy;
+        return new ComponentsFactory(this);
+    }
+
+    private BufferedImage readImageResource(String resourcePath) {
+        URL resource = getClass().getClassLoader().getResource(resourcePath);
+        if (resource == null) {
+            log.warn("UI resource not found: {}", resourcePath);
+            return null;
+        }
+        return readImageResource(resource);
+    }
+
+    private BufferedImage readImageResource(URL resource) {
+        if (resource == null) {
+            return null;
+        }
+        try {
+            return ImageIO.read(resource);
+        } catch (IOException | RuntimeException e) {
+            log.error("Failed to load UI resource: {}", resource, e);
+            return null;
+        }
     }
 
     private Font getSelectedFont(FontStyle fontStyle, String text, Float deriveFont) {

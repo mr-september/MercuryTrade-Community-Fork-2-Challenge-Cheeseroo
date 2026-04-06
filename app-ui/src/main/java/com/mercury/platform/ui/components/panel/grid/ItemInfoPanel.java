@@ -13,12 +13,14 @@ import com.mercury.platform.ui.misc.MercuryStoreUI;
 import com.mercury.platform.ui.misc.TooltipConstants;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ItemInfoPanel extends JPanel implements ViewInit {
     private ComponentsFactory componentsFactory;
+    private ItemGridLayoutMetrics layoutMetrics;
     private ItemTradeNotificationDescriptor message;
     private JPanel cell;
     private StashTabDescriptor stashTabDescriptor;
@@ -29,6 +31,7 @@ public class ItemInfoPanel extends JPanel implements ViewInit {
 
     public ItemInfoPanel(ItemTradeNotificationDescriptor message, ItemCell itemCell, StashTabDescriptor stashTabDescriptor, ComponentsFactory factory) {
         this.componentsFactory = factory;
+        this.layoutMetrics = new ItemGridLayoutMetrics(this.componentsFactory);
         this.controller = new ItemInfoPanelControllerImpl(message);
         this.message = message;
         this.cell = itemCell.getCell();
@@ -47,7 +50,7 @@ public class ItemInfoPanel extends JPanel implements ViewInit {
         JPanel nicknamePanel = componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER));
         nicknameLabel.setForeground(AppThemeColor.TEXT_NICKNAME);
         nicknamePanel.add(nicknameLabel);
-        nicknamePanel.setBorder(BorderFactory.createEmptyBorder(-6, 0, -6, 0));
+        nicknamePanel.setBorder(new EmptyBorder(layoutMetrics.getNicknameInsets()));
         this.add(nicknamePanel, BorderLayout.CENTER);
 
         JButton hideButton = componentsFactory.getIconButton(IconConst.CLOSE, 12, AppThemeColor.FRAME, TranslationKey.close.value());
@@ -59,10 +62,10 @@ public class ItemInfoPanel extends JPanel implements ViewInit {
         JPanel tabInfoPanel = componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel tabLabel = componentsFactory.getTextLabel(TranslationKey.tab.value(":") + " " + message.getTabName());
         tabInfoPanel.add(tabLabel);
-        tabInfoPanel.setBorder(BorderFactory.createEmptyBorder(-8, 0, -6, 0));
+        tabInfoPanel.setBorder(new EmptyBorder(layoutMetrics.getTabInfoInsets()));
         if (stashTabDescriptor.isUndefined()) {
             JCheckBox isItQuad = componentsFactory.getCheckBox(TranslationKey.is_it_quad_tt.value());
-            isItQuad.setPreferredSize(new Dimension(16, 16));
+            isItQuad.setPreferredSize(layoutMetrics.getQuadToggleSize());
             tabInfoPanel.add(isItQuad);
 
             isItQuad.addActionListener(action -> {

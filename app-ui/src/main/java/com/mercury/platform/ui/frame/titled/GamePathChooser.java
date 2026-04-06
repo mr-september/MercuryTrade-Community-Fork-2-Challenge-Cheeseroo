@@ -116,7 +116,7 @@ public class GamePathChooser extends AbstractTitledComponentFrame {
                             timer.stop();
                             applicationConfig.get().setGamePath(gamePath + File.separator);
                             MercuryStoreCore.saveConfigSubject.onNext(true);
-                            new FileMonitor().start();
+                            FileMonitor.INSTANCE.start();
                             FramesManager.INSTANCE.start();
                             setVisible(false);
                         });

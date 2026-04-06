@@ -1,14 +1,17 @@
 [
   {
-    "version": "1.8.0",
+    "version": "1.8.1",
     "minorChanges": [
       {
-        "changed": "Systematic rebranding of the project from MercuryTrade to MercuryChat"
+        "changed": "General bug fixes and stability improvements"
+      },
+      {
+        "changed": "Polished taskbar, scanner, and settings behavior"
       }
     ],
     "fix": [
       {
-        "changed": "Fixed taskbar icon padding alignment on the right side"
+        "changed": "Improved UI reliability and reduced visual glitches"
       }
     ]
   },

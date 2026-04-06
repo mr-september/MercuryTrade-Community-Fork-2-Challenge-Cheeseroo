@@ -9,7 +9,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuListRenderer extends JButton implements ListCellRenderer<MenuEntry> {
-    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
+    private final ComponentsFactory componentsFactory;
+    private final SettingsLayoutMetrics layoutMetrics;
+
+    public MenuListRenderer() {
+        this(ComponentsFactory.INSTANCE);
+    }
+
+    public MenuListRenderer(ComponentsFactory componentsFactory) {
+        this.componentsFactory = componentsFactory;
+        this.layoutMetrics = new SettingsLayoutMetrics(this.componentsFactory);
+    }
 
     @Override
     public Component getListCellRendererComponent(JList<? extends MenuEntry> list, MenuEntry value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -18,17 +28,17 @@ public class MenuListRenderer extends JButton implements ListCellRenderer<MenuEn
         button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setBackground(AppThemeColor.FRAME);
         button.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 16f));
-        button.setPreferredSize(new Dimension(220, 50));
+        button.setPreferredSize(this.layoutMetrics.getMenuEntrySize());
         button.setIcon(value.getImageIcon());
         if (isSelected) {
             button.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createEmptyBorder(0, 14, 0, 0),
+                    BorderFactory.createEmptyBorder(0, this.layoutMetrics.scaleValue(14), 0, 0),
                     BorderFactory.createMatteBorder(0, 0, 0, 4, AppThemeColor.TEXT_DEFAULT)));
             button.setBackground(AppThemeColor.ADR_BG);
         } else {
             button.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createMatteBorder(0, 0, 0, 1, AppThemeColor.ADR_PANEL_BORDER),
-                    BorderFactory.createEmptyBorder(0, 10, 0, 3)));
+                    BorderFactory.createEmptyBorder(0, this.layoutMetrics.scaleValue(10), 0, this.layoutMetrics.scaleValue(3))));
         }
         button.addActionListener(action -> {
             value.getAction().onClick();

@@ -6,17 +6,15 @@ import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.panel.settings.page.*;
 import com.mercury.platform.ui.frame.titled.SettingsFrame;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class SettingsRoutManager implements AsSubscriber {
-    private SettingsPagePanel generalSettings;
-    private SettingsPagePanel soundSettings;
-    private SettingsPagePanel notificationSettings;
-    private SettingsPagePanel taskBarSettings;
-    private SettingsPagePanel supportPanel;
-    private SettingsPagePanel aboutPanel;
-
-    private SettingsFrame settingsFrame;
-
+    private final Map<SettingsPage, SettingsPagePanel> pages = new EnumMap<>(SettingsPage.class);
+    private final SettingsFrame settingsFrame;
+    private SettingsPage currentPage = SettingsPage.GENERAL_SETTINGS;
 
     public SettingsRoutManager(SettingsFrame settingsFrame) {
         this.settingsFrame = settingsFrame;
@@ -25,62 +23,61 @@ public class SettingsRoutManager implements AsSubscriber {
             Configuration.get().applicationConfiguration().get().setShowOnStartUp(false);
         }
 
-        this.generalSettings = new GeneralSettingsPagePanel();
-        this.soundSettings = new SoundSettingsPagePanel();
-        this.notificationSettings = new NotificationSettingsPagePanel();
-        this.taskBarSettings = new TaskBarSettingsPagePanel();
-        this.supportPanel = new SupportPagePanel();
-        this.aboutPanel = new AboutPagePanel();
+        this.pages.put(SettingsPage.GENERAL_SETTINGS, new GeneralSettingsPagePanel());
+        this.pages.put(SettingsPage.SOUND_SETTING, new SoundSettingsPagePanel());
+        this.pages.put(SettingsPage.NOTIFICATION_SETTINGS, new NotificationSettingsPagePanel());
+        this.pages.put(SettingsPage.TASK_BAR_SETTINGS, new TaskBarSettingsPagePanel());
+        this.pages.put(SettingsPage.SUPPORT, new SupportPagePanel());
+        this.pages.put(SettingsPage.ABOUT, new AboutPagePanel());
 
-        this.settingsFrame.setContentPanel(this.generalSettings);
+        this.showPage(SettingsPage.GENERAL_SETTINGS);
         this.subscribe();
+    }
+
+    private void showPage(SettingsPage page) {
+        this.currentPage = page;
+        this.settingsFrame.setSelectedPage(page);
+        this.settingsFrame.setContentPanel(this.getPage(page));
+    }
+
+    private SettingsPagePanel getPage(SettingsPage page) {
+        return this.pages.getOrDefault(page, this.pages.get(SettingsPage.GENERAL_SETTINGS));
+    }
+
+    private void refreshAllPages() {
+        this.pages.values().forEach(SettingsPagePanel::restore);
+    }
+
+    private void saveAllPages() {
+        this.pages.values().forEach(SettingsPagePanel::onSave);
+    }
+
+    private void refreshFrameChrome() {
+        this.settingsFrame.setSelectedPage(this.currentPage);
+        this.settingsFrame.refreshLayout();
+        this.settingsFrame.setContentPanel(this.getPage(this.currentPage));
+    }
+
+    private void persistSettingsAsync() {
+        Thread saveThread = new Thread(() -> MercuryStoreCore.saveConfigSubject.onNext(true), "settings-save-config");
+        saveThread.setDaemon(true);
+        saveThread.start();
     }
 
     @Override
     public void subscribe() {
-        MercuryStoreUI.settingsStateSubject.subscribe(state -> {
-            switch (state) {
-                case GENERAL_SETTINGS: {
-                    this.settingsFrame.setContentPanel(this.generalSettings);
-                    break;
-                }
-                case SOUND_SETTING: {
-                    this.settingsFrame.setContentPanel(this.soundSettings);
-                    break;
-                }
-                case NOTIFICATION_SETTINGS: {
-                    this.settingsFrame.setContentPanel(this.notificationSettings);
-                    break;
-                }
-                case TASK_BAR_SETTINGS: {
-                    this.settingsFrame.setContentPanel(this.taskBarSettings);
-                    break;
-                }
-                case SUPPORT: {
-                    this.settingsFrame.setContentPanel(this.supportPanel);
-                    break;
-                }
-                case ABOUT: {
-                    this.settingsFrame.setContentPanel(this.aboutPanel);
-                    break;
-                }
-            }
-        });
-        MercuryStoreUI.settingsRestoreSubject.subscribe(state -> {
-            this.generalSettings.restore();
-            this.notificationSettings.restore();
-            this.soundSettings.restore();
-            this.taskBarSettings.restore();
-            this.settingsFrame.repaint();
-            this.settingsFrame.pack();
-        });
-        MercuryStoreUI.settingsSaveSubject.subscribe(state -> {
-            this.generalSettings.onSave();
-            this.notificationSettings.onSave();
-            this.soundSettings.onSave();
-            this.taskBarSettings.onSave();
-            new Thread(() -> MercuryStoreCore.saveConfigSubject.onNext(true)).start();
+        MercuryStoreUI.settingsStateSubject.subscribe(SwingUiExecutor.onEdt(this::showPage));
+        MercuryStoreUI.settingsRestoreSubject.subscribe(SwingUiExecutor.onEdt(state -> {
+            this.refreshAllPages();
+            this.refreshFrameChrome();
+        }));
+        MercuryStoreUI.settingsSaveSubject.subscribe(SwingUiExecutor.onEdt(state -> {
+            this.saveAllPages();
+            this.refreshAllPages();
+            this.refreshFrameChrome();
+            MercuryStoreUI.saveScaleSubject.onNext(Configuration.get().scaleConfiguration().getMap());
+            this.persistSettingsAsync();
             MercuryStoreUI.settingsPostSubject.onNext(true);
-        });
+        }));
     }
 }

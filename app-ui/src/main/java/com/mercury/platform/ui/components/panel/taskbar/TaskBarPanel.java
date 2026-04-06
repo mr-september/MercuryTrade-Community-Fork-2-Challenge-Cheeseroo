@@ -13,56 +13,41 @@ import com.mercury.platform.ui.components.panel.misc.ViewInit;
 import com.mercury.platform.ui.frame.movable.TaskBarFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import com.mercury.platform.ui.misc.ToggleAdapter;
-import com.mercury.platform.ui.misc.TooltipConstants;
 import lombok.NonNull;
 
 import javax.swing.*;
-import javax.tools.Tool;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TaskBarPanel extends JPanel implements ViewInit {
-    private ComponentsFactory componentsFactory;
-    private TaskBarController controller;
+    private final ComponentsFactory componentsFactory;
+    private final TaskBarLayoutMetrics layoutMetrics;
+    private final TaskBarController controller;
+    private final MouseListener taskBarFrameMouseListener;
     private PlainConfigurationService<TaskBarDescriptor> taskBarService;
     private JButton toHideout;
     private JButton showHelpIG;
-    private MouseListener taskBarFrameMouseListener;
-
-    private JButton dndButton;
-    private JButton chatFilterButton;
-    private JButton timerButton;
-    private JButton historyButton;
-    private JButton settingsButton;
-    private JButton scaleButton;
-    private JButton moveButton;
-    private JButton exitButton;
-    private JButton helpButton;
-    private JButton joinChannelButton;
-
-    private JLabel appIcon;
-    private JLabel hPanel;
 
     public TaskBarPanel(@NonNull TaskBarController controller, @NonNull ComponentsFactory factory, MouseListener taskBarFrameMouseListener) {
         this.controller = controller;
         this.componentsFactory = factory;
+        this.layoutMetrics = new TaskBarLayoutMetrics(factory);
         this.taskBarFrameMouseListener = taskBarFrameMouseListener;
         this.onViewInit();
 
-        MercuryStoreCore.hotKeySubject.subscribe(hotkeyDescriptor -> {
-            SwingUtilities.invokeLater(() -> {
-                if (ProdStarter.APP_STATUS.equals(FrameVisibleState.SHOW)) {
-                    if (this.taskBarService.get().getHideoutHotkey().equals(hotkeyDescriptor)) {
-                        this.toHideout.doClick();
-                    } else if (this.taskBarService.get().getHelpIGHotkey().equals(hotkeyDescriptor)) {
-                        this.showHelpIG.doClick();
-                    }
+        MercuryStoreCore.hotKeySubject.subscribe(SwingUiExecutor.onEdt(hotkeyDescriptor -> {
+            if (ProdStarter.APP_STATUS.equals(FrameVisibleState.SHOW)) {
+                if (this.taskBarService.get().getHideoutHotkey().equals(hotkeyDescriptor)) {
+                    this.toHideout.doClick();
+                } else if (this.taskBarService.get().getHelpIGHotkey().equals(hotkeyDescriptor)) {
+                    this.showHelpIG.doClick();
                 }
-            });
-        });
+            }
+        }));
     }
 
     @Override
@@ -78,7 +63,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 AppThemeColor.FRAME,
                 TranslationKey.hide_notifications.value());
         ToggleAdapter toggleAdapter = createToggleAdapter(messageNotificationsHide);
-        MercuryStoreCore.showMessageHideButton.subscribe(a -> showHideMessageNotificationSubscribe(messageNotificationsHide, toggleAdapter));
+        MercuryStoreCore.showMessageHideButton.subscribe(SwingUiExecutor.onEdt(a -> showHideMessageNotificationSubscribe(messageNotificationsHide, toggleAdapter)));
         messageNotificationsHide.addMouseListener(toggleAdapter);
         messageNotificationsHide.addMouseListener(taskBarFrameMouseListener);
 
@@ -159,8 +144,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         adr.addActionListener(action -> {
             FramesManager.INSTANCE.performAdr();
             TaskBarFrame windowAncestor = (TaskBarFrame) SwingUtilities.getWindowAncestor(TaskBarPanel.this);
-            windowAncestor.setSize(new Dimension(windowAncestor.getMIN_WIDTH(), windowAncestor.getHeight()));
-            windowAncestor.pack();
+            windowAncestor.collapseToMinimumWidth();
         });
         adr.addMouseListener(taskBarFrameMouseListener);
 
@@ -174,35 +158,20 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         });
         chatFilter.addMouseListener(taskBarFrameMouseListener);
 
-        this.historyButton = componentsFactory.getIconButton(
+        JButton historyButton = componentsFactory.getIconButton(
                 "app/history.png",
                 20,
                 AppThemeColor.FRAME,
                 "");
-        this.settingsButton = componentsFactory.getIconButton(
-                "app/settings.png",
-                20,
-                AppThemeColor.FRAME,
-                "");
-        this.helpButton = componentsFactory.getIconButton(
-                "app/help.png",
-                20,
-                AppThemeColor.FRAME,
-                "");
-        this.joinChannelButton = componentsFactory.getIconButton(
+        JButton joinChannelButton = componentsFactory.getIconButton(
                 "app/join_channel.png",
                 20,
                 AppThemeColor.FRAME,
                 TranslationKey.join_channel.value() + " " + this.taskBarService.get().getJoinChannelNumber());
-        this.joinChannelButton.addActionListener(action -> {
+        joinChannelButton.addActionListener(action -> {
             this.controller.performJoinChannel();
         });
-        this.joinChannelButton.addMouseListener(taskBarFrameMouseListener);
-        this.scaleButton = componentsFactory.getIconButton(
-                "app/scale-bg.png",
-                45,
-                AppThemeColor.FRAME,
-                "");
+        joinChannelButton.addMouseListener(taskBarFrameMouseListener);
 
         JButton pinButton = componentsFactory.getIconButton(
                 IconConst.DRAG_AND_DROP,
@@ -245,8 +214,7 @@ public class TaskBarPanel extends JPanel implements ViewInit {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     controller.showSettings();
                     TaskBarFrame windowAncestor = (TaskBarFrame) SwingUtilities.getWindowAncestor(TaskBarPanel.this);
-                    windowAncestor.setSize(new Dimension(windowAncestor.getMIN_WIDTH(), windowAncestor.getHeight()));
-                    windowAncestor.pack();
+                    windowAncestor.collapseToMinimumWidth();
                 }
             }
         });
@@ -267,20 +235,20 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         });
         exitButton.addMouseListener(taskBarFrameMouseListener);
 
-        this.add(this.toHideout);
-        this.add(adr);
-        this.add(chatFilter);
-        this.add(messageNotificationsHide);
-        this.add(visibleMode);
-        this.add(pushbulletNotification);
-        this.add(joinChannelButton);
-        this.add(this.showHelpIG);
-        this.add(historyButton);
-        this.add(itemGrid);
-        this.add(pinButton);
-        this.add(scaleButton);
-        this.add(settingsButton);
-        this.add(exitButton);
+        addWithGap(this.toHideout, true);
+        addWithGap(adr, true);
+        addWithGap(chatFilter, true);
+        addWithGap(messageNotificationsHide, false);
+        addWithGap(visibleMode, false);
+        addWithGap(pushbulletNotification, false);
+        addWithGap(joinChannelButton, false);
+        addWithGap(this.showHelpIG, false);
+        addWithGap(historyButton, true);
+        addWithGap(itemGrid, true);
+        addWithGap(pinButton, true);
+        addWithGap(scaleButton, true);
+        addWithGap(settingsButton, true);
+        addWithGap(exitButton, true);
     }
 
     private void getPushbullet(boolean pushbulletEnabled, JButton pushbulletNotification) {
@@ -293,15 +261,12 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         }
     }
 
-    public int getWidthOf(int elementCount) {
-        Component[] comps = this.getComponents();
-        int width = 0;
-        
-        for (int i = 0; i < elementCount && i < comps.length; i++) {
-            width += comps[i].getPreferredSize().width;
-        }
-        
-        return width;
+    public int getCollapsedWidth() {
+        return this.layoutMetrics.calculateCollapsedWidth(this);
+    }
+
+    public Dimension getStripSize() {
+        return this.layoutMetrics.calculateStripSize(this);
     }
 
     private void showHideMessageNotificationSubscribe(JButton messageNotificationsHide, ToggleAdapter toggleAdapter) {
@@ -323,11 +288,8 @@ public class TaskBarPanel extends JPanel implements ViewInit {
         );
     }
 
-    public JButton getHelpButton() {
-        return helpButton;
-    }
-
-    public JButton getJoinChannelButton() {
-        return joinChannelButton;
+    private void addWithGap(Component component, boolean useMajorGap) {
+        this.add(component);
+        this.add(useMajorGap ? this.layoutMetrics.createMajorGap() : this.layoutMetrics.createMinorGap());
     }
 }

@@ -31,6 +31,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChatScannerFrame extends AbstractTitledComponentFrame {
+    private static final int FRAME_WIDTH = 350;
+    private static final int FRAME_HEIGHT = 300;
+    private static final int PANEL_PADDING = 4;
+    private static final int TITLE_TOP_PADDING = 2;
+    private static final int TITLE_BOTTOM_PADDING = 6;
+    private static final int BUTTON_WIDTH = 90;
+    private static final int BUTTON_HEIGHT = 24;
+    private static final int HEADER_BUTTON_WIDTH = 80;
+    private static final int HEADER_BUTTON_HEIGHT = 20;
+
+    private static final String TRADE_CHAT_SEPARATOR = "] $";
+    private static final String GLOBAL_CHAT_SEPARATOR = "] #";
+    private static final String GENERIC_CHAT_SEPARATOR = "] ";
+    private static final Pattern SCANNER_MESSAGE_PATTERN = Pattern.compile("^(\\<.+?\\>)?\\s?(.+?):(.+)$");
+    private static final Pattern PLUS_TEXT_PATTERN = Pattern.compile("\\+\\w+");
+
     private PlainConfigurationService<ScannerDescriptor> scannerService;
     private PlainConfigurationService<NotificationSettingsDescriptor> notificationConfig;
     private MessageInterceptor currentInterceptor;
@@ -57,7 +73,11 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         this.initHeaderBar();
         JPanel root = componentsFactory.getTransparentPanel(new BorderLayout());
         JPanel setupArea = componentsFactory.getTransparentPanel(new BorderLayout());
-        setupArea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        setupArea.setBorder(BorderFactory.createEmptyBorder(
+                scaleValue(PANEL_PADDING),
+                scaleValue(PANEL_PADDING),
+                scaleValue(PANEL_PADDING),
+                scaleValue(PANEL_PADDING)));
 
         JLabel title = componentsFactory.getTextLabel(
                 FontStyle.REGULAR,
@@ -65,15 +85,21 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                 TextAlignment.LEFTOP,
                 15f,
                 TranslationKey.show_messages_containing_the_following_words.value(":"));
-        title.setBorder(BorderFactory.createEmptyBorder(2, 0, 6, 0));
+        title.setBorder(BorderFactory.createEmptyBorder(
+                scaleValue(TITLE_TOP_PADDING),
+                0,
+                scaleValue(TITLE_BOTTOM_PADDING),
+                0));
         JTextArea words = componentsFactory.getSimpleTextArea(this.scannerService.get().getWords());
         words.setEditable(true);
         words.setCaretColor(AppThemeColor.TEXT_DEFAULT);
         words.setBorder(BorderFactory.createLineBorder(AppThemeColor.HEADER));
         words.setBackground(AppThemeColor.SLIDE_BG);
 
-        JPanel navBar = componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER), AppThemeColor.FRAME);
-        Dimension buttonSize = new Dimension(90, 24);
+        JPanel navBar = componentsFactory.getJPanel(
+                new FlowLayout(FlowLayout.CENTER, scaleValue(5), scaleValue(5)),
+                AppThemeColor.FRAME);
+        Dimension buttonSize = this.scaleSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         JButton save = componentsFactory.getBorderedButton(TranslationKey.save.value());
         save.addActionListener(action -> {
             this.scannerService.get().setWords(words.getText());
@@ -108,7 +134,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         JLabel quickResponseLabel = this.componentsFactory.getIconLabel(HotKeyType.N_QUICK_RESPONSE.getIconPath(), 18);
         quickResponseLabel.setFont(this.componentsFactory.getFont(FontStyle.REGULAR, 16));
         quickResponseLabel.setForeground(AppThemeColor.TEXT_DEFAULT);
-        quickResponseLabel.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 0));
+        quickResponseLabel.setBorder(BorderFactory.createEmptyBorder(0, scaleValue(4), 0, 0));
         quickResponseLabel.setText(TranslationKey.response_message.value(": "));
         propertiesPanel.add(quickResponseLabel, BorderLayout.LINE_START);
         JTextField quickResponseField = this.componentsFactory.getTextField(this.scannerService.get().getResponseMessage(), FontStyle.BOLD, 15f);
@@ -127,17 +153,20 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
     }
 
     private void initHeaderBar() {
-        JPanel root = this.componentsFactory.getJPanel(new GridLayout(1, 0, 4, 0), AppThemeColor.HEADER);
+        JPanel root = this.componentsFactory.getJPanel(
+                new GridLayout(1, 0, scaleValue(4), 0),
+                AppThemeColor.HEADER);
         JLabel statusLabel = componentsFactory.getTextLabel(
                 FontStyle.BOLD,
                 AppThemeColor.TEXT_DEFAULT,
                 TextAlignment.LEFTOP,
                 16f,
-                TranslationKey.status_stopped.value());
+                this.running ? TranslationKey.status_running.value() : TranslationKey.status_stopped.value());
 
-        JButton processButton = componentsFactory.getBorderedButton(TranslationKey.start.value());
+        JButton processButton = componentsFactory.getBorderedButton(
+                this.running ? TranslationKey.stop.value() : TranslationKey.start.value());
         processButton.setFont(this.componentsFactory.getFont(FontStyle.BOLD, 16f));
-        processButton.setPreferredSize(new Dimension(80, 20));
+        processButton.setPreferredSize(this.scaleSize(HEADER_BUTTON_WIDTH, HEADER_BUTTON_HEIGHT));
         processButton.addActionListener(action -> {
             if (this.running) {
                 this.running = false;
@@ -183,30 +212,14 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
                 @Override
                 protected void process(String stubMessage) {
                     messageBuilder.setChunkStrings(contains);
-                    String message = StringUtils.substringAfter(stubMessage, "] $");
-                    if (message.isEmpty()) {
-                        message = StringUtils.substringAfter(stubMessage, "] #");
-                    }
-                    if (!message.isEmpty()) {
-                        Pattern pattern = Pattern.compile("^(?:.*\\s)?(.+?):\\s?(.+)$");
-                        Matcher matcher = pattern.matcher(message);
-                        if (matcher.find() && !expiresMessages.containsValue(message)) {
+                    String message = extractScannerPayload(stubMessage);
+                    if (!message.isEmpty() && !expiresMessages.containsValue(message)) {
+                        String[] parsedMessage = parseScannerMessage(message);
+                        if (parsedMessage != null) {
                             PlainMessageDescriptor descriptor = new PlainMessageDescriptor();
-                            descriptor.setNickName(matcher.group(2));
-                            descriptor.setMessage(messageBuilder.build(matcher.group(3)));
-                            
-                            // Check for "+text" pattern in the message
-                            String originalMessage = matcher.group(3);
-                            Pattern plusTextPattern = Pattern.compile("\\+\\w+");
-                            Matcher plusTextMatcher = plusTextPattern.matcher(originalMessage);
-                            if (plusTextMatcher.find()) {
-                                descriptor.setHasPlusText(true);
-                                // Get the first "+text" occurrence
-                                descriptor.setPlusText(plusTextMatcher.group());
-                            } else {
-                                descriptor.setHasPlusText(false);
-                                descriptor.setPlusText(null);
-                            }
+                            descriptor.setNickName(parsedMessage[0]);
+                            descriptor.setMessage(messageBuilder.build(parsedMessage[1]));
+                            populatePlusText(descriptor, parsedMessage[1]);
 
                             expiresMessages.put(descriptor.getNickName(), message);
                             if (notificationConfig.get().isScannerNotificationEnable()) {
@@ -219,14 +232,16 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
 
                 @Override
                 protected MessageMatcher match() {
-                    return message -> {
-                        if (!message.contains("] $") && !message.contains("] #")) {
+                    return stubMessage -> {
+                        String[] parsedMessage = parseScannerMessage(extractScannerPayload(stubMessage));
+                        if (parsedMessage == null || parsedMessage.length < 2) {
                             return false;
                         }
-                        final String separator = message.contains("] $") ? "] $" : "] #";
-                        message = StringUtils.substringAfter(message, separator).toLowerCase();
-                        message = StringUtils.substringAfter(message, ": ").toLowerCase();
-                        
+                        String message = StringUtils.defaultString(parsedMessage[1]).trim().toLowerCase();
+                        if (message.isEmpty()) {
+                            return false;
+                        }
+
                         // Check for start-of-message exclusions
                         for (String startExclusion : startExclusions) {
                             if (message.startsWith(startExclusion)) {
@@ -246,7 +261,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
     @Override
     protected void initialize() {
         super.initialize();
-        this.setPreferredSize(new Dimension(350, 300));
+        this.setPreferredSize(this.scaleSize(FRAME_WIDTH, FRAME_HEIGHT));
     }
 
     private JPanel getMemo() {
@@ -254,7 +269,7 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
         JLabel title = componentsFactory.getTextLabel(
                 "Memo:",
                 FontStyle.REGULAR);
-        title.setBorder(BorderFactory.createEmptyBorder(6, 0, 2, 0));
+        title.setBorder(BorderFactory.createEmptyBorder(scaleValue(6), 0, scaleValue(2), 0));
 
 
         JPanel itemsPanel = componentsFactory.getTransparentPanel();
@@ -282,5 +297,50 @@ public class ChatScannerFrame extends AbstractTitledComponentFrame {
     @Override
     protected LayoutManager getFrameLayout() {
         return new BorderLayout();
+    }
+
+    static String extractScannerPayload(String stubMessage) {
+        if (StringUtils.isBlank(stubMessage)) {
+            return "";
+        }
+        String message = extractAfterSeparator(stubMessage, TRADE_CHAT_SEPARATOR);
+        if (message.isEmpty()) {
+            message = extractAfterSeparator(stubMessage, GLOBAL_CHAT_SEPARATOR);
+        }
+        if (message.isEmpty()) {
+            message = extractAfterSeparator(stubMessage, GENERIC_CHAT_SEPARATOR);
+        }
+        return message.isEmpty() ? StringUtils.stripStart(stubMessage, null) : message;
+    }
+
+    static String[] parseScannerMessage(String message) {
+        Matcher matcher = SCANNER_MESSAGE_PATTERN.matcher(message);
+        if (!matcher.find()) {
+            return null;
+        }
+        return new String[]{matcher.group(2), matcher.group(3)};
+    }
+
+    private static void populatePlusText(PlainMessageDescriptor descriptor, String originalMessage) {
+        Matcher plusTextMatcher = PLUS_TEXT_PATTERN.matcher(originalMessage);
+        if (plusTextMatcher.find()) {
+            descriptor.setHasPlusText(true);
+            descriptor.setPlusText(plusTextMatcher.group());
+        } else {
+            descriptor.setHasPlusText(false);
+            descriptor.setPlusText(null);
+        }
+    }
+
+    private int scaleValue(int value) {
+        return Math.max(1, Math.round(value * this.componentsFactory.getScale()));
+    }
+
+    private Dimension scaleSize(int width, int height) {
+        return this.componentsFactory.convertSize(new Dimension(width, height));
+    }
+
+    private static String extractAfterSeparator(String message, String separator) {
+        return StringUtils.strip(StringUtils.substringAfter(message, separator), null);
     }
 }

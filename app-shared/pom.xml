@@ -6,11 +6,11 @@
     <parent>
         <groupId>com.home.mercury</groupId>
         <artifactId>mercurychat</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.8.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>app-shared</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.8.1</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

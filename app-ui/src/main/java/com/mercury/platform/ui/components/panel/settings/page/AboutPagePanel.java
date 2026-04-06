@@ -1,19 +1,16 @@
 package com.mercury.platform.ui.components.panel.settings.page;
 
-
-import com.google.common.io.ByteSource;
 import com.google.gson.Gson;
 import com.mercury.platform.TranslationKey;
 import com.mercury.platform.core.MercuryConstants;
+import com.mercury.platform.core.utils.error.ErrorNotifier;
 import com.mercury.platform.patches.Change;
 import com.mercury.platform.patches.PatchNotes;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
 import com.mercury.platform.ui.misc.AppThemeColor;
-import org.apache.commons.io.Charsets;
+import com.mercury.platform.ui.misc.ExternalBrowser;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,13 +18,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AboutPagePanel extends SettingsPagePanel {
-    private final static Logger logger = LogManager.getLogger(AboutPagePanel.class);
+    private static final String PATCH_NOTES_RESOURCE = "notes/patch/patch-notes-new.json";
+    private static final String PATCH_NOTES_LOAD_FAILURE = "Failed to load MercuryChat patch notes.";
     private final static Gson gson = new Gson();
 
     @Override
@@ -55,11 +53,9 @@ public class AboutPagePanel extends SettingsPagePanel {
         githubButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/issues"));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                ExternalBrowser.open(
+                        "https://github.com/mr-september/MercuryChat/issues",
+                        "Failed to open the MercuryChat issues page.");
             }
 
             @Override
@@ -128,22 +124,31 @@ public class AboutPagePanel extends SettingsPagePanel {
     }
 
     private List<PatchNotes> getPatchNotes() {
-        try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("notes/patch/patch-notes-new.json");
-            ByteSource byteSource = new ByteSource() {
-                @Override
-                public InputStream openStream() throws IOException {
-                    return inputStream;
-                }
-            };
+        return loadPatchNotes(getPatchNotesStream());
+    }
 
-            String text = byteSource.asCharSource(Charsets.UTF_8).read();
-            PatchNotes[] patchNotes = gson.fromJson(text, PatchNotes[].class);
+    InputStream getPatchNotesStream() {
+        return getClass().getClassLoader().getResourceAsStream(PATCH_NOTES_RESOURCE);
+    }
+
+    static List<PatchNotes> loadPatchNotes(InputStream inputStream) {
+        try (InputStream patchNotesStream = inputStream) {
+            if (patchNotesStream == null) {
+                ErrorNotifier.notify(
+                        PATCH_NOTES_LOAD_FAILURE,
+                        new IOException("Patch notes resource is missing: " + PATCH_NOTES_RESOURCE));
+                return Collections.emptyList();
+            }
+
+            byte[] patchNotesBytes = com.google.common.io.ByteStreams.toByteArray(patchNotesStream);
+            PatchNotes[] patchNotes = gson.fromJson(new String(patchNotesBytes, StandardCharsets.UTF_8), PatchNotes[].class);
+            if (patchNotes == null || patchNotes.length == 0) {
+                return Collections.emptyList();
+            }
             return Arrays.asList(patchNotes);
-
-        } catch (Exception e) {
-            logger.error(e);
-            return null;
+        } catch (IOException | RuntimeException e) {
+            ErrorNotifier.notify(PATCH_NOTES_LOAD_FAILURE, e);
+            return Collections.emptyList();
         }
     }
 
@@ -153,5 +158,6 @@ public class AboutPagePanel extends SettingsPagePanel {
 
     @Override
     public void restore() {
+        this.initializePage();
     }
 }

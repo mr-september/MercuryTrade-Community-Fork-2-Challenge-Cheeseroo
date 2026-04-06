@@ -12,6 +12,9 @@ import java.util.Map;
  * - Display type (standard vs high-DPI)
  */
 public class ScalingLookupTable {
+    private static final float MINIMUM_SCALE = 0.5f;
+    private static final float MAXIMUM_SCALE = 4.0f;
+    private static final float MAXIMUM_OTHER_SCALE = 2.0f;
     
     /**
      * Display configuration for scaling recommendations
@@ -206,11 +209,11 @@ public class ScalingLookupTable {
         otherScale *= display.osScale;
         
         // Clamp values to reasonable ranges
-        baseScale = Math.max(0.5f, Math.min(5.0f, baseScale));
-        notificationScale = Math.max(0.5f, Math.min(5.0f, notificationScale));
-        taskbarScale = Math.max(0.5f, Math.min(5.0f, taskbarScale));
-        itemCellScale = Math.max(0.5f, Math.min(5.0f, itemCellScale));
-        otherScale = Math.max(0.5f, Math.min(5.0f, otherScale));
+        baseScale = clampScale(baseScale, MAXIMUM_SCALE);
+        notificationScale = clampScale(notificationScale, MAXIMUM_SCALE);
+        taskbarScale = clampScale(taskbarScale, MAXIMUM_SCALE);
+        itemCellScale = clampScale(itemCellScale, MAXIMUM_SCALE);
+        otherScale = clampScale(otherScale, MAXIMUM_OTHER_SCALE);
         
         String reasoning = String.format(
             "Dynamic calculation: %dx%d @ %d DPI (%.1f\" diagonal) with %.0f%% OS scaling",
@@ -240,6 +243,10 @@ public class ScalingLookupTable {
         }
         
         return dpiScale * sizeAdjustment;
+    }
+
+    private static float clampScale(float scale, float maximumScale) {
+        return Math.max(MINIMUM_SCALE, Math.min(maximumScale, scale));
     }
     
     /**

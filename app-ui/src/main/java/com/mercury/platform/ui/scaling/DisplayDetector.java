@@ -30,7 +30,7 @@ public class DisplayDetector {
         public final boolean isPrimary;
         public final Rectangle bounds;
         
-        public DisplayInfo(int width, int height, int dpi, float osScaleX, float osScaleY, 
+        public DisplayInfo(int width, int height, int dpi, float osScaleX, float osScaleY,
                           String deviceName, boolean isPrimary, Rectangle bounds) {
             this.width = width;
             this.height = height;
@@ -39,7 +39,7 @@ public class DisplayDetector {
             this.osScaleY = osScaleY;
             this.deviceName = deviceName;
             this.isPrimary = isPrimary;
-            this.bounds = bounds;
+            this.bounds = new Rectangle(bounds);
         }
         
         public float getEffectiveScale() {
@@ -65,11 +65,18 @@ public class DisplayDetector {
      * Detect the primary display configuration
      */
     public static DisplayInfo detectPrimaryDisplay() {
+        if (GraphicsEnvironment.isHeadless()) {
+            log.info("Headless graphics environment detected, using fallback display configuration");
+            return createFallbackDisplay();
+        }
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice primaryDevice = ge.getDefaultScreenDevice();
+            if (primaryDevice == null) {
+                return createFallbackDisplay();
+            }
             return detectDisplay(primaryDevice, true);
-        } catch (Exception e) {
+        } catch (RuntimeException | AWTError e) {
             log.warn("Failed to detect primary display, using fallback", e);
             return createFallbackDisplay();
         }
@@ -79,11 +86,18 @@ public class DisplayDetector {
      * Detect all available displays
      */
     public static DisplayInfo[] detectAllDisplays() {
+        if (GraphicsEnvironment.isHeadless()) {
+            log.info("Headless graphics environment detected, returning fallback display only");
+            return new DisplayInfo[] { createFallbackDisplay() };
+        }
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice[] devices = ge.getScreenDevices();
             GraphicsDevice primaryDevice = ge.getDefaultScreenDevice();
-            
+            if (devices == null || devices.length == 0) {
+                return new DisplayInfo[] { createFallbackDisplay() };
+            }
+             
             DisplayInfo[] displays = new DisplayInfo[devices.length];
             
             for (int i = 0; i < devices.length; i++) {
@@ -92,7 +106,7 @@ public class DisplayDetector {
             }
             
             return displays;
-        } catch (Exception e) {
+        } catch (RuntimeException | AWTError e) {
             log.warn("Failed to detect all displays, returning primary only", e);
             return new DisplayInfo[] { detectPrimaryDisplay() };
         }
@@ -129,7 +143,7 @@ public class DisplayDetector {
             
             return new DisplayInfo(width, height, dpi, osScaleX, osScaleY, deviceName, isPrimary, bounds);
             
-        } catch (Exception e) {
+        } catch (RuntimeException | AWTError e) {
             log.warn("Failed to detect display configuration for device: " + device, e);
             return createFallbackDisplay();
         }
@@ -159,7 +173,7 @@ public class DisplayDetector {
             
             return screenDPI;
             
-        } catch (Exception e) {
+        } catch (RuntimeException | AWTError e) {
             log.warn("Failed to calculate DPI, using default 96 DPI", e);
             return 96; // Standard DPI fallback
         }
@@ -188,11 +202,10 @@ public class DisplayDetector {
             
             DisplayInfo bestMatch = displays[0]; // Default to first display
             int maxOverlap = 0;
-            
+             
             for (DisplayInfo display : displays) {
-                Rectangle intersection = windowBounds.intersection(display.bounds);
-                int overlapArea = intersection.width * intersection.height;
-                
+                int overlapArea = calculateOverlapArea(windowBounds, display.bounds);
+                 
                 if (overlapArea > maxOverlap) {
                     maxOverlap = overlapArea;
                     bestMatch = display;
@@ -201,7 +214,7 @@ public class DisplayDetector {
             
             return bestMatch;
             
-        } catch (Exception e) {
+        } catch (RuntimeException | AWTError e) {
             log.warn("Failed to detect display for window, using primary", e);
             return detectPrimaryDisplay();
         }
@@ -215,14 +228,10 @@ public class DisplayDetector {
             // Check if Java supports high DPI scaling
             String javaVersion = System.getProperty("java.version");
             log.debug("Java version: {}", javaVersion);
-            
-            // Java 9+ has better high DPI support
-            String[] versionParts = javaVersion.split("\\.");
-            int majorVersion = Integer.parseInt(versionParts[0]);
-            
-            return majorVersion >= 9;
-            
-        } catch (Exception e) {
+
+            return parseJavaMajorVersion(javaVersion) >= 9;
+
+        } catch (RuntimeException e) {
             log.warn("Failed to determine Java version for high DPI support", e);
             return false;
         }
@@ -274,9 +283,45 @@ public class DisplayDetector {
             
             return info.toString();
             
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.warn("Failed to get system scaling info", e);
             return "Failed to retrieve system scaling information: " + e.getMessage();
         }
+    }
+
+    static int parseJavaMajorVersion(String javaVersion) {
+        if (javaVersion == null || javaVersion.trim().isEmpty()) {
+            throw new IllegalArgumentException("Java version must not be blank.");
+        }
+
+        String normalizedVersion = javaVersion.trim();
+        String[] versionParts = normalizedVersion.split("\\.");
+        if (versionParts.length == 0) {
+            throw new IllegalArgumentException("Unable to parse Java version: " + javaVersion);
+        }
+
+        if ("1".equals(versionParts[0]) && versionParts.length > 1) {
+            return Integer.parseInt(versionParts[1]);
+        }
+
+        int separatorIndex = findFirstNonDigit(normalizedVersion);
+        String majorToken = separatorIndex >= 0 ? normalizedVersion.substring(0, separatorIndex) : normalizedVersion;
+        return Integer.parseInt(majorToken);
+    }
+
+    static int calculateOverlapArea(Rectangle first, Rectangle second) {
+        Rectangle intersection = first.intersection(second);
+        int width = Math.max(0, intersection.width);
+        int height = Math.max(0, intersection.height);
+        return width * height;
+    }
+
+    private static int findFirstNonDigit(String value) {
+        for (int i = 0; i < value.length(); i++) {
+            if (!Character.isDigit(value.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

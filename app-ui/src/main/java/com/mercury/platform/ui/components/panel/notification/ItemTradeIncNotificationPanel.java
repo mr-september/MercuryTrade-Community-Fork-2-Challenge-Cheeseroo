@@ -28,7 +28,9 @@ public class ItemTradeIncNotificationPanel extends TradeIncNotificationPanel<Ite
 
         JButton stillInterestedButton = this.getStillInterestedButton();
         JLabel historyLabel = this.getHistoryButton();
-        JPanel buttons = this.componentsFactory.getJPanel(new GridLayout(1, 0, 5, 0), AppThemeColor.FRAME);
+        JPanel buttons = this.componentsFactory.getJPanel(
+                new GridLayout(1, 0, this.getLayoutMetrics().getResponseButtonsHorizontalGap(), 0),
+                AppThemeColor.FRAME);
         buttons.add(stillInterestedButton);
         buttons.add(historyLabel);
 

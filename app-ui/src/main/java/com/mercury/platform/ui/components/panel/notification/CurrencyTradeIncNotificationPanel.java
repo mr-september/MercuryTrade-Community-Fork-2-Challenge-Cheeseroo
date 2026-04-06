@@ -26,11 +26,15 @@ public class CurrencyTradeIncNotificationPanel extends TradeIncNotificationPanel
 
         JLabel historyLabel = this.getHistoryButton();
         JButton stillInterestedButton = this.getStillInterestedButton();
-        JPanel buttons = this.componentsFactory.getJPanel(new GridLayout(1, 0, 5, 0), AppThemeColor.FRAME);
+        JPanel buttons = this.componentsFactory.getJPanel(
+                new GridLayout(1, 0, this.getLayoutMetrics().getResponseButtonsHorizontalGap(), 0),
+                AppThemeColor.FRAME);
         buttons.add(stillInterestedButton);
         buttons.add(historyLabel);
 
-        JPanel miscPanel = this.componentsFactory.getJPanel(new GridLayout(1, 0, 4, 0), AppThemeColor.FRAME);
+        JPanel miscPanel = this.componentsFactory.getJPanel(
+                new GridLayout(1, 0, this.getLayoutMetrics().getNotificationMiscPanelGap(), 0),
+                AppThemeColor.FRAME);
         miscPanel.add(this.getFromPanel(), BorderLayout.CENTER);
         JLabel offerLabel = this.getOfferLabel();
         if (offerLabel != null) {
@@ -45,7 +49,9 @@ public class CurrencyTradeIncNotificationPanel extends TradeIncNotificationPanel
     }
 
     private JPanel getFromPanel() {
-        JPanel fromPanel = this.componentsFactory.getJPanel(new BorderLayout(4, 0), AppThemeColor.FRAME);
+        JPanel fromPanel = this.componentsFactory.getJPanel(
+                new BorderLayout(this.getLayoutMetrics().getCurrencyRateGap(), 0),
+                AppThemeColor.FRAME);
 
         JLabel currencyLabel = this.componentsFactory.getIconLabel("currency/" + this.data.getCurrForSaleTitle() + ".png", 26);
 
@@ -68,7 +74,7 @@ public class CurrencyTradeIncNotificationPanel extends TradeIncNotificationPanel
             fromPanel.add(itemsPanel, BorderLayout.LINE_START);
 
             if (this.data.getItems().size() > 1) {
-                this.setAdditionalHeightDelta((this.data.getItems().size() - 1) * 15);
+                this.setAdditionalHeightDelta((this.data.getItems().size() - 1) * this.getLayoutMetrics().getAdditionalItemRowHeight());
             }
         } else if (currencyLabel.getIcon() == null) {
             JPanel itemsPanel = new JPanel();

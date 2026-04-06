@@ -35,7 +35,10 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
     @Override
     public void onViewInit() {
         super.onViewInit();
-        this.responseButtonsPanel = this.componentsFactory.getJPanel(new FlowLayout(FlowLayout.CENTER, 5, 2),
+        this.responseButtonsPanel = this.componentsFactory.getJPanel(new FlowLayout(
+                FlowLayout.CENTER,
+                this.getLayoutMetrics().getResponseButtonsHorizontalGap(),
+                this.getLayoutMetrics().getResponseButtonsVerticalGap()),
                                                                      AppThemeColor.FRAME);
         this.contentPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.FRAME);
         switch (notificationConfig.get().getFlowDirections()) {
@@ -181,7 +184,7 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
 
     protected JPanel getNicknamePanel(JLabel nicknameLabel) {
         JPanel nickLabelPanel = this.componentsFactory.getJPanel(new GridLayout(), AppThemeColor.MSG_HEADER);
-        nickLabelPanel.setPreferredSize(new Dimension(80, 20));
+        nickLabelPanel.setPreferredSize(this.getLayoutMetrics().getNicknameCollapsedSize());
         nickLabelPanel.add(nicknameLabel);
         nickLabelPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -193,7 +196,7 @@ public abstract class TradeNotificationPanel<T extends TradeNotificationDescript
 
             @Override
             public void mouseExited(MouseEvent e) {
-                nickLabelPanel.setPreferredSize(new Dimension(80, 20));
+                nickLabelPanel.setPreferredSize(getLayoutMetrics().getNicknameCollapsedSize());
                 nickLabelPanel.revalidate();
                 super.mouseExited(e);
             }

@@ -114,11 +114,11 @@ class ScalingLookupTableTest {
 
         ScalingLookupTable.ScalingRecommendation result = ScalingLookupTable.calculateRecommendation(config);
 
-        assertTrue(result.baseScale >= 0.5f && result.baseScale <= 5.0f);
-        assertTrue(result.notificationScale >= 0.5f && result.notificationScale <= 5.0f);
-        assertTrue(result.taskbarScale >= 0.5f && result.taskbarScale <= 5.0f);
-        assertTrue(result.itemCellScale >= 0.5f && result.itemCellScale <= 5.0f);
-        assertTrue(result.otherScale >= 0.5f && result.otherScale <= 5.0f);
+        assertTrue(result.baseScale >= 0.5f && result.baseScale <= 4.0f);
+        assertTrue(result.notificationScale >= 0.5f && result.notificationScale <= 4.0f);
+        assertTrue(result.taskbarScale >= 0.5f && result.taskbarScale <= 4.0f);
+        assertTrue(result.itemCellScale >= 0.5f && result.itemCellScale <= 4.0f);
+        assertTrue(result.otherScale >= 0.5f && result.otherScale <= 2.0f);
     }
 
 

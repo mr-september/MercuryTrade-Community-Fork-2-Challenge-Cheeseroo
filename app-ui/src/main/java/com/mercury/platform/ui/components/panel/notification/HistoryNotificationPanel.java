@@ -35,7 +35,7 @@ public class HistoryNotificationPanel extends NotificationPanel<NotificationDesc
         root.add(nicknameLabel, BorderLayout.CENTER);
 
         JPanel opPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.MSG_HEADER);
-        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, 4, 0));
+        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, this.getLayoutMetrics().getIncomingInteractionGap(), 0));
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
         JButton reloadButton = componentsFactory.getIconButton(IconConst.RELOAD_HISTORY, 15, AppThemeColor.MSG_HEADER,
                                                                TranslationKey.history_reload.value());

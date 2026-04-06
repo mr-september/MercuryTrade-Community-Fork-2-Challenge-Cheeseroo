@@ -35,7 +35,7 @@ public abstract class TradeIncNotificationPanel<T extends TradeNotificationDescr
         root.add(nickNamePanel, BorderLayout.CENTER);
 
         JPanel opPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.MSG_HEADER);
-        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, 4, 0));
+        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, this.getLayoutMetrics().getIncomingInteractionGap(), 0));
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
         JButton inviteButton = componentsFactory.getIconButton(IconConst.INVITE, 15, AppThemeColor.MSG_HEADER, TranslationKey.invite.value());
         inviteButton.addActionListener(e -> {

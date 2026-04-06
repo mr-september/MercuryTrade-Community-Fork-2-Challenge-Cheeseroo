@@ -31,18 +31,14 @@
     <opt>-Dfile.encoding=UTF-8</opt>
     <opt>-Djava.awt.headless=false</opt>
     <opt>-Dlog4j.configurationFile=log4j2.xml</opt>
-    <opt>--add-opens=java.base/java.time=ALL-UNNAMED</opt>
-    <opt>--add-opens=java.base/java.util=ALL-UNNAMED</opt>
-    <opt>--add-opens=java.base/java.lang=ALL-UNNAMED</opt>
-    <opt>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</opt>
   </jre>
   <versionInfo>
-    <fileVersion>1.8.0.0</fileVersion>
-    <txtFileVersion>1.8.0</txtFileVersion>
+    <fileVersion>1.8.1.0</fileVersion>
+    <txtFileVersion>1.8.1</txtFileVersion>
     <fileDescription>MercuryChat</fileDescription>
     <copyright>Morph21</copyright>
-    <productVersion>1.8.0.0</productVersion>
-    <txtProductVersion>1.8.0</txtProductVersion>
+    <productVersion>1.8.1.0</productVersion>
+    <txtProductVersion>1.8.1</txtProductVersion>
     <productName>MercuryChat</productName>
     <companyName>Morph</companyName>
     <internalName>MercuryChat</internalName>

@@ -14,6 +14,7 @@ import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.ComponentsFactory;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.components.fields.font.TextAlignment;
+import com.mercury.platform.ui.components.panel.notification.NotificationLayoutMetrics;
 import com.mercury.platform.ui.components.panel.notification.NotificationPanel;
 import com.mercury.platform.ui.components.panel.notification.controller.stub.IncStubController;
 import com.mercury.platform.ui.components.panel.notification.controller.stub.OutStubController;
@@ -22,8 +23,7 @@ import com.mercury.platform.ui.frame.titled.TestEngine;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
-import org.apache.commons.lang3.SystemUtils;
-
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,8 +32,6 @@ import java.util.Map;
 
 
 public class NotificationFrame extends AbstractMovableComponentFrame {
-    private static int BUFFER_DEFAULT_HEIGHT = SystemUtils.IS_OS_WINDOWS ? 0 : 0;
-    private static int BUFFER_DEFAULT_WIDTH = SystemUtils.IS_OS_WINDOWS ? 10 : 0;
     private List<NotificationPanel> notificationPanels;
     private PlainConfigurationService<NotificationSettingsDescriptor> config;
     private NotificationPanelFactory providersFactory;
@@ -47,6 +45,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
     private boolean dnd;
 
     private JPanel buffer;
+    private NotificationLayoutMetrics layoutMetrics;
 
     @Override
     protected void initialize() {
@@ -55,11 +54,9 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
         this.notificationPanels = new ArrayList<>();
         this.config = Configuration.get().notificationConfiguration();
         this.flowDirections = this.config.get().getFlowDirections();
-        if (SystemUtils.IS_OS_WINDOWS && this.flowDirections.equals(FlowDirections.UPWARDS)) {
-            BUFFER_DEFAULT_HEIGHT = 1500;
-        }
         this.componentsFactory.setScale(this.scaleConfig.get("notification"));
         this.stubComponentsFactory.setScale(this.scaleConfig.get("notification"));
+        this.layoutMetrics = new NotificationLayoutMetrics(this.componentsFactory);
         this.providersFactory = new NotificationPanelFactory();
         this.preProcessor = new NotificationPreProcessor();
     }
@@ -72,13 +69,14 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
         this.container.setBackground(AppThemeColor.TRANSPARENT);
         this.container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
+        Dimension bufferSize = this.layoutMetrics.getBufferSize(this.flowDirections);
         this.buffer = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.TRANSPARENT);
-        this.buffer.setPreferredSize(new Dimension(BUFFER_DEFAULT_WIDTH, BUFFER_DEFAULT_HEIGHT));
-        this.setLocation(new Point(this.getLocation().x, this.getLocation().y - BUFFER_DEFAULT_HEIGHT));
+        this.buffer.setPreferredSize(bufferSize);
+        this.setLocation(new Point(this.getLocation().x, this.getLocation().y - bufferSize.height));
 
         this.expandPanel = this.getExpandPanel();
         this.stubExpandPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.TRANSPARENT);
-        this.stubExpandPanel.setPreferredSize(new Dimension(this.expandPanel.getPreferredSize().width, 5));
+        this.stubExpandPanel.setPreferredSize(this.layoutMetrics.getExpandStubSize(this.expandPanel.getPreferredSize().width));
         this.root = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.TRANSPARENT);
         this.root.add(this.stubExpandPanel, BorderLayout.LINE_START);
         this.root.add(this.container, BorderLayout.CENTER);
@@ -91,15 +89,15 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
     @Override
     @SuppressWarnings("all")
     public void subscribe() {
-        MercuryStoreCore.dndSubject.subscribe(state -> {
+        MercuryStoreCore.dndSubject.subscribe(SwingUiExecutor.onEdt(state -> {
             this.dnd = state;
             if (!this.dnd && this.notificationPanels.size() > 0) {
                 this.setVisible(true);
             } else {
                 this.setVisible(false);
             }
-        });
-        MercuryStoreCore.expiredNotificationSubject.subscribe(notification -> {
+        }));
+        MercuryStoreCore.expiredNotificationSubject.subscribe(SwingUiExecutor.onEdt(notification -> {
             List<NotificationPanel> stubList = new ArrayList<>(this.notificationPanels);
             String descriptorData = this.preProcessor.getDescriptorData(notification);
             stubList.forEach(it -> {
@@ -107,69 +105,59 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
                     MercuryStoreCore.removeNotificationSubject.onNext((NotificationDescriptor) it.getData());
                 }
             });
-        });
-        MercuryStoreCore.newNotificationSubject.subscribe(notification -> {
-            SwingUtilities.invokeLater(() -> {
-                NotificationPanel notificationPanel = this.providersFactory.getProviderFor(notification.getType())
-                        .setData(notification)
-                        .setComponentsFactory(this.componentsFactory)
-                        .build();
-                if (ProdStarter.APP_STATUS.equals(FrameVisibleState.HIDE)) {
-                    FramesManager.INSTANCE.hideFrame(NotificationFrame.class);
-                }
+        }));
+        MercuryStoreCore.newNotificationSubject.subscribe(SwingUiExecutor.onEdt(notification -> {
+            NotificationPanel notificationPanel = this.providersFactory.getProviderFor(notification.getType())
+                    .setData(notification)
+                    .setComponentsFactory(this.componentsFactory)
+                    .build();
+            if (ProdStarter.APP_STATUS.equals(FrameVisibleState.HIDE)) {
+                FramesManager.INSTANCE.hideFrame(NotificationFrame.class);
+            }
 
-                if (preProcessor.isDuplicate(notification)) {
-                    notificationPanel.setDuplicate(true);
+            if (preProcessor.isDuplicate(notification)) {
+                notificationPanel.setDuplicate(true);
+            }
+            if (this.preProcessor.isAllowed(notification)) {
+                MercuryStoreCore.soundSubject.onNext(SoundType.MESSAGE);
+                if (NotificationType.INC_ITEM_MESSAGE.equals(notification.getType()) || NotificationType.INC_CURRENCY_MESSAGE.equals(notification.getType())) {
+                    PushBulletManager.INSTANCE.sendPush(notification.getSourceString(), notification.getWhisperNickname());
                 }
-                if (this.preProcessor.isAllowed(notification)) {
-                    MercuryStoreCore.soundSubject.onNext(SoundType.MESSAGE);
-                    if (NotificationType.INC_ITEM_MESSAGE.equals(notification.getType()) || NotificationType.INC_CURRENCY_MESSAGE.equals(notification.getType())) {
-                        PushBulletManager.INSTANCE.sendPush(notification.getSourceString(), notification.getWhisperNickname());
-                    }
-                    this.addNotification(notificationPanel);
-                    showFrame();
-                }
-            });
-        });
-        MercuryStoreCore.newScannerMessageSubject.subscribe(message -> {
-            SwingUtilities.invokeLater(() -> {
-                NotificationPanel notificationPanel = this.providersFactory.getProviderFor(NotificationType.SCANNER_MESSAGE)
-                        .setData(message)
-                        .setComponentsFactory(this.componentsFactory)
-                        .build();
-                PushBulletManager.INSTANCE.sendPush(message.getMessage().replaceAll("\\<[^>]*>", ""), message.getNickName());
                 this.addNotification(notificationPanel);
                 showFrame();
-            });
-        });
-        MercuryStoreCore.removeNotificationSubject.subscribe(notification -> {
-            SwingUtilities.invokeLater(() -> {
-                NotificationPanel notificationPanel = this.notificationPanels.stream()
-                        .filter(it -> it.getData().equals(notification))
-                        .findAny().orElse(null);
-                if (notificationPanel != null) {
-                    this.removeNotification(notificationPanel);
-                }
-            });
-        });
-        MercuryStoreCore.removeScannerNotificationSubject.subscribe(message -> {
-            SwingUtilities.invokeLater(() -> {
-                NotificationPanel notificationPanel = this.notificationPanels.stream()
-                        .filter(it -> it.getData().equals(message))
-                        .findAny().orElse(null);
+            }
+        }));
+        MercuryStoreCore.newScannerMessageSubject.subscribe(SwingUiExecutor.onEdt(message -> {
+            NotificationPanel notificationPanel = this.providersFactory.getProviderFor(NotificationType.SCANNER_MESSAGE)
+                    .setData(message)
+                    .setComponentsFactory(this.componentsFactory)
+                    .build();
+            PushBulletManager.INSTANCE.sendPush(message.getMessage().replaceAll("\\<[^>]*>", ""), message.getNickName());
+            this.addNotification(notificationPanel);
+            showFrame();
+        }));
+        MercuryStoreCore.removeNotificationSubject.subscribe(SwingUiExecutor.onEdt(notification -> {
+            NotificationPanel notificationPanel = this.notificationPanels.stream()
+                    .filter(it -> it.getData().equals(notification))
+                    .findAny().orElse(null);
+            if (notificationPanel != null) {
                 this.removeNotification(notificationPanel);
-            });
-        });
-        MercuryStoreCore.hotKeySubject.subscribe(hotkeyDescriptor -> {
-            SwingUtilities.invokeLater(() -> {
-                if (this.notificationPanels.size() > 0 && ProdStarter.APP_STATUS.equals(FrameVisibleState.SHOW)) {
-                    this.notificationPanels.get(0).onHotKeyPressed(hotkeyDescriptor);
-                }
-            });
-        });
-        MercuryStoreUI.settingsPostSubject.subscribe(state -> {
-            this.validateContainer();
-        });
+            }
+        }));
+        MercuryStoreCore.removeScannerNotificationSubject.subscribe(SwingUiExecutor.onEdt(message -> {
+            NotificationPanel notificationPanel = this.notificationPanels.stream()
+                    .filter(it -> it.getData().equals(message))
+                    .findAny().orElse(null);
+            if (notificationPanel != null) {
+                this.removeNotification(notificationPanel);
+            }
+        }));
+        MercuryStoreCore.hotKeySubject.subscribe(SwingUiExecutor.onEdt(hotkeyDescriptor -> {
+            if (this.notificationPanels.size() > 0 && ProdStarter.APP_STATUS.equals(FrameVisibleState.SHOW)) {
+                this.notificationPanels.get(0).onHotKeyPressed(hotkeyDescriptor);
+            }
+        }));
+        MercuryStoreUI.settingsPostSubject.subscribe(SwingUiExecutor.onEdt(state -> this.validateContainer()));
     }
 
     private void sendPushBullet(NotificationDescriptor notification) {
@@ -183,13 +171,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
         List<NotificationPanel> currentPanels = new ArrayList<>(this.notificationPanels);
         currentPanels.forEach(this::removeNotification);
         this.flowDirections = this.config.get().getFlowDirections();
-        if (SystemUtils.IS_OS_WINDOWS && this.flowDirections.equals(FlowDirections.UPWARDS)) {
-            if (this.flowDirections.equals(FlowDirections.UPWARDS)) {
-                BUFFER_DEFAULT_HEIGHT = 1500;
-            } else {
-                BUFFER_DEFAULT_HEIGHT = 0;
-            }
-        }
+        this.buffer.setPreferredSize(this.layoutMetrics.getBufferSize(this.flowDirections));
         currentPanels.forEach(it -> {
             NotificationPanel notificationPanel = null;
             if (it.getData() instanceof NotificationDescriptor) {
@@ -262,7 +244,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
             this.root.add(this.stubExpandPanel, BorderLayout.LINE_START);
         }
         if (this.notificationPanels.size() == 0) {
-            this.buffer.setPreferredSize(new Dimension(BUFFER_DEFAULT_WIDTH, BUFFER_DEFAULT_HEIGHT));
+            this.buffer.setPreferredSize(this.layoutMetrics.getBufferSize(this.flowDirections));
             this.setVisible(false);
         } else {
             this.setVisible(true);
@@ -275,13 +257,14 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
     protected void onScaleLock() {
         JPanel var = this.expandPanel;
         this.expandPanel = this.getExpandPanel();
-        this.stubExpandPanel.setPreferredSize(this.expandPanel.getPreferredSize());
+        this.stubExpandPanel.setPreferredSize(this.layoutMetrics.getExpandStubSize(this.expandPanel.getPreferredSize().width));
         if (this.notificationPanels.size() > this.config.get().getLimitCount()) {
             this.remove(var);
             this.add(this.expandPanel, BorderLayout.LINE_START);
         }
+        this.buffer.setPreferredSize(this.layoutMetrics.getBufferSize(this.flowDirections));
         if (this.getLocation().y > 0) {
-            this.setLocation(new Point(this.getLocation().x, this.getLocation().y - BUFFER_DEFAULT_HEIGHT));
+            this.setLocation(new Point(this.getLocation().x, this.getLocation().y - this.layoutMetrics.getBufferSize(this.flowDirections).height));
         }
         super.onScaleLock();
     }
@@ -295,7 +278,9 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
 
     public void changeBufferSize(int delta) {
         if (this.flowDirections.equals(FlowDirections.UPWARDS)) {
-            this.buffer.setPreferredSize(new Dimension(BUFFER_DEFAULT_WIDTH, this.buffer.getPreferredSize().height + delta));
+            this.buffer.setPreferredSize(new Dimension(
+                    this.layoutMetrics.getBufferSize(this.flowDirections).width,
+                    this.buffer.getPreferredSize().height + delta));
         }
     }
 
@@ -314,7 +299,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
         limitPanel.add(expandIconLabel, BorderLayout.CENTER);
         root.add(panel, BorderLayout.CENTER);
         root.add(limitPanel, BorderLayout.LINE_START);
-        root.setPreferredSize(new Dimension((int) (400 * componentsFactory.getScale()), (int) (92 * componentsFactory.getScale())));
+        root.setPreferredSize(this.layoutMetrics.getPinPreviewSize());
         return root;
     }
 
@@ -322,7 +307,7 @@ public class NotificationFrame extends AbstractMovableComponentFrame {
     protected void onLock() {
         super.onLock();
         if (this.getLocation().y > 0) {
-            this.setLocation(new Point(this.getLocation().x, this.getLocation().y - BUFFER_DEFAULT_HEIGHT));
+            this.setLocation(new Point(this.getLocation().x, this.getLocation().y - this.layoutMetrics.getBufferSize(this.flowDirections).height));
         }
     }
 

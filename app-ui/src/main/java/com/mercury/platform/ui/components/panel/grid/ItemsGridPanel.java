@@ -10,6 +10,7 @@ import com.mercury.platform.ui.misc.MercuryStoreUI;
 import lombok.NonNull;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class ItemsGridPanel extends JPanel implements ViewInit {
     private ComponentsFactory componentsFactory;
+    private ItemGridLayoutMetrics layoutMetrics;
     private List<ItemCell> defaultCells;
     private List<ItemCell> quadCells;
     private Map<String, ItemInfoPanel> tabButtons;
@@ -31,6 +33,7 @@ public class ItemsGridPanel extends JPanel implements ViewInit {
     public ItemsGridPanel() {
         super(new BorderLayout());
         componentsFactory = ComponentsFactory.INSTANCE;
+        layoutMetrics = new ItemGridLayoutMetrics(componentsFactory);
         defaultCells = new ArrayList<>();
         quadCells = new ArrayList<>();
         tabButtons = new HashMap<>();
@@ -41,6 +44,7 @@ public class ItemsGridPanel extends JPanel implements ViewInit {
     public ItemsGridPanel(@NonNull ComponentsFactory factory) {
         super(new BorderLayout());
         this.componentsFactory = factory;
+        this.layoutMetrics = new ItemGridLayoutMetrics(this.componentsFactory);
         defaultCells = new ArrayList<>();
         quadCells = new ArrayList<>();
         tabButtons = new HashMap<>();
@@ -73,11 +77,11 @@ public class ItemsGridPanel extends JPanel implements ViewInit {
         }
         JPanel rightPanel = componentsFactory.getTransparentPanel(new BorderLayout());
         rightPanel.setBackground(AppThemeColor.TRANSPARENT);
-        rightPanel.setPreferredSize(new Dimension(18, 668));
+        rightPanel.setPreferredSize(layoutMetrics.getLiveRightSpacerSize());
         JPanel downPanel = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.CENTER));
-        downPanel.setBorder(BorderFactory.createEmptyBorder(-10, 0, 0, 0));
+        downPanel.setBorder(new EmptyBorder(layoutMetrics.getLiveBottomSpacerInsets()));
         downPanel.setBackground(AppThemeColor.TRANSPARENT);
-        downPanel.setPreferredSize(new Dimension(661, 16));
+        downPanel.setPreferredSize(layoutMetrics.getLiveBottomSpacerSize());
 
         this.add(getHeaderPanel(), BorderLayout.PAGE_START);
         this.add(defaultGrid, BorderLayout.CENTER);
@@ -139,7 +143,7 @@ public class ItemsGridPanel extends JPanel implements ViewInit {
         JPanel root = componentsFactory.getTransparentPanel();
         root.setLayout(new BoxLayout(root, BoxLayout.Y_AXIS));
         navBar = componentsFactory.getTransparentPanel(new FlowLayout(FlowLayout.LEFT));
-        navBar.setBorder(BorderFactory.createEmptyBorder(20, 0, 26, 0));
+        navBar.setBorder(new EmptyBorder(layoutMetrics.getHeaderTabsInsets()));
         root.add(navBar);
         return root;
     }

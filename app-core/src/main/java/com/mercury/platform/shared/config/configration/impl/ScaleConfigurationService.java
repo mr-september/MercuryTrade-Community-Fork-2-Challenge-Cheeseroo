@@ -59,7 +59,7 @@ public class ScaleConfigurationService extends BaseConfigurationService<Map<Stri
         scaleData.put("auto_scale_enabled", 0f);      // 0f = disabled, 1f = enabled
         scaleData.put("auto_scale_detection_mode", 1f); // 1f = basic, 2f = advanced, 3f = per-monitor
         scaleData.put("auto_scale_minimum", 0.5f);     // Minimum allowed auto-scale (50%)
-        scaleData.put("auto_scale_maximum", 5.0f);     // Maximum allowed auto-scale (500%)
+        scaleData.put("auto_scale_maximum", 4.0f);     // Maximum allowed auto-scale (400%)
         
         // Component-specific auto-scaling adjustments (multipliers applied to base auto-scale)
         scaleData.put("auto_notification_factor", 0.9f);  // Notifications 10% smaller than base

@@ -12,6 +12,7 @@ import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.adr.AdrManager;
 import com.mercury.platform.ui.adr.AdrState;
+import com.mercury.platform.core.utils.error.ErrorNotifier;
 import com.mercury.platform.ui.components.ComponentsFactory;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
 import com.mercury.platform.ui.frame.AbstractComponentFrame;
@@ -28,6 +29,7 @@ import com.mercury.platform.ui.frame.titled.*;
 import com.mercury.platform.ui.manager.routing.SettingsRoutManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import com.mercury.platform.ui.misc.MercuryStoreUI;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import com.mercury.platform.ui.misc.note.Note;
 import com.mercury.platform.ui.misc.note.NotesLoader;
 import com.sun.jna.Native;
@@ -49,10 +51,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class FramesManager implements AsSubscriber {
     private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
     private final static Logger logger = LogManager.getLogger(FramesManager.class);
+    private static final String TRAY_ICON_LOAD_FAILURE = "Failed to load the MercuryChat system tray icon.";
+    private static final String TRAY_ICON_INSTALL_FAILURE = "Failed to install the MercuryChat system tray icon.";
     public static FramesManager INSTANCE = FramesManagerHolder.HOLDER_INSTANCE;
     private Map<Class, AbstractOverlaidFrame> framesMap;
     private SetUpLocationCommander locationCommander;
@@ -70,130 +75,103 @@ public class FramesManager implements AsSubscriber {
     }
 
     public void start() {
-        Thread baseInitThread = new Thread(() -> {
+        SwingUiExecutor.call(() -> {
             this.createTrayIcon();
-
-            AbstractOverlaidFrame incMessageFrame = new NotificationFrame();
-            this.framesMap.put(NotificationFrame.class, incMessageFrame);
-            AbstractOverlaidFrame itemsMeshFrame = new ItemsGridFrame();
-            this.framesMap.put(ItemsGridFrame.class, itemsMeshFrame);
-            this.locationCommander.addFrame((AbstractMovableComponentFrame) incMessageFrame);
-            this.locationCommander.addFrame((AbstractMovableComponentFrame) itemsMeshFrame);
-
-            this.scaleCommander.addFrame((AbstractScalableComponentFrame) incMessageFrame);
-            this.scaleCommander.addFrame((AbstractScalableComponentFrame) itemsMeshFrame);
+            return null;
         });
-        baseInitThread.start();
 
-        taskBarFrame = new TaskBarFrame();
+        AbstractOverlaidFrame incMessageFrame = this.createFrame(NotificationFrame::new);
+        this.framesMap.put(NotificationFrame.class, incMessageFrame);
+        AbstractOverlaidFrame itemsMeshFrame = this.createFrame(ItemsGridFrame::new);
+        this.framesMap.put(ItemsGridFrame.class, itemsMeshFrame);
+        this.locationCommander.addFrame((AbstractMovableComponentFrame) incMessageFrame);
+        this.locationCommander.addFrame((AbstractMovableComponentFrame) itemsMeshFrame);
+        this.scaleCommander.addFrame((AbstractScalableComponentFrame) incMessageFrame);
+        this.scaleCommander.addFrame((AbstractScalableComponentFrame) itemsMeshFrame);
+
+        taskBarFrame = this.createFrame(TaskBarFrame::new);
         this.locationCommander.addFrame((AbstractMovableComponentFrame) taskBarFrame);
         this.scaleCommander.addFrame((AbstractScalableComponentFrame) taskBarFrame);
 
         NotesLoader notesLoader = new NotesLoader();
 
         List<Note> notesOnFirstStart = notesLoader.getNotesOnFirstStart();
-        this.framesMap.put(NotesFrame.class, new NotesFrame(notesOnFirstStart, NotesFrame.NotesType.INFO));
-        this.framesMap.put(HistoryFrame.class, new HistoryFrame());
-        SettingsFrame settingsFrame = new SettingsFrame();
+        this.framesMap.put(NotesFrame.class, this.createFrame(() -> new NotesFrame(notesOnFirstStart, NotesFrame.NotesType.INFO)));
+        this.framesMap.put(HistoryFrame.class, this.createFrame(HistoryFrame::new));
+        SettingsFrame settingsFrame = this.createFrame(SettingsFrame::new);
         this.framesMap.put(SettingsFrame.class, settingsFrame);
-        this.framesMap.put(TestCasesFrame.class, new TestCasesFrame());
-        this.framesMap.put(TooltipFrame.class, new TooltipFrame());
-        this.framesMap.put(ChatHistoryFrame.class, new ChatHistoryFrame());
-        this.framesMap.put(NotificationAlertFrame.class, new NotificationAlertFrame());
-        this.framesMap.put(MercuryLoadingFrame.class, new MercuryLoadingFrame());
-        this.framesMap.put(ChatScannerFrame.class, new ChatScannerFrame());
-        this.framesMap.put(UpdateReadyFrame.class, new UpdateReadyFrame());
+        this.framesMap.put(TestCasesFrame.class, this.createFrame(TestCasesFrame::new));
+        this.framesMap.put(TooltipFrame.class, this.createFrame(TooltipFrame::new));
+        this.framesMap.put(ChatHistoryFrame.class, this.createFrame(ChatHistoryFrame::new));
+        this.framesMap.put(NotificationAlertFrame.class, this.createFrame(NotificationAlertFrame::new));
+        this.framesMap.put(MercuryLoadingFrame.class, this.createFrame(MercuryLoadingFrame::new));
+        this.framesMap.put(ChatScannerFrame.class, this.createFrame(ChatScannerFrame::new));
+        this.framesMap.put(UpdateReadyFrame.class, this.createFrame(UpdateReadyFrame::new));
         this.framesMap.put(TaskBarFrame.class, taskBarFrame);
-        this.framesMap.put(SetUpLocationFrame.class, new SetUpLocationFrame());
-        this.framesMap.put(SetUpScaleFrame.class, new SetUpScaleFrame());
-        this.framesMap.put(AlertFrame.class, new AlertFrame());
-        this.framesMap.put(HelpIGFrame.class, new HelpIGFrame());
+        this.framesMap.put(SetUpLocationFrame.class, this.createFrame(SetUpLocationFrame::new));
+        this.framesMap.put(SetUpScaleFrame.class, this.createFrame(SetUpScaleFrame::new));
+        this.framesMap.put(AlertFrame.class, this.createFrame(AlertFrame::new));
+        this.framesMap.put(HelpIGFrame.class, this.createFrame(HelpIGFrame::new));
 
-        Thread framesMapInit = new Thread(() -> {
-            List<Thread> loopThread = new ArrayList<>();
-            this.framesMap.forEach((k, v) -> {
-                loopThread.add(new Thread(v::init));
-            });
-            loopThread.forEach(Thread::start);
-            loopThread.forEach((thread) -> {
-                try {
-                    thread.join();
-                } catch (Exception e) {
-                    logger.error(e);
-                }
-            });
-        });
-        framesMapInit.start();
+        this.framesMap.forEach((k, v) -> v.init());
         ApplicationDescriptor config = Configuration.get().applicationConfiguration().get();
-        Thread framesMap = new Thread(() -> {
-            List<Thread> loopThread = new ArrayList<>();
+        SwingUiExecutor.call(() -> {
             this.framesMap.forEach((k, frame) -> {
-                loopThread.add(new Thread(() -> {
-                    if (frame instanceof AbstractComponentFrame) {
-                        if (config.getFadeTime() > 0) {
-                            ((AbstractComponentFrame) frame).enableHideEffect(config.getFadeTime(),
-                                    config.getMinOpacity(),
-                                    config.getMaxOpacity());
-                        } else {
-                            ((AbstractComponentFrame) frame).disableHideEffect();
-                            frame.setOpacity(config.getMaxOpacity() / 100f);
-                        }
+                if (frame instanceof AbstractComponentFrame) {
+                    if (config.getFadeTime() > 0) {
+                        ((AbstractComponentFrame) frame).enableHideEffect(config.getFadeTime(),
+                                config.getMinOpacity(),
+                                config.getMaxOpacity());
+                    } else {
+                        ((AbstractComponentFrame) frame).disableHideEffect();
+                        frame.setOpacity(config.getMaxOpacity() / 100f);
                     }
-                }));
-            });
-            loopThread.forEach(Thread::start);
-            loopThread.forEach((thread) -> {
-                try {
-                    thread.join();
-                } catch (Exception e) {
-                    logger.error(e);
                 }
             });
+            return null;
         });
-        framesMap.start();
-        Thread routManager = new Thread(() -> {
+        SwingUiExecutor.call(() -> {
             new SettingsRoutManager(settingsFrame);
+            return null;
         });
-        routManager.start();
         this.subscribe();
-        this.adrManager.load();
-
-        try {
-            baseInitThread.join();
-            framesMapInit.join();
-            framesMap.join();
-            routManager.join();
-
-        } catch (InterruptedException e) {
-            logger.error(e);
-        }
+        SwingUiExecutor.call(() -> {
+            this.adrManager.load();
+            return null;
+        });
         MercuryStoreCore.uiLoadedSubject.onNext(true);
     }
 
     @Override
     public void subscribe() {
-        MercuryStoreCore.showPatchNotesSubject.subscribe(json -> {
+        MercuryStoreCore.showPatchNotesSubject.subscribe(json -> SwingUiExecutor.run(() -> {
             NotesLoader notesLoader = new NotesLoader();
             List<Note> notes = notesLoader.getPatchNotesFromString(json);
             NotesFrame patchNotesFrame = new NotesFrame(notes, NotesFrame.NotesType.PATCH);
             patchNotesFrame.init();
             patchNotesFrame.setFrameTitle("MercuryChat v" + notesLoader.getVersionFrom(json));
             patchNotesFrame.showComponent();
-        });
-        MercuryStoreUI.packSubject.subscribe(className -> this.framesMap.get(className).pack());
-        MercuryStoreUI.repaintSubject.subscribe(className -> {
+        }));
+        MercuryStoreUI.packSubject.subscribe(className -> SwingUiExecutor.run(() -> this.framesMap.get(className).pack()));
+        MercuryStoreUI.repaintSubject.subscribe(className -> SwingUiExecutor.run(() -> {
             this.framesMap.get(className).repaint();
             this.framesMap.get(className).revalidate();
-        });
+        }));
     }
 
     public void exit() {
-        this.framesMap.forEach((k, v) -> v.setVisible(false));
+        SwingUiExecutor.call(() -> {
+            this.framesMap.forEach((k, v) -> v.setVisible(false));
+            return null;
+        });
         MercuryStoreCore.shutdownAppSubject.onNext(true);
     }
 
     public void exitForUpdate() {
-        this.framesMap.forEach((k, v) -> v.setVisible(false));
+        SwingUiExecutor.call(() -> {
+            this.framesMap.forEach((k, v) -> v.setVisible(false));
+            return null;
+        });
         MercuryStoreCore.shutdownForUpdateSubject.onNext(true);
     }
 
@@ -210,12 +188,14 @@ public class FramesManager implements AsSubscriber {
     }
 
     public void hideOrShowFrame(Class frameClass) {
-        AbstractOverlaidFrame frame = this.framesMap.get(frameClass);
-        if (frame != null && frame.isVisible()) {
-            hideFrame(frameClass);
-        } else {
-            showFrame(frameClass);
-        }
+        SwingUiExecutor.run(() -> {
+            AbstractOverlaidFrame frame = this.framesMap.get(frameClass);
+            if (frame != null && frame.isVisible()) {
+                hideFrame(frameClass);
+            } else {
+                showFrame(frameClass);
+            }
+        });
     }
 
     public void hideOrShowFrame(Class frameClass, FrameVisibleState state) {
@@ -262,7 +242,7 @@ public class FramesManager implements AsSubscriber {
     }
 
     public void restoreDefaultLocation() {
-        this.framesMap.forEach((k, v) -> {
+        SwingUiExecutor.run(() -> this.framesMap.forEach((k, v) -> {
             FramesConfigurationServiceImpl service = (FramesConfigurationServiceImpl) Configuration.get()
                     .framesConfiguration();
             if (service != null) {
@@ -274,11 +254,11 @@ public class FramesManager implements AsSubscriber {
                     }
                 }
             }
-        });
+        }));
     }
 
     public void setLocationToCurrentMonitor() {
-        this.framesMap.forEach((k, v) -> {
+        SwingUiExecutor.run(() -> this.framesMap.forEach((k, v) -> {
             if (v.getClass().equals(ItemsGridFrame.class)) {
                 Point location = v.getLocation();
                 System.out.println(location);
@@ -289,13 +269,13 @@ public class FramesManager implements AsSubscriber {
             if (v instanceof AbstractMovableComponentFrame) {
                 ((AbstractMovableComponentFrame) v).onLocationChange(frameLocation);
             }
-        });
+        }));
 
-        this.adrManager.getFrames().forEach((v) -> {
+        SwingUiExecutor.run(() -> this.adrManager.getFrames().forEach((v) -> {
             Point frameLocation = v.getLocation();
             frameLocation.x += getWindowLeftLocation();
             v.setLocation(frameLocation);
-        });
+        }));
     }
 
 
@@ -348,11 +328,9 @@ public class FramesManager implements AsSubscriber {
             trayMenu.add(vulkanSupport);
             trayMenu.add(exit);
 
-            BufferedImage icon = null;
-            try {
-                icon = ImageIO.read(getClass().getClassLoader().getResource(IconConst.APP_ICON));
-            } catch (IOException e) {
-                e.printStackTrace();
+            BufferedImage icon = this.loadTrayIconImage();
+            if (icon == null) {
+                return;
             }
             this.trayIcon = new TrayIcon(icon, "MercuryChat");
             this.trayIcon.setImageAutoSize(true);
@@ -366,17 +344,17 @@ public class FramesManager implements AsSubscriber {
                 }
             });
 
-            MercuryStoreCore.hideSystemTraySubject.subscribe(nativeMouseEvent -> {
+            MercuryStoreCore.hideSystemTraySubject.subscribe(SwingUiExecutor.onEdt(nativeMouseEvent -> {
                 if (!isClickInsidePopup(nativeMouseEvent, trayMenu)) {
                     hideSystemTray(trayMenu);
                 }
-            });
+            }));
 
             SystemTray tray = SystemTray.getSystemTray();
             try {
                 tray.add(this.trayIcon);
             } catch (AWTException e) {
-                e.printStackTrace();
+                ErrorNotifier.notify(TRAY_ICON_INSTALL_FAILURE, e);
             }
         }
     }
@@ -384,7 +362,7 @@ public class FramesManager implements AsSubscriber {
     private static void showJPopupMenu(MouseEvent e, JPopupMenu popupMenu) {
         // Position the JPopupMenu near the tray icon
         Point point = e.getPoint();
-        SwingUtilities.invokeLater(() -> {
+        SwingUiExecutor.run(() -> {
             //popupMenu.setInvoker(null);
             popupMenu.setVisible(true);
             popupMenu.setLocation(point.x, point.y - (int) popupMenu.bounds().getHeight());
@@ -422,8 +400,28 @@ public class FramesManager implements AsSubscriber {
         static final FramesManager HOLDER_INSTANCE = new FramesManager();
     }
 
+    private <T extends AbstractOverlaidFrame> T createFrame(Callable<T> frameFactory) {
+        return SwingUiExecutor.call(frameFactory);
+    }
+
+    private BufferedImage loadTrayIconImage() {
+        try {
+            java.net.URL resource = getClass().getClassLoader().getResource(IconConst.APP_ICON);
+            if (resource == null) {
+                ErrorNotifier.notify(TRAY_ICON_LOAD_FAILURE, new IOException("Tray icon resource is missing."));
+                return null;
+            }
+            return ImageIO.read(resource);
+        } catch (IOException | RuntimeException e) {
+            ErrorNotifier.notify(TRAY_ICON_LOAD_FAILURE, e);
+            return null;
+        }
+    }
+
     private void hideSystemTray(JPopupMenu trayMenu) {
-        trayMenu.setVisible(false);
-        MercuryStoreCore.enableDisableHideSystemTrayListenerSubject.onNext(false);
+        SwingUiExecutor.run(() -> {
+            trayMenu.setVisible(false);
+            MercuryStoreCore.enableDisableHideSystemTrayListenerSubject.onNext(false);
+        });
     }
 }

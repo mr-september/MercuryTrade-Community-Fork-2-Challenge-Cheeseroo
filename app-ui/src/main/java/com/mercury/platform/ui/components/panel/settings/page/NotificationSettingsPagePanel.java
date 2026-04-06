@@ -86,13 +86,13 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         this.outHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getOutNHotKeysList());
         this.scannerHotKeySnapshot = CloneHelper.cloneObject(hotKeyService.get().getScannerNHotKeysList());
         this.scannerSnapshot = CloneHelper.cloneObject(scannerService.get());
-        this.removeAll();
-        this.onViewInit();
+        this.initializePage();
     }
 
     private JPanel getGeneralPanel() {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.ADR_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.ADR_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_PANEL_BORDER));
         JComboBox flowDirectionPicker = componentsFactory.getComboBox(new String[]{TranslationKey.upwards.value(), TranslationKey.downwards.value()});
         flowDirectionPicker.addActionListener(e -> {
@@ -104,7 +104,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
             }
         });
         JLabel limitLabel = this.componentsFactory.getTextLabel(String.valueOf(this.generalSnapshot.getLimitCount()), FontStyle.REGULAR, 16);
-        limitLabel.setPreferredSize(new Dimension(30, 26));
+        limitLabel.setPreferredSize(this.layoutMetrics.getNotificationLimitSize());
         JSlider limitSlider = componentsFactory.getSlider(2, 20, this.generalSnapshot.getLimitCount(), AppThemeColor.ADR_BG);
         limitSlider.addChangeListener(e -> {
             limitLabel.setText(String.valueOf(limitSlider.getValue()));
@@ -157,7 +157,8 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
     }
     private JPanel getIncomingPanel() {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.ADR_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.ADR_BG);
         JCheckBox enabled = this.componentsFactory.getCheckBox(this.generalSnapshot.isIncNotificationEnable());
         enabled.addActionListener(action -> {
             this.generalSnapshot.setIncNotificationEnable(enabled.isSelected());
@@ -182,7 +183,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         propertiesPanel.add(showLeague);
         root.add(propertiesPanel, BorderLayout.PAGE_START);
 
-        ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getButtons(), this.incHotkeyGroup);
+        ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getButtons(), this.incHotkeyGroup, this.componentsFactory);
         responseButtonsPanel.onViewInit();
         root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), TranslationKey.response_buttons.value(":")), BorderLayout.CENTER);
         root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(this.getInNotificationHotKeysPanel(), AppThemeColor.ADR_BG), TranslationKey.hotkeys.value()), BorderLayout.PAGE_END);
@@ -198,11 +199,12 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
     }
 
     private JPanel getInNotificationHotKeysPanel() {
-        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.SETTINGS_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.SETTINGS_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_DEFAULT_BORDER));
         this.incHotKeySnapshot.forEach(pair -> {
             root.add(this.componentsFactory.getIconLabel(pair.getType().getIconPath(), 18, SwingConstants.CENTER, pair.getType().getTooltip()));
-            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor());
+            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor(), this.componentsFactory);
             this.incHotkeyGroup.registerHotkey(hotKeyPanel);
             root.add(this.componentsFactory.wrapToSlide(hotKeyPanel, AppThemeColor.SETTINGS_BG, 2, 4, 1, 1));
         });
@@ -210,11 +212,12 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
     }
 
     private JPanel getOutNotificationHotKeysPanel() {
-        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.SETTINGS_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.SETTINGS_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_DEFAULT_BORDER));
         this.outHotKeySnapshot.forEach(pair -> {
             root.add(this.componentsFactory.getIconLabel(pair.getType().getIconPath(), 18, SwingConstants.CENTER, pair.getType().getTooltip()));
-            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor());
+            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor(), this.componentsFactory);
             this.outHotkeyGroup.registerHotkey(hotKeyPanel);
             root.add(this.componentsFactory.wrapToSlide(hotKeyPanel, AppThemeColor.SETTINGS_BG, 2, 4, 1, 1));
         });
@@ -222,11 +225,12 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
     }
 
     private JPanel getScannerNotificationHotKeysPanel() {
-        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.SETTINGS_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel root = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.SETTINGS_BG);
         root.setBorder(BorderFactory.createLineBorder(AppThemeColor.ADR_DEFAULT_BORDER));
         this.scannerHotKeySnapshot.forEach(pair -> {
             root.add(this.componentsFactory.getIconLabel(pair.getType().getIconPath(), 18, SwingConstants.CENTER, pair.getType().getTooltip()));
-            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor());
+            HotKeyPanel hotKeyPanel = new HotKeyPanel(pair.getDescriptor(), this.componentsFactory);
             this.scannerHotkeyGroup.registerHotkey(hotKeyPanel);
             root.add(this.componentsFactory.wrapToSlide(hotKeyPanel, AppThemeColor.SETTINGS_BG, 2, 4, 1, 1));
         });
@@ -235,7 +239,8 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
 
     private JPanel getOutgoingPanel() {
         JPanel root = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.ADR_BG);
-        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, 4, 4), AppThemeColor.ADR_BG);
+        int sectionGap = this.layoutMetrics.scaleValue(4);
+        JPanel propertiesPanel = this.componentsFactory.getJPanel(new GridLayout(0, 2, sectionGap, sectionGap), AppThemeColor.ADR_BG);
         JCheckBox enabled = this.componentsFactory.getCheckBox(this.generalSnapshot.isOutNotificationEnable());
         enabled.addActionListener(action -> {
             this.generalSnapshot.setOutNotificationEnable(enabled.isSelected());
@@ -266,7 +271,7 @@ public class NotificationSettingsPagePanel extends SettingsPagePanel {
         });
         propertiesPanel.add(triggersField);
 
-        ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getOutButtons(), this.outHotkeyGroup);
+        ResponseButtonsPanel responseButtonsPanel = new ResponseButtonsPanel(this.generalSnapshot.getOutButtons(), this.outHotkeyGroup, this.componentsFactory);
         responseButtonsPanel.onViewInit();
         root.add(propertiesPanel, BorderLayout.PAGE_START);
         root.add(this.wrapToCounter(this.componentsFactory.wrapToSlide(responseButtonsPanel, AppThemeColor.ADR_BG), TranslationKey.response_buttons.value(":")), BorderLayout.CENTER);

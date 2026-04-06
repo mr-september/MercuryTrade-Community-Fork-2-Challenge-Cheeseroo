@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,20 +21,17 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MessageFileHandler implements AsSubscriber {
-    private static final String dateRGPattern = "^\\n?[0-9]{4}\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])\\s([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$";
-    private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static final int RECENT_MESSAGE_LIMIT = 30;
+    private final SimpleDateFormat messageDateFormat = createMessageDateFormat();
     private final Logger logger = LogManager.getLogger(MessageFileHandler.class);
     private String logFilePath;
     private Date lastMessageDate = new Date();
-    private Pattern datePattern;
-    private Pattern p = Pattern.compile("20[2-9][0-9]\\/[0-2][0-9]\\/[0-3][0-9] [0-2][0-9]:[0-5][0-9]:[0-5][0-9]");
+    private final Pattern timestampPattern = Pattern.compile("20[2-9][0-9]\\/[0-2][0-9]\\/[0-3][0-9] [0-2][0-9]:[0-5][0-9]:[0-5][0-9]");
 
-
-    private List<MessageInterceptor> interceptors = new ArrayList<>();
+    private final List<MessageInterceptor> interceptors = new ArrayList<>();
 
     public MessageFileHandler(String logFilePath) {
         this.logFilePath = logFilePath;
-        this.datePattern = Pattern.compile(dateRGPattern);
 
         this.interceptors.add(new TradeIncMessagesInterceptor());
         this.interceptors.add(new TradeOutMessagesInterceptor());
@@ -45,65 +43,22 @@ public class MessageFileHandler implements AsSubscriber {
         this.subscribe();
     }
 
+    public void updateLogFilePath(String logFilePath) {
+        this.logFilePath = logFilePath;
+        this.lastMessageDate = createInterceptorAnchorDate();
+    }
+
     public void parse() {
-        List<String> stubMessages = new ArrayList<>();
-        File logFile = new File(logFilePath);
-        try {
-            RandomAccessFile randomAccessFile = new RandomAccessFile(logFile, "r");
-            int lines = 0;
-            StringBuilder builder = new StringBuilder();
-            long length = logFile.length();
-            length--;
-            randomAccessFile.seek(length);
-            for (long seek = length; seek >= 0; --seek) {
-                randomAccessFile.seek(seek);
-                char c = (char) randomAccessFile.read();
-                builder.append(c);
-                if (c == '\n') {
-                    builder = builder.reverse();
-                    String str = builder.toString();
-                    String utf8 = new String(str.getBytes("ISO-8859-1"), "UTF-8");
-                    stubMessages.add(utf8);
-                    lines++;
-                    builder = new StringBuilder();
-                    if (lines == 30) {
-                        break;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Error in MessageFileHandler: ", e);
-        }
-        List<String> filteredMessages = stubMessages.stream().filter(message ->
-                message != null && !message.equals("\n"))
+        List<String> resultMessages = this.readRecentMessages().stream()
+                .filter(this::isMessageAfterLastReadDate)
                 .collect(Collectors.toList());
-
-        List<String> resultMessages = filteredMessages.stream().filter(message -> {
-            Matcher m = p.matcher(message);
-            if (m.find()) {
-                try {
-                    Date date = DATE_FORMAT.parse(StringUtils.substring(message, 0, 20));
-                    return date.after(lastMessageDate);
-                } catch (ParseException e) {
-                    logger.error("Error while parsing date from message: " + message, e);
-                    return false;
-                } catch (Exception e) {
-                    logger.error("Error while parsing message: " + message, e);
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        }).collect(Collectors.toList());
         Collections.reverse(resultMessages);
         this.interceptors.forEach(interceptor -> {
             resultMessages.forEach(message -> {
                 if (interceptor.match(message)) {
-                    try {
-                        this.lastMessageDate = DATE_FORMAT.parse(StringUtils.substring(message, 0, 20));
-                    } catch (ParseException e) {
-                        logger.error("Error while parsing date from message: " + message, e);
+                    Date messageDate = this.parseMessageDate(message);
+                    if (messageDate != null) {
+                        this.lastMessageDate = messageDate;
                     }
                 }
             });
@@ -114,10 +69,78 @@ public class MessageFileHandler implements AsSubscriber {
     public void subscribe() {
         MercuryStoreCore.addInterceptorSubject.subscribe(interceptor -> {
             this.interceptors.add(interceptor);
-            this.lastMessageDate = new Date();
+            this.lastMessageDate = createInterceptorAnchorDate();
         });
         MercuryStoreCore.removeInterceptorSubject.subscribe(interceptor -> {
             this.interceptors.remove(interceptor);
         });
+    }
+
+    private static Date createInterceptorAnchorDate() {
+        long currentTimeMillis = System.currentTimeMillis();
+        long anchoredToSeconds = (currentTimeMillis / 1000L) * 1000L;
+        return new Date(Math.max(0L, anchoredToSeconds - 1000L));
+    }
+
+    private List<String> readRecentMessages() {
+        List<String> stubMessages = new ArrayList<>();
+        File logFile = new File(this.logFilePath);
+        long length = logFile.length();
+        if (length <= 0) {
+            return stubMessages;
+        }
+
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(logFile, "r")) {
+            int lines = 0;
+            StringBuilder builder = new StringBuilder();
+            long seekPosition = length - 1;
+            randomAccessFile.seek(seekPosition);
+            for (; seekPosition >= 0; --seekPosition) {
+                randomAccessFile.seek(seekPosition);
+                char c = (char) randomAccessFile.read();
+                builder.append(c);
+                if (c == '\n') {
+                    builder.reverse();
+                    String message = new String(builder.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                    message = StringUtils.strip(message, null);
+                    if (StringUtils.isNotBlank(message)) {
+                        stubMessages.add(message);
+                    }
+                    lines++;
+                    builder = new StringBuilder();
+                    if (lines == RECENT_MESSAGE_LIMIT) {
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error in MessageFileHandler: ", e);
+        }
+
+        return stubMessages;
+    }
+
+    private boolean isMessageAfterLastReadDate(String message) {
+        Matcher matcher = this.timestampPattern.matcher(message);
+        if (!matcher.find()) {
+            return false;
+        }
+        Date messageDate = this.parseMessageDate(message);
+        return messageDate != null && messageDate.after(this.lastMessageDate);
+    }
+
+    private Date parseMessageDate(String message) {
+        try {
+            return this.messageDateFormat.parse(StringUtils.substring(message, 0, 20));
+        } catch (ParseException | RuntimeException e) {
+            logger.error("Error while parsing date from message: " + message, e);
+            return null;
+        }
+    }
+
+    private static SimpleDateFormat createMessageDateFormat() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        format.setLenient(false);
+        return format;
     }
 }

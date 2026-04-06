@@ -4,18 +4,16 @@ All notable changes to MercuryChat will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.8.0] - Upcoming
-
-### Added
-- Systematic rebranding of the project from MercuryTrade to **MercuryChat**
-- Comprehensive Developer & Build Guide with automated release workflows
+## [1.8.1] - 2026-04-06
 
 ### Fixed
-- Taskbar icon padding alignment on the right side
+- Chat scanner reliability and live alert handling
+- Taskbar collapse and visibility behavior
+- UI scaling redraw glitches in settings and related panels
 
 ### Changed
-- Consolidated `BUILD_AUTOMATION.md` into `README.md` for better searchability
-- Refined project documentation for professional tone and maturity
+- General bug fixes, stability improvements, and UI polish
+- Simplified internal settings refresh, taskbar state, and log-monitor handling
 
 ## [1.7.0] - 2026-03-30
 

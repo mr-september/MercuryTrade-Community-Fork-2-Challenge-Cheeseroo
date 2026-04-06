@@ -74,6 +74,7 @@ logs/
 *dependency-reduced-pom.xml
 
 release_files/MercuryChat.*
+release_files/MercuryChat-*
 release_files/resources/
 release_files/launch4j.log
 release_files/lang.zip

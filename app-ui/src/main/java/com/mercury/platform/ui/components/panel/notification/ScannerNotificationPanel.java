@@ -40,7 +40,7 @@ public class ScannerNotificationPanel extends NotificationPanel<PlainMessageDesc
                 break;
             }
         }
-        this.contentPanel.setPreferredSize(new Dimension(10, (int) (60 * this.componentsFactory.getScale())));
+        this.contentPanel.setPreferredSize(this.getLayoutMetrics().getScannerContentSize());
         this.add(this.contentPanel, BorderLayout.CENTER);
         this.updateHotKeyPool();
     }
@@ -56,7 +56,7 @@ public class ScannerNotificationPanel extends NotificationPanel<PlainMessageDesc
         nickNamePanel.add(nicknameLabel, BorderLayout.CENTER);
         root.add(nickNamePanel, BorderLayout.CENTER);
 
-        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, 3, 0));
+        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, this.getLayoutMetrics().getScannerInteractionGap(), 0));
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
         JButton inviteMeButton = componentsFactory.getIconButton(IconConst.CHAT_SCANNER_RESPONSE_WHISPER, 16, AppThemeColor.MSG_HEADER, TranslationKey.quick_response.value());
         inviteMeButton.addActionListener(e -> this.controller.performResponse(this.config.get().getResponseMessage()));
@@ -104,7 +104,7 @@ public class ScannerNotificationPanel extends NotificationPanel<PlainMessageDesc
 
         JPanel opPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.MSG_HEADER);
         JPanel timePanel = this.getTimePanel();
-        timePanel.setPreferredSize(new Dimension(50, 26));
+        timePanel.setPreferredSize(this.getLayoutMetrics().getTimePanelSize());
         opPanel.add(timePanel, BorderLayout.CENTER);
         opPanel.add(interactionPanel, BorderLayout.LINE_END);
         root.add(opPanel, BorderLayout.LINE_END);

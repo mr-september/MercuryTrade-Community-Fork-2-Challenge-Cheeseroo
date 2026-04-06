@@ -9,7 +9,6 @@ import com.mercury.platform.shared.config.descriptor.*;
 import com.mercury.platform.shared.config.json.JSONHelper;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +20,14 @@ import java.util.List;
 
 
 public class MercuryConfigManager implements ConfigManager, AsSubscriber {
+    private static final String CURRENT_CONFIGURATION_FOLDER_NAME = "MercuryChat";
+    private static final String LEGACY_CONFIGURATION_FOLDER_NAME = "MercuryTrade";
+    private static final String CONFIGURATION_FILE_NAME = "configuration.json";
+    private static final String TEMP_DIRECTORY_NAME = "temp";
+    private static final String ICONS_DIRECTORY_NAME = "icons";
+    private static final String LOCAL_UPDATER_FILE_NAME = "local-updater.jar";
+    private static final String LOCAL_UPDATER_RESOURCE_PATH = "app/local-updater.jar";
+
     private Logger logger = LogManager.getLogger(MercuryConfigManager.class.getSimpleName());
 
     private ConfigurationSource dataSource;
@@ -116,38 +123,8 @@ public class MercuryConfigManager implements ConfigManager, AsSubscriber {
 
     public void load() {
         try {
-            File configFile = new File(dataSource.getConfigurationFilePath());
-            File configFolder = new File(dataSource.getConfigurationPath());
-            File iconFolder = new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons");
-
-            if (!configFolder.exists() || !configFile.exists() || !iconFolder.exists()) {
-                // Check for legacy data to migrate
-                String legacyPath = dataSource.getConfigurationPath().replace("MercuryChat", "MercuryTrade");
-                File legacyFolder = new File(legacyPath);
-                if (legacyFolder.exists()) {
-                    logger.info("Legacy configuration found at {}. Migrating...", legacyPath);
-                    try {
-                        FileUtils.copyDirectory(legacyFolder, configFolder);
-                        logger.info("Migration from MercuryTrade to MercuryChat completed successfully.");
-                    } catch (IOException e) {
-                        logger.error("Failed to migrate legacy configuration from MercuryTrade.", e);
-                    }
-                }
-
-                configFolder.mkdirs();
-                new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "temp").mkdirs();
-                new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "icons").mkdirs();
-                if (!configFile.exists()) {
-                    new File(dataSource.getConfigurationFilePath()).createNewFile();
-                }
-
-                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                InputStream resourceAsStream = classLoader.getResourceAsStream("app/local-updater.jar");
-                if (resourceAsStream != null) {
-                    File dest = new File(dataSource.getConfigurationPath() + (SystemUtils.IS_OS_WINDOWS ? "\\" : "/") + "local-updater.jar");
-                    FileUtils.copyInputStreamToFile(resourceAsStream, dest);
-                }
-            }
+            this.bootstrapConfiguration();
+            this.services.clear();
             this.profileDescriptors = this.jsonHelper.readArrayData(new TypeToken<List<ProfileDescriptor>>() {
             });
             if (this.profileDescriptors == null) {
@@ -205,6 +182,96 @@ public class MercuryConfigManager implements ConfigManager, AsSubscriber {
             });
         } catch (IOException e) {
             logger.error("Error while processing file:{}", dataSource.getConfigurationPath(), e);
+        }
+    }
+
+    void bootstrapConfiguration() throws IOException {
+        this.bootstrapConfiguration(Thread.currentThread().getContextClassLoader());
+    }
+
+    void bootstrapConfiguration(ClassLoader classLoader) throws IOException {
+        File configFolder = new File(this.dataSource.getConfigurationPath());
+        File configFile = new File(this.dataSource.getConfigurationFilePath());
+        File tempFolder = new File(configFolder, TEMP_DIRECTORY_NAME);
+        File iconFolder = new File(configFolder, ICONS_DIRECTORY_NAME);
+        File updaterFile = new File(configFolder, LOCAL_UPDATER_FILE_NAME);
+
+        this.migrateLegacyConfigurationIfNeeded(configFolder, configFile, iconFolder);
+        this.ensureDirectoryExists(configFolder, "configuration");
+        this.ensureDirectoryExists(tempFolder, TEMP_DIRECTORY_NAME);
+        this.ensureDirectoryExists(iconFolder, ICONS_DIRECTORY_NAME);
+        this.ensureFileExists(configFile, CONFIGURATION_FILE_NAME);
+        this.ensureUpdaterExists(classLoader, updaterFile);
+    }
+
+    private void migrateLegacyConfigurationIfNeeded(File configFolder, File configFile, File iconFolder) throws IOException {
+        if (configFolder.exists() && configFile.exists() && iconFolder.exists()) {
+            return;
+        }
+
+        File legacyFolder = this.getLegacyConfigurationFolder(configFolder);
+        if (legacyFolder == null || !legacyFolder.exists()) {
+            return;
+        }
+
+        logger.info("Legacy configuration found at {}. Migrating...", legacyFolder.getPath());
+        FileUtils.copyDirectory(legacyFolder, configFolder);
+        logger.info("Migration from MercuryTrade to MercuryChat completed successfully.");
+    }
+
+    private File getLegacyConfigurationFolder(File configFolder) {
+        String configurationPath = this.dataSource.getConfigurationPath();
+        if (!configurationPath.contains(CURRENT_CONFIGURATION_FOLDER_NAME)) {
+            return null;
+        }
+
+        String legacyPath = configurationPath.replace(CURRENT_CONFIGURATION_FOLDER_NAME, LEGACY_CONFIGURATION_FOLDER_NAME);
+        if (legacyPath.equals(configurationPath)) {
+            return null;
+        }
+
+        File legacyFolder = new File(legacyPath);
+        if (legacyFolder.equals(configFolder)) {
+            return null;
+        }
+        return legacyFolder;
+    }
+
+    private void ensureDirectoryExists(File directory, String description) throws IOException {
+        if (directory.exists()) {
+            return;
+        }
+
+        if (!directory.mkdirs() && !directory.exists()) {
+            throw new IOException("Unable to create " + description + " directory at " + directory.getPath());
+        }
+    }
+
+    private void ensureFileExists(File file, String description) throws IOException {
+        if (file.exists()) {
+            return;
+        }
+
+        File parent = file.getParentFile();
+        if (parent != null) {
+            this.ensureDirectoryExists(parent, description + " parent");
+        }
+
+        if (!file.createNewFile() && !file.exists()) {
+            throw new IOException("Unable to create " + description + " at " + file.getPath());
+        }
+    }
+
+    private void ensureUpdaterExists(ClassLoader classLoader, File updaterFile) throws IOException {
+        if (updaterFile.exists()) {
+            return;
+        }
+
+        ClassLoader resolvedClassLoader = classLoader != null ? classLoader : MercuryConfigManager.class.getClassLoader();
+        try (InputStream resourceAsStream = resolvedClassLoader.getResourceAsStream(LOCAL_UPDATER_RESOURCE_PATH)) {
+            if (resourceAsStream != null) {
+                FileUtils.copyInputStreamToFile(resourceAsStream, updaterFile);
+            }
         }
     }
 

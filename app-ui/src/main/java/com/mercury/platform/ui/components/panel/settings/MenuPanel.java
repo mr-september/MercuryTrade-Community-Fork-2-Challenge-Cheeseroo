@@ -15,12 +15,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MenuPanel extends JPanel implements ViewInit {
-    private ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
+    private final ComponentsFactory componentsFactory;
+    private final SettingsLayoutMetrics layoutMetrics;
+    private final SettingsPage selectedPage;
 
     public MenuPanel() {
-        super();
+        this(ComponentsFactory.INSTANCE, SettingsPage.GENERAL_SETTINGS);
+    }
+
+    public MenuPanel(ComponentsFactory componentsFactory, SettingsPage selectedPage) {
+        super(new BorderLayout());
+        this.componentsFactory = componentsFactory;
+        this.layoutMetrics = new SettingsLayoutMetrics(this.componentsFactory);
+        this.selectedPage = selectedPage;
         this.setBackground(AppThemeColor.FRAME);
-        this.setPreferredSize(new Dimension(220, 20));
+        this.setPreferredSize(this.layoutMetrics.getMenuPanelSize());
         this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, AppThemeColor.ADR_PANEL_BORDER));
         this.onViewInit();
     }
@@ -39,18 +48,40 @@ public class MenuPanel extends JPanel implements ViewInit {
                 list.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        list.setCellRenderer(new MenuListRenderer());
+        list.setCellRenderer(new MenuListRenderer(this.componentsFactory));
         list.setBackground(AppThemeColor.FRAME);
-        list.setSelectedIndex(0);
+        list.setSelectedIndex(getSelectedIndex());
         list.addListSelectionListener(e ->
                 list.getSelectedValue().getAction().onClick());
 
         JLabel appIcon = this.componentsFactory.getTextLabel("MercuryChat", FontStyle.BOLD, 22);
         appIcon.setIcon(this.componentsFactory.getIcon(IconConst.APP_ICON, 50));
-        appIcon.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        appIcon.setBorder(BorderFactory.createEmptyBorder(
+                this.layoutMetrics.scaleValue(15),
+                this.layoutMetrics.scaleValue(15),
+                this.layoutMetrics.scaleValue(15),
+                this.layoutMetrics.scaleValue(15)));
         appIcon.setBackground(AppThemeColor.FRAME);
         this.add(appIcon, BorderLayout.PAGE_START);
         this.add(list, BorderLayout.CENTER);
+    }
+
+    private int getSelectedIndex() {
+        switch (this.selectedPage) {
+            case SOUND_SETTING:
+                return 1;
+            case NOTIFICATION_SETTINGS:
+                return 2;
+            case TASK_BAR_SETTINGS:
+                return 3;
+            case SUPPORT:
+                return 4;
+            case ABOUT:
+                return 5;
+            case GENERAL_SETTINGS:
+            default:
+                return 0;
+        }
     }
 
     @SuppressWarnings("all")

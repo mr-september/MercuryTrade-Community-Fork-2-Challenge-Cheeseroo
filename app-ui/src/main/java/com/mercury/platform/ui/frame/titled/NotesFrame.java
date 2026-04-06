@@ -9,13 +9,14 @@ import com.mercury.platform.ui.frame.AbstractOverlaidFrame;
 import com.mercury.platform.ui.frame.movable.ItemsGridFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.ExternalBrowser;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import com.mercury.platform.ui.misc.note.Note;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URI;
 import java.util.List;
 
 public class NotesFrame extends AbstractTitledComponentFrame {
@@ -72,11 +73,9 @@ public class NotesFrame extends AbstractTitledComponentFrame {
         });
         JButton gitHub = componentsFactory.getBorderedButton("GitHub");
         gitHub.addActionListener(action -> {
-            try {
-                Desktop.getDesktop().browse(new URI("https://github.com/mr-september/MercuryChat/releases/latest"));
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+            ExternalBrowser.open(
+                    "https://github.com/mr-september/MercuryChat/releases/latest",
+                    "Failed to open the MercuryChat releases page.");
         });
 
         JButton close = componentsFactory.getButton(
@@ -296,18 +295,18 @@ public class NotesFrame extends AbstractTitledComponentFrame {
 
         @Override
         public void subscribe() {
-            MercuryStoreCore.chunkLoadedSubject.subscribe(percentDelta -> SwingUtilities.invokeLater(() -> {
+            MercuryStoreCore.chunkLoadedSubject.subscribe(SwingUiExecutor.onEdt(percentDelta -> {
                 this.percent += percentDelta;
                 this.percentLabel.setText(String.valueOf(percent) + "%");
                 this.repaint();
                 this.pack();
             }));
-            MercuryStoreCore.updateReadySubject.subscribe(state -> {
+            MercuryStoreCore.updateReadySubject.subscribe(SwingUiExecutor.onEdt(state -> {
                 this.percentLabel.setText("100%");
                 this.restart.setEnabled(true);
                 this.progressBar.setIndeterminate(false);
                 this.repaint();
-            });
+            }));
         }
 
         @Override

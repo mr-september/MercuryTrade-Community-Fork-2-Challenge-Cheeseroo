@@ -40,7 +40,11 @@ class PoeTradeCurrencyParser extends BaseRegexParser {
             leagueAndOffer = leagueAndOffer.substring(0, leagueAndOffer.length() - 1).trim();
         }
         String[] split = leagueAndOffer.split("\\s+", 2);
-        tradeNotification.setLeague(split[0].trim());
+        String league = split[0].trim();
+        if (league.endsWith(".")) {
+            league = league.substring(0, league.length() - 1).trim();
+        }
+        tradeNotification.setLeague(league);
         if (split.length > 1) {
             tradeNotification.setOffer(split[1].trim());
         }

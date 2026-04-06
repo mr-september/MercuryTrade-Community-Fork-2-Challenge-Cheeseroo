@@ -120,7 +120,6 @@ public class SoundSettingsPagePanel extends SettingsPagePanel {
     @Override
     public void restore() {
         this.soundSnapshot = CloneHelper.cloneObject(this.soundConfiguration.getMap());
-        this.removeAll();
-        this.onViewInit();
+        this.initializePage();
     }
 }

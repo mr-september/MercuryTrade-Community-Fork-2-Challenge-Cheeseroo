@@ -1,23 +1,16 @@
 package com.mercury.platform.ui.frame.titled;
 
 import com.mercury.platform.shared.HistoryManager;
-import com.mercury.platform.shared.messageparser.MessageParser;
 import com.mercury.platform.shared.config.descriptor.FrameDescriptor;
 import com.mercury.platform.shared.entity.message.NotificationDescriptor;
 import com.mercury.platform.shared.entity.message.NotificationType;
 import com.mercury.platform.shared.store.MercuryStoreCore;
-import com.mercury.platform.ui.components.datatable.MColumn;
-import com.mercury.platform.ui.components.datatable.MDataTable;
-import com.mercury.platform.ui.components.datatable.data.DataRequest;
-import com.mercury.platform.ui.components.datatable.data.MDataService;
-import com.mercury.platform.ui.components.datatable.renderer.NotificationTypeRenderer;
-import com.mercury.platform.ui.components.datatable.renderer.PlainIconRenderer;
-import com.mercury.platform.ui.components.datatable.renderer.PlainTextRenderer;
 import com.mercury.platform.ui.components.fields.style.MercuryScrollBarUI;
 import com.mercury.platform.ui.components.panel.VerticalScrollContainer;
 import com.mercury.platform.ui.components.panel.notification.NotificationPanel;
 import com.mercury.platform.ui.components.panel.notification.factory.NotificationPanelFactory;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.swing.*;
@@ -27,14 +20,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class HistoryFrame extends AbstractTitledComponentFrame {
+    private static final int INITIAL_HISTORY_BATCH_SIZE = 10;
+    private static final int INFINITE_SCROLL_BATCH_SIZE = 5;
+    private static final int TRIMMED_COMPONENT_COUNT = 5;
+    private static final int MAX_VISIBLE_HISTORY_PANELS = 40;
+
     private JPanel mainContainer;
     private NotificationPanelFactory factory;
     private List<NotificationDescriptor> currentMessages;
-    private MDataTable<NotificationDescriptor> dataTable;
 
     public HistoryFrame() {
         super();
@@ -45,69 +41,7 @@ public class HistoryFrame extends AbstractTitledComponentFrame {
 
     @Override
     public void onViewInit() {
-        //TODO: Make it work
-//        initNewHistoryFrame();
-        //TODO: Test this
         initHistoryFrame();
-    }
-
-    private void initNewHistoryFrame() {
-        JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
-        MColumn[] columns = {
-                new MColumn("Item name",
-                            "ItemName|(CurrForSaleCount+CurrForSaleTitle)",
-                            false,
-                            false,
-                            PlainIconRenderer.class),
-                new MColumn("Type", "Type", false, false, NotificationTypeRenderer.class),
-                new MColumn("Currency", "CurCount+Currency", false, false, PlainIconRenderer.class),
-                new MColumn("League", "League", false, false, PlainTextRenderer.class),
-                new MColumn("Nickname", "WhisperNickname", false, false, PlainTextRenderer.class),
-                new MColumn("Offer", "Offer", false, false, PlainTextRenderer.class),
-                new MColumn("Tab name", "TabName", false, false, PlainTextRenderer.class),
-                };
-        MDataService<NotificationDescriptor> dataService = new MDataService<NotificationDescriptor>() {
-            @Override
-            public NotificationDescriptor[] getData(DataRequest request) {
-                TestEngine testEngine = new TestEngine();
-                NotificationDescriptor[] notificationDescriptors = new NotificationDescriptor[15];
-                Random random = new Random();
-                for (int i = 0; i < 15; i++) {
-                    switch (random.nextInt(4)) {
-                        case 0: {
-                            notificationDescriptors[i] = testEngine.getRandomItemIncMessage();
-                            break;
-                        }
-                        case 1: {
-                            notificationDescriptors[i] = testEngine.getRandomCurrencyIncMessage();
-                            break;
-                        }
-                        case 2: {
-                            notificationDescriptors[i] = testEngine.getRandomItemOutMessage();
-                            break;
-                        }
-                        case 3: {
-                            notificationDescriptors[i] = testEngine.getRandomCurrencyOutMessage();
-                            break;
-                        }
-                    }
-                }
-                return notificationDescriptors;
-            }
-
-            @Override
-            public void removeData(NotificationDescriptor data) {
-
-            }
-        };
-        this.dataTable = new MDataTable<>(columns, dataService, 10);
-        this.dataTable.addCellRenderer(NotificationType.class, new NotificationTypeRenderer());
-
-        root.add(this.componentsFactory.wrapToSlide(this.getToolBar(), 0, 0, 2, 0), BorderLayout.PAGE_START);
-        root.add(this.dataTable, BorderLayout.CENTER);
-
-        this.add(this.componentsFactory.wrapToSlide(root), BorderLayout.CENTER);
-        this.pack();
     }
 
     private void initHistoryFrame() {
@@ -139,69 +73,59 @@ public class HistoryFrame extends AbstractTitledComponentFrame {
         this.add(scrollPane, BorderLayout.CENTER);
         mainContainer.getParent().setBackground(AppThemeColor.FRAME);
 
-        String[] messages = HistoryManager.INSTANCE.fetchNext(10);
-        ArrayUtils.reverse(messages);
-        for (String message : messages) {
-            MessageParser parser = new MessageParser();
-            NotificationDescriptor parsedNotificationDescriptor = parser.parse(message);
-            if (parsedNotificationDescriptor != null) {
-                NotificationPanel panel = this.factory.getProviderFor(NotificationType.HISTORY)
-                                                      .setData(parsedNotificationDescriptor)
-                                                      .setComponentsFactory(this.componentsFactory)
-                                                      .build();
-                this.currentMessages.add(parsedNotificationDescriptor);
-                mainContainer.add(panel);
-            }
-        }
+        this.appendLatestHistory(HistoryManager.INSTANCE.fetchNext(INITIAL_HISTORY_BATCH_SIZE));
         this.miscPanel.add(getClearButton(), 0);
         this.pack();
         vBar.setValue(vBar.getMaximum());
         vBar.addAdjustmentListener((AdjustmentEvent e) -> {
             if (vBar.getValue() < 100) {
-                String[] nextMessages = HistoryManager.INSTANCE.fetchNext(5);
-                for (String message : nextMessages) {
-                    MessageParser parser = new MessageParser();
-                    NotificationDescriptor parsedNotificationDescriptor = parser.parse(message);
-                    if (parsedNotificationDescriptor != null) {
-                        NotificationPanel panel = this.factory.getProviderFor(NotificationType.HISTORY)
-                                                              .setData(parsedNotificationDescriptor)
-                                                              .setComponentsFactory(this.componentsFactory)
-                                                              .build();
-                        this.currentMessages.add(parsedNotificationDescriptor);
-                        mainContainer.add(panel, 0);
-                    }
+                String[] nextMessages = HistoryManager.INSTANCE.fetchNext(INFINITE_SCROLL_BATCH_SIZE);
+                if (nextMessages.length > 0) {
+                    this.prependOlderHistory(nextMessages);
                     vBar.setValue(vBar.getValue() + 100);
                 }
             }
         });
     }
 
-    private JPanel getToolBar() {
-        JPanel root = this.componentsFactory.getJPanel(new BorderLayout());
-        JPanel leftToolbar = this.componentsFactory.getJPanel(new FlowLayout(FlowLayout.LEFT));
-        JPanel rightToolbar = this.componentsFactory.getJPanel(new FlowLayout(FlowLayout.RIGHT));
+    private void appendLatestHistory(String[] messages) {
+        ArrayUtils.reverse(messages);
+        for (String message : messages) {
+            NotificationDescriptor parsedNotificationDescriptor = parseMessage(message);
+            if (parsedNotificationDescriptor != null) {
+                addHistoryPanel(parsedNotificationDescriptor, false);
+            }
+        }
+    }
 
-        JButton test1 = componentsFactory.getBorderedButton("Test1", 16);
-        test1.addActionListener(e -> {
-            this.dataTable.reload();
-        });
-        test1.setPreferredSize(new Dimension(110, 26));
+    private void prependOlderHistory(String[] messages) {
+        for (String message : messages) {
+            NotificationDescriptor parsedNotificationDescriptor = parseMessage(message);
+            if (parsedNotificationDescriptor != null) {
+                addHistoryPanel(parsedNotificationDescriptor, true);
+            }
+        }
+        this.mainContainer.revalidate();
+        this.mainContainer.repaint();
+        this.pack();
+    }
 
-        JButton test2 = componentsFactory.getBorderedButton("Test2", 16);
-        test2.addActionListener(e -> {
-        });
-        test2.setPreferredSize(new Dimension(110, 26));
-        JButton test3 = componentsFactory.getBorderedButton("Test3", 16);
-        test3.addActionListener(e -> {
-        });
-        test3.setPreferredSize(new Dimension(110, 26));
+    private NotificationDescriptor parseMessage(String message) {
+        return new com.mercury.platform.shared.messageparser.MessageParser().parse(message);
+    }
 
-        leftToolbar.add(test1);
-        rightToolbar.add(test2);
-        rightToolbar.add(test3);
-        root.add(leftToolbar, BorderLayout.LINE_START);
-        root.add(rightToolbar, BorderLayout.LINE_END);
-        return root;
+    private void addHistoryPanel(NotificationDescriptor descriptor, boolean prepend) {
+        NotificationPanel panel = this.factory.getProviderFor(NotificationType.HISTORY)
+                                              .setData(descriptor)
+                                              .setComponentsFactory(this.componentsFactory)
+                                              .build();
+        if (prepend) {
+            this.currentMessages.add(0, descriptor);
+            this.mainContainer.add(panel, 0);
+        } else {
+            this.currentMessages.add(descriptor);
+            this.mainContainer.add(panel);
+        }
     }
 
     private JButton getClearButton() {
@@ -212,7 +136,10 @@ public class HistoryFrame extends AbstractTitledComponentFrame {
                                                 "Clear history");
         clearHistory.addActionListener(action -> {
             HistoryManager.INSTANCE.clear();
+            this.currentMessages.clear();
             this.mainContainer.removeAll();
+            this.mainContainer.revalidate();
+            this.mainContainer.repaint();
             this.pack();
         });
         return clearHistory;
@@ -225,25 +152,25 @@ public class HistoryFrame extends AbstractTitledComponentFrame {
 
     @Override
     public void subscribe() {
-        MercuryStoreCore.newNotificationSubject.subscribe(message -> SwingUtilities.invokeLater(() -> {
+        MercuryStoreCore.newNotificationSubject.subscribe(SwingUiExecutor.onEdt(message -> {
             if (!currentMessages.contains(message)) {
                 HistoryManager.INSTANCE.add(message);
-                NotificationPanel panel = this.factory.getProviderFor(NotificationType.HISTORY)
-                                                      .setData(message)
-                                                      .setComponentsFactory(this.componentsFactory)
-                                                      .build();
-                mainContainer.add(panel);
-                this.currentMessages.add(message);
+                addHistoryPanel(message, false);
                 this.trimContainer();
+                this.mainContainer.revalidate();
+                this.mainContainer.repaint();
                 this.pack();
             }
         }));
     }
 
     private void trimContainer() {
-        if (mainContainer.getComponentCount() > 40) {
-            for (int i = 0; i < 5; i++) {
+        if (mainContainer.getComponentCount() > MAX_VISIBLE_HISTORY_PANELS) {
+            for (int i = 0; i < TRIMMED_COMPONENT_COUNT && mainContainer.getComponentCount() > 0; i++) {
                 mainContainer.remove(0);
+                if (!this.currentMessages.isEmpty()) {
+                    this.currentMessages.remove(0);
+                }
             }
             this.pack();
         }

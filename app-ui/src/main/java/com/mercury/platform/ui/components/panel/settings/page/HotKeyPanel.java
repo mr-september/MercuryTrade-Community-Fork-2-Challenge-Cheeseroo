@@ -4,6 +4,7 @@ import com.mercury.platform.shared.config.descriptor.HotKeyDescriptor;
 import com.mercury.platform.shared.store.MercuryStoreCore;
 import com.mercury.platform.ui.components.ComponentsFactory;
 import com.mercury.platform.ui.components.fields.font.FontStyle;
+import com.mercury.platform.ui.components.panel.settings.SettingsLayoutMetrics;
 import com.mercury.platform.ui.misc.AppThemeColor;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +23,21 @@ public class HotKeyPanel extends JPanel {
     private boolean hotKeyAllowed;
     @Setter
     private HotKeyGroup myGroup;
-    private JButton button;
+    private final JButton button;
+    private final ComponentsFactory componentsFactory;
+    private final SettingsLayoutMetrics layoutMetrics;
 
     public HotKeyPanel(HotKeyDescriptor descriptor) {
+        this(descriptor, ComponentsFactory.INSTANCE.copy());
+    }
+
+    public HotKeyPanel(HotKeyDescriptor descriptor, ComponentsFactory componentsFactory) {
         super(new BorderLayout());
         this.descriptor = descriptor;
-        this.setPreferredSize(new Dimension(110, 26));
+        this.componentsFactory = componentsFactory;
+        this.layoutMetrics = new SettingsLayoutMetrics(this.componentsFactory);
+        this.setPreferredSize(this.layoutMetrics.getHotKeyPanelSize());
 
-        ComponentsFactory componentsFactory = ComponentsFactory.INSTANCE;
         this.button = componentsFactory.getBorderedButton(this.descriptor.getTitle());
         this.button.setFont(componentsFactory.getFont(FontStyle.BOLD, 17f));
         MouseAdapter mouseAdapter = new MouseAdapter() {

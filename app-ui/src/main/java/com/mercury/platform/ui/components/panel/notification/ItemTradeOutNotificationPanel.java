@@ -26,7 +26,9 @@ public class ItemTradeOutNotificationPanel extends TradeOutNotificationPanel<Ite
 
         JLabel historyLabel = this.getHistoryButton();
         JButton repeatButton = this.getRepeatButton();
-        JPanel buttons = this.componentsFactory.getJPanel(new GridLayout(1, 0, 5, 0), AppThemeColor.FRAME);
+        JPanel buttons = this.componentsFactory.getJPanel(
+                new GridLayout(1, 0, this.getLayoutMetrics().getResponseButtonsHorizontalGap(), 0),
+                AppThemeColor.FRAME);
         buttons.add(repeatButton);
         buttons.add(historyLabel);
 

@@ -83,12 +83,12 @@ public class AppMain {
                     gamePath = gamePath + "/";
                     Configuration.get().applicationConfiguration().get().setGamePath(gamePath);
                     MercuryStoreCore.saveConfigSubject.onNext(true);
-                    new FileMonitor().start();
+                    FileMonitor.INSTANCE.start();
                     FramesManager.INSTANCE.start();
                     MercuryStoreCore.appLoadingSubject.onNext(false);
                 }
             } else {
-                new FileMonitor().start();
+                FileMonitor.INSTANCE.start();
                 FramesManager.INSTANCE.start();
                 MercuryStoreCore.appLoadingSubject.onNext(false);
             }

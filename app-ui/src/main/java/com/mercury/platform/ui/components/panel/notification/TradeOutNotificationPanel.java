@@ -43,7 +43,7 @@ public abstract class TradeOutNotificationPanel<T extends TradeNotificationDescr
         root.add(nickNamePanel, BorderLayout.CENTER);
 
         JPanel opPanel = this.componentsFactory.getJPanel(new BorderLayout(), AppThemeColor.MSG_HEADER);
-        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, 3, 0));
+        JPanel interactionPanel = new JPanel(new GridLayout(1, 0, this.getLayoutMetrics().getOutgoingInteractionGap(), 0));
         interactionPanel.setBackground(AppThemeColor.MSG_HEADER);
         JButton visiteHideout = componentsFactory.getIconButton(IconConst.VISIT_HIDEOUT, 16, AppThemeColor.MSG_HEADER, TranslationKey.visit_ho.value());
         visiteHideout.addActionListener(e -> this.controller.visitHideout());

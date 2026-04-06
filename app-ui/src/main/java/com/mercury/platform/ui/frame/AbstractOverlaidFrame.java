@@ -15,6 +15,7 @@ import com.mercury.platform.ui.frame.movable.NotificationFrame;
 import com.mercury.platform.ui.frame.other.MercuryLoadingFrame;
 import com.mercury.platform.ui.manager.FramesManager;
 import com.mercury.platform.ui.misc.AppThemeColor;
+import com.mercury.platform.ui.misc.SwingUiExecutor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +58,7 @@ public abstract class AbstractOverlaidFrame extends JFrame implements AsSubscrib
             }
         });
 
-        MercuryStoreCore.frameVisibleSubject.subscribe(state -> SwingUtilities.invokeLater(() -> {
+        MercuryStoreCore.frameVisibleSubject.subscribe(state -> SwingUiExecutor.run(() -> {
             this.changeVisible(state);
             FramesManager.INSTANCE.hideOrShowFrame(NotificationFrame.class, state);
         }));
@@ -86,11 +87,14 @@ public abstract class AbstractOverlaidFrame extends JFrame implements AsSubscrib
     }
 
     public void init() {
-        this.layout = getFrameLayout();
-        this.setLayout(layout);
-        this.initialize();
-        this.onViewInit();
-        this.subscribe();
+        SwingUiExecutor.call(() -> {
+            this.layout = getFrameLayout();
+            this.setLayout(layout);
+            this.initialize();
+            this.onViewInit();
+            this.subscribe();
+            return null;
+        });
     }
 
     protected abstract LayoutManager getFrameLayout();
@@ -102,12 +106,19 @@ public abstract class AbstractOverlaidFrame extends JFrame implements AsSubscrib
     }
 
     public void showComponent() {
-        this.setAlwaysOnTop(true);
-        this.setVisible(true);
+        SwingUiExecutor.run(() -> {
+            this.setAlwaysOnTop(true);
+            this.setVisible(true);
+        });
     }
 
     public void hideComponent() {
-        this.setVisible(false);
+        SwingUiExecutor.run(() -> this.setVisible(false));
+    }
+
+    @Override
+    public void dispose() {
+        SwingUiExecutor.run(() -> AbstractOverlaidFrame.super.dispose());
     }
 
     public void setPrevState(FrameVisibleState prevState) {

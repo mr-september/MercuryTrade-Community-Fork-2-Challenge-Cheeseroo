@@ -142,8 +142,8 @@ The project uses GitHub Actions for automated builds and releases.
 #### Creating a New Release
 1. **Git Tag (Recommended)**:
    ```bash
-   git tag v1.8.0
-   git push origin v1.8.0
+   git tag v1.8.1
+   git push origin v1.8.1
    ```
 2. **Manual Trigger**:
    - Go to **Actions** tab → **Build and Release** → **Run workflow**.
@@ -188,8 +188,8 @@ For a detailed history of changes, see [CHANGELOG.md](CHANGELOG.md).
 
 ### Recent Highlights
 
-**v1.8.0 - Project Refinement (Upcoming)**
-- Renaming to MercuryChat and UI padding fixes
+**v1.8.1 - Stability Improvements**
+- Bug fixes, UI polish, and reliability improvements
 
 **v1.7.0 - Security & Build Improvements**
 - Comprehensive CodeQL security analysis integration

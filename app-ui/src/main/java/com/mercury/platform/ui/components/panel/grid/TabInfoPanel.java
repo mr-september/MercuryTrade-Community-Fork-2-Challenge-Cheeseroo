@@ -15,11 +15,13 @@ import java.awt.*;
 
 public class TabInfoPanel extends JPanel implements ViewInit {
     private ComponentsFactory componentsFactory;
+    private ItemGridLayoutMetrics layoutMetrics;
     private StashTabDescriptor stashTabDescriptor;
 
     public TabInfoPanel(@NonNull StashTabDescriptor stashTabDescriptor, @NonNull ComponentsFactory componentsFactory) {
         this.stashTabDescriptor = stashTabDescriptor;
         this.componentsFactory = componentsFactory;
+        this.layoutMetrics = new ItemGridLayoutMetrics(this.componentsFactory);
         onViewInit();
     }
 
@@ -39,7 +41,7 @@ public class TabInfoPanel extends JPanel implements ViewInit {
         tabInfoPanel.add(tabLabel);
         JCheckBox isItQuad = componentsFactory.getCheckBox(TranslationKey.is_it_quad.value());
         isItQuad.setSelected(stashTabDescriptor.isQuad());
-        isItQuad.setPreferredSize(new Dimension(16, 16));
+        isItQuad.setPreferredSize(layoutMetrics.getQuadToggleSize());
         isItQuad.addActionListener(action -> {
             stashTabDescriptor.setQuad(isItQuad.isSelected());
         });
